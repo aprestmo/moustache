@@ -1,0 +1,41 @@
+/*------------------------------------*\
+	#HEADER
+\*------------------------------------*/
+
+.c-header {
+	background-image: linear-gradient(to bottom, hsla(0, 0%, 0%, 1) 0%, hsla(0, 100%, 100%, 0 ) 20%);
+	block-size: 85vh;
+	color: $c-white;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+
+	&__brand {
+		display: flex;
+		inline-size: 100%;
+		padding-block: 0.625rem;
+	}
+
+	&__link {
+		background-color: transparent;
+		color: $c-white;
+		text-decoration: none;
+	}
+
+	&__actions {
+		display: flex;
+		justify-content: space-between;
+		order: -1;
+		padding-block: 0.3125rem;
+	}
+
+	&__toggle {
+		@include font('Medium');
+		background-color: transparent;
+		color: $c-white;
+		font-size: 1.0625rem;
+		line-height: 1;
+		padding-block: 1rem;
+		padding-inline: 0;
+	}
+}

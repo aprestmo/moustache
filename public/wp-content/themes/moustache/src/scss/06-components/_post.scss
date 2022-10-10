@@ -1,0 +1,26 @@
+.wysiwyg {
+  h1 {
+    @include font('Bold');
+    line-height: 1.2;
+  }
+
+  h2 {
+    @include font('Bold');
+    line-height: 1.3;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include font('Regular');
+  }
+
+  p,
+  ul,
+  ol {
+    @include font('Medium');
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}

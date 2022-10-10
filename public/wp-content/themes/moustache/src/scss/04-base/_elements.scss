@@ -1,0 +1,21 @@
+/*------------------------------------*\
+	#FOOTER
+\*------------------------------------*/
+
+body {
+	@include font('Light');
+}
+
+a {
+	color: $c-site-grey;
+}
+
+dl {
+	display: grid;
+	gap: 0.4rem 0;
+	grid-template-columns: 1fr 2fr;
+}
+
+dt {
+  @include font('Regular');
+}

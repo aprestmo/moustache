@@ -1,34 +1,84 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2022-09-18 21:25+0200\n"
+"POT-Creation-Date: 2018-08-07 11:01+0200\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/admin-brand.php:41
+#: 404.php:9
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:10
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: archive-pitch.php:38 single-pitch.php:27
+msgid "Surface"
+msgstr ""
+
+#: archive-player.php:29
+msgid "Aktive spillere"
+msgstr ""
+
+#: footer.php:14
+msgid "Founded 2003"
+msgstr ""
+
+#: footer.php:16
+msgid "Copyright"
+msgstr ""
+
+#: front-page.php:52
+msgid "Read post"
+msgstr ""
+
+#: header.php:48 includes/normalize/admin.php:47
+msgid "Menu"
+msgstr ""
+
+#: header.php:52 includes/post-types/post-type-clubs.php:18
+#: includes/post-types/post-type-fixtures.php:18
+#: includes/post-types/post-type-pitches.php:18
+#: includes/post-types/post-type-players.php:18 searchform.php:6
+#: searchform.php:8
+msgid "Search"
+msgstr ""
+
+#: header.php:62
+msgid "Close"
+msgstr ""
+
+#: header.php:74
+msgid "c-site--bgcolor"
+msgstr ""
+
+#: includes/admin-brand.php:38
 msgid "Go to site"
 msgstr ""
 
-#: includes/layouts/_attendance.php:14
+#: includes/layouts/_attendance.php:13
 msgid "Attendace"
 msgstr ""
 
-#: includes/layouts/_cards.php:16
+#: includes/layouts/_cards.php:15
 msgid "Warning in 1st half"
 msgstr ""
 
@@ -36,27 +86,31 @@ msgstr ""
 msgid "Warning in 2nd half"
 msgstr ""
 
-#: includes/layouts/_cards.php:51
+#: includes/layouts/_cards.php:52
 msgid "Sent off in 1st half"
 msgstr ""
 
-#: includes/layouts/_cards.php:64
+#: includes/layouts/_cards.php:66
 msgid "Sent off in 2nd half"
 msgstr ""
 
-#: includes/layouts/_date-time.php:19
+#: includes/layouts/_date-time.php:18 template-parts/next-match.php:61
 msgid "at"
 msgstr ""
 
-#: includes/layouts/_present.php:13
+#: includes/layouts/_present.php:12
 msgid "Present"
 msgstr ""
 
-#: includes/layouts/_weather.php:14
+#: includes/layouts/_weather.php:13
 msgid "Weather"
 msgstr ""
 
-#: includes/normalize/login-error.php:4
+#: includes/normalize/admin.php:43
+msgid "Front page"
+msgstr ""
+
+#: includes/normalize/login-error.php:3
 msgid "<b>Error:</b> Something went wrong. Please try again."
 msgstr ""
 
@@ -77,43 +131,43 @@ msgstr ""
 
 #: includes/post-types/post-type-clubs.php:14
 #: includes/post-types/post-type-fixtures.php:14
+#: includes/post-types/post-type-pitches.php:14
 #: includes/post-types/post-type-players.php:14
 msgid "Add"
 msgstr ""
 
 #: includes/post-types/post-type-clubs.php:15
 #: includes/post-types/post-type-fixtures.php:15
+#: includes/post-types/post-type-pitches.php:15
 #: includes/post-types/post-type-players.php:15
 msgid "Edit"
 msgstr ""
 
 #: includes/post-types/post-type-clubs.php:16
 #: includes/post-types/post-type-fixtures.php:16
+#: includes/post-types/post-type-pitches.php:16
 #: includes/post-types/post-type-players.php:16
 msgid "New"
 msgstr ""
 
 #: includes/post-types/post-type-clubs.php:17
 #: includes/post-types/post-type-fixtures.php:17
+#: includes/post-types/post-type-pitches.php:17
 #: includes/post-types/post-type-players.php:17
 msgid "View"
 msgstr ""
 
-#: includes/post-types/post-type-clubs.php:18
-#: includes/post-types/post-type-fixtures.php:18
-#: includes/post-types/post-type-players.php:18
-msgid "Search"
-msgstr ""
-
 #: includes/post-types/post-type-clubs.php:19
 #: includes/post-types/post-type-fixtures.php:19
+#: includes/post-types/post-type-pitches.php:19
 #: includes/post-types/post-type-players.php:19
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:22
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
 msgid "Not Found"
 msgstr ""
 
 #: includes/post-types/post-type-clubs.php:20
 #: includes/post-types/post-type-fixtures.php:20
+#: includes/post-types/post-type-pitches.php:20
 #: includes/post-types/post-type-players.php:20
 msgid "Not Found in Trash"
 msgstr ""
@@ -133,16 +187,19 @@ msgctxt "post type singular"
 msgid "Add Fixture"
 msgstr ""
 
-#: includes/post-types/post-type-pitches.php:9
 #: includes/post-types/post-type-pitches.php:11
-#: includes/post-types/post-type-pitches.php:15
-msgctxt "moustache"
+msgctxt "post type general name"
 msgid "Pitches"
 msgstr ""
 
-#: includes/post-types/post-type-pitches.php:10
-msgctxt "moustache"
+#: includes/post-types/post-type-pitches.php:12
+msgctxt "post type singular name"
 msgid "Pitch"
+msgstr ""
+
+#: includes/post-types/post-type-pitches.php:13
+msgctxt "post type singular"
+msgid "Add Pitch"
 msgstr ""
 
 #: includes/post-types/post-type-players.php:11
@@ -164,78 +221,166 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:5
 msgctxt "Taxonomy General Name"
 msgid "Tournament"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
 msgctxt "Taxonomy Singular Name"
 msgid "Tournament"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
 msgid "Tournament"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
 msgid "All Items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
 msgid "Parent Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
 msgid "Parent Item:"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
 msgid "New Item Name"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
 msgid "Add New Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
 msgid "Edit Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
 msgid "Update Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
 msgid "View Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
 msgid "Separate items with commas"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
 msgid "Add or remove items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
 msgid "Choose from the most used"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
 msgid "Popular Items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
 msgid "Search Items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:25
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:24
 msgid "tournament"
 msgstr ""
 
-#: single-pitch.php:8
-msgid "Photo of"
+#: searchform.php:7
+msgid "E.g. wins, moustaches etc."
+msgstr ""
+
+#: single-pitch.php:16
+msgid "Image from "
+msgstr ""
+
+#: single-player.php:20
+msgid "Portrait of "
+msgstr ""
+
+#: single-player.php:30
+msgid "Shirt Number"
+msgstr ""
+
+#: single-player.php:37
+msgid "Shirt Name"
+msgstr ""
+
+#: single-player.php:44
+msgid "Date of Birth"
+msgstr ""
+
+#: single-player.php:54
+msgid "Position"
+msgstr ""
+
+#: single-player.php:63
+msgid "Former Clubs"
+msgstr ""
+
+#: single-player.php:70
+msgid "Best Memory"
+msgstr ""
+
+#: single-player.php:241
+msgid "Player Stats"
+msgstr ""
+
+#: single.php:13
+msgid "Writer"
+msgstr ""
+
+#: taxonomy-tournament.php:32
+msgid "Day"
+msgstr ""
+
+#: taxonomy-tournament.php:33
+msgid "Date"
+msgstr ""
+
+#: taxonomy-tournament.php:34
+msgid "Time"
+msgstr ""
+
+#: taxonomy-tournament.php:35
+msgid "Home team"
+msgstr ""
+
+#: taxonomy-tournament.php:36
+msgid "Away team"
+msgstr ""
+
+#: taxonomy-tournament.php:37
+msgid "Pitch"
+msgstr ""
+
+#: taxonomy-tournament.php:38
+msgid "Result"
+msgstr ""
+
+#: taxonomy-tournament.php:107
+msgid "You can't select both walkover and inadequate report"
+msgstr ""
+
+#: taxonomy-tournament.php:198 taxonomy-tournament.php:200
+msgid "&ndash;"
+msgstr ""
+
+#: template-parts/featured-players.php:18
+msgid "Featured players"
+msgstr ""
+
+#: template-parts/featured-players.php:30
+msgid "Missing player profile image"
+msgstr ""
+
+#: template-parts/next-match.php:61
+msgid "Next match:"
 msgstr ""
 
 #. Theme Name of the plugin/theme

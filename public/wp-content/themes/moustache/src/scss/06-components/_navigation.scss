@@ -1,0 +1,71 @@
+/*------------------------------------*\
+	#NAVIGATION
+\*------------------------------------*/
+
+
+.c-navigation {
+	background-color: transparentize($c-black, .1);
+	block-size: 0;
+	inline-size: 100%;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	opacity: 0;
+	overflow: hidden;
+	position: fixed;
+	transition: opacity 150ms, block-size 0s 150ms;
+	visibility: hidden;
+	z-index: 45;
+
+	&.is-visible {
+		-webkit-overflow-scrolling: touch;
+		block-size: 100%;
+		opacity: 1;
+		overflow: scroll;
+		transition: opacity 150ms, block-size 0;
+		visibility: visible;
+	}
+
+	&__item {
+		display: block;
+		margin-blocke-end: 0;
+		padding-block-end: 3.125rem;
+		padding-block-start: 0.3125rem;
+	}
+}
+
+/** WP BEM MENU **/
+
+.c-nav {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(16.25rem, 1fr));
+	margin-block-end: 0;
+	margin-inline-start: 0;
+
+	&__item {
+		padding-block: 0.3125rem;
+	}
+
+	&__sub-menu {
+		display: none;
+		margin-inline-start: 0;
+	}
+
+	&__item,
+	&__sub-menu__item {
+		list-style: none;
+		margin-inline-start: 0;
+	}
+
+	&__link,
+	&__sub-menu__link {
+		@include font('Medium');
+		color: $c-white;
+		font-size: 1.25rem;
+		line-height: 1.5;
+		text-decoration: none;
+
+		&:hover {
+			color: lighten( $c-black, 65% );
+		}
+	}
+}
