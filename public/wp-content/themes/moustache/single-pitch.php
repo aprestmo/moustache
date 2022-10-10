@@ -1,41 +1,20 @@
 <?php get_header(); ?>
 
+<h1><?php the_title(); ?></h1>
+
 <?php
-while (have_posts()) :
-  the_post();
-?>
-
-  <h1><?php the_title(); ?></h1>
-
-  <?php
   $image = get_field('image');
-  if (!empty($image)) :
-  ?>
-    <img src="<?php echo $image['sizes']['large']; ?>" alt="
-						<?php
-            _e('Image from ', 'moustache');
-            the_title();
-            ?>
-">
-  <?php endif; ?>
+  if (!empty( $image )): ?>
+    <img src="<?php echo esc_url($image); ?>" alt="<?php esc_attr_e('Photo of', 'moustache'); ?> <?php esc_attr_e(get_the_title()); ?>">
+<?php endif; ?>
 
-  <?php
-  $field = get_field_object('surface');
-  $value = get_field('surface');
-  $label = $field['choices'][$value];
+<dl>
+  <dt>Dekke:</dt>
+  <dd><?php the_field('surface', 'moustache'); ?></dd>
+</dl>
 
-  _e('Surface', 'moustache');
-  echo $label;
-  ?>
+<p><?php the_field('address'); ?></p>
 
-  <?php
-  // Sjekk OPPguiden
-  $map     = get_field('address');
-  $address = $map['address'];
-
-  echo $address;
-  ?>
-
-<?php endwhile; ?>
+<a href="/baner/">Baner</a>
 
 <?php get_footer(); ?>
