@@ -152,3 +152,6 @@ function vite_css_urls(string $entry): array
 
   return $urls;
 }
+
+/** Match report functions */
+include get_template_directory() . '/includes/layouts/match-report.php';
