@@ -1,0 +1,23 @@
+@layer resets, base, utilities;
+
+@import url('resets.css') layer(resets);
+@import url('fonts.css') layer(base);
+@import url('navigation.css') layer(base);
+@import url('utilities.css') layer(utilities);
+
+@layer base {
+  body {
+    font-family: 'Pacaembu';
+  }
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+article {
+  border: 1px solid silver;
+  padding: 1em;
+}

@@ -6,6 +6,7 @@
 
 # Ignore everything:
 /*
+.DS_Store
 
 # Include these files:
 !.gitignore
