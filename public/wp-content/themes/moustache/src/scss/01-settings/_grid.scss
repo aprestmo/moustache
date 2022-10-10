@@ -1,0 +1,15 @@
+/*------------------------------------*\
+  # GRID
+\*------------------------------------*/
+
+$kb-site-wrap-width: 80rem;
+
+.mou-site-wrap {
+  margin-inline: auto;
+  max-inline-size: $kb-site-wrap-width;
+}
+
+.mou-site-wrap--padding {
+  max-inline-size: $kb-site-wrap-width + 2rem;
+  padding-inline: 1rem;
+}
