@@ -10,7 +10,7 @@
 
 <dl>
   <dt>Dekke:</dt>
-  <dd><?php the_field('surface', 'moustache'); ?></dd>
+  <dd><?php echo get_field('surface', 'moustache'); ?></dd>
 </dl>
 
 <p><?php the_field('address'); ?></p>

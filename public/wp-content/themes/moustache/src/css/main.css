@@ -8,16 +8,23 @@
 @layer base {
   body {
     font-family: 'Pacaembu';
+    padding: 1em;
   }
 }
 
 main {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
 article {
   border: 1px solid silver;
   padding: 1em;
+}
+
+footer {
+  background-color: var(--b, black);
+  color: var(--w, white);
+  padding: 2em;
 }

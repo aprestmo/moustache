@@ -16,7 +16,10 @@
   </article>
 <?php endwhile; endif; ?>
 
-<?php next_posts_link( 'Older posts' ); ?>
+<footer>
+  <?php previous_posts_link( __('Newer posts', 'moustache') ); ?>
+  <?php next_posts_link( __('Older posts', 'moustache') ); ?>
+</footer>
 </main>
 
 <?php get_footer(); ?>
