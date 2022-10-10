@@ -1,103 +1,102 @@
 <?php
-  global $post;
-  $posts = get_field('match_report');
+global $post;
+$posts = get_field('match_report');
 
-  if ($posts) :
+if ($posts) :
 ?>
 
   <?php foreach ($posts as $post) : setup_postdata($post); ?>
-    <div>
-      <h3><?php opponents(); ?></h3>
-      <?php date_time(); ?>
 
-      <?php var_dump($post); ?>
-      <!-- resultat -->
-      <?php /*
+    <?php opponents(); ?>
+    <?php date_time(); ?>
 
-      // Setup teams
-      // @TODO: Make this as a function
-      $home_team = get_field( 'home_team' );
-      $away_team = get_field( 'away_team' );
+    <!-- resultat -->
+    <?php /*
 
-      // Get post_name
-      $home_team = $home_team[0]->post_name;
-      $away_team = $away_team[0]->post_name;
+		// Setup teams
+		// @TODO: Make this as a function
+		$home_team = get_field( 'home_team' );
+		$away_team = get_field( 'away_team' );
 
-      // Who is home team?
-      // Set variable accordingly
+		// Get post_name
+		$home_team = $home_team[0]->post_name;
+		$away_team = $away_team[0]->post_name;
 
-      if ( $home_team === 'kampbart' ) {
-        $kampbart_away = $away_team;
-        $opponent_away = $away_team;
-      } else {
-        $kampbart_home = $home_team;
-        $opponent_home = $home_team;
-      }
+		// Who is home team?
+		// Set variable accordingly
 
-      // Set vars in the start to not get PHP notices
-      $kampbart_goals_first_half = null;
-      $opponent_goals_first_half = null;
-      $kampbart_goals_second_half = null;
-      $opponent_goals_second_half = null;
+		if ( $home_team === 'kampbart' ) {
+			$kampbart_away = $away_team;
+			$opponent_away = $away_team;
+		} else {
+			$kampbart_home = $home_team;
+			$opponent_home = $home_team;
+		}
 
-      if ( get_field( 'goals_assists_first_half' ) ) {
+		// Set vars in the start to not get PHP notices
+		$kampbart_goals_first_half = null;
+		$opponent_goals_first_half = null;
+		$kampbart_goals_second_half = null;
+		$opponent_goals_second_half = null;
 
-        $kampbart_goals_first_half = 0;
-        $opponent_goals_first_half = 0;
+		if ( get_field( 'goals_assists_first_half' ) ) {
 
-        while ( has_sub_field( 'goals_assists_first_half' ) ) {
+			$kampbart_goals_first_half = 0;
+			$opponent_goals_first_half = 0;
 
-          $goals_for = get_sub_field( 'goal_for' );
+			while ( has_sub_field( 'goals_assists_first_half' ) ) {
 
-          if ( $goals_for === 'kampbart' ) {
-            $kampbart_goals_first_half++;
-          } else {
-            $opponent_goals_first_half++;
-          }
-        }
-      }
+				$goals_for = get_sub_field( 'goal_for' );
 
-      if ( get_field( 'goals_assists_second_half' ) ) {
+				if ( $goals_for === 'kampbart' ) {
+					$kampbart_goals_first_half++;
+				} else {
+					$opponent_goals_first_half++;
+				}
+			}
+		}
 
-        $kampbart_goals_second_half = 0;
-        $opponent_goals_second_half = 0;
+		if ( get_field( 'goals_assists_second_half' ) ) {
 
-        while ( has_sub_field( 'goals_assists_second_half' ) ) {
+			$kampbart_goals_second_half = 0;
+			$opponent_goals_second_half = 0;
 
-          $goals_for = get_sub_field( 'goal_for' );
+			while ( has_sub_field( 'goals_assists_second_half' ) ) {
 
-          if ( $goals_for === 'kampbart' ) {
-            $kampbart_goals_second_half++;
-          } else {
-            $opponent_goals_second_half++;
-          }
-        }
-      }
+				$goals_for = get_sub_field( 'goal_for' );
 
-      // Output final score and pause result
-      $kampbart_final_score = $kampbart_goals_first_half + $kampbart_goals_second_half;
-      $opponent_final_score = $opponent_goals_first_half + $opponent_goals_second_half;
+				if ( $goals_for === 'kampbart' ) {
+					$kampbart_goals_second_half++;
+				} else {
+					$opponent_goals_second_half++;
+				}
+			}
+		}
 
-      $matchday = strtotime( get_field( 'date_time' ) );
-      $today = get_the_time( 'U' );
+		// Output final score and pause result
+		$kampbart_final_score = $kampbart_goals_first_half + $kampbart_goals_second_half;
+		$opponent_final_score = $opponent_goals_first_half + $opponent_goals_second_half;
 
-      if ( $matchday <= $today ) {
-        if ( $home_team === 'kampbart' ) {
+		$matchday = strtotime( get_field( 'date_time' ) );
+		$today = get_the_time( 'U' );
 
-          echo $kampbart_final_score . '–' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '–' . $opponent_goals_first_half . ')';
-        } else {
+		if ( $matchday <= $today ) {
+			if ( $home_team === 'kampbart' ) {
 
-          echo $opponent_final_score . '–' . $kampbart_final_score . ' (' . $opponent_goals_first_half . '–' . $kampbart_goals_first_half . ')';
-        }
-      }
-    */ ?>
+				echo $kampbart_final_score . '–' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '–' . $opponent_goals_first_half . ')';
+			} else {
 
-      <?php weather(); ?>
-      <?php attendance(); ?>
-      <?php scores(); ?>
-      <?php cards(); ?>
-      <?php present(); ?>
-    </div>
+				echo $opponent_final_score . '–' . $kampbart_final_score . ' (' . $opponent_goals_first_half . '–' . $kampbart_goals_first_half . ')';
+			}
+		}
+	*/ ?>
+
+    <?php weather(); ?>
+    <?php attendance(); ?>
+    <?php scores(); ?>
+    <hr>
+    <?php cards(); ?>
+    <?php present(); ?>
 
   <?php endforeach;
   wp_reset_postdata(); ?>

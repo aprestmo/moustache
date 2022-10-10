@@ -1,16 +1,14 @@
-/*------------------------------------*\
-  # PLAYERS
-\*------------------------------------*/
-
 .c-players {
-  &--featured {
-    &__link {
-      transform: scale(1);
-      transition: transform 200ms;
 
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
+	&--featured {
+
+		&__link {
+			transform: scale(1);
+			transition: transform 200ms;
+
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
 }
