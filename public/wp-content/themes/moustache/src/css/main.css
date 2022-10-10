@@ -1,0 +1,30 @@
+@layer resets, base, utilities;
+
+@import url('resets.css') layer(resets);
+@import url('fonts.css') layer(base);
+@import url('navigation.css') layer(base);
+@import url('utilities.css') layer(utilities);
+
+@layer base {
+  body {
+    font-family: 'Pacaembu';
+    padding: 1em;
+  }
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+article {
+  border: 1px solid silver;
+  padding: 1em;
+}
+
+footer {
+  background-color: var(--b, black);
+  color: var(--w, white);
+  padding: 2em;
+}

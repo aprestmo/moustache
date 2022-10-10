@@ -1,0 +1,269 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Moustache\n"
+"POT-Creation-Date: 2022-10-10 14:24+0200\n"
+"PO-Revision-Date: 2017-02-14 10:04+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/admin-brand.php:41
+msgid "Go to site"
+msgstr ""
+
+#: includes/layouts/_attendance.php:14
+msgid "Attendace"
+msgstr ""
+
+#: includes/layouts/_cards.php:16
+msgid "Warning in 1st half"
+msgstr ""
+
+#: includes/layouts/_cards.php:29
+msgid "Warning in 2nd half"
+msgstr ""
+
+#: includes/layouts/_cards.php:51
+msgid "Sent off in 1st half"
+msgstr ""
+
+#: includes/layouts/_cards.php:64
+msgid "Sent off in 2nd half"
+msgstr ""
+
+#: includes/layouts/_date-time.php:19
+msgid "at"
+msgstr ""
+
+#: includes/layouts/_present.php:13
+msgid "Present"
+msgstr ""
+
+#: includes/layouts/_weather.php:14
+msgid "Weather"
+msgstr ""
+
+#: includes/normalize/login-error.php:4
+msgid "<b>Error:</b> Something went wrong. Please try again."
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:11
+msgctxt "post type general name"
+msgid "Clubs"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:12
+msgctxt "post type singular name"
+msgid "Club"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:13
+msgctxt "post type singular"
+msgid "Add Club"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:14
+#: includes/post-types/post-type-fixtures.php:14
+#: includes/post-types/post-type-players.php:14
+msgid "Add"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:15
+#: includes/post-types/post-type-fixtures.php:15
+#: includes/post-types/post-type-players.php:15
+msgid "Edit"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:16
+#: includes/post-types/post-type-fixtures.php:16
+#: includes/post-types/post-type-players.php:16
+msgid "New"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:17
+#: includes/post-types/post-type-fixtures.php:17
+#: includes/post-types/post-type-players.php:17
+msgid "View"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:18
+#: includes/post-types/post-type-fixtures.php:18
+#: includes/post-types/post-type-players.php:18
+msgid "Search"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:19
+#: includes/post-types/post-type-fixtures.php:19
+#: includes/post-types/post-type-players.php:19
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:22
+msgid "Not Found"
+msgstr ""
+
+#: includes/post-types/post-type-clubs.php:20
+#: includes/post-types/post-type-fixtures.php:20
+#: includes/post-types/post-type-players.php:20
+msgid "Not Found in Trash"
+msgstr ""
+
+#: includes/post-types/post-type-fixtures.php:11
+msgctxt "post type general name"
+msgid "Fixtures"
+msgstr ""
+
+#: includes/post-types/post-type-fixtures.php:12
+msgctxt "post type singular name"
+msgid "Fixture"
+msgstr ""
+
+#: includes/post-types/post-type-fixtures.php:13
+msgctxt "post type singular"
+msgid "Add Fixture"
+msgstr ""
+
+#: includes/post-types/post-type-pitches.php:9
+#: includes/post-types/post-type-pitches.php:11
+#: includes/post-types/post-type-pitches.php:15
+msgid "Pitches"
+msgstr ""
+
+#: includes/post-types/post-type-pitches.php:10
+msgid "Pitch"
+msgstr ""
+
+#: includes/post-types/post-type-pitches.php:25
+msgid "pitches"
+msgstr ""
+
+#: includes/post-types/post-type-pitches.php:34
+msgid "pitch"
+msgstr ""
+
+#: includes/post-types/post-type-players.php:11
+msgctxt "post type general name"
+msgid "Players"
+msgstr ""
+
+#: includes/post-types/post-type-players.php:12
+msgctxt "post type singular name"
+msgid "Player"
+msgstr ""
+
+#: includes/post-types/post-type-players.php:13
+msgctxt "post type singular"
+msgid "Add Player"
+msgstr ""
+
+#: includes/setup-theme.php:18
+msgid "Primary Menu"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
+msgctxt "Taxonomy General Name"
+msgid "Tournament"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
+msgctxt "Taxonomy Singular Name"
+msgid "Tournament"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
+msgid "Tournament"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
+msgid "All Items"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
+msgid "Parent Item"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
+msgid "Parent Item:"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
+msgid "New Item Name"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
+msgid "Add New Item"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
+msgid "Edit Item"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
+msgid "Update Item"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
+msgid "View Item"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
+msgid "Separate items with commas"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
+msgid "Add or remove items"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
+msgid "Choose from the most used"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
+msgid "Popular Items"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
+msgid "Search Items"
+msgstr ""
+
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:25
+msgid "tournament"
+msgstr ""
+
+#: index.php:20
+msgid "Newer posts"
+msgstr ""
+
+#: index.php:21
+msgid "Older posts"
+msgstr ""
+
+#: single-pitch.php:8
+msgid "Photo of"
+msgstr ""
+
+#: single-pitch.php:12 single-pitch.php:23
+msgid "Surface"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Moustache"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Alexander Prestmo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://alexanderprestmo.no"
+msgstr ""
