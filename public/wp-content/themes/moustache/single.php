@@ -1,7 +1,9 @@
 <?php get_header(); ?>
 
 <div id="content">
-  <h1><?php the_title(); ?></h1>
+  <?php if (!has_category('kamprapporter')) : ?>
+    <h1><?php the_title(); ?></h1>
+  <?php endif; ?>
 
   <?php echo get_avatar( get_the_author_meta( 'ID' ), 64 ); ?>
   <?php the_author(); ?>
