@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2022-09-18 21:25+0200\n"
-"PO-Revision-Date: 2022-09-18 21:25+0200\n"
-"Last-Translator: Alexander Prestmo <alexander@dekode.no>\n"
+"POT-Creation-Date: 2022-10-10 14:21+0200\n"
+"PO-Revision-Date: 2022-10-10 14:24+0200\n"
+"Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Utvist i 2. omgang"
 
 #: includes/layouts/_date-time.php:19
 msgid "at"
-msgstr "kl."
+msgstr "kl"
 
 #: includes/layouts/_present.php:13
 msgid "Present"
@@ -136,19 +136,20 @@ msgstr "Legg til kamp"
 #: includes/post-types/post-type-pitches.php:9
 #: includes/post-types/post-type-pitches.php:11
 #: includes/post-types/post-type-pitches.php:15
-#, fuzzy
-#| msgctxt "post type general name"
-#| msgid "Pitches"
-msgctxt "moustache"
 msgid "Pitches"
 msgstr "Baner"
 
 #: includes/post-types/post-type-pitches.php:10
-#, fuzzy
-#| msgid "Pitch"
-msgctxt "moustache"
 msgid "Pitch"
 msgstr "Bane"
+
+#: includes/post-types/post-type-pitches.php:25
+msgid "pitches"
+msgstr "baner"
+
+#: includes/post-types/post-type-pitches.php:34
+msgid "pitch"
+msgstr "bane"
 
 #: includes/post-types/post-type-players.php:11
 msgctxt "post type general name"
@@ -236,14 +237,24 @@ msgid "Search Items"
 msgstr ""
 
 #: includes/taxonomies/taxonomy-fixtures-tournaments.php:25
-#, fuzzy
-#| msgid "Tournament"
 msgid "tournament"
 msgstr "Turnering"
+
+#: index.php:20
+msgid "Newer posts"
+msgstr "Nyere innlegg"
+
+#: index.php:21
+msgid "Older posts"
+msgstr "Eldre innlegg"
 
 #: single-pitch.php:8
 msgid "Photo of"
 msgstr "Foto av"
+
+#: single-pitch.php:23
+msgid "Surface"
+msgstr "Dekke"
 
 #. Theme Name of the plugin/theme
 msgid "Moustache"
@@ -267,14 +278,8 @@ msgstr ""
 #~ "Det ser ut som ingenting finnes på denne adressen. Hva med å forsøke et "
 #~ "søk?"
 
-#~ msgid "Surface"
-#~ msgstr "Underlag"
-
 #~ msgid "Founded 2003"
 #~ msgstr "Grunnlagt 2003"
-
-#~ msgid "Read post"
-#~ msgstr "Les mer"
 
 #~ msgid "Menu"
 #~ msgstr "Meny"
