@@ -1,7 +1,7 @@
 <?php
 /**
  * Author: Alexander Prestmo
- *Author URI: http://attityd.no
+ * Author URI: http://attityd.no
  */
 
 /** Define default translation domain for this theme */
@@ -37,6 +37,9 @@ require __DIR__ . '/includes/custom-functions.php';
 
 /** Load ACF */
 require __DIR__ . '/includes/acf.php';
+
+/** Match report functions */
+include get_template_directory() . '/includes/layouts/match-report.php';
 
 // Vite assets helpers
 define('IS_DEVELOPMENT', is_development());
@@ -152,6 +155,3 @@ function vite_css_urls(string $entry): array
 
   return $urls;
 }
-
-/** Match report functions */
-include get_template_directory() . '/includes/layouts/match-report.php';
