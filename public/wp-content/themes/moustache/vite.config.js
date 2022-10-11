@@ -21,7 +21,7 @@ export default defineConfig({
   base: process.env.APP_ENV === 'development' ? `${themePath}/src/` : `${themePath}/dist/`,
   resolve: {
     alias: {
-      '@images': resolve(__dirname, './src/assets/images'),
+      '@images': resolve(__dirname, './src/images'),
     },
   },
   build: {
