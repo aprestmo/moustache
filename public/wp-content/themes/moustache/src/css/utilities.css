@@ -23,3 +23,7 @@
   inline-size: auto;
   white-space: normal;
 }
+
+.flow > * + * {
+  margin-block-start: var(--flow-space, 1em);
+}

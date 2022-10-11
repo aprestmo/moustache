@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<main>
   <h1>Baner</h1>
 
   <?php
@@ -25,6 +24,5 @@
     </article>
 
   <?php endforeach; endif; ?>
-</main>
 
 <?php get_footer(); ?>

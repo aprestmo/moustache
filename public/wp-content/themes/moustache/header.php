@@ -13,8 +13,11 @@
   <!-- Skip link -->
   <?php get_template_part('partials/skip-link'); ?>
 
-  <header>
+  <header class="site-header">
     <?php echo is_home() ? '<h1>' . get_bloginfo('title') . '</h1>' : '<p><a href='. get_home_url() .'>' . get_bloginfo('title') . '</a></p>' ?>
 
     <?php // get_template_part('partials/navigation'); ?>
   </header>
+  <?php get_template_part('partials/hero'); ?>
+
+  <main id="main-content">

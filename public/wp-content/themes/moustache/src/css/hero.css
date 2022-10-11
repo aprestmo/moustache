@@ -1,0 +1,46 @@
+.site-hero {
+  align-items: end;
+  background-color: hsl(0 0% 0%);
+  background-image: url('../images/hero.jpg');
+  background-size: cover;
+  block-size: 600px;
+  color: hsl(var(--clr-white));
+  display: flex;
+}
+
+.next-match {
+  display: grid;
+  margin-block-end: 3rem;
+  row-gap: 0.25rem;
+  text-transform: uppercase;
+}
+
+.next-match small {
+  align-items: center;
+  column-gap: 0.5em;
+  display: flex;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.next-match small::after {
+  background-color: hsl(var(--clr-red));
+  block-size: 10px;
+  content: '';
+  inline-size: 16ch;
+  transform: translateY(1px);
+}
+
+.next-match p {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-block-start: 0.25rem;
+  word-break: break-word;
+}
+
+.next-match span {
+  font-size: 1.25rem;
+  line-height: 1.25;
+}

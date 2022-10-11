@@ -1,0 +1,13 @@
+.skip-nav-link {
+  background-color: hsl(0 0% 100%);
+  inset-block-start: 1em;
+  inset-inline-start: 1em;
+  padding: 1em;
+  position: absolute;
+  transform: translateY(-200%);
+  transition: transform 300ms ease;
+}
+
+.skip-nav-link:focus {
+  transform: translateY(0);
+}

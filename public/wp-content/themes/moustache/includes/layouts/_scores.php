@@ -25,8 +25,8 @@ function scores()
   }
 
   if (get_field('goals_assists_first_half')) {
-
-    echo '<ul>';
+    echo '<strong>1. omgang</strong>';
+    echo '<ul role="list">';
 
     $kampbart_goals_first_half = 0;
     $opponent_goals_first_half = 0;
@@ -90,11 +90,10 @@ function scores()
     $opponent_goals_pause = $opponent_goals_first_half;
   }
 
-  echo '<hr>';
-
   if (get_field('goals_assists_second_half')) {
 
-    echo '<ul>';
+    echo '<strong>2. omgang</strong>';
+    echo '<ul role="list">';
 
     if (get_field('goals_assists_first_half') === false) {
       $kampbart_goals_second_half = 0;

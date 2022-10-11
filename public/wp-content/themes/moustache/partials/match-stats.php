@@ -1,16 +1,17 @@
 <?php
-global $post;
-$posts = get_field('match_report');
+  global $post;
+  $posts = get_field('match_report');
 
-if ($posts) :
+  if ($posts) :
 ?>
 
   <?php foreach ($posts as $post) : setup_postdata($post); ?>
 
-    <?php opponents(); ?>
-    <?php date_time(); ?>
+    <header>
+      <h4><?php opponents(); ?></h4>
+      <?php date_time(); ?>
+    </header>
 
-    <!-- resultat -->
     <?php /*
     // Setup teams
     // @TODO: Make this as a function
@@ -74,7 +75,6 @@ if ($posts) :
     <?php weather(); ?>
     <?php attendance(); ?>
     <?php scores(); ?>
-    <hr>
     <?php cards(); ?>
     <?php present(); ?>
 

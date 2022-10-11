@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<main id="content">
+
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
   <article>
     <?php the_category('cat_name'); ?>
@@ -20,6 +20,5 @@
   <?php previous_posts_link( __('Newer posts', 'moustache') ); ?>
   <?php next_posts_link( __('Older posts', 'moustache') ); ?>
 </footer>
-</main>
 
 <?php get_footer(); ?>

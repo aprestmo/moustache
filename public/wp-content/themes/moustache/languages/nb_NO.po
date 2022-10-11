@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2022-10-10 14:21+0200\n"
-"PO-Revision-Date: 2022-10-10 14:24+0200\n"
+"POT-Creation-Date: 2022-10-11 15:06+0200\n"
+"PO-Revision-Date: 2022-10-11 15:39+0200\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -43,7 +43,7 @@ msgstr "Utvist i 1. omgang"
 msgid "Sent off in 2nd half"
 msgstr "Utvist i 2. omgang"
 
-#: includes/layouts/_date-time.php:19
+#: includes/layouts/_date-time.php:19 partials/hero.php:62
 msgid "at"
 msgstr "kl"
 
@@ -248,11 +248,15 @@ msgstr "Nyere innlegg"
 msgid "Older posts"
 msgstr "Eldre innlegg"
 
+#: partials/hero.php:60
+msgid "Next match"
+msgstr "Neste kamp"
+
 #: single-pitch.php:8
 msgid "Photo of"
 msgstr "Foto av"
 
-#: single-pitch.php:23
+#: single-pitch.php:17
 msgid "Surface"
 msgstr "Dekke"
 
@@ -354,9 +358,6 @@ msgstr ""
 
 #~ msgid "Missing player profile image"
 #~ msgstr "Mangle profilbilde"
-
-#~ msgid "Next match:"
-#~ msgstr "Neste kamp:"
 
 #~ msgid "Site settings"
 #~ msgstr "Sideinnstillinger"

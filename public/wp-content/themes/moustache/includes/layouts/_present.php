@@ -9,11 +9,11 @@ function present()
 
   if ($present) :
 
-    echo '<h2>';
+    echo '<strong>';
     esc_html_e('Present', 'moustache');
-    echo '</h2>';
+    echo '</strong>';
 
-    echo '<ul>';
+    echo '<ul role="list">';
 
     foreach ($present as $player) {
       echo '<li>' . get_the_title($player->ID) . '</li>';

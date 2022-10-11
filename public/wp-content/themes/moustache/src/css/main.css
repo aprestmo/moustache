@@ -2,29 +2,45 @@
 
 @import url('resets.css') layer(resets);
 @import url('fonts.css') layer(base);
-@import url('navigation.css') layer(base);
+@import url('skip-link.css') layer(base);
+/* @import url('navigation.css') layer(base); */
+@import url('header.css') layer(base);
+@import url('hero.css') layer(base);
+@import url('posts.css') layer(base);
+@import url('match-stats.css') layer(base);
 @import url('utilities.css') layer(utilities);
 
 @layer base {
+  :root {
+    --clr-black: 0 0% 0%;
+    --clr-white: 0 0% 100%;
+    --clr-red: 357 73% 49%;
+  }
+
+  *:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
   body {
     font-family: 'Pacaembu';
-    padding: 1em;
   }
 }
 
 main {
-  display: grid;
+  margin-block-start: var(--s, 64px);
+  /* display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1rem; */
 }
 
 article {
-  border: 1px solid silver;
-  padding: 1em;
+  /* border: 1px solid silver; */
+  /* padding: 1em; */
 }
-
+/*
 footer {
   background-color: var(--b, black);
   color: var(--w, white);
   padding: 2em;
-}
+} */

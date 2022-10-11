@@ -1,1 +1,1 @@
-<a href="#content">Skip link</a>
+<a class="skip-nav-link" href="#main-content">Skip link</a>
