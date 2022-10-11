@@ -12,9 +12,9 @@ const themePath = `/wp-content/themes/${basePath}`
 
 export default defineConfig({
   plugins: [
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
+    // legacy({
+    //   targets: ['defaults', 'not IE 11'],
+    // }),
     liveReload([`${__dirname}/*.php`, `${__dirname}/(lib|partials)/**/*.php`]),
   ],
   root: 'src',

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="post">
+<div class="post <?php echo has_category('kamprapporter') ? 'match-report' : ''; ?>">
   <?php if (!has_category('kamprapporter')) : ?>
     <h1><?php the_title(); ?></h1>
   <?php endif; ?>

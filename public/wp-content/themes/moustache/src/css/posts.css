@@ -8,31 +8,43 @@
   .post {
     column-gap: 4rem;
     display: grid;
-    grid-template-areas: 'byline article' 'stats article';
     grid-template-columns: 20rem 1fr;
     grid-template-rows: min-content 1fr;
   }
+
+  .post.match-report {
+    grid-template-areas: 'byline article' 'stats article';
+  }
 }
 
-.article {
+.post h1 {
+  grid-column: 2;
+}
+
+.post.match-report .article {
   grid-area: article;
 }
 
-.byline {
+.post .byline {
   align-content: start;
   column-gap: 0.75rem;
   display: grid;
-  grid-area: byline;
+  grid-column: 1;
+  grid-row: 1 / span 2;
   grid-template-columns: 3rem 1fr;
 }
 
-.byline img {
+.post.match-report .byline {
+  grid-area: byline;
+}
+
+.post .byline img {
   border-radius: 99em;
   filter: grayscale(1);
   grid-row: span 2;
 }
 
-.byline p {
+.post .byline p {
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.04em;

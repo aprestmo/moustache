@@ -7,12 +7,12 @@
     <time datetime="<?php the_date('Y-m-d'); ?>T<?php the_time('G:i:s'); ?>"><?php echo get_the_date('d.m.Y'); ?></time>
 
     <?php if (!in_category(2)) : ?>
-       <h2><?php the_title(); ?></h2>
+      <h2><?php the_title(); ?></h2>
     <?php endif; ?>
 
-      <?php echo get_the_post_thumbnail(null, 'reports-front'); ?>
-
+    <?php echo get_the_post_thumbnail(null, 'reports-front'); ?>
     <?php the_content(); ?>
+    <a href="<?php the_permalink(); ?>">Les mer</a>
   </article>
 <?php endwhile; endif; ?>
 
