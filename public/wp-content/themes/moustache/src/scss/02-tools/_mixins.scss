@@ -1,21 +1,21 @@
 /*------------------------------------*\
-    #MIXINS
+  # MIXINS
 \*------------------------------------*/
 @mixin font($weight, $style: null) {
-	$primary-font: "Pacaembu";
-	$fallback-fonts: "Helvetica Neue", "Arial", sans-serif;
+  $primary-font: 'Pacaembu';
+  $fallback-fonts: 'Helvetica Neue', 'Arial', sans-serif;
 
-	@if ($weight) {
-		@if ($style == "italic") {
-			$style: " It";
-			$primary-font: $primary-font + $style;
-		}
-		$primary-font: $primary-font + " " + $weight;
-	} @else {
-		$primary-font: $fallback-fonts;
-	}
+  @if ($weight) {
+    @if ($style == 'italic') {
+      $style: ' It';
+      $primary-font: $primary-font + $style;
+    }
+    $primary-font: $primary-font + ' ' + $weight;
+  } @else {
+    $primary-font: $fallback-fonts;
+  }
 
-	font-family: $primary-font, $fallback-fonts;
-	font-style: normal;
-	font-weight: 400;
+  font-family: $primary-font, $fallback-fonts;
+  font-style: normal;
+  font-weight: 400;
 }

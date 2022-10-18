@@ -1,50 +1,27 @@
 <?php get_header(); ?>
 
-<article class="mou-site-wrap mou-site-wrap--padding wysiwyg">
-  <div class="o-grid o-section-md">
+<article>
+  <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <aside>
+      <figure>
+        <?php echo get_avatar( get_the_author_meta( 'ID' ), 64 ); ?>
+        <figcaption>
+          <?php the_author(); ?>
+        </figcaption>
+      </figure>
+      <time><?php the_date(); ?></time>
 
-    <?php
-    if (have_posts()) :
-      while (have_posts()) :
-        the_post();
-    ?>
-
-        <aside class="o-grid__item u-1/6@sm u-soft-right-md">
-          <p><?php esc_html_e('Writer', 'moustache'); ?></span><br><?php the_author(); ?></p>
-          <p><time><?php the_date(); ?></time>
-            <?php
-            /*
-			<p><?php the_tags(); ?></p>
-			*/
-            ?>
-        </aside>
-
-        <div class="o-grid__item
-					<?php
-          if (in_category('kamprapporter')) :
-          ?>
-			 u-1/2@sm
-			<?php
-          else :
-      ?>
-			 u-2/3@sm<?php endif; ?>">
-          <h1><?php the_title(); ?></h1>
-          <?php the_content(); ?>
-        </div>
-
-        <?php if (has_category('kamprapporter')) : ?>
-          <aside class="o-grid__item u-1/3@sm u-soft-left-md">
-            <div class="c-sidebar">
-              <?php include get_template_directory() . '/template-parts/match-stats.php'; ?>
-            </div>
-          </aside>
+      <?php if (has_category('kamprapporter')) : ?>
+        <?php include get_template_directory() . '/template-parts/match-stats.php'; ?>
         <?php endif; ?>
+    </aside>
 
-    <?php
-      endwhile;
-    endif;
-    ?>
-  </div>
+    <div class="post-content">
+      <h1><?php the_title(); ?></h1>
+      <?php the_content(); ?>
+    </div>
+  <?php endwhile;
+  endif; ?>
 </article>
 
 <?php get_footer(); ?>

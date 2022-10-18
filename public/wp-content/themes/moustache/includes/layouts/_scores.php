@@ -26,7 +26,7 @@ function scores()
 
   if (get_field('goals_assists_first_half')) {
 
-    echo '<ul>';
+    echo '<ol>';
 
     $kampbart_goals_first_half = 0;
     $opponent_goals_first_half = 0;
@@ -84,17 +84,17 @@ function scores()
       }
     }
 
-    echo '</ul>';
+    echo '</ol>';
 
     $kampbart_goals_pause = $kampbart_goals_first_half;
     $opponent_goals_pause = $opponent_goals_first_half;
   }
 
-  echo '<hr>';
+  echo '<hr style="border: 2px solid red">';
 
   if (get_field('goals_assists_second_half')) {
 
-    echo '<ul>';
+    echo '<ol>';
 
     if (get_field('goals_assists_first_half') === false) {
       $kampbart_goals_second_half = 0;
@@ -162,6 +162,6 @@ function scores()
     $kampbart_goals_final_score = $kampbart_goals_second_half;
     $opponent_goals_final_score = $opponent_goals_second_half;
 
-    echo '</ul>';
+    echo '</ol>';
   }
 }

@@ -1,23 +1,23 @@
 /*------------------------------------*\
-	#SIDEBAR
+  # SIDEBAR
 \*------------------------------------*/
 
 .c-sidebar {
-	background-color: $c-site-grey;
-	color: $c-white;
-	padding: 1.25rem;
+  background-color: $c-site-grey;
+  color: $c-white;
+  padding: 1.25rem;
 
-	ul {
-		margin: 0;
-		padding: 0;
-	}
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 
-	li {
-		list-style: none;
-	}
+  li {
+    list-style: none;
+  }
 
-	a {
-		color: $c-white;
-		text-decoration: none;
-	}
+  a {
+    color: $c-white;
+    text-decoration: none;
+  }
 }

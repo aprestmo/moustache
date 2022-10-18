@@ -1,15 +1,15 @@
 /*------------------------------------*\
-	#HERO
+  # HERO
 \*------------------------------------*/
 
 .c-hero {
-	background-color: $c-black;
-	background-position-x: 33%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	block-size: 85vh;
-	inline-size: 100%;
-	inset-block-start: 0;
-	position: absolute;
-	z-index: -10;
+  background-color: $c-black;
+  background-position-x: 33%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  block-size: 85vh;
+  inline-size: 100%;
+  inset-block-start: 0;
+  position: absolute;
+  z-index: -10;
 }

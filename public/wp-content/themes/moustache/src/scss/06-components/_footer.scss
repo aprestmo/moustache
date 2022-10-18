@@ -1,21 +1,21 @@
 /*------------------------------------*\
-	#FOOTER
+  # FOOTER
 \*------------------------------------*/
 
 .c-footer {
-	background-color: $c-site-grey;
-	color: $c-white;
+  background-color: $c-site-grey;
+  color: $c-white;
 
-	&__slogan {
-		inline-size: 50vw;
-		margin-block-end: 1.25rem;
-		margin-block-start: 0.3125rem;
-		margin-inline: auto;
-		transform: rotate( -3.5deg );
-	}
+  &__slogan {
+    inline-size: 50vw;
+    margin-block-end: 1.25rem;
+    margin-block-start: 0.3125rem;
+    margin-inline: auto;
+    transform: rotate(-3.5deg);
+  }
 
-	&__logo {
-		block-size: 7.1875rem;
-		margin-block-end: 0.5rem;
-	}
+  &__logo {
+    block-size: 7.1875rem;
+    margin-block-end: 0.5rem;
+  }
 }

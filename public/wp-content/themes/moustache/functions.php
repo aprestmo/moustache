@@ -39,7 +39,7 @@ foreach (glob(__DIR__ . '/includes/normalize/*.php') as $file) {
 require __DIR__ . '/includes/custom-functions.php';
 
 /** Load ACF */
-require __DIR__ . '/includes/acf.php';
+// require __DIR__ . '/includes/acf.php';
 
 
 
