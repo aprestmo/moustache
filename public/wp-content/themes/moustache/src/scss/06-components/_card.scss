@@ -1,15 +1,12 @@
 /*------------------------------------*\
-  # CARD
+	#CARD
 \*------------------------------------*/
 
 .c-cards {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(#{'min(20rem, 100%)'}, 1fr));
-  inline-size: min(
-    var(--site-max-width, 87.5rem),
-    100vw - var(--site-padding, 2rem)
-  );
-  margin-inline: auto;
+  grid-template-columns: repeat(auto-fit, minmax(#{"min(20rem, 100%)"}, 1fr));
+  inline-size: min(var(--site-max-width, 87.5rem), 100vw - var(--site-padding, 2rem));
+	margin-inline: auto;
   padding-block: var(--site-padding, 2rem);
 }

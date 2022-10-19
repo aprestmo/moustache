@@ -20,7 +20,7 @@ $query = new WP_Query($args);
 if ($query->have_posts()) :
 ?>
 
-  <section class="c-cards">
+  <section class="c-cards o-section-md">
     <?php
     while ($query->have_posts()) :
       $query->the_post();
@@ -35,12 +35,12 @@ if ($query->have_posts()) :
 
             if ($image) :
             ?>
-              <figure role="group">
+              <figure class="u-flush-bottom" role="group">
                 <?php echo $image; ?>
               </figure>
             <?php endif; ?>
 
-            <div>
+            <div class="u-soft-md">
               <header class="c-listing__header">
                 <?php
                 $category = get_the_category();
@@ -75,6 +75,10 @@ if ($query->have_posts()) :
   </section>
 <?php endif; ?>
 
-<?php require get_template_directory() . '/template-parts/featured-players.php'; ?>
+<div class="u-bg-white">
+  <div class="mou-site-wrap mou-site-wrap--padding">
+    <?php require get_template_directory() . '/template-parts/featured-players.php'; ?>
+  </div>
+</div>
 
 <?php get_footer(); ?>

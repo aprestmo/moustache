@@ -1,24 +1,25 @@
 /*------------------------------------*\
-  # BRAND
+	#BRAND
 \*------------------------------------*/
 
 .c-brand {
-  &__logo {
-    margin-inline-end: 1rem;
-  }
 
-  &__title {
-    @include font('Black');
-    font-size: 1.875rem;
-    letter-spacing: -0.05em;
-    line-height: 1;
-    margin-block-end: 0;
-    margin-block-start: 0.25rem;
-    text-transform: uppercase;
-  }
+	&__logo {
+		margin-inline-end: 1rem;
+	}
 
-  &__slogan {
-    inline-size: 10.625rem;
-    margin-block-start: 0.5rem;
-  }
+	&__title {
+		@include font('Black');
+		font-size: 1.875rem;
+		letter-spacing: -.05em;
+		line-height: 1;
+		margin-block-end: 0;
+		margin-block-start: 0.25rem;
+		text-transform: uppercase;
+	}
+
+	&__slogan {
+		inline-size: 10.625rem;
+		margin-block-start: 0.5rem;
+	}
 }
