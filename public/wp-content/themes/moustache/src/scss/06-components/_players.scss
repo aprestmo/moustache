@@ -1,5 +1,13 @@
 .c-players {
 
+	&__title {
+		@include font('Black');
+		font-size: 1.75rem;
+		line-height: 1.05;
+		margin-block-end: 1rem;
+		text-transform: uppercase;
+	}
+
 	&--featured {
 
 		&__link {

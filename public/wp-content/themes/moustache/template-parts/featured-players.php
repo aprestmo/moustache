@@ -15,7 +15,7 @@ if ($players) : ?>
 
   <section class="o-grid o-section-md">
     <header class="o-grid__item u-1/1 u-text-center">
-      <h2><?php esc_html_e('Featured players', 'moustache') ?></h2>
+      <h2 class="c-players__title"><?php esc_html_e('Featured players', 'moustache') ?></h2>
     </header>
 
     <?php foreach ($players as $post) : setup_postdata($post); ?>

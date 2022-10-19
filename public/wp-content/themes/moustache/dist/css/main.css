@@ -2176,6 +2176,15 @@ dt {
   justify-content: center;
 }
 
+.c-players__title {
+  font-family: "Pacaembu Black", "Helvetica Neue", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.05;
+  margin-block-end: 1rem;
+  text-transform: uppercase;
+}
 .c-players--featured__link {
   transform: scale(1);
   transition: transform 200ms;
