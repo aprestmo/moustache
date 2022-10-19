@@ -6,6 +6,7 @@
 /* @import url('navigation.css') layer(base); */
 @import url('header.css') layer(base);
 @import url('hero.css') layer(base);
+@import url('next-match.css') layer(base);
 @import url('posts.css') layer(base);
 @import url('match-stats.css') layer(base);
 @import url('utilities.css') layer(utilities);

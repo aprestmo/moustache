@@ -16,11 +16,10 @@
     "build": "APP_ENV=production vite build"
   },
   "devDependencies": {
-    "@vitejs/plugin-legacy": "^2.2.0",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
     "postcss-import": "^15.0.0",
-    "postcss-nesting": "^10.2.0",
+    "postcss-nested": "^6.0.0",
     "prettier": "^2.7.1",
     "sass": "^1.55.0",
     "stylelint": "^14.14.0",

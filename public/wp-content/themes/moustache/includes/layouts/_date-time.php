@@ -14,10 +14,8 @@ function date_time()
   $time = date_i18n('H.i', strtotime($matchday));
 
   if (!empty($matchday)) {
-    echo '<p>';
     echo '<time datetime="' . $machineDay . 'T' . $machineTime . '">';
     echo $day . ' ' . esc_html__('at', 'moustache') . ' ' . $time;
     echo '</time>';
-    echo '</p>';
   }
 }

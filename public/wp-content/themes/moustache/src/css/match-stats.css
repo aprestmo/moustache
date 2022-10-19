@@ -1,23 +1,23 @@
 .match-stats {
   margin-block-start: 1rem;
   grid-area: stats;
+
+  &::before {
+    background-color: hsl(var(--clr-red));
+    block-size: 0.25rem;
+    content: '';
+    display: block;
+    inline-size: 3rem;
+  }
+
+  h4,
+  dt,
+  strong {
+    font-weight: 400;
+  }
+
+  ul {
+    padding-inline-start: 0;
+  }
 }
 
-.match-stats::before {
-  background-color: hsl(var(--clr-red));
-  block-size: 0.25rem;
-  content: '';
-  display: block;
-  inline-size: 3rem;
-}
-
-.match-stats h4,
-.match-stats dt,
-.match-stats strong {
-  display: inline-block;
-  font-weight: 400;
-}
-
-.match-stats ul {
-  padding-inline-start: 0;
-}

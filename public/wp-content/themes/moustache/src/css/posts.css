@@ -1,5 +1,5 @@
 .post {
-  font-weight: 200;
+  font-weight: 300;
   inline-size: min(100ch, 100vw - 2rem);
   margin-inline: auto;
 }
