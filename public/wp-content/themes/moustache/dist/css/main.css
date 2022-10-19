@@ -2073,6 +2073,11 @@ dt {
   block-size: 3.75rem;
   display: flex;
 }
+.c-upcoming__item b {
+  font-family: "Pacaembu Medium", "Helvetica Neue", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
 .c-upcoming__icon {
   block-size: 1rem;
   inline-size: 16px;
