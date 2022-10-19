@@ -9,14 +9,18 @@
         the_post();
     ?>
 
-        <aside class="o-grid__item u-1/6@sm u-soft-right-md">
-          <p><?php esc_html_e('Writer', 'moustache'); ?></span><br><?php the_author(); ?></p>
-          <p><time><?php the_date(); ?></time>
-            <?php
-            /*
-			<p><?php the_tags(); ?></p>
-			*/
-            ?>
+        <aside class="meta o-grid__item u-1/6@sm u-soft-right-md">
+          <?php echo get_avatar( get_the_author_meta( 'ID' ), 48 ); ?>
+          <dl class="byline">
+            <dt>
+              <?php esc_html_e('Writer', 'moustache'); ?>
+            </dt>
+            <dd>
+              <?php // echo get_the_author_posts_link(); ?>
+              <?php the_author(); ?>
+            </dd>
+          </dl>
+          <time class="pubdate" datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php the_date(); ?></time>
         </aside>
 
         <div class="o-grid__item
