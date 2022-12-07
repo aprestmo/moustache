@@ -1980,7 +1980,7 @@ dt {
   text-decoration: none;
 }
 .c-sidebar dl {
-  display: flex;
+  display: block;
 }
 .c-sidebar dd {
   margin-inline-start: 0;

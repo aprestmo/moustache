@@ -7,7 +7,7 @@ if ($posts) :
 
   <?php foreach ($posts as $post) : setup_postdata($post); ?>
 
-    <header>
+    <header class="u-soft-bottom-md">
       <h4 class="u-flush-bottom"><?php opponents(); ?></h4>
       <?php date_time(); ?>
     </header>
@@ -97,8 +97,12 @@ if ($posts) :
     <?php attendance(); ?>
     <?php scores(); ?>
     <hr>
-    <?php cards(); ?>
-    <?php present(); ?>
+		<div class="u-soft-bottom-md">
+			<?php cards(); ?>
+		</div>
+		<div>
+			<?php present(); ?>
+		</div>
 
   <?php endforeach;
   wp_reset_postdata(); ?>
