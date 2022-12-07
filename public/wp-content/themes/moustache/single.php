@@ -32,7 +32,9 @@
           else :
       ?>
 			 u-2/3@sm<?php endif; ?>">
-          <h1><?php the_title(); ?></h1>
+					<?php if (!in_category('kamprapporter')) : ?>
+          	<h1><?php the_title(); ?></h1>
+					<?php endif; ?>
           <?php the_content(); ?>
         </div>
 
