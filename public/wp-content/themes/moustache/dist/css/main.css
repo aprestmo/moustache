@@ -1964,6 +1964,10 @@ dt {
   color: #fff;
   padding: 1.25rem;
 }
+.c-sidebar header {
+  display: grid;
+  row-gap: 0.25rem;
+}
 .c-sidebar ul {
   margin: 0;
   padding: 0;
@@ -1974,6 +1978,12 @@ dt {
 .c-sidebar a {
   color: #fff;
   text-decoration: none;
+}
+.c-sidebar dl {
+  display: flex;
+}
+.c-sidebar dd {
+  margin-inline-start: 0;
 }
 
 /*------------------------------------*\

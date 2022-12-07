@@ -7,8 +7,10 @@ if ($posts) :
 
   <?php foreach ($posts as $post) : setup_postdata($post); ?>
 
-    <?php opponents(); ?>
-    <?php date_time(); ?>
+    <header>
+      <h4 class="u-flush-bottom"><?php opponents(); ?></h4>
+      <?php date_time(); ?>
+    </header>
 
     <!-- resultat -->
     <?php /*

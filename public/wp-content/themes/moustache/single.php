@@ -37,7 +37,7 @@
         </div>
 
         <?php if (has_category('kamprapporter')) : ?>
-          <aside class="o-grid__item u-1/3@sm u-soft-left-md">
+          <aside class="o-grid__item u-1/3@sm u-soft-left-md@sm u-soft-top-md u-hard-top@sm">
             <div class="c-sidebar">
               <?php include get_template_directory() . '/template-parts/match-stats.php'; ?>
             </div>

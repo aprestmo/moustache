@@ -13,7 +13,9 @@ function cards()
 
   if (!empty($yellow_cards_first_half)) {
 
-    esc_html_e('Warning in 1st half', 'moustache');
+		echo '<strong>';
+			esc_html_e('Warning in 1st half', 'moustache');
+		echo '</strong>';
 
     echo '<ul>';
 
@@ -26,7 +28,9 @@ function cards()
 
   if (!empty($yellow_cards_second_half)) {
 
-    esc_html_e('Warning in 2nd half', 'moustache');
+		echo '<strong>';
+			esc_html_e('Warning in 2nd half', 'moustache');
+		echo '</strong>';
 
     echo '<ul>';
 
@@ -48,7 +52,9 @@ function cards()
 
   if (!empty($red_cards_first_half)) {
 
-    esc_html_e('Sent off in 1st half', 'moustache');
+		echo '<strong>';
+			esc_html_e('Sent off in 1st half', 'moustache');
+		echo '</strong>';
 
     echo '<ul>';
 
@@ -61,7 +67,9 @@ function cards()
 
   if (!empty($red_cards_second_half)) {
 
-    esc_html_e('Sent off in 2nd half', 'moustache');
+		echo '<strong>';
+			esc_html_e('Sent off in 2nd half', 'moustache');
+		echo '</strong>';
 
     echo '<ul>';
 
