@@ -9,9 +9,9 @@ function present()
 
   if ($present) :
 
-    echo '<h2>';
+    echo '<strong>';
     esc_html_e('Present', 'moustache');
-    echo '</h2>';
+    echo '</strong>';
 
     echo '<ul>';
 
