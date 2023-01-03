@@ -1,19 +1,19 @@
 /*------------------------------------*\
-	#FOOTER
+  #FOOTER
 \*------------------------------------*/
 
 body {
-	@include font('Light');
+  @include font('Light');
 }
 
 a {
-	color: $c-site-grey;
+  color: $c-site-grey;
 }
 
 dl {
-	display: grid;
-	gap: 0.4rem 0;
-	grid-template-columns: 1fr 2fr;
+  display: grid;
+  gap: 0.4rem 0;
+  grid-template-columns: 1fr 2fr;
 }
 
 dt {

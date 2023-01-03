@@ -1,13 +1,13 @@
 // https://vitejs.dev/config/
 // http://localhost:3005 is serving Vite on development but accessing it directly will be empty
 
-import { defineConfig } from 'vite';
-import liveReload from 'vite-plugin-live-reload';
+import { defineConfig } from 'vite'
+import liveReload from 'vite-plugin-live-reload'
 
-const { resolve, basename } = require('path');
+const { resolve, basename } = require('path')
 
-const basePath = basename(__dirname);
-const themePath = `/wp-content/themes/${basePath}`;
+const basePath = basename(__dirname)
+const themePath = `/wp-content/themes/${basePath}`
 
 export default defineConfig({
   plugins: [
@@ -47,4 +47,4 @@ export default defineConfig({
     strictPort: true,
     port: 3005,
   },
-});
+})

@@ -1,7 +1,7 @@
-import './scss/main.scss';
-import './js/menu';
-import './js/search';
-import './js/map';
+import './scss/main.scss'
+import './js/menu'
+import './js/search'
+import './js/map'
 
-menu();
-search();
+menu()
+search()
