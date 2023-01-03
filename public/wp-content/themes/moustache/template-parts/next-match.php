@@ -58,7 +58,7 @@ if ($next_match) :
     <div class="c-upcoming">
       <div class="mou-site-wrap mou-site-wrap--padding">
         <div class="o-grid c-upcoming__item">
-          <p class="o-grid__item u-flush-bottom u-text-center"><img class="c-upcoming__icon" src="<?php echo get_template_directory_uri(); ?>/dist/svg/icons/alert.svg" alt=""><b><?php esc_html_e('Next match:', 'moustache'); ?></b> <?php esc_html_e($hosts); ?>&ndash;<?php esc_html_e($guests); ?>. <?php esc_html_e(ucfirst($weekday)); ?> <?php esc_html_e($month); ?> <?php esc_html_e('at', 'moustache'); ?> <?php esc_html_e($time); ?>, <?php esc_html_e($ground); ?>.</p>
+          <p class="o-grid__item u-flush-bottom u-text-center"><img class="c-upcoming__icon" src="<?php echo get_template_directory_uri(); ?>/src/svg/icons/alert.svg" alt=""><b><?php esc_html_e('Next match:', 'moustache'); ?></b> <?php esc_html_e($hosts); ?>&ndash;<?php esc_html_e($guests); ?>. <?php esc_html_e(ucfirst($weekday)); ?> <?php esc_html_e($month); ?> <?php esc_html_e('at', 'moustache'); ?> <?php esc_html_e($time); ?>, <?php esc_html_e($ground); ?>.</p>
         </div>
       </div>
     </div>

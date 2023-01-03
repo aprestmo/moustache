@@ -9,7 +9,7 @@ function starter_login_logo()
 { ?>
   <style type="text/css">
     .login h1 a {
-      background-image: url(<?php echo get_template_directory_uri(); ?>/dist/images/admin/site-login-logo.svg);
+      background-image: url(<?php echo get_template_directory_uri(); ?>/src/svg/kampbart-logo.svg);
       background-size: 144px;
       padding-bottom: 85px;
       width: 144px;
