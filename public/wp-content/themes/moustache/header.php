@@ -17,9 +17,8 @@
 <head>
   <meta charset="<?php echo esc_attr(get_bloginfo('charset')); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-	<?= vite('main.js') ?>
+  <?= vite('main.js') ?>
   <?php wp_head(); ?>
-
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpX2xs6qaBOTQmn0VB7IiHd0vmRatZz00"></script>
 
 </head>
@@ -74,7 +73,7 @@
 
     <!-- <div class="c-hero" style="background-image: url('<?php echo esc_attr(get_template_directory_uri()); ?>/src/img/default-hero.jpg')">
     </div> -->
-		<div class="c-hero"></div>
+    <div class="c-hero"></div>
 
     <div id="js-site-navigation" class="c-navigation">
       <nav class="mou-site-wrap mou-site-wrap--padding c-navigation__item" role="navigation">
