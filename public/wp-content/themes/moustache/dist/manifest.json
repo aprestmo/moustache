@@ -1,16 +1,4 @@
 {
-  "fonts/Pacaembu-Black.woff2": {
-    "file": "assets/Pacaembu-Black-eb6ffe29.woff2",
-    "src": "fonts/Pacaembu-Black.woff2"
-  },
-  "fonts/Pacaembu-Medium.woff2": {
-    "file": "assets/Pacaembu-Medium-2dc1ce2e.woff2",
-    "src": "fonts/Pacaembu-Medium.woff2"
-  },
-  "fonts/Pacaembu-Regular.woff2": {
-    "file": "assets/Pacaembu-Regular-05bd4379.woff2",
-    "src": "fonts/Pacaembu-Regular.woff2"
-  },
   "fonts/Pacaembu-Light.woff2": {
     "file": "assets/Pacaembu-Light-fa701d40.woff2",
     "src": "fonts/Pacaembu-Light.woff2"
@@ -18,6 +6,18 @@
   "fonts/Pacaembu-Thin.woff2": {
     "file": "assets/Pacaembu-Thin-4270c2f2.woff2",
     "src": "fonts/Pacaembu-Thin.woff2"
+  },
+  "fonts/Pacaembu-Medium.woff2": {
+    "file": "assets/Pacaembu-Medium-2dc1ce2e.woff2",
+    "src": "fonts/Pacaembu-Medium.woff2"
+  },
+  "fonts/Pacaembu-Black.woff2": {
+    "file": "assets/Pacaembu-Black-eb6ffe29.woff2",
+    "src": "fonts/Pacaembu-Black.woff2"
+  },
+  "fonts/Pacaembu-Regular.woff2": {
+    "file": "assets/Pacaembu-Regular-05bd4379.woff2",
+    "src": "fonts/Pacaembu-Regular.woff2"
   },
   "fonts/Pacaembu-Ultra.woff2": {
     "file": "assets/Pacaembu-Ultra-0c984869.woff2",
@@ -27,20 +27,16 @@
     "file": "assets/Pacaembu-Bold-64b09027.woff2",
     "src": "fonts/Pacaembu-Bold.woff2"
   },
-  "img/default-hero.jpg": {
-    "file": "assets/default-hero-78ace2d8.jpg",
-    "src": "img/default-hero.jpg"
-  },
   "main.css": {
-    "file": "assets/main-4427e4c6.css",
+    "file": "assets/main-b0cb203e.css",
     "src": "main.css"
   },
   "main.js": {
-    "file": "assets/main-01db8d81.js",
+    "file": "assets/main-8d68fdb9.js",
     "src": "main.js",
     "isEntry": true,
     "css": [
-      "assets/main-4427e4c6.css"
+      "assets/main-b0cb203e.css"
     ],
     "assets": [
       "assets/Pacaembu-Black-eb6ffe29.woff2",
@@ -49,8 +45,7 @@
       "assets/Pacaembu-Medium-2dc1ce2e.woff2",
       "assets/Pacaembu-Regular-05bd4379.woff2",
       "assets/Pacaembu-Thin-4270c2f2.woff2",
-      "assets/Pacaembu-Ultra-0c984869.woff2",
-      "assets/default-hero-78ace2d8.jpg"
+      "assets/Pacaembu-Ultra-0c984869.woff2"
     ]
   }
 }

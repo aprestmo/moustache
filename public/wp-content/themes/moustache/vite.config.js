@@ -20,7 +20,7 @@ export default defineConfig({
       : `${themePath}/dist/`,
   resolve: {
     alias: {
-      '@images': resolve(__dirname, './src/img'),
+      '@images': resolve(`${themePath}`, 'public/'),
     },
   },
   build: {

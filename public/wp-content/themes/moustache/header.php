@@ -33,16 +33,16 @@
           <div class="c-brand__logo">
             <?php if (is_front_page()) : ?>
               <?php if ('12' === date('m')) : ?>
-                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/src/svg/kampbart-logo-jul.svg'); ?>" alt="">
+                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-jul.svg'); ?>" alt="">
               <?php else : ?>
-                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/src/svg/kampbart-logo.svg'); ?>" alt="">
+                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo.svg'); ?>" alt="">
               <?php endif; ?>
             <?php else : ?>
               <a href="<?php echo esc_attr(home_url()); ?>">
                 <?php if ('12' === date('m')) : ?>
-                  <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/src/svg/kampbart-logo-jul.svg'); ?>" alt="">
+                  <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-jul.svg'); ?>" alt="">
                 <?php else : ?>
-                  <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/src/svg/kampbart-logo.svg'); ?>" alt="">
+                  <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo.svg'); ?>" alt="">
                 <?php endif; ?>
               </a>
             <?php endif; ?>
@@ -55,7 +55,7 @@
               <p class="c-brand__title"><a class="c-header__link" href="<?php echo esc_attr(home_url()); ?>" title=""><?php echo esc_html(get_bloginfo('name')); ?></a></p>
             <?php endif; ?>
             <span class="u-visually-hidden"><?php echo esc_html(bloginfo('description')); ?></span>
-            <img class="c-brand__slogan" src="<?php echo esc_url(get_template_directory_uri() . '/src/svg/slogan.svg'); ?>" alt="">
+            <img class="c-brand__slogan" src="<?php echo esc_url(get_template_directory_uri() . '/dist/slogan.svg'); ?>" alt="">
           </div>
         </div>
       </div>
@@ -71,9 +71,8 @@
       </div>
     </div>
 
-    <!-- <div class="c-hero" style="background-image: url('<?php echo esc_attr(get_template_directory_uri()); ?>/src/img/default-hero.jpg')">
-    </div> -->
-    <div class="c-hero"></div>
+    <div class="c-hero" style="background-image: url('<?php echo esc_attr(get_template_directory_uri()); ?>/dist/default-hero.jpg')">
+    </div>
 
     <div id="js-site-navigation" class="c-navigation">
       <nav class="mou-site-wrap mou-site-wrap--padding c-navigation__item" role="navigation">
