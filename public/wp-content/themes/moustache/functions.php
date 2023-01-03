@@ -151,7 +151,7 @@ function vite_css_tag(string $entry): string
 // Helpers to locate files
 function vite_get_manifest(): array
 {
-  $content = file_get_contents(__DIR__.'/../dist/manifest.json');
+  $content = file_get_contents(__DIR__.'/dist/manifest.json');
 
   return json_decode($content, true);
 }
