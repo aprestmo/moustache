@@ -21,3 +21,7 @@
 .u-tc--red {
   color: #ff4500;
 }
+
+.u-flow > * + * {
+  margin-block-start: 1.5em;
+}
