@@ -14,8 +14,6 @@
 
 get_header(); ?>
   <section class="o-section-md">
-    <h1><?php the_title(); ?></h1>
-
     <?php // get_search_form(); ?>
 
     <h2>Archives by Month:</h2>
