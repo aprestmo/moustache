@@ -1,0 +1,14 @@
+.button {
+  @include font('Regular');
+  background-color: $c-brand-red;
+  color: $c-white;
+  line-height: 1;
+  padding-block: 0.75rem 0.85rem;
+  padding-inline: 1rem;
+  text-decoration: none;
+  transition: background-color 180ms ease-out;
+
+  &:hover {
+    background-color: $c-site-grey;
+  }
+}
