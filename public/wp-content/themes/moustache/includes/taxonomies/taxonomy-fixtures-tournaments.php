@@ -23,7 +23,7 @@ function fixture_tournament()
   );
   $rewrite = array(
     'slug'                       => __('tournament', 'moustache'),
-    'with_front'                 => false,
+    'with_front'                 => true,
     'hierarchical'               => true,
   );
   $args = array(

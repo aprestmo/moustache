@@ -1,16 +1,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2018-08-07 11:01+0200\n"
+"POT-Creation-Date: 2023-05-05 13:39+0200\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -30,31 +30,27 @@ msgid ""
 "below or a search?"
 msgstr ""
 
-#: archive-pitch.php:38 single-pitch.php:27
+#: archive-pitch.php:45 single-pitch.php:27
 msgid "Surface"
 msgstr ""
 
-#: archive-player.php:29
+#: archive-player.php:30
 msgid "Aktive spillere"
 msgstr ""
 
-#: footer.php:14
+#: footer.php:27
 msgid "Founded 2003"
 msgstr ""
 
-#: footer.php:16
+#: footer.php:29
 msgid "Copyright"
 msgstr ""
 
-#: front-page.php:52
-msgid "Read post"
-msgstr ""
-
-#: header.php:48 includes/normalize/admin.php:47
+#: header.php:66
 msgid "Menu"
 msgstr ""
 
-#: header.php:52 includes/post-types/post-type-clubs.php:18
+#: header.php:70 includes/post-types/post-type-clubs.php:18
 #: includes/post-types/post-type-fixtures.php:18
 #: includes/post-types/post-type-pitches.php:18
 #: includes/post-types/post-type-players.php:18 searchform.php:6
@@ -62,55 +58,47 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: header.php:62
+#: header.php:80
 msgid "Close"
 msgstr ""
 
-#: header.php:74
-msgid "c-site--bgcolor"
-msgstr ""
-
-#: includes/admin-brand.php:38
+#: includes/admin-brand.php:41
 msgid "Go to site"
 msgstr ""
 
-#: includes/layouts/_attendance.php:13
+#: includes/layouts/_attendance.php:14
 msgid "Attendace"
 msgstr ""
 
-#: includes/layouts/_cards.php:15
+#: includes/layouts/_cards.php:17
 msgid "Warning in 1st half"
 msgstr ""
 
-#: includes/layouts/_cards.php:29
+#: includes/layouts/_cards.php:32
 msgid "Warning in 2nd half"
 msgstr ""
 
-#: includes/layouts/_cards.php:52
+#: includes/layouts/_cards.php:56
 msgid "Sent off in 1st half"
 msgstr ""
 
-#: includes/layouts/_cards.php:66
+#: includes/layouts/_cards.php:71
 msgid "Sent off in 2nd half"
 msgstr ""
 
-#: includes/layouts/_date-time.php:18 template-parts/next-match.php:61
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:61
 msgid "at"
 msgstr ""
 
-#: includes/layouts/_present.php:12
+#: includes/layouts/_present.php:13
 msgid "Present"
 msgstr ""
 
-#: includes/layouts/_weather.php:13
+#: includes/layouts/_weather.php:14
 msgid "Weather"
 msgstr ""
 
-#: includes/normalize/admin.php:43
-msgid "Front page"
-msgstr ""
-
-#: includes/normalize/login-error.php:3
+#: includes/normalize/login-error.php:4
 msgid "<b>Error:</b> Something went wrong. Please try again."
 msgstr ""
 
@@ -161,7 +149,7 @@ msgstr ""
 #: includes/post-types/post-type-fixtures.php:19
 #: includes/post-types/post-type-pitches.php:19
 #: includes/post-types/post-type-players.php:19
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:22
 msgid "Not Found"
 msgstr ""
 
@@ -221,73 +209,73 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:5
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
 msgctxt "Taxonomy General Name"
 msgid "Tournament"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
 msgctxt "Taxonomy Singular Name"
 msgid "Tournament"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
 msgid "Tournament"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
 msgid "All Items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
 msgid "Parent Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
 msgid "Parent Item:"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
 msgid "New Item Name"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
 msgid "Add New Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
 msgid "Edit Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
 msgid "Update Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
 msgid "View Item"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
 msgid "Separate items with commas"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
 msgid "Add or remove items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
 msgid "Choose from the most used"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
 msgid "Popular Items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
 msgid "Search Items"
 msgstr ""
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:24
+#: includes/taxonomies/taxonomy-fixtures-tournaments.php:25
 msgid "tournament"
 msgstr ""
 
@@ -299,75 +287,75 @@ msgstr ""
 msgid "Image from "
 msgstr ""
 
-#: single-player.php:20
+#: single-player.php:19
 msgid "Portrait of "
 msgstr ""
 
-#: single-player.php:30
+#: single-player.php:27
 msgid "Shirt Number"
 msgstr ""
 
-#: single-player.php:37
+#: single-player.php:34
 msgid "Shirt Name"
 msgstr ""
 
-#: single-player.php:44
+#: single-player.php:41
 msgid "Date of Birth"
 msgstr ""
 
-#: single-player.php:54
+#: single-player.php:51
 msgid "Position"
 msgstr ""
 
-#: single-player.php:63
+#: single-player.php:60
 msgid "Former Clubs"
 msgstr ""
 
-#: single-player.php:70
+#: single-player.php:67
 msgid "Best Memory"
 msgstr ""
 
-#: single-player.php:241
+#: single-player.php:209
 msgid "Player Stats"
 msgstr ""
 
-#: single.php:13
+#: single.php:16
 msgid "Writer"
 msgstr ""
 
-#: taxonomy-tournament.php:32
+#: taxonomy-tournament.php:33
 msgid "Day"
 msgstr ""
 
-#: taxonomy-tournament.php:33
+#: taxonomy-tournament.php:34
 msgid "Date"
 msgstr ""
 
-#: taxonomy-tournament.php:34
+#: taxonomy-tournament.php:35
 msgid "Time"
 msgstr ""
 
-#: taxonomy-tournament.php:35
+#: taxonomy-tournament.php:36
 msgid "Home team"
 msgstr ""
 
-#: taxonomy-tournament.php:36
+#: taxonomy-tournament.php:37
 msgid "Away team"
 msgstr ""
 
-#: taxonomy-tournament.php:37
+#: taxonomy-tournament.php:38
 msgid "Pitch"
 msgstr ""
 
-#: taxonomy-tournament.php:38
+#: taxonomy-tournament.php:39
 msgid "Result"
 msgstr ""
 
-#: taxonomy-tournament.php:107
+#: taxonomy-tournament.php:108
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: taxonomy-tournament.php:198 taxonomy-tournament.php:200
+#: taxonomy-tournament.php:196 taxonomy-tournament.php:198
 msgid "&ndash;"
 msgstr ""
 
@@ -375,7 +363,7 @@ msgstr ""
 msgid "Featured players"
 msgstr ""
 
-#: template-parts/featured-players.php:30
+#: template-parts/featured-players.php:31
 msgid "Missing player profile image"
 msgstr ""
 
@@ -393,4 +381,8 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://alexanderprestmo.no"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Arkiv"
 msgstr ""
