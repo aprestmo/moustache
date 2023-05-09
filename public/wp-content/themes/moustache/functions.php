@@ -13,10 +13,6 @@ define('TRANSLATION_DOMAIN', 'moustache');
 /** Define theme root */
 define('THEME_ROOT', __DIR__ . '/');
 
-foreach (glob(__DIR__ . '/includes/post-types/*.php') as $file) {
-  include $file;
-}
-
 /** Setup theme (Images and menus) */
 require __DIR__ . '/includes/setup-theme.php';
 
@@ -32,13 +28,6 @@ foreach (glob(__DIR__ . '/includes/normalize/*.php') as $file) {
 
 /** Custom functions */
 require __DIR__ . '/includes/custom-functions.php';
-
-/** Load ACF */
-require __DIR__ . '/includes/acf.php';
-
-
-
-//** My oWn things */
 
 /** Match report functions */
 include get_template_directory() . '/includes/layouts/match-report.php';
