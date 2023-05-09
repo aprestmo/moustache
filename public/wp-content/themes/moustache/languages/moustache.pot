@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2023-05-05 13:39+0200\n"
+"POT-Creation-Date: 2023-05-09 10:57+0200\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -149,7 +149,6 @@ msgstr ""
 #: includes/post-types/post-type-fixtures.php:19
 #: includes/post-types/post-type-pitches.php:19
 #: includes/post-types/post-type-players.php:19
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:22
 msgid "Not Found"
 msgstr ""
 
@@ -207,76 +206,6 @@ msgstr ""
 
 #: includes/setup-theme.php:18
 msgid "Primary Menu"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
-msgctxt "Taxonomy General Name"
-msgid "Tournament"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
-msgctxt "Taxonomy Singular Name"
-msgid "Tournament"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
-msgid "Tournament"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
-msgid "All Items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
-msgid "Parent Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
-msgid "Parent Item:"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
-msgid "New Item Name"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
-msgid "Add New Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
-msgid "Edit Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
-msgid "Update Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
-msgid "View Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
-msgid "Separate items with commas"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
-msgid "Add or remove items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
-msgid "Choose from the most used"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
-msgid "Popular Items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
-msgid "Search Items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:25
-msgid "tournament"
 msgstr ""
 
 #: searchform.php:7

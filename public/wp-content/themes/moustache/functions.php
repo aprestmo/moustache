@@ -13,11 +13,6 @@ define('TRANSLATION_DOMAIN', 'moustache');
 /** Define theme root */
 define('THEME_ROOT', __DIR__ . '/');
 
-/** Register custom Taxonomies and Post Types */
-foreach (glob(__DIR__ . '/includes/taxonomies/*.php') as $file) {
-  include $file;
-}
-
 foreach (glob(__DIR__ . '/includes/post-types/*.php') as $file) {
   include $file;
 }
@@ -50,8 +45,6 @@ include get_template_directory() . '/includes/layouts/match-report.php';
 
 /** Brand Admin Login */
 include get_template_directory() . '/includes/admin-brand.php';
-
-
 
 // TRUNK
 
