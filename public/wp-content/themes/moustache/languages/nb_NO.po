@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2023-05-05 13:39+0200\n"
-"PO-Revision-Date: 2023-05-05 13:40+0200\n"
+"POT-Creation-Date: 2023-05-09 11:21+0200\n"
+"PO-Revision-Date: 2023-05-09 11:21+0200\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -150,7 +150,6 @@ msgstr "Vis"
 #: includes/post-types/post-type-fixtures.php:19
 #: includes/post-types/post-type-pitches.php:19
 #: includes/post-types/post-type-players.php:19
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:22
 msgid "Not Found"
 msgstr "Ikke funnet"
 
@@ -210,76 +209,6 @@ msgstr "Legg til spiller"
 msgid "Primary Menu"
 msgstr "Hovedmeny"
 
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:6
-msgctxt "Taxonomy General Name"
-msgid "Tournament"
-msgstr "Turnering"
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:7
-msgctxt "Taxonomy Singular Name"
-msgid "Tournament"
-msgstr "Turnering"
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:8
-msgid "Tournament"
-msgstr "Turnering"
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:9
-msgid "All Items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:10
-msgid "Parent Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:11
-msgid "Parent Item:"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:12
-msgid "New Item Name"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:13
-msgid "Add New Item"
-msgstr "Legg til ny turnering"
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:14
-msgid "Edit Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:15
-msgid "Update Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:16
-msgid "View Item"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:17
-msgid "Separate items with commas"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:18
-msgid "Add or remove items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:19
-msgid "Choose from the most used"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:20
-msgid "Popular Items"
-msgstr "Populære seriespill"
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:21
-msgid "Search Items"
-msgstr ""
-
-#: includes/taxonomies/taxonomy-fixtures-tournaments.php:25
-msgid "tournament"
-msgstr "turnering"
-
 #: searchform.php:7
 msgid "E.g. wins, moustaches etc."
 msgstr "F.eks. seiere, barter etc."
@@ -324,39 +253,39 @@ msgstr "Spillerstatistikk"
 msgid "Writer"
 msgstr "Skribent"
 
-#: taxonomy-tournament.php:33
+#: taxonomy-tournament.php:38
 msgid "Day"
 msgstr "Dag"
 
-#: taxonomy-tournament.php:34
+#: taxonomy-tournament.php:39
 msgid "Date"
 msgstr "Dato"
 
-#: taxonomy-tournament.php:35
+#: taxonomy-tournament.php:40
 msgid "Time"
 msgstr "Tidspunkt"
 
-#: taxonomy-tournament.php:36
+#: taxonomy-tournament.php:41
 msgid "Home team"
 msgstr "Hjemmelag"
 
-#: taxonomy-tournament.php:37
+#: taxonomy-tournament.php:42
 msgid "Away team"
 msgstr "Bortelag"
 
-#: taxonomy-tournament.php:38
+#: taxonomy-tournament.php:43
 msgid "Pitch"
 msgstr "Bane"
 
-#: taxonomy-tournament.php:39
+#: taxonomy-tournament.php:44
 msgid "Result"
 msgstr "Resultat"
 
-#: taxonomy-tournament.php:108
+#: taxonomy-tournament.php:113
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: taxonomy-tournament.php:196 taxonomy-tournament.php:198
+#: taxonomy-tournament.php:201 taxonomy-tournament.php:203
 msgid "&ndash;"
 msgstr ""
 
@@ -387,6 +316,26 @@ msgstr ""
 #. Template Name of the plugin/theme
 msgid "Arkiv"
 msgstr ""
+
+#~ msgctxt "Taxonomy General Name"
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgctxt "Taxonomy Singular Name"
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgid "Add New Item"
+#~ msgstr "Legg til ny turnering"
+
+#~ msgid "Popular Items"
+#~ msgstr "Populære seriespill"
+
+#~ msgid "tournament"
+#~ msgstr "turnering"
 
 #~ msgid "Read post"
 #~ msgstr "Les mer"
