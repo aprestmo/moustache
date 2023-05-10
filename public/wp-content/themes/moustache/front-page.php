@@ -57,7 +57,17 @@ if ($query->have_posts()) :
                 <time class="c-listing__pubdate" datetime="<?php echo esc_attr($machine_date); ?>"><?php the_date('d.m.Y'); ?></time>
               </header>
 
-              <h2 class="c-listing__title"><?php the_title(); ?></h2>
+              <?php if (!in_category('kamprapporter')) : ?>
+                <h2 class="c-listing__title"><?php the_title(); ?></h2>
+              <?php else : ?>
+                <h2 class="c-listing__title">
+                  <?php
+                    $str = get_the_title();
+                    $result = substr(strstr($str, " "), 1);
+                    echo $result;
+                  ?>
+                </h2>
+              <?php endif; ?>
               <p>
                 <?php
                 $excerpt = get_the_excerpt();
