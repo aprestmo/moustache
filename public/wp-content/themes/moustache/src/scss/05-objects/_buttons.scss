@@ -8,6 +8,7 @@
   text-decoration: none;
   transition: background-color 180ms ease-out;
 
+  &:focus-visible,
   &:hover {
     background-color: $c-site-grey;
   }
