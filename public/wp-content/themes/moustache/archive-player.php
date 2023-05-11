@@ -19,6 +19,7 @@ get_header(); ?>
             'orderby'     => 'title',
             'order'       => 'ASC',
             'meta_key'    => 'active_member',
+						'meta_value'  => true
             // Må nok endres på
           )
         );
