@@ -63,8 +63,14 @@ if ($query->have_posts()) :
                 <h2 class="c-listing__title">
                   <?php
                     $str = get_the_title();
-                    $result = substr(strstr($str, " "), 1);
-                    echo $result;
+                    $prefixed = str_starts_with($str, 'Kamprapport: ');
+
+                    if ($prefixed) {
+                      $result = substr(strstr($str, " "), 1);
+                      echo $result;
+                    } else {
+                      the_title();
+                    }
                   ?>
                 </h2>
               <?php endif; ?>
