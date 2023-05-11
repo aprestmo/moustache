@@ -18,12 +18,6 @@ get_header(); ?>
 					</nav>
 				</header>
 
-				<?php
-				// Needs escaping and probably more fields
-				$term = get_queried_object();
-				the_field('tournament_content', $term);
-				?>
-
 				<div>
 					<?php
 					if (is_tax()) {
@@ -213,6 +207,18 @@ get_header(); ?>
 							<?php endwhile; ?>
 						</table>
 					<?php endif; ?>
+
+					<?php
+						$term = get_queried_object();
+						echo '<div id="tabell">';
+							the_field('tournament_content', $term);
+						echo '</div>';
+					?>
+					<!--
+					<div id="statistikk">
+
+					</div>
+					-->
 				</div>
 			</section>
 		</div>
