@@ -32,18 +32,18 @@ get_header(); ?>
 
           <ul>
             <?php foreach ($posts as $post) : ?>
-              <li class="o-grid__item u-1/2 u-1/4@md u-soft-md">
+              <li class="o-grid__item u-1/2 u-1/6@md u-soft-md">
                 <a href="<?php echo get_permalink($post->ID); ?>">
                   <div>
-                    <?php
+                    <?php /*
+										<?php
                     $image = get_field('image');
                     if ($image) :
                     ?>
                       <img src="<?php echo $image['sizes']['thumbnail']; ?>">
                     <?php endif; ?>
-
-                    <?php the_field('shirt_number'); ?>
-                    <?php echo get_the_title($post->ID); ?>
+										*/ ?>
+                    <?php echo get_the_title($post->ID); ?> (<?php the_field('shirt_number'); ?>)
                   </div>
                 </a>
               </li>
