@@ -10,11 +10,11 @@ get_header(); ?>
     <div class="o-grid__item u-1/1 u-2/3@sm">
       <section class="o-section-md">
         <header>
-          <h1 class="u-text-center"><?php esc_html_e(single_term_title()); ?> – <mark>autogenerert side</mark></h1>
+          <h1><?php esc_html_e(single_term_title()); ?></h1>
           <nav>
             <a href="#terminliste">Terminliste</a>
-            <a href="#tabell">Terminliste</a>
-            <a href="#statistikk">Terminliste</a>
+            <a href="#statistikk">Statistikk</a>
+            <a href="#tabell">Tabell</a>
           </nav>
         </header>
 
@@ -26,9 +26,22 @@ get_header(); ?>
 
         <div>
           <?php
+          $args = array(
+            'posts_per_page' => '8',
+            'order' => 'ASC',
+          );
+
           if (is_tax()) {
-            query_posts($query_string . '&posts_per_page=-1&order=ASC');
+            query_posts($args);
           }
+
+          // $args = array(
+          //   'meta_key' => 'date_time',
+          //   'orderby' => 'meta_value_num'
+          // );
+
+          // $q = new WP_Query( $args );
+          // // var_dump($q);
           ?>
 
           <?php if (have_posts()) : ?>
@@ -91,9 +104,10 @@ get_header(); ?>
                   <td>
                     <?php
                     $pitches = get_field('pitch');
-
-                    foreach ($pitches as $pitch) {
-                      echo $pitch->post_title;
+                    if ($pitches) {
+                      foreach ($pitches as $pitch) {
+                        echo $pitch->post_title;
+                      }
                     }
                     ?>
                   </td>
