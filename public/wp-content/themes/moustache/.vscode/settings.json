@@ -1,14 +1,17 @@
 {
-  "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#fff",
-    "titleBar.inactiveForeground": "#ffffffcc",
-    "titleBar.activeBackground": "#d9222a",
-    "titleBar.inactiveBackground": "#d9222acc"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.formatOnSave": true,
-  "prettier.requireConfig": true
+	"workbench.colorCustomizations": {
+		"titleBar.activeForeground": "#fff",
+		"titleBar.inactiveForeground": "#ffffffcc",
+		"titleBar.activeBackground": "#d9222a",
+		"titleBar.inactiveBackground": "#d9222acc"
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"editor.formatOnSave": true,
+	"prettier.requireConfig": true,
+	"[php]": {
+		"editor.defaultFormatter": "valeryanm.vscode-phpsab"
+	}
 }
