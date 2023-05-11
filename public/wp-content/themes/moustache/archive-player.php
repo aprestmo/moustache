@@ -19,7 +19,6 @@ get_header(); ?>
             'orderby'     => 'title',
             'order'       => 'ASC',
             'meta_key'    => 'active_member',
-						'meta_value'  => true
             // Må nok endres på
           )
         );
@@ -35,19 +34,17 @@ get_header(); ?>
             <?php foreach ($posts as $post) : ?>
               <li class="o-grid__item u-1/2 u-1/4@md u-soft-md">
                 <a href="<?php echo get_permalink($post->ID); ?>">
-                  <div>
-                    <?php /*
-										<?php
-                    $image = get_field('image');
-                    if ($image) :
-                    ?>
-                      <img src="<?php echo $image['sizes']['thumbnail']; ?>">
-                    <?php endif; ?>
-										*/ ?>
-										<?php $shirt_number = get_field('shirt_number'); ?>
-                    <?php echo get_the_title($post->ID); ?>
-										<?php $shirt_number ? '(' . $shirt_number . ')' : ''; ?>
-                  </div>
+									<?php /*
+									<?php
+									$image = get_field('image');
+									if ($image) :
+									?>
+										<img src="<?php echo $image['sizes']['thumbnail']; ?>">
+									<?php endif; ?>
+									*/ ?>
+									<?php $shirt_number = get_field('shirt_number'); ?>
+									<?php echo get_the_title($post->ID); ?>
+									<?php $shirt_number ? '(' . $shirt_number . ')' : ''; ?>
                 </a>
               </li>
             <?php endforeach; ?>
