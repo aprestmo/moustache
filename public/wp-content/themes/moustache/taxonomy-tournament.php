@@ -10,11 +10,11 @@ get_header(); ?>
 		<div class="o-grid__item u-1/1 u-2/3@sm">
 			<section class="o-section-md">
 				<header>
-					<h1 class="u-text-center"><?php esc_html_e(single_term_title()); ?></h1>
-					<nav>
+					<h1><?php esc_html_e(single_term_title()); ?></h1>
+					<nav class="u-soft-bottom-md">
 						<a href="#terminliste">Terminliste</a>
-						<a href="#tabell">Terminliste</a>
-						<a href="#statistikk">Terminliste</a>
+						<a href="#tabell">Tabell</a>
+						<a href="#statistikk">Statistikk</a>
 					</nav>
 				</header>
 
@@ -27,7 +27,7 @@ get_header(); ?>
 				<div>
 					<?php
 					if (is_tax()) {
-						query_posts($query_string . '&posts_per_page=-1&order=ASC');
+						query_posts($query_string . '&posts_per_page=-1&order=ASC&orderby=meta_value&meta_key=date_time');
 					}
 					?>
 
