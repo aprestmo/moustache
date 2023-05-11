@@ -6,7 +6,7 @@
  */
 get_header(); ?>
 
-<div class="mou-site-wrap mou-site-wrap--padding">
+<div class="mou-site-wrap mou-site-wrap--padding wysiwyg">
   <div class="o-grid u-text-center">
     <div class="o-grid__item u-1/1 u-2/3@sm">
       <section class="o-section-md">
@@ -27,7 +27,7 @@ get_header(); ?>
         ?>
 
           <header>
-            <h1 class="u-text-center"><?php esc_html_e('Aktive spillere', 'moustache'); ?></h1>
+            <h1><?php esc_html_e('Aktive spillere', 'moustache'); ?></h1>
           </header>
 
           <ul>

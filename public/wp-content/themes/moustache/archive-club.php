@@ -6,7 +6,7 @@
 
 get_header(); ?>
 
-<div class="mou-site-wrap mou-site-wrap--padding u-soft-top-md u-push-bottom-lg">
+<div class="mou-site-wrap mou-site-wrap--padding wysiwyg u-soft-top-md u-push-bottom-lg">
 	<?php
 	$posts = get_posts(
 		array(

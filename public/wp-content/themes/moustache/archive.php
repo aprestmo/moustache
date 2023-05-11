@@ -13,7 +13,7 @@
  */
 
 get_header(); ?>
-  <section class="o-section-md">
+  <section class="o-section-md wysiwyg">
     <?php // get_search_form(); ?>
 
     <h2>Archives by Month:</h2>

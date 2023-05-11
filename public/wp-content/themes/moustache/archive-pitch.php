@@ -18,7 +18,7 @@ $posts = get_posts(
 );
 
 if ($posts) { ?>
-<section class="mou-site-wrap mou-site-wrap--padding u-soft-top-md u-push-bottom-lg">
+<section class="mou-site-wrap mou-site-wrap--padding wysiwyg u-soft-top-md u-push-bottom-lg">
 	<div>
 	<?php foreach ($posts as $post)	: ?>
 		<div class="o-grid__item u-1/2 u-1/4@md">
