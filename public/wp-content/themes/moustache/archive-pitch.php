@@ -19,35 +19,39 @@ $posts = get_posts(
 
 if ($posts) { ?>
 <section class="mou-site-wrap mou-site-wrap--padding u-soft-top-md u-push-bottom-lg">
+	<div>
 	<?php foreach ($posts as $post)	: ?>
-		<h1><?php the_title(); ?></h1>
-		<?php if (get_field('surface')) {
-			$field = get_field_object('surface');
-			$value = get_field('surface');
-			$label = $field['choices'][$value]; ?>
-			<dl>
-				<dt><?php esc_html_e('Surface', 'moustache'); ?></dt>
-				<dd><?php esc_html_e($label); ?></dd>
-			</dl>
-		<?php } ?>
+		<div class="o-grid__item u-1/2 u-1/4@md">
+			<h2><?php the_title(); ?></h2>
+			<?php if (get_field('surface')) {
+				$field = get_field_object('surface');
+				$value = get_field('surface');
+				$label = $field['choices'][$value]; ?>
+				<dl>
+					<dt><?php esc_html_e('Surface', 'moustache'); ?></dt>
+					<dd><?php esc_html_e($label); ?></dd>
+				</dl>
+			<?php } ?>
 
-		<?php if (get_field('image')) :
-			$image = get_field('image');
-		?>
-			<img src="<?php esc_attr_e($image); ?>" alt="">
-		<?php endif; ?>
+			<?php /*
+			<?php if (get_field('image')) :
+				$image = get_field('image');
+			?>
+				<img src="<?php esc_attr_e($image); ?>" alt="">
+			<?php endif; ?>
+			*/ ?>
 
-		<?php if (get_field('address')) {
-			$map = get_field('address');
-			echo $map['address'];
-		}
-		$location = get_field('address');
-		if ($location) : ?>
-			<div class="acf-map" data-zoom="16">
-				<div class="marker" data-lat="<?php echo esc_attr($location['lat']); ?>" data-lng="<?php echo esc_attr($location['lng']); ?>">
-			</div>
-		<?php endif; ?>
+			<?php if (get_field('address')) : $map = get_field('address'); ?>
+				<p><?php echo $map['address']; ?></p>
+					<?php /*
+					<div class="acf-map" data-zoom="24">
+					<div class="marker" data-lat="<?php echo esc_attr($map['lat']); ?>" data-lng="<?php echo esc_attr($map['lng']); ?>">
+				</div>
+				*/ ?>
+			<?php endif; ?>
+		</div>
 	<?php endforeach; ?>
+	</div>
 <?php } ?>
 </section>
 
