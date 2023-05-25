@@ -27,9 +27,9 @@
   },
   "dependencies": {
     "postcss": "^8.4.23",
-    "postcss-preset-env": "^8.3.2",
-    "vite": "^4.3.5",
+    "postcss-preset-env": "^8.4.1",
+    "vite": "^4.3.8",
     "vite-plugin-live-reload": "^3.0.2",
-    "vite-plugin-static-copy": "^0.14.0"
+    "vite-plugin-static-copy": "^0.15.0"
   }
 }

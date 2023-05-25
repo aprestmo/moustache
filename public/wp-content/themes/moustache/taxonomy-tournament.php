@@ -214,11 +214,14 @@ get_header(); ?>
 							the_field('tournament_content', $term);
 						echo '</div>';
 					?>
-					<!--
-					<div id="statistikk">
 
-					</div>
-					-->
+					<?php
+						/** Hent dynamisk senere */
+						$term = get_queried_object();
+						echo '<div id="statistikk">';
+							the_field('tournament_stats', $term);
+						echo '</div>';
+					?>
 				</div>
 			</section>
 		</div>
