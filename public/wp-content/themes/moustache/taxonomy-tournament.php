@@ -18,7 +18,7 @@ get_header(); ?>
 					</nav>
 				</header>
 
-				<div>
+				<div class="u-flow">
 					<?php
 					if (is_tax()) {
 						query_posts($query_string . '&posts_per_page=-1&order=ASC&orderby=meta_value&meta_key=date_time');
@@ -26,7 +26,9 @@ get_header(); ?>
 					?>
 
 					<?php if (have_posts()) : ?>
+						<div role="region" aria-labelledby="caption" tabindex="0">
 						<table id="terminliste">
+							<caption>Terminliste</caption>
 							<thead>
 								<tr>
 									<th><?php esc_html_e('Day', 'moustache'); ?></th>
@@ -206,11 +208,12 @@ get_header(); ?>
 								</tr>
 							<?php endwhile; ?>
 						</table>
+					</div>
 					<?php endif; ?>
 
 					<?php
 						$term = get_queried_object();
-						echo '<div id="tabell">';
+						echo '<div id="tabell" role="region" aria-labelledby="caption" tabindex="0">';
 							the_field('tournament_content', $term);
 						echo '</div>';
 					?>
@@ -218,7 +221,7 @@ get_header(); ?>
 					<?php
 						/** Hent dynamisk senere */
 						$term = get_queried_object();
-						echo '<div id="statistikk">';
+						echo '<div id="statistikk" role="region" aria-labelledby="caption" tabindex="0">';
 							the_field('tournament_stats', $term);
 						echo '</div>';
 					?>
