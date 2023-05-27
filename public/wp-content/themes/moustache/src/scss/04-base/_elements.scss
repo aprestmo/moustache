@@ -16,9 +16,10 @@ a {
 }
 
 dl {
+	column-gap: 0;
 	display: grid;
-	gap: 0.4rem 0;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: max-content auto;
+	row-gap: 0.5rem;
 }
 
 dt {
