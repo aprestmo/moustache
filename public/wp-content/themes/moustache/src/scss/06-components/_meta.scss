@@ -3,41 +3,41 @@
 \*------------------------------------*/
 
 .avatar {
-  border-radius: 99em;
-  filter: grayscale(1);
-  transition: filter 240ms ease;
+	border-radius: 99em;
+	filter: grayscale(1);
+	transition: filter 240ms ease;
 
-  &:hover {
-    filter: grayscale(0);
-  }
+	&:hover {
+		filter: grayscale(0);
+	}
 }
 
 .byline {
-  grid-template-columns: 1fr;
-  row-gap: 0.25rem;
+	grid-template-columns: 1fr;
+	row-gap: 0.25rem;
 
-  dt {
-    @include font('Medium');
-    color: hsl(0 0% 50%);
-    font-size: 0.8em;
-    letter-spacing: 0.04em;
-    line-height: 1.1;
-    margin-block-start: 0.5rem;
-    text-transform: uppercase;
-  }
+	dt {
+		@include font('Medium');
+		color: hsl(0 0% 50%);
+		font-size: 0.8em;
+		letter-spacing: 0.04em;
+		line-height: 1.1;
+		margin-block-start: 0.5rem;
+		text-transform: uppercase;
+	}
 
-  dd {
-    @include font('Regular');
-    line-height: 1.2;
-    margin-inline-start: 0;
-  }
+	dd {
+		@include font('Regular');
+		line-height: 1.2;
+		margin-inline-start: 0;
+	}
 }
 
 .pubdate {
-  @include font('Regular');
-  color: hsl(0 0 20%);
-  display: inline-block;
-  font-size: 0.8em;
-  line-height: 1.2;
-  text-transform: uppercase;
+	@include font('Regular');
+	color: hsl(0 0% 20%);
+	display: inline-block;
+	font-size: 0.8em;
+	line-height: 1.2;
+	text-transform: uppercase;
 }
