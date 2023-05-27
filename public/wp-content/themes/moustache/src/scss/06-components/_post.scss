@@ -2,35 +2,35 @@
   #POST
 \*------------------------------------*/
 .wysiwyg {
-  h1 {
-    @include font('Bold');
-    line-height: 1.2;
-  }
+	h1 {
+		@include font('Bold');
+		line-height: 1.2;
+	}
 
-  h2 {
-    @include font('Bold');
-    line-height: 1.3;
-  }
+	h2 {
+		@include font('Bold');
+		line-height: 1.3;
+	}
 
-  h3 {
-    @include font('Bold');
-  }
+	h3 {
+		@include font('Bold');
+	}
 
-  h4,
-  h5,
-  h6 {
-    @include font('Regular');
-  }
+	h4,
+	h5,
+	h6 {
+		@include font('Regular');
+	}
 
-  p,
-  ul,
-  ol {
-    @include font('Medium');
-    font-size: 1rem;
-    line-height: 1.6;
-  }
+	p,
+	ul,
+	ol {
+		@include font('Light');
+		font-size: 1rem;
+		line-height: 1.6;
+	}
 
-  strong {
-    @include font('Regular');
-  }
+	strong {
+		@include font('Regular');
+	}
 }
