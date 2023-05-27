@@ -18,7 +18,13 @@ get_header(); ?>
             'post_type'   => 'player',
             'orderby'     => 'title',
             'order'       => 'ASC',
-            'meta_key'    => 'active_member',
+						'meta_query' => array(
+							array(
+								'key' => 'status',
+								'value' => 'active',
+								'compare' => 'LIKE'
+							)
+						)
             // Må nok endres på
           )
         );
@@ -59,7 +65,13 @@ get_header(); ?>
             'post_type'   => 'player',
             'orderby'     => 'title',
             'order'       => 'ASC',
-            'meta_key'    => 'retired_member',
+            'meta_query' => array(
+							array(
+								'key' => 'status',
+								'value' => 'retired',
+								'compare' => 'LIKE'
+							)
+						)
           )
         );
 
