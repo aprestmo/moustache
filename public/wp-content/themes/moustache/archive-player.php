@@ -18,13 +18,13 @@ get_header(); ?>
             'post_type'   => 'player',
             'orderby'     => 'title',
             'order'       => 'ASC',
-						'meta_query' => array(
-							array(
-								'key' => 'status',
-								'value' => 'active',
-								'compare' => 'LIKE'
-							)
-						)
+            'meta_query' => array(
+              array(
+                'key' => 'status',
+                'value' => 'active',
+                'compare' => 'LIKE'
+              )
+            )
             // Må nok endres på
           )
         );
@@ -40,17 +40,15 @@ get_header(); ?>
             <?php foreach ($posts as $post) : ?>
               <li class="o-grid__item u-1/2 u-1/4@md u-soft-md">
                 <a href="<?php echo get_permalink($post->ID); ?>">
-									<?php /*
-									<?php
-									$image = get_field('image');
-									if ($image) :
-									?>
-										<img src="<?php echo $image['sizes']['thumbnail']; ?>">
-									<?php endif; ?>
-									*/ ?>
-									<?php $shirt_number = get_field('shirt_number'); ?>
-									<?php echo get_the_title($post->ID); ?>
-									<?php $shirt_number ? '(' . $shirt_number . ')' : ''; ?>
+                  <?php
+                  $image = get_field('image');
+                  if ($image) :
+                  ?>
+                    <img src="<?php echo $image['sizes']['thumbnail']; ?>">
+                  <?php endif; ?>
+                  <?php $shirt_number = get_field('shirt_number'); ?>
+                  <?php echo get_the_title($post->ID); ?>
+                  <?php $shirt_number ? '(' . $shirt_number . ')' : ''; ?>
                 </a>
               </li>
             <?php endforeach; ?>
@@ -66,12 +64,12 @@ get_header(); ?>
             'orderby'     => 'title',
             'order'       => 'ASC',
             'meta_query' => array(
-							array(
-								'key' => 'status',
-								'value' => 'retired',
-								'compare' => 'LIKE'
-							)
-						)
+              array(
+                'key' => 'status',
+                'value' => 'retired',
+                'compare' => 'LIKE'
+              )
+            )
           )
         );
 
