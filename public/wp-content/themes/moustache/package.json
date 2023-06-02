@@ -1,35 +1,35 @@
 {
-  "name": "moustache",
-  "version": "2.0.0",
-  "private": true,
-  "browserslist": [
-    "> 2%"
-  ],
-  "description": "A WordPress theme for Kampbart.",
-  "author": {
-    "name": "Alexander Prestmo",
-    "url": "https://alexanderprestmo.no"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:aprestmo/moustache.git"
-  },
-  "scripts": {
-    "dev": "APP_ENV=development vite",
-    "build": "APP_ENV=production vite build"
-  },
-  "devDependencies": {
-    "nebula-css": "^2.7.1",
-    "prettier": "^2.8.8",
-    "sass": "~1.62.1",
-    "wysiwyg.css": "0.0.4"
-  },
-  "dependencies": {
-    "postcss": "^8.4.24",
-    "postcss-preset-env": "^8.4.1",
-    "vite": "^4.3.9",
-    "vite-plugin-live-reload": "^3.0.2",
-    "vite-plugin-static-copy": "^0.15.0"
-  }
+	"name": "moustache",
+	"version": "2.0.0",
+	"private": true,
+	"browserslist": [
+		"> 2%"
+	],
+	"description": "A WordPress theme for Kampbart.",
+	"author": {
+		"name": "Alexander Prestmo",
+		"url": "https://alexanderprestmo.no"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:aprestmo/moustache.git"
+	},
+	"scripts": {
+		"dev": "APP_ENV=development vite",
+		"build": "APP_ENV=production vite build"
+	},
+	"devDependencies": {
+		"nebula-css": "^2.7.1",
+		"prettier": "^2.8.8",
+		"sass": "~1.62.1",
+		"wysiwyg.css": "0.0.4"
+	},
+	"dependencies": {
+		"postcss": "^8.4.24",
+		"postcss-preset-env": "^8.4.2",
+		"vite": "^4.3.9",
+		"vite-plugin-live-reload": "^3.0.2",
+		"vite-plugin-static-copy": "^0.15.0"
+	}
 }
