@@ -2,6 +2,10 @@ table {
 	border-collapse: collapse;
 }
 
+td {
+	white-space: nowrap;
+}
+
 // table {
 //   font-family: "Fraunces", serif;
 //   font-size: 125%;

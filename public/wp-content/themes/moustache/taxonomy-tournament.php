@@ -7,7 +7,7 @@ get_header(); ?>
 
 <div class="mou-site-wrap mou-site-wrap--padding wysiwyg">
 	<div class="o-grid u-text-center">
-		<div class="o-grid__item u-1/1 u-2/3@sm">
+		<div class="o-grid__item u-1/1">
 			<section class="o-section-md">
 				<header>
 					<h1><?php esc_html_e(single_term_title()); ?></h1>
