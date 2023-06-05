@@ -74,9 +74,12 @@ get_header(); ?>
 									<td>
 										<?php
 										$home_team = get_field('home_team');
-
 										foreach ($home_team as $team) {
-											echo $team->post_title;
+											if ($team->post_name !== 'kampbart') {
+												echo '<a href="/klubb/' . $team->post_name . '">' . $team->post_title . '</a>';
+											} else {
+												echo $team->post_title;
+											}
 										}
 										?>
 									</td>
@@ -85,7 +88,11 @@ get_header(); ?>
 										$away_team = get_field('away_team');
 
 										foreach ($away_team as $team) {
-											echo $team->post_title;
+											if ($team->post_name !== 'kampbart') {
+												echo '<a href="/klubb/' . $team->post_name . '">' . $team->post_title . '</a>';
+											} else {
+												echo $team->post_title;
+											}
 										}
 										?>
 									</td>
@@ -95,7 +102,7 @@ get_header(); ?>
 
 										if ($pitches) {
 											foreach ($pitches as $pitch) {
-												echo $pitch->post_title;
+												echo '<a href="/bane/' . $pitch->post_name . '">' . $pitch->post_title . '</a>';
 											}
 										}
 										?>
@@ -215,7 +222,6 @@ get_header(); ?>
 											}
 										}
 									}
-
 									?>
 								</tr>
 							<?php endwhile; ?>
