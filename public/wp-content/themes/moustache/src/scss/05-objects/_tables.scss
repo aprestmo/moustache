@@ -6,6 +6,10 @@ td {
 	white-space: nowrap;
 }
 
+th {
+	@include font('Medium');
+}
+
 // table {
 //   font-family: "Fraunces", serif;
 //   font-size: 125%;

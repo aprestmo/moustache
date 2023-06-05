@@ -33,4 +33,8 @@
 	strong {
 		@include font('Regular');
 	}
+
+	b {
+		@include font('Medium');
+	}
 }
