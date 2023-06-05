@@ -16,8 +16,7 @@ function present()
     echo '<ul>';
 
     foreach ($present as $player) {
-      // var_dump($present);
-      echo '<li>' . get_the_title($player->ID) . '</li>';
+      echo '<li><a href="/spiller/' . $player->post_name . '">' . get_the_title($player->ID) . '</a></li>';
     }
 
     echo '</ul>';
