@@ -30,11 +30,8 @@
 		line-height: 1.6;
 	}
 
+	b,
 	strong {
 		@include font('Regular');
-	}
-
-	b {
-		@include font('Medium');
 	}
 }
