@@ -26,6 +26,7 @@ get_header(); ?>
 					?>
 
 					<?php if (have_posts()) : ?>
+					<?php $postponed = get_field('postponed'); ?>
 						<div role="region" aria-labelledby="caption" tabindex="0">
 						<table id="terminliste">
 							<caption>Terminliste</caption>
@@ -43,30 +44,33 @@ get_header(); ?>
 							<?php
 							while (have_posts()) :
 								the_post();
-								$postponed = get_field('postponed');
 							?>
 								<tr>
+									<?php if ($postponed) : ?>
+									<td colspan="3"><em>Nytt tidspunkt kommer</em></td>
+									<?php else : ?>
 									<td>
 										<?php
 										$day = get_field('date_time');
 										$day = strtotime($day);
-										echo ($postponed ? '' : ucfirst(date_i18n('l', $day)));
+										echo ucfirst(date_i18n('l', $day));
 										?>
 									</td>
 									<td>
 										<?php
 										$date = get_field('date_time');
 										$date = strtotime($date);
-										echo ($postponed ? '' : date_i18n('d.m', $date));
+										echo date_i18n('d.m', $date);
 										?>
 									</td>
 									<td>
 										<?php
 										$time = get_field('date_time');
 										$time = strtotime($time);
-										echo ($postponed ? '' : date_i18n('H.i', $time));
+										echo date_i18n('H.i', $time);
 										?>
 									</td>
+									<?php endif; ?>
 									<td>
 										<?php
 										$home_team = get_field('home_team');
