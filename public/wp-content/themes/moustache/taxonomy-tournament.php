@@ -43,27 +43,28 @@ get_header(); ?>
 							<?php
 							while (have_posts()) :
 								the_post();
+								$postponed = get_field('postponed');
 							?>
 								<tr>
 									<td>
 										<?php
 										$day = get_field('date_time');
 										$day = strtotime($day);
-										echo ucfirst(date_i18n('l', $day));
+										echo ($postponed ? '' : ucfirst(date_i18n('l', $day)));
 										?>
 									</td>
 									<td>
 										<?php
 										$date = get_field('date_time');
 										$date = strtotime($date);
-										echo date_i18n('d.m', $date);
+										echo ($postponed ? '' : date_i18n('d.m', $date));
 										?>
 									</td>
 									<td>
 										<?php
 										$time = get_field('date_time');
 										$time = strtotime($time);
-										echo date_i18n('H.i', $time);
+										echo ($postponed ? '' : date_i18n('H.i', $time));
 										?>
 									</td>
 									<td>
