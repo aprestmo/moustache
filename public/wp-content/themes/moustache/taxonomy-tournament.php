@@ -198,14 +198,17 @@ get_header(); ?>
 										}
 
 										foreach ($home_team as $team) {
-
-											echo '<td class="' . $result_type . '">';
-											if ($team->post_name === 'kampbart') {
-												esc_html_e($kampbart_final_score . '&ndash;' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '&ndash;' . $opponent_goals_first_half . ')');
+											if (strtotime(get_field('date_time')) < strtotime(date_i18n('h:i:s')) || get_field('postponed')) {
+												echo '<td class="' . $result_type . '">';
+												if ($team->post_name === 'kampbart') {
+													esc_html_e($kampbart_final_score . '&ndash;' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '&ndash;' . $opponent_goals_first_half . ')');
+												} else {
+													esc_html_e($opponent_final_score . '&ndash;' . $kampbart_final_score . ' (' . $opponent_goals_first_half . '&ndash;' . $kampbart_goals_first_half . ')');
+												}
+												echo '</td>';
 											} else {
-												esc_html_e($opponent_final_score . '&ndash;' . $kampbart_final_score . ' (' . $opponent_goals_first_half . '&ndash;' . $kampbart_goals_first_half . ')');
+												echo '<td></td>';
 											}
-											echo '</td>';
 										}
 									}
 
