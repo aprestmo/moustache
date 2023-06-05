@@ -35,7 +35,7 @@ get_header(); ?>
 						$value = get_field('surface');
 					?>
 						<dl>
-							<dt><?php esc_html_e('Surface', 'moustache'); ?></dt>
+							<dt><?php esc_html_e('Surface', 'moustache'); ?>:</dt>
 							<dd><?php esc_html_e($field['choices'][$value]); ?></dd>
 						</dl>
 					</div>
