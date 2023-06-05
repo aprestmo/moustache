@@ -25,7 +25,6 @@ get_header(); ?>
                 'compare' => 'LIKE'
               )
             )
-            // Må nok endres på
           )
         );
 
