@@ -11,14 +11,14 @@
 @import 'utilities';
 
 .acf-map {
-  border: 1px solid #ccc;
-  block-size: 25rem;
-  inline-size: 100%;
-  margin-block: 20px;
-  margin-inline: 0;
+	border: 1px solid #ccc;
+	block-size: 25rem;
+	inline-size: 100%;
+	margin-block: 20px;
+	margin-inline: 0;
 }
 
 // Fixes potential theme css conflict.
 .acf-map img {
-  max-inline-size: inherit !important;
+	max-inline-size: inherit !important;
 }

@@ -8,72 +8,76 @@ get_header(); ?>
 <div class="mou-site-wrap mou-site-wrap--padding wysiwyg">
 	<div class="o-grid u-text-center">
 		<div class="o-grid__item u-1/1 u-2/3@sm">
-			<section class="o-section-md">
-
+			<section class="o-section-md" data-layout="player">
 				<h1><?php the_title(); ?></h1>
 
-				<?php
-				$image = get_field('image');
-				if (!empty($image)) :
-				?>
-					<img src="<?php echo $image['sizes']['large']; ?>" alt="<?php _e('Portrait of ', 'moustache');the_title(); ?>">
-				<?php else : ?>
-					<img src="" alt="">
-				<?php endif; ?>
-
-				<?php if (get_field('shirt_number')) : ?>
-					<dl>
-						<dt><?php esc_html_e('Shirt Number', 'moustache'); ?>:</dt>
-						<dd><?php esc_html_e(get_field('shirt_number')); ?></dd>
-					</dl>
-				<?php endif; ?>
-
-				<?php if (get_field('shirt_name')) : ?>
-					<dl>
-						<dt><?php esc_html_e('Shirt Name', 'moustache'); ?>:</dt>
-						<dd><?php esc_html_e(get_field('shirt_name')); ?></dd>
-					</dl>
-				<?php endif; ?>
-
-				<?php if (get_field('dob')) : ?>
-					<dl>
-						<dt><?php esc_html_e('Date of Birth', 'moustache'); ?></dt>
-						<dd><?php esc_html_e(get_field('dob')); ?></dd>
-					</dl>
-				<?php endif; ?>
-
-				<?php
-				$labels    = get_field_object('position');
-				$positions = get_field('position');
-
-				if ($positions) : ?>
-				<dl>
-					<dt><?php esc_html_e('Position', 'moustache'); ?></dt>
-					<dd>
+				<main>
+					<div>
 						<?php
-						$positonstr = array();
-						foreach ($positions as $position) {
-							$positonstr[] = $labels['choices'][$position];
-						}
-						echo implode('/',$positonstr);
+						$image = get_field('image');
+						if ($image) :
 						?>
-					</dd>
-				</dl>
-				<?php endif; ?>
+						<figure>
+							<img src="<?php echo $image['sizes']['medium']; ?>" alt="<?php _e('Portrait of ', 'moustache');the_title(); ?>">
+						</figure>
+						<?php endif; ?>
 
-				<?php if (get_field('former_clubs')) : ?>
-				<dl>
-					<dt><?php esc_html_e('Former Clubs', 'moustache'); ?></dt>
-					<dd><?php esc_html_e(get_field('former_clubs')); ?></dd>
-				</dl>
-				<?php endif; ?>
+						<div>
+						<?php if (get_field('shirt_number')) : ?>
+							<dl>
+								<dt><?php esc_html_e('Shirt Number', 'moustache'); ?>:</dt>
+								<dd><?php esc_html_e(get_field('shirt_number')); ?></dd>
+							</dl>
+						<?php endif; ?>
 
-				<?php
-				if (!empty(get_field('best_memory'))) {
-					_e('Best Memory', 'moustache');
-					echo get_field('best_memory');
-				}
-				?>
+						<?php if (get_field('shirt_name')) : ?>
+							<dl>
+								<dt><?php esc_html_e('Shirt Name', 'moustache'); ?>:</dt>
+								<dd><?php esc_html_e(get_field('shirt_name')); ?></dd>
+							</dl>
+						<?php endif; ?>
+
+						<?php if (get_field('dob')) : ?>
+							<dl>
+								<dt><?php esc_html_e('Date of Birth', 'moustache'); ?>:</dt>
+								<dd><?php esc_html_e(get_field('dob')); ?></dd>
+							</dl>
+						<?php endif; ?>
+
+						<?php
+						$labels    = get_field_object('position');
+						$positions = get_field('position');
+
+						if ($positions) : ?>
+						<dl>
+							<dt><?php esc_html_e('Position', 'moustache'); ?>:</dt>
+							<dd>
+								<?php
+								$positonstr = array();
+								foreach ($positions as $position) {
+									$positonstr[] = $labels['choices'][$position];
+								}
+								echo implode('/',$positonstr);
+								?>
+							</dd>
+						</dl>
+						<?php endif; ?>
+
+						<?php if (get_field('former_clubs')) : ?>
+						<dl>
+							<dt><?php esc_html_e('Former Clubs', 'moustache'); ?>:</dt>
+							<dd><?php esc_html_e(get_field('former_clubs')); ?></dd>
+						</dl>
+						<?php endif; ?>
+
+						<?php if (get_field('best_memory')) : ?>
+						<dl>
+							<dt><?php esc_html_e('Best Memory', 'moustache'); ?></dt>
+							<dd><?php esc_html_e(get_field('best_memory')); ?></dd>
+						</dl>
+						<?php endif; ?>
+					</div>
+				</div>
 
 				<hr>
 
@@ -236,7 +240,7 @@ get_header(); ?>
 							$redCards = $playerstat->redCardsFirst + $playerstat->redCardsSecond;
 
 							echo '<tr>';
-							echo '<td><a href="/turnering/' . $seasonSlug . '">' . esc_html($season) . '</a></td>';
+							echo '<th><a href="/turnering/' . $seasonSlug . '">' . esc_html($season) . '</a></th>';
 							echo '<td>' . esc_html($matches) . '</td>';
 							echo '<td>' . esc_html($goals) . '</td>';
 							echo '<td>' . esc_html($assists) . '</td>';
@@ -249,10 +253,15 @@ get_header(); ?>
 					<tfoot>
 						<tr>
 							<th>Sum</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
 						</tr>
 					</tfoot>
 				</table>
-
+				</main>
 			</section>
 		</div>
 	</div>
