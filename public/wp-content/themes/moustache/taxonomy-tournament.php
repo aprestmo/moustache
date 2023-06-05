@@ -26,7 +26,6 @@ get_header(); ?>
 					?>
 
 					<?php if (have_posts()) : ?>
-					<?php $postponed = get_field('postponed'); ?>
 						<div role="region" aria-labelledby="caption" tabindex="0">
 						<table id="terminliste">
 							<caption>Terminliste</caption>
@@ -46,6 +45,7 @@ get_header(); ?>
 								the_post();
 							?>
 								<tr>
+									<?php $postponed = get_field('postponed'); ?>
 									<?php if ($postponed) : ?>
 									<td colspan="3"><em>Nytt tidspunkt kommer</em></td>
 									<?php else : ?>
