@@ -199,7 +199,9 @@ get_header(); ?>
 
 										foreach ($home_team as $team) {
 											if (strtotime(get_field('date_time')) < strtotime(date_i18n('h:i:s'))) {
-												if (!get_field('postponed')) {
+												if (get_field('postponed')) {
+													echo '<td></td>';
+												} else {
 													echo '<td class="' . $result_type . '">';
 													if ($team->post_name === 'kampbart') {
 														esc_html_e($kampbart_final_score . '&ndash;' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '&ndash;' . $opponent_goals_first_half . ')');
