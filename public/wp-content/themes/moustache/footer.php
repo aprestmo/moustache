@@ -16,7 +16,7 @@
   <div class="mou-site-wrap mou-site-wrap--padding">
     <div class="o-grid o-section-md">
       <div class="o-grid__item u-1/1 u-text-center">
-        <img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-party.svg'); ?>" alt="">
+        <img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-party.png'); ?>" alt="">
         <p class="c-footer__slogan">
           <span class="u-visually-hidden"><?php echo esc_html(bloginfo('description')); ?></span>
           <img src="<?php echo esc_url(get_template_directory_uri() . '/dist/slogan.svg'); ?>" alt="">
