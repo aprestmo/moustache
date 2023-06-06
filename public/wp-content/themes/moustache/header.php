@@ -34,17 +34,15 @@
             <?php if (is_front_page()) : ?>
               <?php if ('12' === date('m')) : ?>
                 <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-jul.svg'); ?>" alt="">
-              <?php elseif ('06' === date('m') && '06' === date('d')) : ?>
-                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-party.svg'); ?>" alt="">
               <?php else : ?>
-                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo.svg'); ?>" alt="">
+                <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-party.svg'); ?>" alt="">
               <?php endif; ?>
             <?php else : ?>
               <a href="<?php echo esc_attr(home_url()); ?>">
                 <?php if ('12' === date('m')) : ?>
                   <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-jul.svg'); ?>" alt="">
                 <?php else : ?>
-                  <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo.svg'); ?>" alt="">
+                  <img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-party.svg'); ?>" alt="">
                 <?php endif; ?>
               </a>
             <?php endif; ?>
