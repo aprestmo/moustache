@@ -33,8 +33,8 @@ while (have_posts()) :
 					<?php if (the_field('gullbart')) : ?>
 						<dl>
 						<?php while( have_rows('gullbart') ) : the_row(); ?>
-							<dt><?php the_field('gullbart_year'); ?></dt>
-							<dd><?php the_field('gullbart_winner'); ?></dd>
+							<dt><?php the_sub_field('gullbart_year'); ?></dt>
+							<dd><?php the_sub_field('gullbart_winner'); ?></dd>
 						<?php endwhile; ?>
 						</dl>
 					<?php endif; ?>
