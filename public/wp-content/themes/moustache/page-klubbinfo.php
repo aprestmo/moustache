@@ -30,14 +30,27 @@ while (have_posts()) :
 						</dd>
 					</dl>
 					<?php the_content(); ?>
-					<?php if ( have_rows('gullbart') ) : ?>
-						<dl>
-						<?php while ( have_rows('gullbart') ) : the_row(); ?>
-							<dt><?php the_sub_field('gullbart_year'); ?></dt>
-							<dd><?php the_sub_field('gullbart_winner'); ?></dd>
-						<?php endwhile; ?>
-						</dl>
-					<?php endif; ?>
+					<?php
+					// Check rows existexists.
+					if( have_rows('gullbart') ):
+							echo '<dl>';
+							// Loop through rows.
+							while( have_rows('gullbart') ) : the_row();
+
+									// Load sub field value.
+									$year = get_sub_field('gullbart_year');
+									$winner = get_sub_field('gullbart_winner');
+									// Do something...
+									echo '<dt>' . $year . '</dt>';
+									echo '<dd>' . $winner . '</dd>';
+							// End loop.
+							endwhile;
+							echo '</dl>';
+					// No value.
+					else :
+							// Do something...
+					endif;
+					?>
 				</section>
 			</div>
 		</div>
