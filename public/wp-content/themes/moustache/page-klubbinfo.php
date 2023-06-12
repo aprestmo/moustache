@@ -30,6 +30,13 @@ while (have_posts()) :
 						</dd>
 					</dl>
 					<?php the_content(); ?>
+					<?php if (the_field('gullbart')) : ?>
+						<dl>
+						<?php while( have_rows('gullbart') ) : the_row(); ?>
+							<dt><?php the_field('gullbart_year'); ?></dt>
+							<dd><?php the_field('gullbart_winner'); ?></dd>
+						<?php endwhile; ?>
+						</dl>
 				</section>
 			</div>
 		</div>
