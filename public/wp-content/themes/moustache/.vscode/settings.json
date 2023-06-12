@@ -13,5 +13,13 @@
 	"prettier.requireConfig": true,
 	"[php]": {
 		"editor.defaultFormatter": "valeryanm.vscode-phpsab"
+	},
+	"files.exclude": {
+		"*/**/node_modules": true,
+		"**/.DS_Store": true,
+		"**/yarn.lock": true
+	},
+	"search.exclude": {
+		"dist/": true
 	}
 }
