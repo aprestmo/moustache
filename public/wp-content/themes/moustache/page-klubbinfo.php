@@ -37,6 +37,7 @@ while (have_posts()) :
 							<dd><?php the_field('gullbart_winner'); ?></dd>
 						<?php endwhile; ?>
 						</dl>
+					<?php endif; ?>
 				</section>
 			</div>
 		</div>
