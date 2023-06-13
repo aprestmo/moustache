@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2023-05-09 11:21+0200\n"
+"POT-Creation-Date: 2023-06-13 08:52+0200\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -30,11 +30,15 @@ msgid ""
 "below or a search?"
 msgstr ""
 
-#: archive-pitch.php:45 single-pitch.php:27
+#: archive-club.php:23
+msgid "Klubboversikt"
+msgstr ""
+
+#: archive-pitch.php:31 single-pitch.php:38
 msgid "Surface"
 msgstr ""
 
-#: archive-player.php:30
+#: archive-player.php:35
 msgid "Aktive spillere"
 msgstr ""
 
@@ -50,11 +54,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: header.php:70 includes/post-types/post-type-clubs.php:18
-#: includes/post-types/post-type-fixtures.php:18
-#: includes/post-types/post-type-pitches.php:18
-#: includes/post-types/post-type-players.php:18 searchform.php:6
-#: searchform.php:8
+#: header.php:70 searchform.php:6 searchform.php:8
 msgid "Search"
 msgstr ""
 
@@ -102,149 +102,63 @@ msgstr ""
 msgid "<b>Error:</b> Something went wrong. Please try again."
 msgstr ""
 
-#: includes/post-types/post-type-clubs.php:11
-msgctxt "post type general name"
-msgid "Clubs"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:12
-msgctxt "post type singular name"
-msgid "Club"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:13
-msgctxt "post type singular"
-msgid "Add Club"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:14
-#: includes/post-types/post-type-fixtures.php:14
-#: includes/post-types/post-type-pitches.php:14
-#: includes/post-types/post-type-players.php:14
-msgid "Add"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:15
-#: includes/post-types/post-type-fixtures.php:15
-#: includes/post-types/post-type-pitches.php:15
-#: includes/post-types/post-type-players.php:15
-msgid "Edit"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:16
-#: includes/post-types/post-type-fixtures.php:16
-#: includes/post-types/post-type-pitches.php:16
-#: includes/post-types/post-type-players.php:16
-msgid "New"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:17
-#: includes/post-types/post-type-fixtures.php:17
-#: includes/post-types/post-type-pitches.php:17
-#: includes/post-types/post-type-players.php:17
-msgid "View"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:19
-#: includes/post-types/post-type-fixtures.php:19
-#: includes/post-types/post-type-pitches.php:19
-#: includes/post-types/post-type-players.php:19
-msgid "Not Found"
-msgstr ""
-
-#: includes/post-types/post-type-clubs.php:20
-#: includes/post-types/post-type-fixtures.php:20
-#: includes/post-types/post-type-pitches.php:20
-#: includes/post-types/post-type-players.php:20
-msgid "Not Found in Trash"
-msgstr ""
-
-#: includes/post-types/post-type-fixtures.php:11
-msgctxt "post type general name"
-msgid "Fixtures"
-msgstr ""
-
-#: includes/post-types/post-type-fixtures.php:12
-msgctxt "post type singular name"
-msgid "Fixture"
-msgstr ""
-
-#: includes/post-types/post-type-fixtures.php:13
-msgctxt "post type singular"
-msgid "Add Fixture"
-msgstr ""
-
-#: includes/post-types/post-type-pitches.php:11
-msgctxt "post type general name"
-msgid "Pitches"
-msgstr ""
-
-#: includes/post-types/post-type-pitches.php:12
-msgctxt "post type singular name"
-msgid "Pitch"
-msgstr ""
-
-#: includes/post-types/post-type-pitches.php:13
-msgctxt "post type singular"
-msgid "Add Pitch"
-msgstr ""
-
-#: includes/post-types/post-type-players.php:11
-msgctxt "post type general name"
-msgid "Players"
-msgstr ""
-
-#: includes/post-types/post-type-players.php:12
-msgctxt "post type singular name"
-msgid "Player"
-msgstr ""
-
-#: includes/post-types/post-type-players.php:13
-msgctxt "post type singular"
-msgid "Add Player"
-msgstr ""
-
 #: includes/setup-theme.php:18
 msgid "Primary Menu"
+msgstr ""
+
+#: page-klubbinfo.php:17
+msgid "Founded"
+msgstr ""
+
+#: page-klubbinfo.php:21
+msgid "Address"
+msgstr ""
+
+#: page-klubbinfo.php:28
+msgid "Account number"
+msgstr ""
+
+#: page-klubbinfo.php:32
+msgid "Kit"
 msgstr ""
 
 #: searchform.php:7
 msgid "E.g. wins, moustaches etc."
 msgstr ""
 
-#: single-pitch.php:16
+#: single-pitch.php:20
 msgid "Image from "
 msgstr ""
 
-#: single-player.php:19
+#: single-player.php:21
 msgid "Portrait of "
 msgstr ""
 
-#: single-player.php:27
+#: single-player.php:28
 msgid "Shirt Number"
 msgstr ""
 
-#: single-player.php:34
+#: single-player.php:35
 msgid "Shirt Name"
 msgstr ""
 
-#: single-player.php:41
+#: single-player.php:42
 msgid "Date of Birth"
 msgstr ""
 
-#: single-player.php:51
+#: single-player.php:53
 msgid "Position"
 msgstr ""
 
-#: single-player.php:60
+#: single-player.php:68
 msgid "Former Clubs"
 msgstr ""
 
-#: single-player.php:67
+#: single-player.php:75
 msgid "Best Memory"
 msgstr ""
 
-#: single-player.php:209
+#: single-player.php:220
 msgid "Player Stats"
 msgstr ""
 
@@ -252,39 +166,39 @@ msgstr ""
 msgid "Writer"
 msgstr ""
 
-#: taxonomy-tournament.php:38
+#: taxonomy-tournament.php:34
 msgid "Day"
 msgstr ""
 
-#: taxonomy-tournament.php:39
+#: taxonomy-tournament.php:35
 msgid "Date"
 msgstr ""
 
-#: taxonomy-tournament.php:40
+#: taxonomy-tournament.php:36
 msgid "Time"
 msgstr ""
 
-#: taxonomy-tournament.php:41
+#: taxonomy-tournament.php:37
 msgid "Home team"
 msgstr ""
 
-#: taxonomy-tournament.php:42
+#: taxonomy-tournament.php:38
 msgid "Away team"
 msgstr ""
 
-#: taxonomy-tournament.php:43
+#: taxonomy-tournament.php:39
 msgid "Pitch"
 msgstr ""
 
-#: taxonomy-tournament.php:44
+#: taxonomy-tournament.php:40
 msgid "Result"
 msgstr ""
 
-#: taxonomy-tournament.php:113
+#: taxonomy-tournament.php:123
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: taxonomy-tournament.php:201 taxonomy-tournament.php:203
+#: taxonomy-tournament.php:214 taxonomy-tournament.php:216
 msgid "&ndash;"
 msgstr ""
 
@@ -314,4 +228,8 @@ msgstr ""
 
 #. Template Name of the plugin/theme
 msgid "Arkiv"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Klubbinfo */"
 msgstr ""

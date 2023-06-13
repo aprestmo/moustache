@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2023-05-09 11:21+0200\n"
-"PO-Revision-Date: 2023-05-09 11:21+0200\n"
+"POT-Creation-Date: 2023-06-13 08:52+0200\n"
+"PO-Revision-Date: 2023-06-13 09:01+0200\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -30,11 +30,15 @@ msgid ""
 msgstr ""
 "Det ser ut som ingenting finnes på denne adressen. Hva med å forsøke et søk?"
 
-#: archive-pitch.php:45 single-pitch.php:27
+#: archive-club.php:23
+msgid "Klubboversikt"
+msgstr ""
+
+#: archive-pitch.php:31 single-pitch.php:38
 msgid "Surface"
 msgstr "Underlag"
 
-#: archive-player.php:30
+#: archive-player.php:35
 msgid "Aktive spillere"
 msgstr ""
 
@@ -50,11 +54,7 @@ msgstr ""
 msgid "Menu"
 msgstr "Meny"
 
-#: header.php:70 includes/post-types/post-type-clubs.php:18
-#: includes/post-types/post-type-fixtures.php:18
-#: includes/post-types/post-type-pitches.php:18
-#: includes/post-types/post-type-players.php:18 searchform.php:6
-#: searchform.php:8
+#: header.php:70 searchform.php:6 searchform.php:8
 msgid "Search"
 msgstr "Søk"
 
@@ -64,7 +64,7 @@ msgstr "Lukk"
 
 #: includes/admin-brand.php:41
 msgid "Go to site"
-msgstr ""
+msgstr "Gå til nettstedet"
 
 #: includes/layouts/_attendance.php:14
 msgid "Attendace"
@@ -103,149 +103,63 @@ msgid "<b>Error:</b> Something went wrong. Please try again."
 msgstr ""
 "<b>Feil:</b> Brukernavn eller passord er feil.<br>Vennligst prøv igjen."
 
-#: includes/post-types/post-type-clubs.php:11
-msgctxt "post type general name"
-msgid "Clubs"
-msgstr "Klubber"
-
-#: includes/post-types/post-type-clubs.php:12
-msgctxt "post type singular name"
-msgid "Club"
-msgstr "Klubb"
-
-#: includes/post-types/post-type-clubs.php:13
-msgctxt "post type singular"
-msgid "Add Club"
-msgstr "Legg til"
-
-#: includes/post-types/post-type-clubs.php:14
-#: includes/post-types/post-type-fixtures.php:14
-#: includes/post-types/post-type-pitches.php:14
-#: includes/post-types/post-type-players.php:14
-msgid "Add"
-msgstr "Legg til"
-
-#: includes/post-types/post-type-clubs.php:15
-#: includes/post-types/post-type-fixtures.php:15
-#: includes/post-types/post-type-pitches.php:15
-#: includes/post-types/post-type-players.php:15
-msgid "Edit"
-msgstr "Rediger"
-
-#: includes/post-types/post-type-clubs.php:16
-#: includes/post-types/post-type-fixtures.php:16
-#: includes/post-types/post-type-pitches.php:16
-#: includes/post-types/post-type-players.php:16
-msgid "New"
-msgstr "Ny"
-
-#: includes/post-types/post-type-clubs.php:17
-#: includes/post-types/post-type-fixtures.php:17
-#: includes/post-types/post-type-pitches.php:17
-#: includes/post-types/post-type-players.php:17
-msgid "View"
-msgstr "Vis"
-
-#: includes/post-types/post-type-clubs.php:19
-#: includes/post-types/post-type-fixtures.php:19
-#: includes/post-types/post-type-pitches.php:19
-#: includes/post-types/post-type-players.php:19
-msgid "Not Found"
-msgstr "Ikke funnet"
-
-#: includes/post-types/post-type-clubs.php:20
-#: includes/post-types/post-type-fixtures.php:20
-#: includes/post-types/post-type-pitches.php:20
-#: includes/post-types/post-type-players.php:20
-msgid "Not Found in Trash"
-msgstr "%s ble ikke funnet i papirkuven"
-
-#: includes/post-types/post-type-fixtures.php:11
-msgctxt "post type general name"
-msgid "Fixtures"
-msgstr "Kamper"
-
-#: includes/post-types/post-type-fixtures.php:12
-msgctxt "post type singular name"
-msgid "Fixture"
-msgstr "Kamp"
-
-#: includes/post-types/post-type-fixtures.php:13
-msgctxt "post type singular"
-msgid "Add Fixture"
-msgstr "Legg til kamp"
-
-#: includes/post-types/post-type-pitches.php:11
-msgctxt "post type general name"
-msgid "Pitches"
-msgstr "Baner"
-
-#: includes/post-types/post-type-pitches.php:12
-msgctxt "post type singular name"
-msgid "Pitch"
-msgstr "Bane"
-
-#: includes/post-types/post-type-pitches.php:13
-msgctxt "post type singular"
-msgid "Add Pitch"
-msgstr "Legg til bane"
-
-#: includes/post-types/post-type-players.php:11
-msgctxt "post type general name"
-msgid "Players"
-msgstr "Spillere"
-
-#: includes/post-types/post-type-players.php:12
-msgctxt "post type singular name"
-msgid "Player"
-msgstr "Spiller"
-
-#: includes/post-types/post-type-players.php:13
-msgctxt "post type singular"
-msgid "Add Player"
-msgstr "Legg til spiller"
-
 #: includes/setup-theme.php:18
 msgid "Primary Menu"
 msgstr "Hovedmeny"
+
+#: page-klubbinfo.php:17
+msgid "Founded"
+msgstr "Stiftet"
+
+#: page-klubbinfo.php:21
+msgid "Address"
+msgstr "Postadresse"
+
+#: page-klubbinfo.php:28
+msgid "Account number"
+msgstr "Kontonummer"
+
+#: page-klubbinfo.php:32
+msgid "Kit"
+msgstr "Drakter"
 
 #: searchform.php:7
 msgid "E.g. wins, moustaches etc."
 msgstr "F.eks. seiere, barter etc."
 
-#: single-pitch.php:16
+#: single-pitch.php:20
 msgid "Image from "
-msgstr ""
+msgstr "Bilde fra"
 
-#: single-player.php:19
+#: single-player.php:21
 msgid "Portrait of "
 msgstr "Portrett av "
 
-#: single-player.php:27
+#: single-player.php:28
 msgid "Shirt Number"
 msgstr "Draktnummer"
 
-#: single-player.php:34
+#: single-player.php:35
 msgid "Shirt Name"
 msgstr "Draktnavn"
 
-#: single-player.php:41
+#: single-player.php:42
 msgid "Date of Birth"
 msgstr "Fødselsdato"
 
-#: single-player.php:51
+#: single-player.php:53
 msgid "Position"
 msgstr "Posisjon"
 
-#: single-player.php:60
+#: single-player.php:68
 msgid "Former Clubs"
 msgstr "Tidligere klubber"
 
-#: single-player.php:67
+#: single-player.php:75
 msgid "Best Memory"
 msgstr "Beste Kampbart-minne"
 
-#: single-player.php:209
+#: single-player.php:220
 msgid "Player Stats"
 msgstr "Spillerstatistikk"
 
@@ -253,39 +167,39 @@ msgstr "Spillerstatistikk"
 msgid "Writer"
 msgstr "Skribent"
 
-#: taxonomy-tournament.php:38
+#: taxonomy-tournament.php:34
 msgid "Day"
 msgstr "Dag"
 
-#: taxonomy-tournament.php:39
+#: taxonomy-tournament.php:35
 msgid "Date"
 msgstr "Dato"
 
-#: taxonomy-tournament.php:40
+#: taxonomy-tournament.php:36
 msgid "Time"
 msgstr "Tidspunkt"
 
-#: taxonomy-tournament.php:41
+#: taxonomy-tournament.php:37
 msgid "Home team"
 msgstr "Hjemmelag"
 
-#: taxonomy-tournament.php:42
+#: taxonomy-tournament.php:38
 msgid "Away team"
 msgstr "Bortelag"
 
-#: taxonomy-tournament.php:43
+#: taxonomy-tournament.php:39
 msgid "Pitch"
 msgstr "Bane"
 
-#: taxonomy-tournament.php:44
+#: taxonomy-tournament.php:40
 msgid "Result"
 msgstr "Resultat"
 
-#: taxonomy-tournament.php:113
+#: taxonomy-tournament.php:123
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: taxonomy-tournament.php:201 taxonomy-tournament.php:203
+#: taxonomy-tournament.php:214 taxonomy-tournament.php:216
 msgid "&ndash;"
 msgstr ""
 
@@ -316,6 +230,76 @@ msgstr ""
 #. Template Name of the plugin/theme
 msgid "Arkiv"
 msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Klubbinfo */"
+msgstr ""
+
+#~ msgctxt "post type general name"
+#~ msgid "Clubs"
+#~ msgstr "Klubber"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Club"
+#~ msgstr "Klubb"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Club"
+#~ msgstr "Legg til"
+
+#~ msgid "Add"
+#~ msgstr "Legg til"
+
+#~ msgid "Edit"
+#~ msgstr "Rediger"
+
+#~ msgid "New"
+#~ msgstr "Ny"
+
+#~ msgid "View"
+#~ msgstr "Vis"
+
+#~ msgid "Not Found"
+#~ msgstr "Ikke funnet"
+
+#~ msgid "Not Found in Trash"
+#~ msgstr "%s ble ikke funnet i papirkuven"
+
+#~ msgctxt "post type general name"
+#~ msgid "Fixtures"
+#~ msgstr "Kamper"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Fixture"
+#~ msgstr "Kamp"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Fixture"
+#~ msgstr "Legg til kamp"
+
+#~ msgctxt "post type general name"
+#~ msgid "Pitches"
+#~ msgstr "Baner"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Pitch"
+#~ msgstr "Bane"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Pitch"
+#~ msgstr "Legg til bane"
+
+#~ msgctxt "post type general name"
+#~ msgid "Players"
+#~ msgstr "Spillere"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Player"
+#~ msgstr "Spiller"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Player"
+#~ msgstr "Legg til spiller"
 
 #~ msgctxt "Taxonomy General Name"
 #~ msgid "Tournament"
