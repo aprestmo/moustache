@@ -27,6 +27,9 @@ while (have_posts()) :
 									var_dump($audio);
 									var_dump($lyrics);
 
+									echo '<strong>' . $title . '</strong>';
+									echo '<audio></audio>'
+
 									// if ( $winners ) {
 									// 	foreach ($winners as $winner) {
 									// 		echo '<dt>' . $year . '</dt>';
