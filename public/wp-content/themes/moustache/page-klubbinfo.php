@@ -40,6 +40,7 @@ while (have_posts()) :
 					<?php the_content(); ?>
 					<?php
 						if ( have_rows('gullbart') ):
+							echo '<h3>Vinnere av gullbarten</h3>';
 							echo '<dl>';
 							while ( have_rows('gullbart') ) : the_row();
 
