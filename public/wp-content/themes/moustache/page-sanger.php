@@ -16,28 +16,21 @@ while (have_posts()) :
 					<?php the_content(); ?>
 					<?php
 						if ( have_rows('music') ):
-							echo '<dl>';
+							echo '<div>';
 							while ( have_rows('music') ) : the_row();
-
+								echo '<figure>';
 									$title = get_sub_field('title');
 									$audio = get_sub_field('audio_file');
 									$lyrics = get_sub_field('lyrics_file');
 
-									var_dump($title);
-									var_dump($audio);
-									var_dump($lyrics);
-
-									echo '<strong>' . $title . '</strong>';
-									echo '<audio></audio>'
-
-									// if ( $winners ) {
-									// 	foreach ($winners as $winner) {
-									// 		echo '<dt>' . $year . '</dt>';
-									// 		echo '<dd><a href="/spiller/' . $winner->post_name . '/">'. $winner->post_title . '</a></dd>';
-									// 	}
-									// }
+									echo '<figcaption>' . $title . '</figcaption>';
+									echo '<audio controls src="' . $audio .'">';
+										echo '<a href="' . $audio . '">Last ned' . $title . '</a>';
+									echo '</audio>';
+									echo '<p><a href="' . $lyrics . '">Last ned teksten til «' . $title . '»</a></p>';
+								echo '</figure>';
 							endwhile;
-							echo '</dl>';
+							echo '</div>';
 						endif;
 					?>
 				</section>
