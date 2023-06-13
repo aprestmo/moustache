@@ -24,7 +24,10 @@ while (have_posts()) :
 								while ( have_rows('contact_info') ) : the_row();
 							?>
 								<dd><?php esc_html_e(get_sub_field('name')); ?><br><?php esc_html_e(get_sub_field('address')); ?> <?php esc_html_e(get_sub_field('zip')); ?><br><?php esc_html_e(get_sub_field('place')); ?></dd>
-						<?php endwhile; endif; ?>
+						<?php
+								endwhile;
+							endif;
+						?>
 						<dt><?php esc_html_e('Account number', 'moustache'); ?>:</dt>
 						<dd>
 							<?php esc_html_e(get_field('bank_account')); ?>
