@@ -72,7 +72,7 @@ get_header(); ?>
 
 						<?php if (get_field('best_memory')) : ?>
 						<dl>
-							<dt><?php esc_html_e('Best Memory', 'moustache'); ?></dt>
+							<dt><?php esc_html_e('Best Memory', 'moustache'); ?>:</dt>
 							<dd><?php esc_html_e(get_field('best_memory')); ?></dd>
 						</dl>
 						<?php endif; ?>
