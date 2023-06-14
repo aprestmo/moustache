@@ -18,17 +18,18 @@ get_header(); ?>
 	);
 
 	if ($posts) :
-		?>
+	?>
 
-		<h2><?php esc_html_e('Klubboversikt', 'moustache'); ?></h2>
-		<ul class="u-soft-top-md">
-			<?php foreach ($posts as $post) : ?>
-				<li class="o-grid__item u-1/2 u-1/5@md">
-					<?php echo get_the_title($post->ID); ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-
+	<h2><?php esc_html_e('Klubboversikt', 'moustache'); ?></h2>
+	<ul class="u-soft-top-md">
+	<?php foreach ($posts as $post) : ?>
+		<li class="o-grid__item u-1/2 u-1/5@md">
+			<a href="/<?php echo ($post->post_name); ?>/">
+				<?php echo get_the_title($post->ID); ?>
+			</a>
+		</li>
+	<?php endforeach; ?>
+	</ul>
 	<?php endif; ?>
 </div>
 
