@@ -239,6 +239,14 @@ get_header(); ?>
 							$yellowCards = $playerstat->yellowCardsFirst + $playerstat->yellowCardsSecond;
 							$redCards = $playerstat->redCardsFirst + $playerstat->redCardsSecond;
 
+							/* Sum up the total numbers */
+							$matchesTotal += $matches;
+							$goalsTotal += $goals;
+							$assistsTotal += $assists;
+							$yellowCardsTotal += $yellowCards;
+							$redCardsTotal += $redCards;
+
+							/* Create table markup */
 							echo '<tr>';
 							echo '<th><a href="/turnering/' . $seasonSlug . '">' . esc_html($season) . '</a></th>';
 							echo '<td>' . esc_html($matches) . '</td>';
@@ -253,11 +261,11 @@ get_header(); ?>
 					<tfoot>
 						<tr>
 							<th>Sum</th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th><?php esc_html_e($matchesTotal); ?></th>
+							<th><?php esc_html_e($goalsTotal); ?></th>
+							<th><?php esc_html_e($assistsTotal); ?></th>
+							<th><?php esc_html_e($yellowCardsTotal); ?></th>
+							<th><?php esc_html_e($redCardsTotal); ?></th>
 						</tr>
 					</tfoot>
 				</table>
