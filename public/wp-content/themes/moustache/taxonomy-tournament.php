@@ -45,10 +45,41 @@ get_header(); ?>
 								the_post();
 							?>
 								<tr>
-									<?php $postponed = get_field('postponed'); ?>
-									<?php if ($postponed) : ?>
+									<?php
+										$date_time = get_field('date_time');
+										$postponed = get_field('postponed');
+										$new_date_time = get_field('new_date_time');
+									?>
+
+									<?php if (!empty($postponed) && empty($new_date_time)) : ?>
 									<td colspan="3"><em>Nytt tidspunkt kommer</em></td>
-									<?php else : ?>
+									<?php endif ; ?>
+
+									<?php if (!empty($postponed && $new_date_time)) : ?>
+										<td>
+										<?php
+										$day = get_field('new_date_time');
+										$day = strtotime($day);
+										echo ucfirst(date_i18n('l', $day));
+										?>
+									</td>
+									<td>
+										<?php
+										$date = get_field('new_date_time');
+										$date = strtotime($date);
+										echo date_i18n('d.m', $date);
+										?>
+									</td>
+									<td>
+										<?php
+										$time = get_field('new_date_time');
+										$time = strtotime($time);
+										echo date_i18n('H.i', $time);
+										?>
+									</td>
+									<?php endif; ?>
+
+									<?php if (empty($postponed)) : ?>
 									<td>
 										<?php
 										$day = get_field('date_time');
