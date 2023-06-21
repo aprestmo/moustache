@@ -22,7 +22,7 @@
 	"devDependencies": {
 		"nebula-css": "^2.7.1",
 		"prettier": "^2.8.8",
-		"sass": "~1.63.4",
+		"sass": "~1.63.5",
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {
