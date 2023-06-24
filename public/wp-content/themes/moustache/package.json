@@ -22,12 +22,12 @@
 	"devDependencies": {
 		"nebula-css": "^2.7.1",
 		"prettier": "^2.8.8",
-		"sass": "~1.63.5",
+		"sass": "~1.63.6",
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {
 		"postcss": "^8.4.24",
-		"postcss-preset-env": "^8.5.0",
+		"postcss-preset-env": "^8.5.1",
 		"vite": "^4.3.9",
 		"vite-plugin-live-reload": "^3.0.2",
 		"vite-plugin-static-copy": "^0.16.0"
