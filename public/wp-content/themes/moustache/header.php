@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="c-hero" style="background-image: url('<?php echo esc_attr(get_template_directory_uri()); ?>/dist/default-hero.jpg')">
+    <div class="c-hero" style="background-image: url('<?php echo esc_attr(get_template_directory_uri()); ?>/dist/default-hero.webp')">
     </div>
 
     <div id="js-site-navigation" class="c-navigation">
