@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="c-hero" style="background-image: url('https://res.cloudinary.com/attityd/image/upload/f_auto,q_auto/v1/kampbart/zs1hwv2lgkvseqjjjych')">
+    <div class="c-hero" style="background-image: url('https://res.cloudinary.com/kampbart/image/upload/cs_srgb,f_auto/v1688457152/kampbart/default-hero.jpg')">
     </div>
 
     <div id="js-site-navigation" class="c-navigation">
