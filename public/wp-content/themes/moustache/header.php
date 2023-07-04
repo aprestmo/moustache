@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="c-hero" style="background-image: url('<?php echo esc_attr(get_template_directory_uri()); ?>/dist/default-hero.webp')">
+    <div class="c-hero" style="background-image: url('https://res.cloudinary.com/attityd/image/upload/f_auto,q_auto/v1/kampbart/zs1hwv2lgkvseqjjjych')">
     </div>
 
     <div id="js-site-navigation" class="c-navigation">
