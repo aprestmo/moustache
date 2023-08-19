@@ -19,7 +19,9 @@ while (have_posts()) :
   if ($posts) :
   ?>
 
-	<?php opponents(); ?>
+<strong><?php print_r(get_field('match_report')); ?></strong>
+	<h1><?php opponents(); ?></h1>
+	<!-- <pre><?php print_r($posts); ?></pre> -->
 
 	<?php
 
