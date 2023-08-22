@@ -44,7 +44,6 @@ get_header(); ?>
 							while (have_posts()) :
 								the_post();
 							?>
-														<pre><?php print_r($post) ?></pre>
 								<tr>
 									<?php
 										$date_time = get_field('date_time');
