@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2023-06-13 08:52+0200\n"
+"POT-Creation-Date: 2023-09-01 07:17+0200\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -34,8 +34,8 @@ msgstr ""
 msgid "Klubboversikt"
 msgstr ""
 
-#: archive-pitch.php:31 single-pitch.php:38
-msgid "Surface"
+#: archive-pitch.php:24
+msgid "Baneoversikt"
 msgstr ""
 
 #: archive-player.php:35
@@ -70,20 +70,12 @@ msgstr ""
 msgid "Attendace"
 msgstr ""
 
-#: includes/layouts/_cards.php:17
-msgid "Warning in 1st half"
+#: includes/layouts/_cards.php:10
+msgid "Card in 1st half"
 msgstr ""
 
-#: includes/layouts/_cards.php:32
-msgid "Warning in 2nd half"
-msgstr ""
-
-#: includes/layouts/_cards.php:56
-msgid "Sent off in 1st half"
-msgstr ""
-
-#: includes/layouts/_cards.php:71
-msgid "Sent off in 2nd half"
+#: includes/layouts/_cards.php:27
+msgid "Card in 2nd half"
 msgstr ""
 
 #: includes/layouts/_date-time.php:19 template-parts/next-match.php:61
@@ -106,19 +98,19 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: page-klubbinfo.php:17
+#: page-klubbinfo.php:13
 msgid "Founded"
 msgstr ""
 
-#: page-klubbinfo.php:21
+#: page-klubbinfo.php:17
 msgid "Address"
 msgstr ""
 
-#: page-klubbinfo.php:28
+#: page-klubbinfo.php:27
 msgid "Account number"
 msgstr ""
 
-#: page-klubbinfo.php:32
+#: page-klubbinfo.php:31
 msgid "Kit"
 msgstr ""
 
@@ -128,6 +120,10 @@ msgstr ""
 
 #: single-pitch.php:20
 msgid "Image from "
+msgstr ""
+
+#: single-pitch.php:38
+msgid "Surface"
 msgstr ""
 
 #: single-player.php:21
@@ -194,11 +190,11 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: taxonomy-tournament.php:123
+#: taxonomy-tournament.php:154
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: taxonomy-tournament.php:214 taxonomy-tournament.php:216
+#: taxonomy-tournament.php:245 taxonomy-tournament.php:247
 msgid "&ndash;"
 msgstr ""
 

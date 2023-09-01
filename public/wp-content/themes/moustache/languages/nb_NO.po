@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2023-06-13 08:52+0200\n"
-"PO-Revision-Date: 2023-06-13 09:01+0200\n"
+"POT-Creation-Date: 2023-09-01 07:17+0200\n"
+"PO-Revision-Date: 2023-09-01 07:17+0200\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -34,9 +34,9 @@ msgstr ""
 msgid "Klubboversikt"
 msgstr ""
 
-#: archive-pitch.php:31 single-pitch.php:38
-msgid "Surface"
-msgstr "Underlag"
+#: archive-pitch.php:24
+msgid "Baneoversikt"
+msgstr ""
 
 #: archive-player.php:35
 msgid "Aktive spillere"
@@ -70,21 +70,13 @@ msgstr "Gå til nettstedet"
 msgid "Attendace"
 msgstr "Tilskuere"
 
-#: includes/layouts/_cards.php:17
-msgid "Warning in 1st half"
-msgstr "Advarsel i 1. omgang"
+#: includes/layouts/_cards.php:10
+msgid "Card in 1st half"
+msgstr "Kort i 1. omgang"
 
-#: includes/layouts/_cards.php:32
-msgid "Warning in 2nd half"
-msgstr "Advarsel i 2. omgang"
-
-#: includes/layouts/_cards.php:56
-msgid "Sent off in 1st half"
-msgstr "Utvist i 1. omgang"
-
-#: includes/layouts/_cards.php:71
-msgid "Sent off in 2nd half"
-msgstr "Utvist i 2. omgang"
+#: includes/layouts/_cards.php:27
+msgid "Card in 2nd half"
+msgstr "Kort i 2. omgang"
 
 #: includes/layouts/_date-time.php:19 template-parts/next-match.php:61
 msgid "at"
@@ -107,19 +99,19 @@ msgstr ""
 msgid "Primary Menu"
 msgstr "Hovedmeny"
 
-#: page-klubbinfo.php:17
+#: page-klubbinfo.php:13
 msgid "Founded"
 msgstr "Stiftet"
 
-#: page-klubbinfo.php:21
+#: page-klubbinfo.php:17
 msgid "Address"
 msgstr "Postadresse"
 
-#: page-klubbinfo.php:28
+#: page-klubbinfo.php:27
 msgid "Account number"
 msgstr "Kontonummer"
 
-#: page-klubbinfo.php:32
+#: page-klubbinfo.php:31
 msgid "Kit"
 msgstr "Drakter"
 
@@ -130,6 +122,10 @@ msgstr "F.eks. seiere, barter etc."
 #: single-pitch.php:20
 msgid "Image from "
 msgstr "Bilde fra"
+
+#: single-pitch.php:38
+msgid "Surface"
+msgstr "Underlag"
 
 #: single-player.php:21
 msgid "Portrait of "
@@ -195,11 +191,11 @@ msgstr "Bane"
 msgid "Result"
 msgstr "Resultat"
 
-#: taxonomy-tournament.php:123
+#: taxonomy-tournament.php:154
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: taxonomy-tournament.php:214 taxonomy-tournament.php:216
+#: taxonomy-tournament.php:245 taxonomy-tournament.php:247
 msgid "&ndash;"
 msgstr ""
 
@@ -234,6 +230,12 @@ msgstr ""
 #. Template Name of the plugin/theme
 msgid "Klubbinfo */"
 msgstr ""
+
+#~ msgid "Sent off in 1st half"
+#~ msgstr "Utvist i 1. omgang"
+
+#~ msgid "Sent off in 2nd half"
+#~ msgstr "Utvist i 2. omgang"
 
 #~ msgctxt "post type general name"
 #~ msgid "Clubs"

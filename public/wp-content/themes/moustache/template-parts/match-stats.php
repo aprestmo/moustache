@@ -97,7 +97,7 @@ if ($posts) :
     <?php attendance(); ?>
     <?php scores(); ?>
     <hr>
-		<div class="u-soft-bottom-md">
+		<div>
 			<?php cards(); ?>
 		</div>
 		<div>

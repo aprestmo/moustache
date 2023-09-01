@@ -5,78 +5,37 @@
 
 function cards()
 {
-
-  $yellow_cards_first_half = get_field('yellow_card_first_half');
-  $yellow_cards_second_half = get_field('yellow_card_second_half');
-
-  // We can differentiate on which half it has happened in
-
-  if (!empty($yellow_cards_first_half)) {
-
+	if (have_rows('cards_first_half') ):
 		echo '<strong>';
-			esc_html_e('Warning in 1st half', 'moustache');
+			esc_html_e('Card in 1st half', 'moustache');
 		echo '</strong>';
+		echo '<ul class="u-soft-bottom-md">';
+		while ( have_rows('cards_first_half') ) : the_row();
+			$player = get_sub_field('card_player_first_half');
+			$colour = get_sub_field('card_colour_first_half');
+				echo '<li data-card="' . $colour . '">';
+					echo '<a href="/spiller/' . $player->post_name . '">';
+						esc_html_e($player->post_title);
+					echo '</a>';
+				echo '</li>';
+		endwhile;
+		echo '</ul>';
+	endif;
 
-    echo '<ul>';
-
-    foreach ($yellow_cards_first_half as $player) {
-      echo '<li>' . get_the_title($player->ID) . '</li>';
-    }
-
-    echo '</ul>';
-  }
-
-  if (!empty($yellow_cards_second_half)) {
-
+	if (have_rows('cards_second_half') ):
 		echo '<strong>';
-			esc_html_e('Warning in 2nd half', 'moustache');
+			esc_html_e('Card in 2nd half', 'moustache');
 		echo '</strong>';
-
-    echo '<ul>';
-
-    foreach ($yellow_cards_second_half as $player) {
-      echo '<li>' . get_the_title($player->ID) . '</li>';
-    }
-
-    echo '</ul>';
-  }
-
-  // Check for red cards
-  // @TODO: If one player is sent off, he can not be chosen in the other
-  // half as well
-
-  $red_cards_first_half = get_field('red_card_first_half');
-  $red_cards_second_half = get_field('red_card_second_half');
-
-  // We can differentiate on which half it has happened in
-
-  if (!empty($red_cards_first_half)) {
-
-		echo '<strong>';
-			esc_html_e('Sent off in 1st half', 'moustache');
-		echo '</strong>';
-
-    echo '<ul>';
-
-    foreach ($red_cards_first_half as $player) {
-      echo '<li>' . get_the_title($player->ID) . '</li>';
-    }
-
-    echo '</ul>';
-  }
-
-  if (!empty($red_cards_second_half)) {
-
-		echo '<strong>';
-			esc_html_e('Sent off in 2nd half', 'moustache');
-		echo '</strong>';
-
-    echo '<ul>';
-
-    foreach ($red_cards_second_half as $player) {
-      echo '<li>' . get_the_title($player->ID) . '</li>';
-    }
-
-    echo '</ul>';
-  }
+		echo '<ul class="u-soft-bottom-md">';
+		while ( have_rows('cards_second_half') ) : the_row();
+			$player = get_sub_field('card_player_second_half');
+			$colour = get_sub_field('card_colour_second_half');
+				echo '<li data-card="' . $colour . '">';
+					echo '<a href="/spiller/' . $player->post_name . '">';
+						esc_html_e($player->post_title);
+					echo '</a>';
+				echo '</li>';
+		endwhile;
+		echo '</ul>';
+	endif;
 }
