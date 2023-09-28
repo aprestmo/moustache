@@ -47,7 +47,6 @@
 	row-gap: 0.5rem;
 
 	&__item {
-		display: contents;
 		padding-block: 0.3125rem;
 	}
 
@@ -57,6 +56,7 @@
 
 	&__item,
 	&__sub-menu__item {
+		display: contents;
 		list-style: none;
 		margin-inline-start: 0;
 	}
