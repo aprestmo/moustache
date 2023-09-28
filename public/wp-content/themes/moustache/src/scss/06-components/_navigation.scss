@@ -39,17 +39,19 @@
 /** WP BEM MENU **/
 
 .c-nav {
+	column-gap: 2rem;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(16.25rem, 1fr));
 	margin-block-end: 0;
 	margin-inline-start: 0;
+	row-gap: 0.5rem;
 
 	&__item {
+		display: contents;
 		padding-block: 0.3125rem;
 	}
 
 	&__sub-menu {
-		// display: none;
 		margin-inline-start: 0;
 	}
 
