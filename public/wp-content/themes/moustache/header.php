@@ -62,12 +62,12 @@
     </div>
 
     <div class="mou-site-wrap mou-site-wrap--padding u-1/1 c-header__actions">
-      <button id="js-menu-toggle--open" class="c-header__toggle" type="button">
+      <button id="js-menu-toggle--open" class="c-header__toggle" type="button" data-toggle="navigation">
         <?php esc_html_e('Menu', 'moustache'); ?>
       </button>
 
       <div class="c-header__search">
-        <button class="c-header__toggle js-search-toggle" type="button"><?php esc_html_e('Search', 'moustache'); ?></button>
+        <button class="c-header__toggle js-search-toggle" type="button" data-toggle="search"><?php esc_html_e('Search', 'moustache'); ?></button>
       </div>
     </div>
 
