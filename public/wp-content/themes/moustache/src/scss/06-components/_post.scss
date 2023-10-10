@@ -34,4 +34,17 @@
 	strong {
 		@include font('Regular');
 	}
+
+	a {
+		color: $c-brand-red;
+		text-decoration: underline;
+		text-decoration-thickness: 0.0625rem;
+		text-underline-offset: 0.125rem;
+		transition: text-decoration 180ms ease;
+
+		&:hover {
+			border-bottom: 0;
+			text-decoration-thickness: 0.125rem;
+		}
+	}
 }
