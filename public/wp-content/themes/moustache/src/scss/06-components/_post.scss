@@ -46,8 +46,8 @@
 			text-decoration-thickness: 0.125rem;
 		}
 	}
+}
 
-	:where(a) {
-		color: $c-brand-red;
-	}
+.single .wysiwyg a {
+	color: $c-brand-red;
 }
