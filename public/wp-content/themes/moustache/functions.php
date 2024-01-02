@@ -7,36 +7,52 @@ defined('ABSPATH') || die('Shame on you');
  *Author URI: http://attityd.no
  */
 
-/** Define default translation domain for this theme */
+/**
+ * Define default translation domain for this theme
+*/
 define('TRANSLATION_DOMAIN', 'moustache');
 
-/** Define theme root */
+/**
+ * Define theme root
+*/
 define('THEME_ROOT', __DIR__ . '/');
 
-/** Setup theme (Images and menus) */
+/**
+ * Setup theme (Images and menus)
+*/
 require __DIR__ . '/includes/setup-theme.php';
 
-/** Setup assets (Script and styles) */
+/**
+ * Setup assets (Script and styles)
+*/
 require __DIR__ . '/includes/enqueue-assets.php';
 
 /*
  * Cleanup/normalize WordPress behavior
  */
 foreach (glob(__DIR__ . '/includes/normalize/*.php') as $file) {
-  include $file;
+    include $file;
 }
 
-/** Custom functions */
+/**
+ * Custom functions
+*/
 require __DIR__ . '/includes/custom-functions.php';
 
-/** Match report functions */
-include get_template_directory() . '/includes/layouts/match-report.php';
+/**
+ * Match report functions
+*/
+require get_template_directory() . '/includes/layouts/match-report.php';
 
-/** Brand Admin Login */
-include get_template_directory() . '/includes/admin-brand.php';
+/**
+ * Brand Admin Login
+*/
+require get_template_directory() . '/includes/admin-brand.php';
 
-/** Options page */
-include get_template_directory() . '/includes/options-page.php';
+/**
+ * Options page
+*/
+require get_template_directory() . '/includes/options-page.php';
 
 // TRUNK
 
@@ -48,15 +64,15 @@ include get_template_directory() . '/includes/options-page.php';
 function redirect_users_by_role()
 {
 
-  if (!defined('DOING_AJAX')) {
+    if (!defined('DOING_AJAX')) {
 
-    $current_user = wp_get_current_user();
-    $role_name    = $current_user->roles[0];
+        $current_user = wp_get_current_user();
+        $role_name    = $current_user->roles[0];
 
-    if ('subscriber' === $role_name) {
-      wp_redirect(home_url());
+        if ('subscriber' === $role_name) {
+            wp_redirect(home_url());
+        }
     }
-  }
 } // redirect_users_by_role
 add_action('admin_init', 'redirect_users_by_role');
 
@@ -67,27 +83,26 @@ define('DIST_PATH', get_template_directory_uri().'/dist/');
 
 function endsWith(string $haystack, string $needle): bool
 {
-  return substr($haystack, -strlen($needle)) === $needle;
+    return substr($haystack, -strlen($needle)) === $needle;
 }
 
 function is_development(): bool
 {
-  if (isset($_SERVER['SERVER_NAME'])) {
-    if (
-      $_SERVER['SERVER_NAME'] == 'localhost'
-      || endsWith($_SERVER['SERVER_NAME'], '.test')
-      || endsWith($_SERVER['SERVER_NAME'], '.local')
-    ) {
-      return true;
+    if (isset($_SERVER['SERVER_NAME'])) {
+        if ($_SERVER['SERVER_NAME'] == 'localhost'
+            || endsWith($_SERVER['SERVER_NAME'], '.test')
+            || endsWith($_SERVER['SERVER_NAME'], '.local')
+        ) {
+            return true;
+        }
     }
-  }
 
-  return false;
+    return false;
 }
 
 function vite(String $entry): string
 {
-  return vite_js_tag($entry)
+    return vite_js_tag($entry)
     .vite_js_preload_imports($entry)
     .vite_css_tag($entry);
 }
@@ -95,106 +110,108 @@ function vite(String $entry): string
 // Helpers to print tags
 function vite_js_tag(string $entry): string
 {
-  $url = IS_DEVELOPMENT ? 'http://localhost:3005/'.$entry : vite_asset_url($entry);
+    $url = IS_DEVELOPMENT ? 'http://localhost:3005/'.$entry : vite_asset_url($entry);
 
-  if (!$url) {
-    return '';
-  }
+    if (!$url) {
+        return '';
+    }
 
-  return '<script type="module" crossorigin src="'.$url.'"></script>';
+    return '<script type="module" crossorigin src="'.$url.'"></script>';
 }
 
 function vite_js_preload_imports(string $entry): string
 {
-  if (IS_DEVELOPMENT) {
-    return '';
-  }
+    if (IS_DEVELOPMENT) {
+        return '';
+    }
 
-  $res = '';
-  foreach (vite_imports_urls($entry) as $url) {
-    $res .= '<link rel="modulepreload" href="'.$url.'">';
-  }
+    $res = '';
+    foreach (vite_imports_urls($entry) as $url) {
+        $res .= '<link rel="modulepreload" href="'.$url.'">';
+    }
 
-  return $res;
+    return $res;
 }
 
 function vite_css_tag(string $entry): string
 {
-  // not needed on dev, it's injected by Vite
-  if (IS_DEVELOPMENT) {
-    return '';
-  }
+    // not needed on dev, it's injected by Vite
+    if (IS_DEVELOPMENT) {
+        return '';
+    }
 
-  $tags = '';
-  foreach (vite_css_urls($entry) as $url) {
-    $tags .= '<link rel="stylesheet" href="'.$url.'">';
-  }
+    $tags = '';
+    foreach (vite_css_urls($entry) as $url) {
+        $tags .= '<link rel="stylesheet" href="'.$url.'">';
+    }
 
-  return $tags;
+    return $tags;
 }
 
 // Helpers to locate files
 function vite_get_manifest(): array
 {
-  $content = file_get_contents(__DIR__.'/dist/manifest.json');
+    $content = file_get_contents(__DIR__.'/dist/.vite/manifest.json');
 
-  return json_decode($content, true);
+    return json_decode($content, true);
 }
 
 function vite_asset_url(string $entry): string
 {
-  $manifest = vite_get_manifest();
+    $manifest = vite_get_manifest();
 
-  return isset($manifest[$entry]) ? DIST_PATH.$manifest[$entry]['file'] : '';
+    return isset($manifest[$entry]) ? DIST_PATH.$manifest[$entry]['file'] : '';
 }
 
 function vite_imports_urls(string $entry): array
 {
-  $urls = [];
-  $manifest = vite_get_manifest();
+    $urls = [];
+    $manifest = vite_get_manifest();
 
-  if (!empty($manifest[$entry]['imports'])) {
-    foreach ($manifest[$entry]['imports'] as $imports) {
-      $urls[] = DIST_PATH.$manifest[$imports]['file'];
+    if (!empty($manifest[$entry]['imports'])) {
+        foreach ($manifest[$entry]['imports'] as $imports) {
+            $urls[] = DIST_PATH.$manifest[$imports]['file'];
+        }
     }
-  }
 
-  return $urls;
+    return $urls;
 }
 
 function vite_css_urls(string $entry): array
 {
-  $urls = [];
-  $manifest = vite_get_manifest();
+    $urls = [];
+    $manifest = vite_get_manifest();
 
-  if (!empty($manifest[$entry]['css'])) {
-    foreach ($manifest[$entry]['css'] as $file) {
-      $urls[] = DIST_PATH.$file;
+    if (!empty($manifest[$entry]['css'])) {
+        foreach ($manifest[$entry]['css'] as $file) {
+            $urls[] = DIST_PATH.$file;
+        }
     }
-  }
 
-  return $urls;
+    return $urls;
 }
 
-function lt_html_excerpt($text) { // Fakes an excerpt if needed
-	global $post;
-	if ( '' == $text ) {
-			$text = get_the_content('');
-			$text = apply_filters('the_content', $text);
-			$text = str_replace('\]\]\>', ']]&gt;', $text);
-			/*just add all the tags you want to appear in the excerpt --
-			be sure there are no white spaces in the string of allowed tags */
-			$text = strip_tags($text,'<p><br><b><a><em><strong>');
-			/* you can also change the length of the excerpt here, if you want */
-			$excerpt_length = 50;
-			$words = explode(' ', $text, $excerpt_length + 1);
-			if (count($words)> $excerpt_length) {
-					array_pop($words);
-					array_push($words, '&hellip;');
-					$text = implode(' ', $words);
-			}
-	}
-	return $text;
+function lt_html_excerpt($text)
+{
+    // Fakes an excerpt if needed
+    global $post;
+    if ('' == $text ) {
+        $text = get_the_content('');
+        $text = apply_filters('the_content', $text);
+        $text = str_replace('\]\]\>', ']]&gt;', $text);
+        /*just add all the tags you want to appear in the excerpt --
+        be sure there are no white spaces in the string of allowed tags */
+        $text = strip_tags($text, '<p><br><b><a><em><strong>');
+        /* you can also change the length of the excerpt here, if you want */
+        $excerpt_length = 50;
+        $words = explode(' ', $text, $excerpt_length + 1);
+        if (count($words)> $excerpt_length) {
+            array_pop($words);
+            array_push($words, '&hellip;');
+            $text = implode(' ', $words);
+        }
+    }
+    return $text;
 }
 
 /* remove the default filter */
