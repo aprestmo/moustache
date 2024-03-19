@@ -3,7 +3,7 @@
 
 <?php if (strlen(get_field('404', 'option'))) : ?>
 
-  <p><?php esc_html_e(the_field('404', 'option')); ?></p>
+  <p><?php echo get_field('404', 'option'); ?></p>
 <?php else : ?>
 
   <h1><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'ahoy'); ?></h1>
