@@ -1,0 +1,47 @@
+{
+  "fonts/Pacaembu-Black.woff2": {
+    "file": "assets/Pacaembu-Black-JpX7xdOx.woff2",
+    "src": "fonts/Pacaembu-Black.woff2"
+  },
+  "fonts/Pacaembu-Bold.woff2": {
+    "file": "assets/Pacaembu-Bold-AovlnplR.woff2",
+    "src": "fonts/Pacaembu-Bold.woff2"
+  },
+  "fonts/Pacaembu-Light.woff2": {
+    "file": "assets/Pacaembu-Light-t2FEznbs.woff2",
+    "src": "fonts/Pacaembu-Light.woff2"
+  },
+  "fonts/Pacaembu-Medium.woff2": {
+    "file": "assets/Pacaembu-Medium-WYEQ1dAU.woff2",
+    "src": "fonts/Pacaembu-Medium.woff2"
+  },
+  "fonts/Pacaembu-Regular.woff2": {
+    "file": "assets/Pacaembu-Regular-cNYLcUjd.woff2",
+    "src": "fonts/Pacaembu-Regular.woff2"
+  },
+  "fonts/Pacaembu-Thin.woff2": {
+    "file": "assets/Pacaembu-Thin-VuiRhbNZ.woff2",
+    "src": "fonts/Pacaembu-Thin.woff2"
+  },
+  "fonts/Pacaembu-Ultra.woff2": {
+    "file": "assets/Pacaembu-Ultra-dnJkJxpj.woff2",
+    "src": "fonts/Pacaembu-Ultra.woff2"
+  },
+  "main.js": {
+    "assets": [
+      "assets/Pacaembu-Black-JpX7xdOx.woff2",
+      "assets/Pacaembu-Bold-AovlnplR.woff2",
+      "assets/Pacaembu-Light-t2FEznbs.woff2",
+      "assets/Pacaembu-Medium-WYEQ1dAU.woff2",
+      "assets/Pacaembu-Regular-cNYLcUjd.woff2",
+      "assets/Pacaembu-Thin-VuiRhbNZ.woff2",
+      "assets/Pacaembu-Ultra-dnJkJxpj.woff2"
+    ],
+    "css": [
+      "assets/main-IyDjfjVv.css"
+    ],
+    "file": "assets/main-pkYY6WyM.js",
+    "isEntry": true,
+    "src": "main.js"
+  }
+}
