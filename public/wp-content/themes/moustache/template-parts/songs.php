@@ -11,7 +11,9 @@
 				echo '<audio controls src="' . $audio .'" style="inline-size: 100%">';
 					echo '<a href="' . $audio . '">Last ned' . $title . '</a>';
 				echo '</audio>';
-				echo '<p><a href="' . $lyrics . '">Last ned teksten til «' . $title . '»</a></p>';
+				if ($lyrics) {
+					echo '<p><a href="' . $lyrics . '">Last ned teksten til «' . $title . '»</a></p>';
+				}
 			echo '</figure>';
 		endwhile;
 		echo '</div>';
