@@ -19,29 +19,29 @@ get_header(); ?>
                 </header>
 
                 <div class="u-flow">
-                    <?php
+								<?php
                     if (is_tax()) {
                         $args = array(
-                        'posts_per_page' => -1,
-                        'post_type' => 'fixture',
-                        'tax_query' => array(
-                        array(
-                        'taxonomy' => get_queried_object()->taxonomy,
-                        'field' => 'term_id',
-                        'terms' => get_queried_object()->term_id,
-                        ),
-                        ),
-                        'meta_query' => array(
-                        'relation' => 'OR',
-                        array(
+                            'posts_per_page' => -1,
+                            'post_type' => 'fixture',
+                            'tax_query' => array(
+                                array(
+                                    'taxonomy' => get_queried_object()->taxonomy,
+                                    'field' => 'term_id',
+                                    'terms' => get_queried_object()->term_id,
+                                ),
+                            ),
+                            'meta_query' => array(
+                                'relation' => 'OR',
+                                array(
                                     'key' => 'new_date_time',
                                     'compare' => 'EXISTS',
-                        ),
-                        array(
+                                ),
+                                array(
                                     'key' => 'date_time',
                                     'compare' => 'EXISTS',
-                        ),
-                        ),
+                                ),
+                            ),
                         );
 
                         $query = new WP_Query($args);
@@ -50,19 +50,17 @@ get_header(); ?>
                             $posts = $query->posts;
 
                             // Custom sort function
-                            usort(
-                                $posts, function ($a, $b) {
-                                    $a_new_date_time = get_field('new_date_time', $a->ID);
-                                    $a_date_time = get_field('date_time', $a->ID);
-                                    $a_datetime = $a_new_date_time ? strtotime($a_new_date_time) : strtotime($a_date_time);
+                            usort($posts, function($a, $b) {
+                                $a_new_date_time = get_field('new_date_time', $a->ID);
+                                $a_date_time = get_field('date_time', $a->ID);
+                                $a_datetime = $a_new_date_time ? strtotime($a_new_date_time) : strtotime($a_date_time);
 
-                                    $b_new_date_time = get_field('new_date_time', $b->ID);
-                                    $b_date_time = get_field('date_time', $b->ID);
-                                    $b_datetime = $b_new_date_time ? strtotime($b_new_date_time) : strtotime($b_date_time);
+                                $b_new_date_time = get_field('new_date_time', $b->ID);
+                                $b_date_time = get_field('date_time', $b->ID);
+                                $b_datetime = $b_new_date_time ? strtotime($b_new_date_time) : strtotime($b_date_time);
 
-                                    return $a_datetime - $b_datetime;
-                                }
-                            );
+                                return $a_datetime - $b_datetime;
+                            });
                         }
                     }
                     ?>
@@ -82,184 +80,183 @@ get_header(); ?>
                                         <th><?php esc_html_e('Result', 'moustache'); ?></th>
                                     </tr>
                                 </thead>
-                        <?php foreach ($posts as $post) : setup_postdata($post); ?>
+                                <?php foreach ($posts as $post) : setup_postdata($post); ?>
                                     <tr>
-                            <?php
-                            $date_time = get_field('date_time');
-                            $postponed = get_field('postponed');
-                            $new_date_time = get_field('new_date_time');
-                            $display_date_time = $new_date_time ? $new_date_time : $date_time;
-                            ?>
+                                        <?php
+                                        $date_time = get_field('date_time');
+                                        $postponed = get_field('postponed');
+                                        $new_date_time = get_field('new_date_time');
+                                        $display_date_time = $new_date_time ? $new_date_time : $date_time;
+                                        ?>
 
-                            <?php if (!empty($postponed) && empty($new_date_time)) : ?>
+                                        <?php if (!empty($postponed) && empty($new_date_time)) : ?>
                                             <td colspan="3"><em>Nytt tidspunkt kommer</em></td>
                                         <?php else : ?>
                                             <td>
-                                            <?php
-                                            $day = strtotime($display_date_time);
-                                            echo ucfirst(date_i18n('l', $day));
-                                            ?>
+                                                <?php
+                                                $day = strtotime($display_date_time);
+                                                echo ucfirst(date_i18n('l', $day));
+                                                ?>
                                             </td>
                                             <td>
-                                            <?php
-                                            $date = strtotime($display_date_time);
-                                            echo date_i18n('d.m', $date);
-                                            ?>
+                                                <?php
+                                                $date = strtotime($display_date_time);
+                                                echo date_i18n('d.m', $date);
+                                                ?>
                                             </td>
                                             <td>
-                                            <?php
-                                            $time = strtotime($display_date_time);
-                                            echo date_i18n('H.i', $time);
-                                            ?>
+                                                <?php
+                                                $time = strtotime($display_date_time);
+                                                echo date_i18n('H.i', $time);
+                                                ?>
                                             </td>
                                         <?php endif; ?>
                                         <td>
-                            <?php
-                            $home_team = get_field('home_team');
-                            foreach ($home_team as $team) {
-                                if ($team->post_name !== 'kampbart') {
-                                    echo '<a href="/klubb/' . $team->post_name . '">' . $team->post_title . '</a>';
-                                } else {
-                                    echo $team->post_title;
-                                }
-                            }
-                            ?>
+                                            <?php
+                                            $home_team = get_field('home_team');
+                                            foreach ($home_team as $team) {
+                                                if ($team->post_name !== 'kampbart') {
+                                                    echo '<a href="/klubb/' . $team->post_name . '">' . $team->post_title . '</a>';
+                                                } else {
+                                                    echo $team->post_title;
+                                                }
+                                            }
+                                            ?>
                                         </td>
                                         <td>
-                            <?php
-                            $away_team = get_field('away_team');
-                            foreach ($away_team as $team) {
-                                if ($team->post_name !== 'kampbart') {
-                                    echo '<a href="/klubb/' . $team->post_name . '">' . $team->post_title . '</a>';
-                                } else {
-                                    echo $team->post_title;
-                                }
-                            }
-                            ?>
+                                            <?php
+                                            $away_team = get_field('away_team');
+                                            foreach ($away_team as $team) {
+                                                if ($team->post_name !== 'kampbart') {
+                                                    echo '<a href="/klubb/' . $team->post_name . '">' . $team->post_title . '</a>';
+                                                } else {
+                                                    echo $team->post_title;
+                                                }
+                                            }
+                                            ?>
                                         </td>
                                         <td>
-                            <?php
-                            $pitches = get_field('pitch');
-                            if ($pitches) {
-                                foreach ($pitches as $pitch) {
-                                    echo '<a href="/bane/' . $pitch->post_name . '">' . $pitch->post_title . '</a>';
-                                }
-                            }
-                            ?>
+                                            <?php
+                                            $pitches = get_field('pitch');
+                                            if ($pitches) {
+                                                foreach ($pitches as $pitch) {
+                                                    echo '<a href="/bane/' . $pitch->post_name . '">' . $pitch->post_title . '</a>';
+                                                }
+                                            }
+                                            ?>
                                         </td>
 
-                            <?php
-                            $walkover = get_field('walkover');
-                            $walkover_result = esc_html(get_field('walkover_result'));
-                            $walkover_winner = esc_html(get_field('walkover_winner'));
+                                        <?php
+                                        $walkover = get_field('walkover');
+                                        $walkover_result = esc_html(get_field('walkover_result'));
+                                        $walkover_winner = esc_html(get_field('walkover_winner'));
 
-                            $result_only = get_field('result_only');
-                            $result_only_fulltime = esc_html(get_field('result_only_fulltime'));
-                            $result_fulltime = esc_html(get_field('result_fulltime'));
-                            $result_pause = esc_html(get_field('result_pause'));
+                                        $result_only = get_field('result_only');
+                                        $result_only_fulltime = esc_html(get_field('result_only_fulltime'));
+                                        $result_fulltime = esc_html(get_field('result_fulltime'));
+                                        $result_pause = esc_html(get_field('result_pause'));
 
-                            if ($walkover && $result_only) {
-                                echo '<td style="color: red">';
-                                esc_html_e('You can\'t select both walkover and inadequate report', 'moustache');
-                                echo '</td>';
-                            } elseif ($walkover) {
-                                if ($walkover_winner === 'kampbart') {
-                                    $result_type = 'u-tc--green';
-                                } else {
-                                    $result_type = 'u-tc--red';
-                                }
+                                        if ($walkover && $result_only) {
+                                            echo '<td style="color: red">';
+                                            esc_html_e('You can\'t select both walkover and inadequate report', 'moustache');
+                                            echo '</td>';
+                                        } elseif ($walkover) {
+                                            if ($walkover_winner === 'kampbart') {
+                                                $result_type = 'u-tc--green';
+                                            } else {
+                                                $result_type = 'u-tc--red';
+                                            }
 
                                             // Need to differentiate who won on WO in backend and here
                                             echo '<td class="' . $result_type . '">';
                                             esc_html_e(get_field('walkover_result'));
                                             echo ' <abbr title=\'Walkover\'>WO</abbr>';
                                             echo '</td>';
-                            } elseif ($result_only) {
-                                // Set class based on result
+                                        } elseif ($result_only) {
+                                            // Set class based on result
 
-                                echo '<td class="' . $result_type . '">';
+                                            echo '<td class="' . $result_type . '">';
 
-                                if ($result_only_fulltime) {
-                                    echo $result_fulltime;
-                                } else {
-                                    echo $result_fulltime . ' (' . $result_pause . ')';
-                                }
+                                            if ($result_only_fulltime) {
+                                                echo $result_fulltime;
+                                            } else {
+                                                echo $result_fulltime . ' (' . $result_pause . ')';
+                                            }
 
                                             echo '</td>';
-                            } else {
-                                // Set vars in the start to not get PHP notices
-                                $kampbart_goals_first_half = 0;
-                                $opponent_goals_first_half = 0;
-                                $kampbart_goals_second_half = 0;
-                                $opponent_goals_second_half = 0;
-
-                                if (get_field('goals_assists_first_half')) {
-                                    $kampbart_goals_first_half = 0;
-                                    $opponent_goals_first_half = 0;
-
-                                    while (has_sub_field('goals_assists_first_half')) {
-                                        $goals_for = get_sub_field('goal_for');
-
-                                        if ($goals_for === 'kampbart') {
-                                            $kampbart_goals_first_half++;
                                         } else {
-                                            $opponent_goals_first_half++;
-                                        }
-                                    }
-                                }
+                                            // Set vars in the start to not get PHP notices
+                                            $kampbart_goals_first_half = 0;
+                                            $opponent_goals_first_half = 0;
+                                            $kampbart_goals_second_half = 0;
+                                            $opponent_goals_second_half = 0;
 
-                                if (get_field('goals_assists_second_half')) {
-                                    $kampbart_goals_second_half = 0;
-                                    $opponent_goals_second_half = 0;
+                                            if (get_field('goals_assists_first_half')) {
+                                                $kampbart_goals_first_half = 0;
+                                                $opponent_goals_first_half = 0;
 
-                                    while (has_sub_field('goals_assists_second_half')) {
-                                           $goals_for = get_sub_field('goal_for');
+                                                while (has_sub_field('goals_assists_first_half')) {
+                                                    $goals_for = get_sub_field('goal_for');
 
-                                        if ($goals_for === 'kampbart') {
-                                            $kampbart_goals_second_half++;
-                                        } else {
-                                            $opponent_goals_second_half++;
-                                        }
-                                    }
-                                }
+                                                    if ($goals_for === 'kampbart') {
+                                                        $kampbart_goals_first_half++;
+                                                    } else {
+                                                        $opponent_goals_first_half++;
+                                                    }
+                                                }
+                                            }
+
+                                            if (get_field('goals_assists_second_half')) {
+                                                $kampbart_goals_second_half = 0;
+                                                $opponent_goals_second_half = 0;
+
+                                                while (has_sub_field('goals_assists_second_half')) {
+                                                    $goals_for = get_sub_field('goal_for');
+
+                                                    if ($goals_for === 'kampbart') {
+                                                        $kampbart_goals_second_half++;
+                                                    } else {
+                                                        $opponent_goals_second_half++;
+                                                    }
+                                                }
+                                            }
 
                                             // Output final score and pause result
                                             $kampbart_final_score = $kampbart_goals_first_half + $kampbart_goals_second_half;
                                             $opponent_final_score = $opponent_goals_first_half + $opponent_goals_second_half;
 
                                             // Set class based on result
-                                if ($kampbart_final_score > $opponent_final_score) {
+                                            if ($kampbart_final_score > $opponent_final_score) {
                                                 $result_type = 'u-tc--green';
-                                } elseif ($kampbart_final_score === $opponent_final_score) {
-                                       $result_type = 'u-tc--orange';
-                                } elseif ($kampbart_final_score < $opponent_final_score) {
-                                    $result_type = 'u-tc--red';
-                                } else {
-                                    $result_type = null;
-                                }
-
-                                foreach ($home_team as $team) {
-                                    if (strtotime(get_field('date_time')) < strtotime(date_i18n('h:i:s'))) {
-                                        if (get_field('postponed')) {
-                                                                    echo '<td></td>';
-                                        } else {
-                                                            echo '<td class="' . $result_type . '">';
-                                            if ($team->post_name === 'kampbart') {
-                                                esc_html_e($kampbart_final_score . '&ndash;' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '&ndash;' . $opponent_goals_first_half . ')');
+                                            } elseif ($kampbart_final_score === $opponent_final_score) {
+                                                $result_type = 'u-tc--orange';
+                                            } elseif ($kampbart_final_score < $opponent_final_score) {
+                                                $result_type = 'u-tc--red';
                                             } else {
-                                                esc_html_e($opponent_final_score . '&ndash;' . $kampbart_final_score . ' (' . $opponent_goals_first_half . '&ndash;' . $kampbart_goals_first_half . ')');
+                                                $result_type = null;
                                             }
-                                                      echo '</td>';
+
+                                            foreach ($home_team as $team) {
+                                                if (strtotime(get_field('date_time')) < strtotime(date_i18n('h:i:s'))) {
+                                                    if (get_field('postponed')) {
+                                                        echo '<td></td>';
+                                                    } else {
+                                                        echo '<td class="' . $result_type . '">';
+                                                        if ($team->post_name === 'kampbart') {
+                                                            esc_html_e($kampbart_final_score . '&ndash;' . $opponent_final_score . ' (' . $kampbart_goals_first_half . '&ndash;' . $opponent_goals_first_half . ')');
+                                                        } else {
+                                                            esc_html_e($opponent_final_score . '&ndash;' . $kampbart_final_score . ' (' . $opponent_goals_first_half . '&ndash;' . $kampbart_goals_first_half . ')');
+                                                        }
+                                                        echo '</td>';
+                                                    }
+                                                } else {
+                                                    echo '<td></td>';
+                                                }
+                                            }
                                         }
-                                    } else {
-                                        echo '<td></td>';
-                                    }
-                                }
-                            }
-                            ?>
+                                        ?>
                                     </tr>
-                        <?php endforeach;
-                        wp_reset_postdata(); ?>
+                                <?php endforeach; wp_reset_postdata(); ?>
                             </table>
                         </div>
                     <?php endif; ?>
@@ -272,9 +269,7 @@ get_header(); ?>
                     ?>
 
                     <?php
-                    /**
-                     * Hent dynamisk senere
-                     */
+                    /** Hent dynamisk senere */
                     $term = get_queried_object();
                     echo '<div id="statistikk" role="region" aria-labelledby="caption" tabindex="0">';
                     echo get_field('tournament_stats', $term);
