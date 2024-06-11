@@ -250,7 +250,7 @@ get_header(); ?>
                                                         echo '</td>';
                                                     }
                                                 } else {
-                                                    echo '<td></td>';
+                                                    echo '<td>...</td>';
                                                 }
                                             }
                                         }
