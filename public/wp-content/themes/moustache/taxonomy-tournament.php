@@ -51,11 +51,9 @@ get_header(); ?>
 										$new_date_time = get_field('new_date_time');
 										?>
 
-										<?php if ($postponed && empty($new_date_time)) : ?>
+										<?php if (!empty($postponed) && empty($new_date_time)) : ?>
 											<td colspan="3"><em>Nytt tidspunkt kommer</em></td>
-										<?php endif; ?>
-
-										<?php if ($postponed && !empty($new_date_time)) : ?>
+										<?php elseif (!empty($postponed) && !empty($new_date_time)) : ?>
 											<td>
 												<?php
 												$day = get_field('new_date_time');
@@ -77,9 +75,7 @@ get_header(); ?>
 												echo date_i18n('H.i', $time);
 												?>
 											</td>
-										<?php endif; ?>
-
-										<?php if (empty($postponed)) : ?>
+										<?php elseif (!empty($date_time)) : ?>
 											<td>
 												<?php
 												$day = get_field('date_time');
