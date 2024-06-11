@@ -19,11 +19,11 @@ get_header(); ?>
                 </header>
 
                 <div class="u-flow">
-								<?php
+                    <?php
                     if (is_tax()) {
                         $args = array(
-                            'posts_per_page' => -1,
-                            'post_type' => 'fixture',
+                            'posts_per_page' => -1, // Ensure all posts are retrieved
+                            'post_type' => 'fixture', // Replace 'your_post_type' with your actual post type
                             'tax_query' => array(
                                 array(
                                     'taxonomy' => get_queried_object()->taxonomy,
@@ -238,7 +238,7 @@ get_header(); ?>
 
                                             foreach ($home_team as $team) {
                                                 if (strtotime(get_field('date_time')) < strtotime(date_i18n('h:i:s'))) {
-                                                    if (get_field('postponed')) {
+                                                    if (get_field('postponed') && empty(get_field('new_date_time'))) {
                                                         echo '<td></td>';
                                                     } else {
                                                         echo '<td class="' . $result_type . '">';
@@ -250,7 +250,7 @@ get_header(); ?>
                                                         echo '</td>';
                                                     }
                                                 } else {
-                                                    echo '<td>...</td>';
+                                                    echo '<td></td>';
                                                 }
                                             }
                                         }
