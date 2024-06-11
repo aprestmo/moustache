@@ -55,7 +55,7 @@ get_header(); ?>
 											<td colspan="3"><em>Nytt tidspunkt kommer</em></td>
 										<?php endif; ?>
 
-										<?php if (!empty($postponed && $new_date_time)) : ?>
+										<?php if (!empty($postponed) && !empty($new_date_time)) : ?>
 											<td>
 												<?php
 												$day = get_field('new_date_time');
