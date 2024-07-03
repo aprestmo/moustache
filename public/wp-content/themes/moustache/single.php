@@ -16,8 +16,8 @@
               <?php esc_html_e('Writer', 'moustache'); ?>
             </dt>
             <dd>
-              <?php // echo get_the_author_posts_link(); ?>
-              <?php the_author(); ?>
+              <?php // get_the_author_posts_link(); ?>
+              <?php echo get_the_author_meta('first_name'); ?>
             </dd>
           </dl>
           <time class="pubdate" datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php the_date(); ?></time>
