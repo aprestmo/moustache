@@ -49,10 +49,14 @@ if ($fixtures_query->have_posts()) {
         <div class="o-grid__item">
             <h1>Møter med <?php the_title(); ?></h1>
             <?php
-            // Display the date of the oldest fixture
-            if ($oldest_fixture_date) {
-                echo '<p>Første møte med ' . get_the_title() . ' var <time datetime="' . esc_attr($oldest_fixture_date) . '">' . esc_html(date('j. F Y', strtotime($oldest_fixture_date))) . '</time>.</p>';
-            }
+			// Check if there is exactly one post
+			if ($fixtures_query->post_count > 1) {
+				// Display the date of the oldest fixture
+				if ($oldest_fixture_date) {
+					echo '<p>Første møte med ' . get_the_title() . ' var <time datetime="' . esc_attr($oldest_fixture_date) . '">' . esc_html(date('j. F Y', strtotime($oldest_fixture_date))) . '</time>.</p>';
+				}
+			}
+
             ?>
 
             <table>
@@ -60,8 +64,7 @@ if ($fixtures_query->have_posts()) {
                     <thead>
                         <tr>
                             <th>Dato</th>
-                            <th>Kamp</th>
-                            <th>Relatert Post</th>
+                            <th>Kamprapport</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,7 +84,6 @@ if ($fixtures_query->have_posts()) {
                                 echo esc_html($formatted_datetime);
                                 ?>
                                 </td>
-                                <td><?php the_title(); ?></td>
                                 <td>
                                 <?php
                                 // Query for related posts for the current fixture ID
