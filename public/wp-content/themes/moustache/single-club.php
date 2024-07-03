@@ -104,7 +104,7 @@ if ($fixtures_query->have_posts()) {
                                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                     <?php endwhile;
                                 else :
-                                    echo 'Ingen relatert post funnet.';
+                                    echo 'Ingen kamprapport funnet.';
                                 endif;
 
                                 wp_reset_postdata();
