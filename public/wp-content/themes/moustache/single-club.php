@@ -47,13 +47,13 @@ if ($fixtures_query->have_posts()) {
 <article class="mou-site-wrap mou-site-wrap--padding wysiwyg">
     <div class="o-grid o-section-md">
         <div class="o-grid__item">
-            <h1>Møter med <?php the_title(); ?></h1>
+            <h1>Kamper mot <?php the_title(); ?></h1>
             <?php
 			// Check if there is exactly one post
 			if ($fixtures_query->post_count > 1) {
 				// Display the date of the oldest fixture
 				if ($oldest_fixture_date) {
-					echo '<p>Første møte med ' . get_the_title() . ' var <time datetime="' . esc_attr($oldest_fixture_date) . '">' . esc_html(date('j. F Y', strtotime($oldest_fixture_date))) . '</time>.</p>';
+					echo '<p>Første møte med ' . get_the_title() . ' var <time datetime="' . esc_attr($oldest_fixture_date) . '">' . wp_date('j. F Y', strtotime($oldest_fixture_date)) . '</time>.</p>';
 				}
 			}
 
@@ -80,7 +80,7 @@ if ($fixtures_query->have_posts()) {
                             <tr>
                                 <td>
                                 <?php
-                                $formatted_datetime = date('j. F Y, H.i', strtotime($date_time));
+                                $formatted_datetime = wp_date('j. F Y', strtotime($date_time));
                                 echo esc_html($formatted_datetime);
                                 ?>
                                 </td>
