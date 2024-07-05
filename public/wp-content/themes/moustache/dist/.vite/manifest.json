@@ -28,11 +28,11 @@
     "src": "fonts/Pacaembu-Ultra.woff2"
   },
   "main.js": {
-    "file": "assets/main-V2nXxOsD.js",
+    "file": "assets/main-DOF7HElG.js",
     "src": "main.js",
     "isEntry": true,
     "css": [
-      "assets/main-WC7Q3LUk.css"
+      "assets/main-CJVFd9j2.css"
     ],
     "assets": [
       "assets/Pacaembu-Black-mlfvF07H.woff2",

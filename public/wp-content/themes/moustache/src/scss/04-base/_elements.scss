@@ -16,7 +16,7 @@ a {
 }
 
 dl {
-	column-gap: 0;
+	column-gap: 0.25rem;
 	display: grid;
 	grid-template-columns: max-content auto;
 	row-gap: 0.5rem;
