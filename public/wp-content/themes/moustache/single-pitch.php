@@ -53,16 +53,14 @@ $fixtures_query = new WP_Query($args);
 			</div>
 			<p><?php esc_html_e($address); ?></p>
 
-			<div>
-				<?php
-				$field = get_field_object('surface');
-				$value = get_field('surface');
-				?>
-				<dl>
-					<dt><?php esc_html_e('Surface', 'moustache'); ?>:</dt>
-					<dd><?php esc_html_e($field['choices'][$value]); ?></dd>
-				</dl>
-			</div>
+			<?php
+			$field = get_field_object('surface');
+			$value = get_field('surface');
+			?>
+			<dl class="u-hard-bottom">
+				<dt><?php esc_html_e('Surface', 'moustache'); ?>:</dt>
+				<dd class="u-flush-left"><?php esc_html_e($field['choices'][$value]); ?></dd>
+			</dl>
 			<table>
 				<?php if ($fixtures_query->have_posts()) : ?>
 					<thead>
