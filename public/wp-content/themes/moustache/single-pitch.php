@@ -1,9 +1,11 @@
 <?php
 
 /**
- * The template for displaying all single club posts
+ * The template for displaying all single pitch posts
  *
  * @package Moustache
+ *
+ * @since 6.0.0
  */
 
 get_header();
@@ -34,6 +36,33 @@ $fixtures_query = new WP_Query($args);
 	<div class="o-grid o-section-md">
 		<div class="o-grid__item">
 			<h1>Kamper på <?php the_title(); ?></h1>
+			<?php
+			$image = get_field('image');
+			$size = 'medium';
+			if ($image) : ?>
+				<img src="<?php echo $image['sizes'][$size]; ?>" alt="<?php _e('Image from ', 'moustache');
+																		the_title(); ?>">
+			<?php endif; ?>
+
+			<?php
+			$map = get_field('address');
+			$address = $map['address'];
+			?>
+			<div class="acf-map" data-zoom="17">
+				<div class="marker" data-lat="<?php echo esc_attr($map['lat']); ?>" data-lng="<?php echo esc_attr($map['lng']); ?>"></div>
+			</div>
+			<p><?php esc_html_e($address); ?></p>
+
+			<div>
+				<?php
+				$field = get_field_object('surface');
+				$value = get_field('surface');
+				?>
+				<dl>
+					<dt><?php esc_html_e('Surface', 'moustache'); ?>:</dt>
+					<dd><?php esc_html_e($field['choices'][$value]); ?></dd>
+				</dl>
+			</div>
 			<table>
 				<?php if ($fixtures_query->have_posts()) : ?>
 					<thead>
