@@ -4,29 +4,10 @@
 
 .c-navigation {
 	background-color: transparentize($c-black, 0.1);
-	block-size: 0;
+	block-size: 100%;
 	inline-size: 100%;
 	inset-block-start: 0;
 	inset-inline-start: 0;
-	opacity: 0;
-	overflow: hidden;
-	position: fixed;
-	transition:
-		opacity 150ms,
-		block-size 0s 150ms;
-	visibility: hidden;
-	z-index: 45;
-
-	&.is-visible {
-		-webkit-overflow-scrolling: touch;
-		block-size: 100%;
-		opacity: 1;
-		overflow: scroll;
-		transition:
-			opacity 150ms,
-			block-size 0;
-		visibility: visible;
-	}
 
 	&__item {
 		display: block;
