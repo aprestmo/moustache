@@ -62,12 +62,12 @@
 		</div>
 
 		<div class="mou-site-wrap mou-site-wrap--padding u-1/1 c-header__actions">
-			<button popovertarget="navigation" class="c-header__toggle">
+			<button class="c-header__toggle" popovertarget="navigation" popovertargetaction="show">
 				<?php esc_html_e('Menu', 'moustache'); ?>
 			</button>
 
 			<div class="c-header__search">
-				<button popovertarget="search" class="c-header__toggle"><?php esc_html_e('Search', 'moustache'); ?></button>
+				<button class="c-header__toggle" popovertarget="search" popovertargetaction="show"><?php esc_html_e('Search', 'moustache'); ?></button>
 			</div>
 		</div>
 
@@ -76,7 +76,7 @@
 
 		<div id="navigation" class="c-navigation" popover>
 			<nav class="mou-site-wrap mou-site-wrap--padding c-navigation__item">
-				<button popovertarget="navigation" class="c-header__toggle">
+				<button class="c-header__toggle" popovertarget="navigation" popovertargetaction="hide">
 					<?php esc_html_e('Close', 'moustache'); ?>
 				</button>
 				<?php bem_menu('primary', 'c-nav', ''); ?>
