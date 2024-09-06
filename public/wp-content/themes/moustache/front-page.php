@@ -57,20 +57,20 @@ if ($query->have_posts()) :
 								<time class="c-listing__pubdate" datetime="<?php echo esc_attr($machine_date); ?>"><?php the_date('d.m.Y'); ?></time>
 							</header>
 
-							<?php if (!in_category('kamprapporter')) : ?>
+							<?php if (!in_category('kamprapport')) : ?>
 								<h2 class="c-listing__title"><?php the_title(); ?></h2>
 							<?php else : ?>
 								<h2 class="c-listing__title">
 									<?php
-										$str = get_the_title();
-										$prefixed = str_starts_with($str, 'Kamprapport: ');
+									$str = get_the_title();
+									$prefixed = str_starts_with($str, 'Kamprapport: ');
 
-										if ($prefixed) {
-											$result = substr(strstr($str, " "), 1);
-											echo $result;
-										} else {
-											the_title();
-										}
+									if ($prefixed) {
+										$result = substr(strstr($str, " "), 1);
+										echo $result;
+									} else {
+										the_title();
+									}
 									?>
 								</h2>
 							<?php endif; ?>
@@ -91,9 +91,9 @@ if ($query->have_posts()) :
 			</article>
 
 		<?php endwhile; ?>
-		</section>
+	</section>
 
-		<!-- <nav class="o-section-sm u-push-bottom-lg u-text-center">
+	<!-- <nav class="o-section-sm u-push-bottom-lg u-text-center">
 			<a class="button" href="/arkiv/">Se hele arkivet</a>
 		</nav> -->
 <?php endif; ?>
