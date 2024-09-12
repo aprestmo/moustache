@@ -5,36 +5,36 @@
 
 function cards()
 {
-	if (have_rows('cards_first_half') ):
+	if (have_rows('cards_first_half')):
 		echo '<strong>';
-			esc_html_e('Card in 1st half', 'moustache');
+		esc_html_e('Card in 1st half', 'moustache');
 		echo '</strong>';
 		echo '<ul class="c-report u-soft-bottom-md">';
-		while ( have_rows('cards_first_half') ) : the_row();
+		while (have_rows('cards_first_half')) : the_row();
 			$player = get_sub_field('card_player_first_half');
 			$colour = get_sub_field('card_colour_first_half');
-				echo '<li data-card="' . $colour . '">';
-					echo '<a href="/spiller/' . $player->post_name . '">';
-						esc_html_e($player->post_title);
-					echo '</a>';
-				echo '</li>';
+			echo '<li data-card="' . $colour . '">';
+			echo '<a href="/spiller/' . $player->post_name . '">';
+			esc_html_e($player->post_title);
+			echo '</a>';
+			echo '</li>';
 		endwhile;
 		echo '</ul>';
 	endif;
 
-	if (have_rows('cards_second_half') ):
+	if (have_rows('cards_second_half')):
 		echo '<strong>';
-			esc_html_e('Card in 2nd half', 'moustache');
+		esc_html_e('Card in 2nd half', 'moustache');
 		echo '</strong>';
 		echo '<ul class="c-report u-soft-bottom-md">';
-		while ( have_rows('cards_second_half') ) : the_row();
+		while (have_rows('cards_second_half')) : the_row();
 			$player = get_sub_field('card_player_second_half');
 			$colour = get_sub_field('card_colour_second_half');
-				echo '<li data-card="' . $colour . '">';
-					echo '<a href="/spiller/' . $player->post_name . '">';
-						esc_html_e($player->post_title);
-					echo '</a>';
-				echo '</li>';
+			echo '<li data-card="' . $colour . '">';
+			echo '<a href="/spiller/' . $player->post_name . '">';
+			esc_html_e($player->post_title);
+			echo '</a>';
+			echo '</li>';
 		endwhile;
 		echo '</ul>';
 	endif;

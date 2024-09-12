@@ -41,7 +41,7 @@ $fixtures_query = new WP_Query($args);
 			$size = 'medium';
 			if ($image) : ?>
 				<img src="<?php echo $image['sizes'][$size]; ?>" alt="<?php _e('Image from ', 'moustache');
-																		the_title(); ?>">
+																															the_title(); ?>">
 			<?php endif; ?>
 
 			<?php
@@ -59,7 +59,7 @@ $fixtures_query = new WP_Query($args);
 			?>
 			<dl class="u-hard-bottom">
 				<dt><?php esc_html_e('Surface', 'moustache'); ?>:</dt>
-				<dd class="u-flush-left"><?php esc_html_e($field['choices'][$value]); ?></dd>
+				<dd class="u-flush-left"><?php esc_html_e($field['choices'][$value], 'moustache'); ?></dd>
 			</dl>
 			<table>
 				<?php if ($fixtures_query->have_posts()) : ?>

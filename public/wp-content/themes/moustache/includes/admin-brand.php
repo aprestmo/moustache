@@ -7,14 +7,14 @@
  */
 function starter_login_logo()
 { ?>
-  <style type="text/css">
-    .login h1 a {
-      background-image: url(<?php echo get_template_directory_uri(); ?>/dist/kampbart-logo.svg);
-      background-size: 144px;
-      padding-bottom: 85px;
-      width: 144px;
-    }
-  </style>
+	<style type="text/css">
+		.login h1 a {
+			background-image: url(<?php echo esc_url(get_template_directory_uri()); ?>/dist/kampbart-logo.svg);
+			background-size: 144px;
+			padding-bottom: 85px;
+			width: 144px;
+		}
+	</style>
 <?php }
 add_action('login_enqueue_scripts', 'starter_login_logo');
 
@@ -26,7 +26,7 @@ add_action('login_enqueue_scripts', 'starter_login_logo');
 
 function starter_login_logo_url()
 {
-  return home_url();
+	return home_url();
 }
 add_filter('login_headerurl', 'starter_login_logo_url');
 
@@ -38,6 +38,6 @@ add_filter('login_headerurl', 'starter_login_logo_url');
 
 function starter_login_logo_url_title()
 {
-  return esc_html__('Go to site', TRANSLATION_DOMAIN);
+	return esc_html__('Go to site', 'moustache');
 }
 add_filter('login_headertitle', 'starter_login_logo_url_title');
