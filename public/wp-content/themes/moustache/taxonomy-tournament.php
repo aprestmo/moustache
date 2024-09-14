@@ -14,7 +14,11 @@ get_header(); ?>
 				<header>
 					<h1><?php esc_html_e(single_term_title()); ?></h1>
 					<h2><?php $division = get_field('tournament_division', $term);
-						echo $division->name; ?></h2>
+						if ($division) {
+							echo $division->name;
+						}
+						?>
+					</h2>
 					<nav class="u-soft-bottom-md">
 						<a href="#terminliste">Terminliste</a>
 						<a href="#tabell">Tabell</a>
