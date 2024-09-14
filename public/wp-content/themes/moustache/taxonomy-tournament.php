@@ -119,17 +119,19 @@ get_header(); ?>
 										$is_withdrawn = false;
 
 										// Check if any of the home or away team is in the withdrawn clubs list
-										foreach ($home_team as $team) {
-											if (in_array($team, $clubs_withdrawn)) {
-												$is_withdrawn = true;
-												break;
-											}
-										}
-										if (!$is_withdrawn) {
-											foreach ($away_team as $team) {
+										if ($clubs_withdrawn) {
+											foreach ($home_team as $team) {
 												if (in_array($team, $clubs_withdrawn)) {
 													$is_withdrawn = true;
 													break;
+												}
+											}
+											if (!$is_withdrawn) {
+												foreach ($away_team as $team) {
+													if (in_array($team, $clubs_withdrawn)) {
+														$is_withdrawn = true;
+														break;
+													}
 												}
 											}
 										}
