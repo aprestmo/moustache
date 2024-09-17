@@ -1,10 +1,10 @@
 /*------------------------------------*\
-  #SIDEBAR
+  # SIDEBAR
 \*------------------------------------*/
 
 .c-sidebar {
-	background-color: $c-site-grey;
-	color: $c-white;
+	background-color: var(--c-site-grey);
+	color: var(--c-white);
 	padding: 1.25rem;
 
 	header {
@@ -22,7 +22,7 @@
 	}
 
 	a {
-		color: $c-white !important;
+		color: var(--c-white) !important;
 		text-decoration: none !important;
 	}
 

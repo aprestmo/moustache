@@ -1,9 +1,7 @@
 /*------------------------------------*\
-  #SITE
+  # SITE
 \*------------------------------------*/
 
-.c-site {
-  &--bgcolor {
-    background-color: $c-grey;
-  }
+.c-site--bgcolor {
+	background-color: var(--c-grey);
 }

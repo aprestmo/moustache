@@ -3,25 +3,25 @@
 \*------------------------------------*/
 
 .u-bg-white {
-  background-color: $c-white;
+	background-color: var(--c-white);
 }
 
 .u-img-round {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 .u-tc--green {
-  color: #2e8b57;
+	color: #2e8b57;
 }
 
 .u-tc--orange {
-  color: #ffa500;
+	color: #ffa500;
 }
 
 .u-tc--red {
-  color: #ff4500;
+	color: #ff4500;
 }
 
 .u-flow > * + * {
-  margin-block-start: 2.5em;
+	margin-block-start: 2.5em;
 }

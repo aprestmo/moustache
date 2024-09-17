@@ -12,7 +12,7 @@ body {
 }
 
 a {
-	color: $c-site-grey;
+	color: var(--c-site-grey);
 }
 
 dl {

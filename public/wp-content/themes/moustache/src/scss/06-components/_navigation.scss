@@ -1,20 +1,21 @@
 /*------------------------------------*\
-  #NAVIGATION
+  # NAVIGATION
 \*------------------------------------*/
 
 .c-navigation {
-	background-color: transparentize($c-black, 0.1);
+	background-color: var(--c-black);
 	block-size: 100%;
 	inline-size: 100%;
 	inset-block-start: 0;
 	inset-inline-start: 0;
+	opacity: 90%;
+}
 
-	&__item {
-		display: block;
-		margin-block-end: 0;
-		padding-block-end: 3.125rem;
-		padding-block-start: 0.3125rem;
-	}
+.c-navigation__item {
+	display: block;
+	margin-block-end: 0;
+	padding-block-end: 3.125rem;
+	padding-block-start: 0.3125rem;
 }
 
 /** WP BEM MENU **/
@@ -26,32 +27,32 @@
 	margin-block-end: 0;
 	margin-inline-start: 0;
 	row-gap: 0.5rem;
+}
 
-	&__item {
-		padding-block: 0.3125rem;
-	}
+.c-nav__item {
+	padding-block: 0.3125rem;
+}
 
-	&__sub-menu {
-		margin-inline-start: 0;
-	}
+.c-nav__sub-menu {
+	margin-inline-start: 0;
+}
 
-	&__item,
-	&__sub-menu__item {
-		display: contents;
-		list-style: none;
-		margin-inline-start: 0;
-	}
+.c-nav__item,
+.c-nav__sub-menu__item {
+	display: contents;
+	list-style: none;
+	margin-inline-start: 0;
+}
 
-	&__link,
-	&__sub-menu__link {
-		@include font('Medium');
-		color: $c-white;
-		font-size: 1.25rem;
-		line-height: 1.5;
-		text-decoration: none;
+.c-nav__link,
+.c-nav__sub-menu__link {
+	@include font('Medium');
+	color: var(--c-white);
+	font-size: 1.25rem;
+	line-height: 1.5;
+	text-decoration: none;
 
-		&:hover {
-			color: lighten($c-black, 65%);
-		}
+	&:hover {
+		color: color-mix(in srgb, white 65%, var(--c-black));
 	}
 }

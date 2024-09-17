@@ -92,10 +92,6 @@ if ($query->have_posts()) :
 
 		<?php endwhile; ?>
 	</section>
-
-	<!-- <nav class="o-section-sm u-push-bottom-lg u-text-center">
-			<a class="button" href="/arkiv/">Se hele arkivet</a>
-		</nav> -->
 <?php endif; ?>
 
 <div class="u-bg-white">

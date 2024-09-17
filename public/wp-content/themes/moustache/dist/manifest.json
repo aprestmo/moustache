@@ -28,7 +28,7 @@
     "src": "fonts/Pacaembu-Ultra.woff2"
   },
   "main.css": {
-    "file": "assets/main-ca6e13bb.css",
+    "file": "assets/main-4fd3dc5e.css",
     "src": "main.css"
   },
   "main.js": {
@@ -42,9 +42,9 @@
       "assets/Pacaembu-Ultra-0c984869.woff2"
     ],
     "css": [
-      "assets/main-ca6e13bb.css"
+      "assets/main-4fd3dc5e.css"
     ],
-    "file": "assets/main-e49d6f0e.js",
+    "file": "assets/main-3c2e5bef.js",
     "isEntry": true,
     "src": "main.js"
   }

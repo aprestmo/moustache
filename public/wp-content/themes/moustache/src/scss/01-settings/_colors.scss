@@ -2,11 +2,13 @@
   # COLORS
 \*------------------------------------*/
 
-$c-black: hsl(0 0% 0%);
-$c-grey: hsl(0 0% 96%);
-$c-mine-shaft: hsl(240 33% 1%);
-$c-monza: hsl(357 73% 49%);
-$c-white: hsl(0 0% 100%);
+:root {
+	--c-black: oklch(0% 0 0);
+	--c-grey: oklch(96% 0 0);
+	--c-mine-shaft: oklch(8.27% 0.009 284.14);
+	--c-monza: oklch(56.81% 0.214 25.64);
+	--c-white: oklch(100% 0 0);
 
-$c-site-grey: $c-mine-shaft;
-$c-brand-red: $c-monza;
+	--c-site-grey: var(--c-mine-shaft);
+	--c-brand-red: var(--c-monza);
+}

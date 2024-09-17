@@ -1,5 +1,5 @@
 /*------------------------------------*\
-  #POST
+  # POST
 \*------------------------------------*/
 .wysiwyg {
 	h1 {
@@ -49,5 +49,5 @@
 }
 
 .single .wysiwyg a {
-	color: $c-brand-red;
+	color: var(--c-brand-red);
 }
