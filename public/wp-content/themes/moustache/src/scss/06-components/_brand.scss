@@ -7,7 +7,7 @@
 }
 
 .c-brand__title {
-	@include font('Black');
+	font-family: var(--black);
 	font-size: 1.875rem;
 	letter-spacing: -0.05em;
 	line-height: 1;

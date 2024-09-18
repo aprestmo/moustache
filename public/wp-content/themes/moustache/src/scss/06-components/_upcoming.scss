@@ -16,7 +16,7 @@
 	display: flex;
 
 	b {
-		@include font('Medium');
+		font-family: var(--medium);
 	}
 }
 

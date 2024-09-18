@@ -35,9 +35,9 @@
 	}
 
 	&__toggle {
-		@include font('Medium');
 		background-color: transparent;
 		color: var(--c-white);
+		font-family: var(--medium);
 		font-size: 1.0625rem;
 		line-height: 1;
 		padding-block: 1rem;

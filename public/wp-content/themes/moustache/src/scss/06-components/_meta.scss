@@ -17,8 +17,8 @@
 	row-gap: 0.25rem;
 
 	dt {
-		@include font('Medium');
 		color: oklch(59.82% 0 0);
+		font-family: var(--medium);
 		font-size: 0.8em;
 		letter-spacing: 0.04em;
 		line-height: 1.1;
@@ -27,16 +27,16 @@
 	}
 
 	dd {
-		@include font('Regular');
+		font-family: var(--regular);
 		line-height: 1.2;
 		margin-inline-start: 0;
 	}
 }
 
 .pubdate {
-	@include font('Regular');
 	color: oklch(32.11% 0 0);
 	display: inline-block;
+	font-family: var(--regular);
 	font-size: 0.8em;
 	line-height: 1.2;
 	text-transform: uppercase;

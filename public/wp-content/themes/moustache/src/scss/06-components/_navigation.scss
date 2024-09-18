@@ -46,8 +46,8 @@
 
 .c-nav__link,
 .c-nav__sub-menu__link {
-	@include font('Medium');
 	color: var(--c-white);
+	font-family: var(--medium);
 	font-size: 1.25rem;
 	line-height: 1.5;
 	text-decoration: none;

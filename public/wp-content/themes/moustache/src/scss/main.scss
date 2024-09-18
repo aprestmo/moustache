@@ -1,7 +1,9 @@
 /*------------------------------------*\
-  #MOUSTACHE
+  # MOUSTACHE
 \*------------------------------------*/
+
 @charset 'UTF-8';
+
 @import 'settings';
 @import 'tools';
 @import 'resets';
@@ -11,7 +13,7 @@
 @import 'utilities';
 
 .acf-map {
-	border: 1px solid #ccc;
+	border: 1px solid oklch(84.52% 0 0);
 	block-size: 25rem;
 	inline-size: 100%;
 	margin-block: 20px;

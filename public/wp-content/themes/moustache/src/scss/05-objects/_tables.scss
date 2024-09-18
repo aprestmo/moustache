@@ -11,11 +11,11 @@ td {
 }
 
 th {
-	@include font('Regular');
+	font-family: var(--regular);
 }
 
 tbody th {
-	@include font('Light');
+	font-family: var(--light);
 }
 
 caption {

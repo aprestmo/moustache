@@ -15,7 +15,7 @@
 	},
 	"scripts": {
 		"dev": "APP_ENV=development vite",
-		"build": "APP_ENV=production vite build && yarn optimize",
+		"build": "APP_ENV=production vite build && bun run optimize",
 		"optimize": "npx @divriots/jampack ./dist"
 	},
 	"devDependencies": {

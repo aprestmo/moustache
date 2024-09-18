@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	@include font('Light');
+	font-family: var(--light);
 }
 
 a {
@@ -23,5 +23,5 @@ dl {
 }
 
 dt {
-	@include font('Regular');
+	font-family: var(--regular);
 }

@@ -3,36 +3,36 @@
 \*------------------------------------*/
 .wysiwyg {
 	h1 {
-		@include font('Bold');
+		font-family: var(--bold);
 		line-height: 1.2;
 	}
 
 	h2 {
-		@include font('Bold');
+		font-family: var(--bold);
 		line-height: 1.3;
 	}
 
 	h3 {
-		@include font('Bold');
+		font-family: var(--bold);
 	}
 
 	h4,
 	h5,
 	h6 {
-		@include font('Regular');
+		font-family: var(--regular);
 	}
 
 	p,
 	ul,
 	ol {
-		@include font('Light');
+		font-family: var(--light);
 		font-size: 1rem;
 		line-height: 1.6;
 	}
 
 	b,
 	strong {
-		@include font('Regular');
+		font-family: var(--regular);
 	}
 
 	a {
