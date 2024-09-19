@@ -16,12 +16,11 @@
 	"scripts": {
 		"dev": "APP_ENV=development vite",
 		"build": "APP_ENV=production vite build && bun run optimize",
-		"optimize": "npx @divriots/jampack ./dist"
+		"optimize": "bunx @divriots/jampack ./dist"
 	},
 	"devDependencies": {
 		"nebula-css": "^2.7.1",
 		"prettier": "^3.3.3",
-		"sass": "~1.78.0",
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {

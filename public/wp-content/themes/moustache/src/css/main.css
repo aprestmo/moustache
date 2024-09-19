@@ -1,0 +1,26 @@
+/*------------------------------------*\
+  # MOUSTACHE
+\*------------------------------------*/
+
+@layer settings, tools, resets, base, objects, components, utilities;
+
+@import '_settings.css' layer(settings);
+@import '_tools.css' layer(tools);
+@import '_resets.css' layer(resets);
+@import '_base.css' layer(base);
+@import '_objects.css' layer(objects);
+@import '_components.css' layer(components);
+@import '_utilities.css' layer(utilities);
+
+.acf-map {
+	border: 1px solid oklch(84.52% 0 0);
+	block-size: 25rem;
+	inline-size: 100%;
+	margin-block: 20px;
+	margin-inline: 0;
+}
+
+/* Fixes potential theme css conflict. */
+.acf-map img {
+	max-inline-size: inherit !important;
+}
