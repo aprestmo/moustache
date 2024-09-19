@@ -19,7 +19,6 @@
 		"optimize": "bunx @divriots/jampack ./dist"
 	},
 	"devDependencies": {
-		"nebula-css": "^2.7.1",
 		"prettier": "^3.3.3",
 		"wysiwyg.css": "0.0.4"
 	},
