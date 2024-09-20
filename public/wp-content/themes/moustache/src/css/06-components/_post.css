@@ -2,40 +2,40 @@
   # POST
 \*------------------------------------*/
 .wysiwyg {
-	h1 {
+	:is(h1) {
 		font-family: var(--bold);
 		line-height: 1.2;
 	}
 
-	h2 {
+	:is(h2) {
 		font-family: var(--bold);
 		line-height: 1.3;
 	}
 
-	h3 {
+	:is(h3) {
 		font-family: var(--bold);
 	}
 
-	h4,
-	h5,
-	h6 {
+	:is(h4),
+	:is(h5),
+	:is(h6) {
 		font-family: var(--regular);
 	}
 
-	p,
-	ul,
-	ol {
+	:is(p),
+	:is(ul),
+	:is(ol) {
 		font-family: var(--light);
 		font-size: 1rem;
 		line-height: 1.6;
 	}
 
-	b,
-	strong {
+	:is(b),
+	:is(strong) {
 		font-family: var(--regular);
 	}
 
-	a {
+	:is(a) {
 		text-decoration: underline;
 		text-decoration-thickness: 0.0625rem;
 		text-underline-offset: 0.125rem;

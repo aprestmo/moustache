@@ -2,6 +2,12 @@
   # ELEMENTS
 \*------------------------------------*/
 
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
 html {
 	scroll-behavior: smooth;
 	scroll-padding-block-start: 2ex;
@@ -9,6 +15,7 @@ html {
 
 body {
 	font-family: var(--light);
+	margin: 0;
 }
 
 a {

@@ -1,0 +1,76 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+dl,
+dd,
+ol,
+ul,
+form,
+fieldset,
+legend,
+table,
+figure,
+th,
+td,
+caption,
+hr {
+	margin: 0;
+	padding: 0;
+}
+
+a img {
+	border: 0;
+}
+
+img {
+	block-size: auto;
+	font-style: italic;
+	max-inline-size: 100%;
+}
+
+button {
+	border: 0;
+	padding: 0;
+}
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	cursor: pointer;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+button,
+input,
+select {
+	overflow: visible;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	font-family: inherit;
+	margin: 0;
+}

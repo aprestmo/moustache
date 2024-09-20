@@ -15,7 +15,7 @@
 	block-size: 3.75rem;
 	display: flex;
 
-	b {
+	:is(b) {
 		font-family: var(--medium);
 	}
 }

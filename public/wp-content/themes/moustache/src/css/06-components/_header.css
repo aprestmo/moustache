@@ -1,0 +1,45 @@
+/*------------------------------------*\
+  # HEADER
+\*------------------------------------*/
+
+.c-header {
+	background-image: linear-gradient(to bottom,
+			oklch(0% 0 0) 0%,
+			oklch(100% 3.5594404384177905e-8 106.37411429114086 / 0%) 20%);
+	block-size: 85vh;
+	color: var(--c-white);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+
+}
+
+.c-header__brand {
+	align-items: center;
+	display: flex;
+	inline-size: 100%;
+	padding-block: 0.625rem;
+}
+
+.c-header__link {
+	background-color: transparent;
+	color: var(--c-white);
+	text-decoration: none;
+}
+
+.c-header__actions {
+	display: flex;
+	justify-content: space-between;
+	order: -1;
+	padding-block: 0.3125rem;
+}
+
+.c-header__toggle {
+	background-color: transparent;
+	color: var(--c-white);
+	font-family: var(--medium);
+	font-size: 1.0625rem;
+	line-height: 1;
+	padding-block: 1rem;
+	padding-inline: 0;
+}

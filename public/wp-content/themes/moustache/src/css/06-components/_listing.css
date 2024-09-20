@@ -45,7 +45,7 @@
 	&:active,
 	&:focus-visible,
 	&:hover {
-		.c-listing__card {
+		.c-listing__card {			
 			box-shadow: 0 0 0.3125rem 0.1875rem
 				color-mix(in srgb, black 5%, var(--c-grey));
 		}

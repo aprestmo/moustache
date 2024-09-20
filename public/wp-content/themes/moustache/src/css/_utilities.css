@@ -1,0 +1,97 @@
+@import '99-utilities/_visuals.css';
+@import '99-utilities/_wp-core.css';
+
+.u-1\/1 {
+	width: 100%;
+}
+
+.u-1\/2 {
+	width: 50%;
+}
+
+.u-1\/3 {
+	width: 33.33333333333333%;
+}
+
+.u-2\/3 {
+	width: 66.66666666666666%;
+}
+
+.u-flush-bottom {
+	margin-block-end: 0;
+}
+
+.u-flush-left {
+	margin-inline-start: 0;
+}
+
+.u-push-bottom-lg {
+	margin-block-end: 2rem;
+}
+
+.u-soft-right-md {
+	padding-inline-end: 1rem;
+}
+
+.u-soft-md {
+	padding: 1rem;
+}
+
+.u-soft-top-md {
+	padding-block-start: 1rem;
+}
+
+.u-text-center {
+	text-align: center;
+}
+
+.u-text-left {
+	text-align: left;
+}
+
+.u-visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+@media (width >=45rem) {
+	.u-1\/6\@sm {
+		width: 16.6667%;
+	}
+
+	.u-1\/2\@sm {
+		width: 50%;
+	}
+
+	.u-1\/3\@sm {
+		width: 33.3333%;
+	}
+
+	.u-2\/3\@sm {
+		width: 66.6667%;
+	}
+
+	.u-soft-left-md\@sm {
+		padding-inline-start: 1rem;
+	}
+
+	.u-hard-top\@sm {
+		padding-block-start: 0;
+	}
+}
+
+@media (width >=60em) {
+	.u-1\/4\@md {
+		width: 25%;
+	}
+
+	.u-1\/5\@md {
+		width: 20%;
+	}
+}
