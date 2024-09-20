@@ -1,3 +1,24 @@
 @import '../../node_modules/wysiwyg.css/wysiwyg.css';
-/*@import '../../node_modules/nebula-css/nebula-css/objects';*/
 @import '05-objects/_tables.css';
+
+.o-grid {
+	font-size: 0;
+	list-style: none;
+	margin: 0;
+	min-inline-size: 100%;
+	padding: 0;
+}
+
+.o-grid__item {
+	display: inline-block;
+	font-size: 1rem;
+	inline-size: 100%;
+	min-block-size: 1px;
+	position: relative;
+	text-align: left;
+	vertical-align: top;
+}
+
+.o-section-md {
+	padding-block: 2rem;
+}

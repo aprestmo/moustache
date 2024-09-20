@@ -7,30 +7,30 @@
 	color: var(--c-white);
 	padding: 1.25rem;
 
-	header {
+	:is(header) {
 		display: grid;
 		row-gap: 0.25rem;
 	}
 
-	ul {
+	:is(ul) {
 		margin: 0;
 		padding: 0;
 	}
 
-	li {
+	:is(li) {
 		list-style: none;
 	}
 
-	a {
+	:is(a) {
 		color: var(--c-white) !important;
 		text-decoration: none !important;
 	}
 
-	dl {
+	:is(dl) {
 		display: block;
 	}
 
-	dd {
+	:is(dd) {
 		margin-inline-start: 0;
 	}
 }
