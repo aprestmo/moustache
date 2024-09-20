@@ -12,8 +12,9 @@
 
 .c-upcoming__item {
 	align-items: center;
-	block-size: 3.75rem;
 	display: flex;
+	min-block-size: 3.25rem;
+	padding-block: 0.25rem;
 
 	:is(b) {
 		font-family: var(--medium);
