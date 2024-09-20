@@ -1,0 +1,38 @@
+{
+  "src/main.js": {
+    "file": "assets/main.js",
+    "name": "main",
+    "src": "src/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/main.css"
+    ],
+    "assets": [
+      "assets/Pacaembu-Black.woff2",
+      "assets/Pacaembu-Bold.woff2",
+      "assets/Pacaembu-Light.woff2",
+      "assets/Pacaembu-Medium.woff2",
+      "assets/Pacaembu-Regular.woff2"
+    ]
+  },
+  "src/public/fonts/Pacaembu-Black.woff2": {
+    "file": "assets/Pacaembu-Black.woff2",
+    "src": "src/public/fonts/Pacaembu-Black.woff2"
+  },
+  "src/public/fonts/Pacaembu-Bold.woff2": {
+    "file": "assets/Pacaembu-Bold.woff2",
+    "src": "src/public/fonts/Pacaembu-Bold.woff2"
+  },
+  "src/public/fonts/Pacaembu-Light.woff2": {
+    "file": "assets/Pacaembu-Light.woff2",
+    "src": "src/public/fonts/Pacaembu-Light.woff2"
+  },
+  "src/public/fonts/Pacaembu-Medium.woff2": {
+    "file": "assets/Pacaembu-Medium.woff2",
+    "src": "src/public/fonts/Pacaembu-Medium.woff2"
+  },
+  "src/public/fonts/Pacaembu-Regular.woff2": {
+    "file": "assets/Pacaembu-Regular.woff2",
+    "src": "src/public/fonts/Pacaembu-Regular.woff2"
+  }
+}

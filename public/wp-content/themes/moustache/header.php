@@ -15,9 +15,8 @@
 <html <?php language_attributes(); ?> class="no-js">
 
 <head>
-	<meta charset="<?php echo esc_attr(get_bloginfo('charset')); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<?= vite('main.js') ?>
+	<meta charset="<?php bloginfo('charset'); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php wp_head(); ?>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpX2xs6qaBOTQmn0VB7IiHd0vmRatZz00"></script>
 
@@ -35,14 +34,14 @@
 							<?php if ('12' === date('m')) : ?>
 								<img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-jul.svg'); ?>" alt="">
 							<?php else : ?>
-								<img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo.svg'); ?>" alt="" width="100">
+								<img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/assets/kampbart-logo.svg'); ?>" alt="" width="100">
 							<?php endif; ?>
 						<?php else : ?>
 							<a href="<?php echo esc_attr(home_url()); ?>">
 								<?php if ('12' === date('m')) : ?>
 									<img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo-jul.svg'); ?>" alt="">
 								<?php else : ?>
-									<img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/kampbart-logo.svg'); ?>" alt="" width="100">
+									<img class="c-header__logo" src="<?php echo esc_url(get_template_directory_uri() . '/dist/assets/kampbart-logo.svg'); ?>" alt="" width="100">
 								<?php endif; ?>
 							</a>
 						<?php endif; ?>
