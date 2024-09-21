@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 // import legacy from '@vitejs/plugin-legacy';
 import liveReload from 'vite-plugin-live-reload';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
   plugins: [
     // legacy({
@@ -14,6 +16,7 @@ export default defineConfig({
       host: 'localhost',
     },
   },
+	base: isProduction ? 'https://kampbart.com/wp-content/themes/moustache/dist/' : '',
 	publicDir: 'public',
   build: {
     outDir: 'dist',
