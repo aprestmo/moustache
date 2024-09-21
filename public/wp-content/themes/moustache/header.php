@@ -15,9 +15,8 @@
 <html <?php language_attributes(); ?> class="no-js">
 
 <head>
-	<meta charset="<?php echo esc_attr(get_bloginfo('charset')); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<?= vite('main.js') ?>
+	<meta charset="<?php bloginfo('charset'); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php wp_head(); ?>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpX2xs6qaBOTQmn0VB7IiHd0vmRatZz00"></script>
 

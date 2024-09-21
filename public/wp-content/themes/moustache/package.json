@@ -1,7 +1,8 @@
 {
 	"name": "moustache",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"private": true,
+	"type": "module",
 	"browserslist": ["> 2%"],
 	"description": "A WordPress theme for Kampbart.",
 	"author": {
@@ -25,8 +26,9 @@
 	"dependencies": {
 		"postcss": "^8.4.47",
 		"postcss-preset-env": "^10.0.3",
-		"vite": "^4.4.11",
+		"vite": "^5.4.7",
 		"vite-plugin-live-reload": "^3.0.3",
-		"vite-plugin-static-copy": "^1.0.6"
+		"vite-plugin-static-copy": "^1.0.6",
+    "@vitejs/plugin-legacy": "^5.4.2"
 	}
 }
