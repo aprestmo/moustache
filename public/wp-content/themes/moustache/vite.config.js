@@ -14,11 +14,11 @@ export default defineConfig({
       host: 'localhost',
     },
   },
+	publicDir: 'src/public',
   build: {
-    publicDir: './src/public',
     outDir: 'dist',
     rollupOptions: {
-      input: './src/main.js',
+      input: 'src/main.js',
       output: {
         entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].js',
