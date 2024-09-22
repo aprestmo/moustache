@@ -3,6 +3,8 @@
 \*------------------------------------*/
 
 .c-players__title {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
 	font-family: var(--black);
 	font-size: 1.75rem;
 	line-height: 1.05;

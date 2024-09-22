@@ -7,6 +7,8 @@
 }
 
 .c-brand__title {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
 	font-family: var(--black);
 	font-size: 1.875rem;
 	letter-spacing: -0.05em;
