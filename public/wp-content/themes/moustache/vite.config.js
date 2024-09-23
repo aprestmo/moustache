@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
       host: 'localhost',
     },
   },
+	base: process.env.VITE_BASE_URL,
   publicDir: 'src/public',
   build: {
     outDir: 'dist',
@@ -19,6 +20,6 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: '[name][extname]',
       },
     },
-    manifest: false,
+    manifest: true,
   },
 }));
