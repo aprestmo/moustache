@@ -70,7 +70,7 @@
 			</div>
 		</div>
 
-		<div class="c-hero" style="background-image: url('https://res.cloudinary.com/kampbart/image/upload/cs_srgb,f_auto/v1688457152/kampbart/default-hero.jpg')">
+		<div class="c-hero" style="background-image: url('https://res.cloudinary.com/kampbart/image/upload/cs_srgb,f_auto,q_auto/v1688457152/kampbart/default-hero.jpg')">
 		</div>
 
 		<div id="navigation" class="c-navigation" popover>
