@@ -76,7 +76,8 @@ function redirect_users_by_role()
 } // redirect_users_by_role
 add_action('admin_init', 'redirect_users_by_role');
 
-function lt_html_excerpt($text) {
+function lt_html_excerpt($text)
+{
 	// Fakes an excerpt if needed
 	global $post;
 	if ('' == $text) {
@@ -99,18 +100,21 @@ function lt_html_excerpt($text) {
 }
 
 /* Vite */
-function my_vite_enqueue_scripts() {
-	if ( WP_ENVIRONMENT_TYPE === 'local' ) {
+function my_vite_enqueue_scripts()
+{
+
+	// Check if the constant is defined and equals 'local'
+	if (defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local') {
 		// Vite HMR connection in development
 		echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
 		echo '<script type="module" src="http://localhost:5173/src/main.js"></script>';
 	} else {
 		// Production assets
-		wp_enqueue_style( 'my-vite-theme-style', get_template_directory_uri() . '/dist/assets/main.css', [], '1.0.0' );
-		wp_enqueue_script( 'my-vite-theme-script', get_template_directory_uri() . '/dist/assets/main.js', [], '1.0.0', true );
+		wp_enqueue_style('my-vite-theme-style', get_template_directory_uri() . '/dist/assets/main.css', [], '1.0.0');
+		wp_enqueue_script('my-vite-theme-script', get_template_directory_uri() . '/dist/assets/main.js', [], '1.0.0', true);
 	}
 }
-add_action( 'wp_enqueue_scripts', 'my_vite_enqueue_scripts' );
+add_action('wp_enqueue_scripts', 'my_vite_enqueue_scripts');
 
 /* remove the default filter */
 remove_filter('get_the_excerpt', 'wp_trim_excerpt');
