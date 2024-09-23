@@ -28,6 +28,27 @@ var_dump($isDevMode); // Should output true if in development mode
 $baseURL = $isDevMode ? '/public/' : '/dist/assets/';
 ?></main>
 
+<?php
+// Explicitly specify the correct .env file path
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.development'); // Adjust path as needed
+$dotenv->load();
+
+// Debug to see if the environment variable is set
+echo '<pre>';
+print_r($_ENV);  // Check what environment variables are loaded into $_ENV
+print_r($_SERVER); // Also check $_SERVER for loaded variables
+echo '</pre>';
+
+// Check directly if NODE_ENV is in the environment arrays
+echo '<pre>';
+echo '$_ENV NODE_ENV: ' . var_export($_ENV['NODE_ENV'] ?? 'not set', true) . '<br>';
+echo '$_SERVER NODE_ENV: ' . var_export($_SERVER['NODE_ENV'] ?? 'not set', true) . '<br>';
+echo '</pre>';
+
+$nodeEnv = getenv('NODE_ENV');
+echo 'NODE_ENV: ' . var_export($nodeEnv, true) . '<br>'; // Check what NODE_ENV contains
+?>
+
 <footer class="c-footer" role="contentinfo">
 	<div class="mou-site-wrap mou-site-wrap--padding">
 		<div class="o-grid o-section-md">
