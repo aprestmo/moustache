@@ -9,44 +9,38 @@
  * @since 1.0
  * @version 1.0
  */
+?></main>
 
+<?php
 require_once 'vendor/autoload.php';
 
-// Load the .env.development file explicitly
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.development');
+// Determine which environment file to load based on NODE_ENV
+$envFile = '.env'; // Default environment file
+
+// Check if environment variables are set in $_ENV or $_SERVER
+$nodeEnv = $_ENV['NODE_ENV'] ?? $_SERVER['NODE_ENV'] ?? 'production'; // Default to 'production' if not set
+
+// Set the environment file based on the NODE_ENV value
+if ($nodeEnv === 'development') {
+	$envFile = '.env.development';
+} elseif ($nodeEnv === 'production') {
+	$envFile = '.env.production';
+}
+
+// Load the determined .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, $envFile);
 $dotenv->load();
 
-// Check the environment variable directly from $_ENV or $_SERVER
-$nodeEnv = $_ENV['NODE_ENV'] ?? $_SERVER['NODE_ENV'] ?? false; // Use $_ENV or fallback to $_SERVER
+// Debugging output to verify the correct environment file is loaded
+echo 'Loaded Environment File: ' . $envFile . '<br>';
 echo 'NODE_ENV: ' . var_export($nodeEnv, true) . '<br>';
 
-// Correctly determine if it's in development mode
+// Determine if the environment is in development mode
 $isDevMode = $nodeEnv === 'development';
 var_dump($isDevMode); // Should output true if in development mode
 
 // Set the base URL for assets
 $baseURL = $isDevMode ? '/public/' : '/dist/assets/';
-?></main>
-
-<?php
-// Explicitly specify the correct .env file path
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.development'); // Adjust path as needed
-$dotenv->load();
-
-// Debug to see if the environment variable is set
-echo '<pre>';
-print_r($_ENV);  // Check what environment variables are loaded into $_ENV
-print_r($_SERVER); // Also check $_SERVER for loaded variables
-echo '</pre>';
-
-// Check directly if NODE_ENV is in the environment arrays
-echo '<pre>';
-echo '$_ENV NODE_ENV: ' . var_export($_ENV['NODE_ENV'] ?? 'not set', true) . '<br>';
-echo '$_SERVER NODE_ENV: ' . var_export($_SERVER['NODE_ENV'] ?? 'not set', true) . '<br>';
-echo '</pre>';
-
-$nodeEnv = getenv('NODE_ENV');
-echo 'NODE_ENV: ' . var_export($nodeEnv, true) . '<br>'; // Check what NODE_ENV contains
 ?>
 
 <footer class="c-footer" role="contentinfo">
