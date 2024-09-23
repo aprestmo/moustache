@@ -41,5 +41,5 @@ public/wp-content/themes/*
 
 # Ignore "node_modules" in theme folder.
 public/wp-content/themes/moustache/node_modules
-public/wp-content/themes/moustache/vendor
+!public/wp-content/themes/moustache/vendor
 public/wp-content/themes/moustache/.dist
