@@ -11,38 +11,6 @@
  */
 ?></main>
 
-<?php
-require_once 'vendor/autoload.php';
-
-// Determine which environment file to load based on NODE_ENV
-$envFile = '.env'; // Default environment file
-
-// Check if environment variables are set in $_ENV or $_SERVER
-$nodeEnv = $_ENV['NODE_ENV'] ?? $_SERVER['NODE_ENV'] ?? 'production'; // Default to 'production' if not set
-
-// Set the environment file based on the NODE_ENV value
-if ($nodeEnv === 'development') {
-	$envFile = '.env.development';
-} elseif ($nodeEnv === 'production') {
-	$envFile = '.env.production';
-}
-
-// Load the determined .env file
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, $envFile);
-$dotenv->load();
-
-// Debugging output to verify the correct environment file is loaded
-echo 'Loaded Environment File: ' . $envFile . '<br>';
-echo 'NODE_ENV: ' . var_export($nodeEnv, true) . '<br>';
-
-// Determine if the environment is in development mode
-$isDevMode = $nodeEnv === 'development';
-var_dump($isDevMode); // Should output true if in development mode
-
-// Set the base URL for assets
-$baseURL = $isDevMode ? '/public/' : '/dist/assets/';
-?>
-
 <footer class="c-footer" role="contentinfo">
 	<div class="mou-site-wrap mou-site-wrap--padding">
 		<div class="o-grid o-section-md">
