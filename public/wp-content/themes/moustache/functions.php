@@ -25,34 +25,7 @@ require __DIR__ . '/includes/setup-theme.php';
 /**
  * Setup assets (Script and styles)
  */
-// require __DIR__ . '/includes/enqueue-assets.php';
-
-function enqueue_vite_assets()
-{
-	$is_dev = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
-
-	if ($is_dev) {
-		// In development, use Vite's dev server on default port 5173
-		wp_enqueue_script('vite-main', 'http://localhost:5173/src/js/main.js', [], null, true);
-		wp_enqueue_style('vite-main-style', 'http://localhost:5173/src/css/main.css', [], null);
-	} else {
-		// In production, use the manifest to locate the files
-		$manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
-		if (file_exists($manifest_path)) {
-			$manifest = json_decode(file_get_contents($manifest_path), true);
-			$js = $manifest['src/js/main.js']['file'] ?? '';
-			$css = $manifest['src/css/main.css']['file'] ?? '';
-
-			if ($js) {
-				wp_enqueue_script('theme-main', get_template_directory_uri() . '/dist/' . $js, [], null, true);
-			}
-			if ($css) {
-				wp_enqueue_style('theme-main-style', get_template_directory_uri() . '/dist/' . $css, [], null);
-			}
-		}
-	}
-}
-add_action('wp_enqueue_scripts', 'enqueue_vite_assets');
+require __DIR__ . '/includes/enqueue-assets.php';
 
 /*
  * Cleanup/normalize WordPress behavior
