@@ -25,7 +25,34 @@ require __DIR__ . '/includes/setup-theme.php';
 /**
  * Setup assets (Script and styles)
  */
-require __DIR__ . '/includes/enqueue-assets.php';
+// require __DIR__ . '/includes/enqueue-assets.php';
+
+function enqueue_vite_assets()
+{
+	// Check if we're in development mode (e.g., by setting a constant or checking the environment)
+	$is_dev = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
+
+	// If in development, use the Vite server directly
+	if ($is_dev) {
+		echo '<script type="module" src="http://localhost:5173/src/js/main.js"></script>';
+		echo '<link rel="stylesheet" href="http://localhost:5173/src/css/main.css">';
+	} else {
+		// In production, use the manifest to locate the files
+		$manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
+		if (file_exists($manifest_path)) {
+			$manifest = json_decode(file_get_contents($manifest_path), true);
+			$js = $manifest['src/js/main.js']['file'] ?? '';
+			$css = $manifest['src/css/style.css']['file'] ?? '';
+			if ($js) {
+				echo '<script type="module" src="' . get_template_directory_uri() . '/dist/' . $js . '"></script>';
+			}
+			if ($css) {
+				echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/dist/' . $css . '">';
+			}
+		}
+	}
+}
+add_action('wp_head', 'enqueue_vite_assets');
 
 /*
  * Cleanup/normalize WordPress behavior
@@ -115,32 +142,7 @@ function lt_html_excerpt($text)
 // 	}
 // }
 // add_action('wp_enqueue_scripts', 'my_vite_enqueue_scripts');
-function enqueue_vite_assets()
-{
-	// Check if we're in development mode (e.g., by setting a constant or checking the environment)
-	$is_dev = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
 
-	// If in development, use the Vite server directly
-	if ($is_dev) {
-		echo '<script type="module" src="http://localhost:5173/src/js/main.js"></script>';
-		echo '<link rel="stylesheet" href="http://localhost:5173/src/css/main.css">';
-	} else {
-		// In production, use the manifest to locate the files
-		$manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
-		if (file_exists($manifest_path)) {
-			$manifest = json_decode(file_get_contents($manifest_path), true);
-			$js = $manifest['src/js/main.js']['file'] ?? '';
-			$css = $manifest['src/css/style.css']['file'] ?? '';
-			if ($js) {
-				echo '<script type="module" src="' . get_template_directory_uri() . '/dist/' . $js . '"></script>';
-			}
-			if ($css) {
-				echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/dist/' . $css . '">';
-			}
-		}
-	}
-}
-add_action('wp_head', 'enqueue_vite_assets');
 
 /**
  * Get the base path for assets based on the environment.
