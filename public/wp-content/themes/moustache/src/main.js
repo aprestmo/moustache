@@ -1,2 +1,2 @@
-import './styles/main.css'
 import './js/map'
+import './css/main.css'

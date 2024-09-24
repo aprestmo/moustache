@@ -100,21 +100,47 @@ function lt_html_excerpt($text)
 }
 
 /* Vite */
-function my_vite_enqueue_scripts()
-{
+// function my_vite_enqueue_scripts()
+// {
 
-	// Check if the constant is defined and equals 'local'
-	if (defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local') {
-		// Vite HMR connection in development
-		echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
-		echo '<script type="module" src="http://localhost:5173/src/main.js"></script>';
+// 	// Check if the constant is defined and equals 'local'
+// 	if (defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local') {
+// 		// Vite HMR connection in development
+// 		echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
+// 		echo '<script type="module" src="http://localhost:5173/src/main.js"></script>';
+// 	} else {
+// 		// Production assets
+// 		wp_enqueue_style('my-vite-theme-style', get_template_directory_uri() . '/dist/main.css', [], '1.0.0');
+// 		wp_enqueue_script('my-vite-theme-script', get_template_directory_uri() . '/dist/main.js', [], '1.0.0', true);
+// 	}
+// }
+// add_action('wp_enqueue_scripts', 'my_vite_enqueue_scripts');
+function enqueue_vite_assets()
+{
+	// Check if we're in development mode (e.g., by setting a constant or checking the environment)
+	$is_dev = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
+
+	// If in development, use the Vite server directly
+	if ($is_dev) {
+		echo '<script type="module" src="http://localhost:5173/src/js/main.js"></script>';
+		echo '<link rel="stylesheet" href="http://localhost:5173/src/css/main.css">';
 	} else {
-		// Production assets
-		wp_enqueue_style('my-vite-theme-style', get_template_directory_uri() . '/dist/main.css', [], '1.0.0');
-		wp_enqueue_script('my-vite-theme-script', get_template_directory_uri() . '/dist/main.js', [], '1.0.0', true);
+		// In production, use the manifest to locate the files
+		$manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
+		if (file_exists($manifest_path)) {
+			$manifest = json_decode(file_get_contents($manifest_path), true);
+			$js = $manifest['src/js/main.js']['file'] ?? '';
+			$css = $manifest['src/css/style.css']['file'] ?? '';
+			if ($js) {
+				echo '<script type="module" src="' . get_template_directory_uri() . '/dist/' . $js . '"></script>';
+			}
+			if ($css) {
+				echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/dist/' . $css . '">';
+			}
+		}
 	}
 }
-add_action('wp_enqueue_scripts', 'my_vite_enqueue_scripts');
+add_action('wp_head', 'enqueue_vite_assets');
 
 /**
  * Get the base path for assets based on the environment.
@@ -130,7 +156,7 @@ function get_asset_base_path()
 	}
 
 	// Set the base path based on the environment
-	return WP_ENVIRONMENT_TYPE === 'local' ? '/src/public/' : '/dist/';
+	return WP_ENVIRONMENT_TYPE === 'local' ? '/public/' : '/dist/';
 }
 
 /* remove the default filter */

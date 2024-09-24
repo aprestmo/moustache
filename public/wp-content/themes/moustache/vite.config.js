@@ -9,17 +9,17 @@ export default defineConfig(({ mode }) => ({
     },
   },
 	base: process.env.VITE_BASE_URL,
-  publicDir: 'src/public',
+  // publicDir: 'public',
   build: {
+		manifest: true,
     outDir: 'dist',
     rollupOptions: {
-      input: 'src/main.js',
+      input: './src/main.js',
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
         assetFileNames: '[name][extname]',
       },
     },
-    manifest: true,
   },
 }));
