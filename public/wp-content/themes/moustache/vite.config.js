@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
       port: 5173, // Ensure the port matches your Vite server port
     },
   },
-  base: mode === 'production' ? `/wp-content/themes/${THEME_NAME}/dist/` : `/wp-content/themes/${THEME_NAME}/src/`,
+  base: mode === 'production' ? `/wp-content/themes/${THEME_NAME}/dist/` : `/wp-content/themes/${THEME_NAME}/`,
   build: {
 		manifest: true,
     outDir: 'dist',
