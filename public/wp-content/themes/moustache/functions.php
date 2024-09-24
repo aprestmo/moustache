@@ -42,7 +42,7 @@ function enqueue_vite_assets()
 		if (file_exists($manifest_path)) {
 			$manifest = json_decode(file_get_contents($manifest_path), true);
 			$js = $manifest['src/js/main.js']['file'] ?? '';
-			$css = $manifest['src/css/style.css']['file'] ?? '';
+			$css = $manifest['src/css/main.css']['file'] ?? '';
 			if ($js) {
 				echo '<script type="module" src="' . get_template_directory_uri() . '/dist/' . $js . '"></script>';
 			}
