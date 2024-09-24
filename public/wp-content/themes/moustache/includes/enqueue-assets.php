@@ -24,7 +24,7 @@ function enqueue_vite_assets()
 
 	if ($is_dev) {
 		// In development, use Vite's dev server on default port 5173
-		wp_enqueue_script('vite-main', 'http://localhost:5173/src/js/main.js', [], null, true);
+		wp_enqueue_script('vite-main', 'http://localhost:5173/src/main.js', [], null, true);
 		wp_enqueue_style('vite-main-style', 'http://localhost:5173/src/css/main.css', [], null);
 	} else {
 		// In production, use the manifest to locate the files

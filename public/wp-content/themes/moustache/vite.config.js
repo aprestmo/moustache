@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import liveReload from 'vite-plugin-live-reload';
 
+const THEME_NAME = 'moustache';
+
 export default defineConfig(({ mode }) => ({
   plugins: [liveReload(['./**/*.php'])],
   server: {
@@ -8,7 +10,7 @@ export default defineConfig(({ mode }) => ({
       host: 'localhost',
     },
   },
-  base: mode === 'production' ? '/wp-content/themes/moustache/dist/' : '/',
+  base: mode === 'production' ? `/wp-content/themes/${THEME_NAME}/dist/` : '/',
   build: {
 		manifest: true,
     outDir: 'dist',
