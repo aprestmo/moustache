@@ -9,6 +9,3 @@ trim_trailing_whitespace = true
 
 [*.php]
 indent_size = 4
-
-[.env*]
-insert_final_newline = false
