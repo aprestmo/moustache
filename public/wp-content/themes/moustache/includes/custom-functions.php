@@ -174,3 +174,20 @@ function my_acf_init()
 	acf_update_setting('google_api_key', 'AIzaSyBpX2xs6qaBOTQmn0VB7IiHd0vmRatZz00');
 }
 add_action('acf/init', 'my_acf_init');
+
+/**
+ * Get the base path for assets based on the environment.
+ *
+ * @return string The base path for assets.
+ */
+function get_asset_base_path()
+{
+	// Check if the environment constant is defined
+	if (!defined('WP_ENVIRONMENT_TYPE')) {
+		// Default to 'production' if WP_ENVIRONMENT_TYPE is not set
+		define('WP_ENVIRONMENT_TYPE', 'production');
+	}
+
+	// Set the base path based on the environment
+	return WP_ENVIRONMENT_TYPE === 'local' ? '/public/' : '/dist/';
+}

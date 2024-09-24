@@ -99,41 +99,6 @@ function lt_html_excerpt($text)
 	return $text;
 }
 
-/* Vite */
-// function my_vite_enqueue_scripts()
-// {
-
-// 	// Check if the constant is defined and equals 'local'
-// 	if (defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local') {
-// 		// Vite HMR connection in development
-// 		echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
-// 		echo '<script type="module" src="http://localhost:5173/src/main.js"></script>';
-// 	} else {
-// 		// Production assets
-// 		wp_enqueue_style('my-vite-theme-style', get_template_directory_uri() . '/dist/main.css', [], '1.0.0');
-// 		wp_enqueue_script('my-vite-theme-script', get_template_directory_uri() . '/dist/main.js', [], '1.0.0', true);
-// 	}
-// }
-// add_action('wp_enqueue_scripts', 'my_vite_enqueue_scripts');
-
-
-/**
- * Get the base path for assets based on the environment.
- *
- * @return string The base path for assets.
- */
-function get_asset_base_path()
-{
-	// Check if the environment constant is defined
-	if (!defined('WP_ENVIRONMENT_TYPE')) {
-		// Default to 'production' if WP_ENVIRONMENT_TYPE is not set
-		define('WP_ENVIRONMENT_TYPE', 'production');
-	}
-
-	// Set the base path based on the environment
-	return WP_ENVIRONMENT_TYPE === 'local' ? '/public/' : '/dist/';
-}
-
 /* remove the default filter */
 remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 

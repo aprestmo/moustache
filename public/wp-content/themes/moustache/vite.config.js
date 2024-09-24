@@ -8,8 +8,7 @@ export default defineConfig(({ mode }) => ({
       host: 'localhost',
     },
   },
-	base: process.env.VITE_BASE_URL,
-  // publicDir: 'public',
+  base: mode === 'production' ? '/wp-content/themes/moustache/dist/' : '/',
   build: {
 		manifest: true,
     outDir: 'dist',

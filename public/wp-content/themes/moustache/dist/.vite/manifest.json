@@ -1,24 +1,4 @@
 {
-  "src/fonts/Pacaembu-Black.woff2": {
-    "file": "Pacaembu-Black.woff2",
-    "src": "src/fonts/Pacaembu-Black.woff2"
-  },
-  "src/fonts/Pacaembu-Bold.woff2": {
-    "file": "Pacaembu-Bold.woff2",
-    "src": "src/fonts/Pacaembu-Bold.woff2"
-  },
-  "src/fonts/Pacaembu-Light.woff2": {
-    "file": "Pacaembu-Light.woff2",
-    "src": "src/fonts/Pacaembu-Light.woff2"
-  },
-  "src/fonts/Pacaembu-Medium.woff2": {
-    "file": "Pacaembu-Medium.woff2",
-    "src": "src/fonts/Pacaembu-Medium.woff2"
-  },
-  "src/fonts/Pacaembu-Regular.woff2": {
-    "file": "Pacaembu-Regular.woff2",
-    "src": "src/fonts/Pacaembu-Regular.woff2"
-  },
   "src/main.js": {
     "file": "main.js",
     "name": "main",
@@ -26,13 +6,6 @@
     "isEntry": true,
     "css": [
       "main.css"
-    ],
-    "assets": [
-      "Pacaembu-Black.woff2",
-      "Pacaembu-Bold.woff2",
-      "Pacaembu-Light.woff2",
-      "Pacaembu-Medium.woff2",
-      "Pacaembu-Regular.woff2"
     ]
   }
 }
