@@ -17,9 +17,10 @@
 	"scripts": {
 		"dev": "APP_ENV=development vite",
 		"build": "APP_ENV=production vite build",
-		"optimize": "bunx @divriots/jampack ./dist"
+		"optimize": "bun run jampack dist"
 	},
 	"devDependencies": {
+		"@divriots/jampack": "^0.28.0",
 		"prettier": "^3.3.3",
 		"wysiwyg.css": "0.0.4"
 	},
