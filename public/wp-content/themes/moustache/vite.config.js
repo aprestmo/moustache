@@ -13,6 +13,12 @@ export default defineConfig(({ mode }) => ({
     },
   },
 	base: mode === 'production' ? `${basePath}/dist/` : basePath,
+	resolve: {
+		alias: {
+			'@images': '/src/images',
+			'@fonts': '/public/fonts',
+		}
+	},
   build: {
 		manifest: true,
     outDir: 'dist',
