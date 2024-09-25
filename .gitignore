@@ -11,7 +11,7 @@
 # Include these files:
 !.gitignore
 !README.md
-!.gitlab-ci.yml
+!.github/*
 !composer.json
 
 # Include these folders:
