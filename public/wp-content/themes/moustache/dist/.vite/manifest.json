@@ -19,25 +19,20 @@
     "file": "Pacaembu-Regular.Bw1gtxSN.woff2",
     "src": "public/fonts/Pacaembu-Regular.woff2"
   },
-  "src/images/test.jpg": {
-    "file": "test.BTRBb3Tv.jpg",
-    "src": "src/images/test.jpg"
-  },
   "src/main.js": {
     "file": "main.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
     "css": [
-      "main.oidTAOWy.css"
+      "main.CFSaRlMr.css"
     ],
     "assets": [
       "Pacaembu-Black.mlfvF07H.woff2",
       "Pacaembu-Bold.Ci-WemVF.woff2",
       "Pacaembu-Light.C3YUTOdu.woff2",
       "Pacaembu-Medium.BZgRDV0B.woff2",
-      "Pacaembu-Regular.Bw1gtxSN.woff2",
-      "test.BTRBb3Tv.jpg"
+      "Pacaembu-Regular.Bw1gtxSN.woff2"
     ]
   }
 }
