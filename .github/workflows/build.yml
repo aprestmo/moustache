@@ -1,7 +1,6 @@
 name: Build on Push and PR
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -20,10 +19,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.9.0'  # Using the latest LTS version
+          node-version: '20.9.0'
 
       - name: Install dependencies
+        working-directory: public/wp-content/themes/moustache # Replace with the actual path to your package.json
         run: npm install
 
       - name: Run build script
+        working-directory: public/wp-content/themes/moustache # Replace with the actual path to your package.json
         run: npm run build
