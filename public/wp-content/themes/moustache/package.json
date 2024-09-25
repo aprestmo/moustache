@@ -17,7 +17,8 @@
 	"scripts": {
 		"dev": "APP_ENV=development vite",
 		"build": "APP_ENV=production vite build && bun run optimize",
-		"optimize": "bunx @divriots/jampack ./dist"
+		"optimize": "bunx @divriots/jampack ./dist",
+		"preview": "vite build"
 	},
 	"devDependencies": {
 		"prettier": "^3.3.3",

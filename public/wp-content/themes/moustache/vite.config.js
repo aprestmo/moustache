@@ -8,6 +8,7 @@ const BASE_PATH = `/wp-content/themes/${THEME_NAME}`;
 export default defineConfig(({ mode }) => ({
   plugins: [liveReload(['./**/*.php'])],
   server: {
+		host: '0.0.0.0',
     hmr: {
       host: 'localhost',
     },

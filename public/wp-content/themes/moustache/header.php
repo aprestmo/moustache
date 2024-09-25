@@ -24,8 +24,7 @@
 
 <body <?php body_class(); ?>>
 
-	<header class="c-header" role="banner">
-
+	<header class="c-header">
 		<div class="mou-site-wrap mou-site-wrap--padding u-1/1">
 			<div class="o-grid">
 				<div class="o-grid__item c-header__brand">
