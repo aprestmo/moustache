@@ -35,4 +35,4 @@ jobs:
 
       - name: Run build script
         working-directory: public/wp-content/themes/moustache
-        run: ~/.bun/bin/bun run build && ~/.bun/bin/bunx run optimize
+        run: ~/.bun/bin/bun run build && ~/.bun/bin/bun run optimize
