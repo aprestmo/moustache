@@ -54,7 +54,7 @@
 							<p class="c-brand__title"><a class="c-header__link" href="<?php echo esc_attr(home_url()); ?>" title=""><?php echo esc_html(get_bloginfo('name')); ?></a></p>
 						<?php endif; ?>
 						<span class="u-visually-hidden"><?php echo esc_html(bloginfo('description')); ?></span>
-						<img class="c-brand__slogan" src="<?php echo esc_url(get_template_directory_uri() . '/dist/slogan.svg'); ?>" alt="">
+						<img class="c-brand__slogan" src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'slogan.svg'); ?>" alt="">
 					</div>
 				</div>
 			</div>
