@@ -39,7 +39,7 @@ public/wp-content/*
 public/wp-content/themes/*
 !public/wp-content/themes/moustache/
 
-# Ignore "node_modules" in theme folder.
+# Ignore folders in theme folder.
 public/wp-content/themes/moustache/node_modules
-public/wp-content/themes/moustache/vendor
-public/wp-content/themes/moustache/.dist
+public/wp-content/themes/moustache/public
+public/wp-content/themes/moustache/src
