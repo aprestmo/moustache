@@ -20,22 +20,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.9.0'
-
-      - name: Install Bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          echo 'export BUN_INSTALL="$HOME/.bun"' >> $GITHUB_ENV
-          echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> $GITHUB_ENV
+          node-version: '20.9.0'  # Using the latest LTS version
 
       - name: Install dependencies
-        shell: bash
-        run: |
-          source ~/.bashrc
-          bun install
+        run: npm install
 
       - name: Run build script
-        shell: bash
-        run: |
-          source ~/.bashrc
-          bun run build
+        run: npm run build
