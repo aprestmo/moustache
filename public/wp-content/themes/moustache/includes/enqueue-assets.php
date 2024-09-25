@@ -44,3 +44,11 @@ function enqueue_vite_assets()
 	}
 }
 add_action('wp_enqueue_scripts', 'enqueue_vite_assets');
+
+function remove_block_library_css()
+{
+	wp_dequeue_style('wp-block-library');
+	wp_dequeue_style('wp-block-library-theme'); // Optional: removes block theme styles
+	wp_dequeue_style('wp-block-library-style'); // Optional: removes inline styles (if any)
+}
+add_action('wp_enqueue_scripts', 'remove_block_library_css', 100);
