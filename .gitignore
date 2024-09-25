@@ -43,3 +43,5 @@ public/wp-content/themes/*
 public/wp-content/themes/moustache/node_modules
 public/wp-content/themes/moustache/public
 public/wp-content/themes/moustache/src
+public/wp-content/themes/moustache/.jampack
+public/wp-content/themes/moustache/dist/_jampack
