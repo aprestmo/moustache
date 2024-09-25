@@ -16,9 +16,8 @@
 	},
 	"scripts": {
 		"dev": "APP_ENV=development vite",
-		"build": "APP_ENV=production vite build && bunx @divriots/jampack ./dist",
-		"optimize": "bunx @divriots/jampack ./dist",
-		"preview": "vite build"
+		"build": "APP_ENV=production vite build",
+		"optimize": "bunx @divriots/jampack ./dist"
 	},
 	"devDependencies": {
 		"prettier": "^3.3.3",
@@ -28,6 +27,7 @@
 		"postcss": "^8.4.47",
 		"postcss-preset-env": "^10.0.5",
 		"vite": "^5.4.7",
-		"vite-plugin-live-reload": "^3.0.3"
+		"vite-plugin-live-reload": "^3.0.3",
+		"vite-plugin-static-copy": "^1.0.6"
 	}
 }
