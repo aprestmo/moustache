@@ -25,13 +25,14 @@ jobs:
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
-          echo 'export BUN_INSTALL="$HOME/.bun"' >> $GITHUB_ENV
-          echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> $GITHUB_ENV
+          echo "export BUN_INSTALL='$HOME/.bun'" >> $HOME/.bashrc
+          echo "export PATH='$BUN_INSTALL/bin:$PATH'" >> $HOME/.bashrc
+          source $HOME/.bashrc
 
       - name: Install dependencies
-        working-directory: public/wp-content/themes/moustache # Replace with the actual path to your package.json
-        run: bun install
+        working-directory: public/wp-content/themes/moustache
+        run: ~/.bun/bin/bun install
 
       - name: Run build script
-        working-directory: public/wp-content/themes/moustache # Replace with the actual path to your package.json
-        run: bun run build
+        working-directory: public/wp-content/themes/moustache
+        run: ~/.bun/bin/bun run build
