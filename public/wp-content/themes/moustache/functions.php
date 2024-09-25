@@ -4,7 +4,7 @@ defined('ABSPATH') || die('Shame on you');
 
 /**
  * Author: Alexander Prestmo
- *Author URI: http://attityd.no
+ * Author URI: http://attityd.no
  */
 
 /**
