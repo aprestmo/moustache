@@ -16,7 +16,7 @@
 	},
 	"scripts": {
 		"dev": "APP_ENV=development vite",
-		"build": "APP_ENV=production vite build && bun run optimize",
+		"build": "APP_ENV=production vite build && bunx @divriots/jampack ./dist",
 		"optimize": "bunx @divriots/jampack ./dist",
 		"preview": "vite build"
 	},
