@@ -104,3 +104,13 @@ remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 
 /* now, add your own filter */
 add_filter('get_the_excerpt', 'lt_html_excerpt');
+
+function inject_google_maps_api_key()
+{
+	// Define the condition for injecting the API key.
+	// Example: Only on specific pages, post types, or templates.
+	if (is_singular('pitch')) { // Adjust this condition to your needs
+		echo '<script>const googleMapsApiKey = "' . esc_js(GOOGLE_MAPS_API_KEY) . '";</script>';
+	}
+}
+add_action('wp_head', 'inject_google_maps_api_key');
