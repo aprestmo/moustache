@@ -30,7 +30,3 @@
 :where(.wysiwyg figure) {
 	margin-block-end: 2.8em;
 }
-
-body {
-	background-image: url('@images/test.jpg');
-}
