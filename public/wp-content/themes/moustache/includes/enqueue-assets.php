@@ -52,3 +52,32 @@ function remove_block_library_css()
 	wp_dequeue_style('wp-block-library-style'); // Optional: removes inline styles (if any)
 }
 add_action('wp_enqueue_scripts', 'remove_block_library_css', 100);
+
+// Add the action to dequeue and conditionally enqueue BBPress CSS
+add_action('wp_enqueue_scripts', 'conditionally_load_bbpress_css', 20);
+
+function conditionally_load_bbpress_css()
+{
+	// Dequeue default BBPress CSS
+	wp_dequeue_style('bbp-default'); // Dequeues the default BBPress CSS handle
+
+	// Check if the current URL path matches /forum/*
+	if (is_forum_page()) {
+		// Re-enqueue BBPress CSS file on /forum/* paths
+		wp_enqueue_style('bbp-default'); // You can re-enqueue or load a custom CSS if preferred
+	}
+}
+
+// Helper function to check if the current page is a forum page
+function is_forum_page()
+{
+	// Get the current requested URL path
+	$current_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+	// Check if the path starts with "forum" (adjust if needed)
+	if (strpos($current_path, 'forums') === 0) {
+		return true;
+	}
+
+	return false;
+}
