@@ -15,10 +15,10 @@
 	<div class="mou-site-wrap mou-site-wrap--padding">
 		<div class="o-grid o-section-md">
 			<div class="o-grid__item u-1/1 u-text-center">
-				<img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'kampbart-logo.svg'); ?>" alt="">
+				<img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'kampbart-logo.svg'); ?>" alt="" width="96" height="113.867">
 				<p class="c-footer__slogan">
 					<span class="u-visually-hidden"><?php echo esc_html(bloginfo('description')); ?></span>
-					<img src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'slogan.svg'); ?>" alt="" height="26">
+					<img src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'slogan.svg'); ?>" alt="" width="265" height="26">
 				</p>
 				<p class="c-footer__copyright">
 					<?php echo esc_html(get_bloginfo('name')); ?>
