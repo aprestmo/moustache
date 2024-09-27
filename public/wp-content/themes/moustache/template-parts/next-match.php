@@ -7,11 +7,11 @@ $now = date('Y-m-d H:i:s');
 
 $args = array(
 	'post_type' => 'fixture',
-	'post_status' => 'publish', // Make sure it's only published posts
-	'posts_per_page' => 1, // Get only one
-	'meta_key' => 'date_time', // Name of custom field to ask for
+	'post_status' => 'publish',
+	'posts_per_page' => -1,
+	'meta_key' => 'date_time',
 	'orderby' => 'meta_value',
-	'order' => 'ASC', // Gets the one closest in time
+	'order' => 'ASC',
 	'meta_query' => array(
 		array(
 			'key' => 'date_time',
@@ -24,8 +24,13 @@ $args = array(
 $next_match = get_posts($args);
 
 if ($next_match) :
-
 	foreach ($next_match as $post) : setup_postdata($post);
+
+		$canceled = get_field('canceled');
+
+		if ($canceled == 'match_abandoned' || $canceled == 'match_canceled' || $canceled == 'match_abandonded') {
+			continue;
+		}
 
 		// Get the match facts
 		$home_team = get_field('home_team');
@@ -64,6 +69,7 @@ if ($next_match) :
 		</div>
 
 <?php
+		break; // Stopp løkken etter å ha funnet det første gyldige innlegget
 	endforeach;
 	wp_reset_postdata();
 endif;
