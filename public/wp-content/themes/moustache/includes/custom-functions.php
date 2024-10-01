@@ -87,7 +87,7 @@ class walker_texas_ranger extends Walker_Nav_Menu
 		// Item classes
 		$item_classes =  array(
 			'item_class'            => $depth == 0 ? $prefix . $suffix['item'] : '',
-			'parent_class'          => $args->has_children ? $parent_class = $prefix . $suffix['parent_item'] : '',
+			'parent_class'          => $args->has_children ? $prefix . $suffix['parent_item'] : '',
 			'active_page_class'     => in_array("current-menu-item", $item->classes) ? $prefix . $suffix['active_item'] : '',
 			'active_parent_class'   => in_array("current-menu-parent", $item->classes) ? $prefix . $suffix['parent_of_active_item'] : '',
 			'active_ancestor_class' => in_array("current-menu-ancestor", $item->classes) ? $prefix . $suffix['ancestor_of_active_item'] : '',
@@ -191,3 +191,29 @@ function get_asset_base_path()
 	// Set the base path based on the environment
 	return WP_ENVIRONMENT_TYPE === 'local' ? '/public/' : '/dist/';
 }
+
+// First, create an array of the club titles
+$club_titles = [];
+foreach ($clubs_withdrawn as $club) {
+	$club_titles[] = get_the_title($club); // Assuming get_the_title() returns the club name
+}
+
+// Function to format club titles with 'og'
+function formatClubTitlesWithOg($titles)
+{
+	$count = count($titles);
+
+	if ($count == 1) {
+		return $titles[0];
+	} elseif ($count == 2) {
+		return $titles[0] . ' og ' . $titles[1];
+	} elseif ($count > 2) {
+		$lastItem = array_pop($titles);  // Remove the last title
+		return implode(', ', $titles) . ' og ' . $lastItem;
+	}
+
+	return '';  // If the array is empty, return an empty string
+}
+
+// Now, output the formatted list of club titles
+echo formatClubTitlesWithOg($club_titles) . ' har trukket seg.';

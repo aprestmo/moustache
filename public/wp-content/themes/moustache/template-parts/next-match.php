@@ -38,8 +38,16 @@ if ($next_match) :
 		$when = get_field('date_time');
 		$pitch = get_field('pitch');
 
-		foreach ($pitch as $ground) {
-			$ground = $ground->post_title;
+		if (is_array($pitch) && !empty($pitch)) {
+			if (is_object($pitch[0])) {
+				$ground = $pitch[0]->post_title;
+			} elseif (is_array($pitch[0]) && isset($pitch[0]['post_title'])) {
+				$ground = $pitch[0]['post_title'];
+			} else {
+				$ground = ''; // Eller en standardverdi hvis ingen gyldig verdi blir funnet
+			}
+		} else {
+			$ground = ''; // Eller en standardverdi hvis $pitch er tom eller ikke en array
 		}
 
 		foreach ($home_team as $hosts) {
