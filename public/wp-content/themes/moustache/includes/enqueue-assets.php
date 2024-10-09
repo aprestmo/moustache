@@ -17,8 +17,8 @@ function assets_version_id()
 
 function enqueue_vite_assets()
 {
-	wp_deregister_script('jquery');
-	wp_enqueue_script('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js', false, '3.6.0', true);
+	// wp_deregister_script('jquery');
+	// wp_enqueue_script('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js', false, '3.6.0', true);
 
 	$is_dev = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
 
