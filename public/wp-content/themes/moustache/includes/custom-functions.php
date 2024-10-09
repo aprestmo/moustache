@@ -214,6 +214,3 @@ function formatClubTitlesWithOg($titles)
 
 	return '';  // If the array is empty, return an empty string
 }
-
-// Now, output the formatted list of club titles
-echo formatClubTitlesWithOg($club_titles) . ' har trukket seg.';
