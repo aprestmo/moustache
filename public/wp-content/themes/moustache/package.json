@@ -3,7 +3,9 @@
 	"version": "3.0.0",
 	"private": true,
 	"type": "module",
-	"browserslist": ["> 2%"],
+	"browserslist": [
+		"> 2%"
+	],
 	"description": "A WordPress theme for Kampbart.",
 	"author": {
 		"name": "Alexander Prestmo",
