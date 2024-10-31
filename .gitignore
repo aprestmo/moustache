@@ -11,7 +11,7 @@
 # Include these files:
 !.gitignore
 !README.md
-!.gitlab-ci.yml
+!.github
 !composer.json
 
 # Include these folders:
@@ -39,7 +39,7 @@ public/wp-content/*
 public/wp-content/themes/*
 !public/wp-content/themes/moustache/
 
-# Ignore "node_modules" in theme folder.
+# Ignore folders in theme folder.
 public/wp-content/themes/moustache/node_modules
-public/wp-content/themes/moustache/vendor
-public/wp-content/themes/moustache/.dist
+public/wp-content/themes/moustache/.jampack
+public/wp-content/themes/moustache/dist/_jampack
