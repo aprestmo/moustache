@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2023-09-01 07:17+0200\n"
+"POT-Creation-Date: 2024-11-12 11:41+0100\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -30,11 +30,11 @@ msgid ""
 "below or a search?"
 msgstr ""
 
-#: archive-club.php:23
+#: archive-club.php:25
 msgid "Klubboversikt"
 msgstr ""
 
-#: archive-pitch.php:24
+#: archive-pitch.php:25
 msgid "Baneoversikt"
 msgstr ""
 
@@ -42,23 +42,23 @@ msgstr ""
 msgid "Aktive spillere"
 msgstr ""
 
-#: footer.php:27
+#: footer.php:26
 msgid "Founded 2003"
 msgstr ""
 
-#: footer.php:29
+#: footer.php:28
 msgid "Copyright"
 msgstr ""
 
-#: header.php:66
+#: header.php:62
 msgid "Menu"
 msgstr ""
 
-#: header.php:70 searchform.php:6 searchform.php:8
+#: header.php:66 searchform.php:5 searchform.php:7
 msgid "Search"
 msgstr ""
 
-#: header.php:80
+#: header.php:76
 msgid "Close"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Card in 2nd half"
 msgstr ""
 
-#: includes/layouts/_date-time.php:19 template-parts/next-match.php:61
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:74
 msgid "at"
 msgstr ""
 
@@ -114,88 +114,76 @@ msgstr ""
 msgid "Kit"
 msgstr ""
 
-#: searchform.php:7
+#: searchform.php:6
 msgid "E.g. wins, moustaches etc."
 msgstr ""
 
-#: single-pitch.php:20
+#: single-pitch.php:43
 msgid "Image from "
 msgstr ""
 
-#: single-pitch.php:38
+#: single-pitch.php:61
 msgid "Surface"
-msgstr ""
-
-#: single-player.php:21
-msgid "Portrait of "
-msgstr ""
-
-#: single-player.php:28
-msgid "Shirt Number"
-msgstr ""
-
-#: single-player.php:35
-msgid "Shirt Name"
-msgstr ""
-
-#: single-player.php:42
-msgid "Date of Birth"
-msgstr ""
-
-#: single-player.php:53
-msgid "Position"
-msgstr ""
-
-#: single-player.php:68
-msgid "Former Clubs"
-msgstr ""
-
-#: single-player.php:75
-msgid "Best Memory"
-msgstr ""
-
-#: single-player.php:220
-msgid "Player Stats"
 msgstr ""
 
 #: single.php:16
 msgid "Writer"
 msgstr ""
 
-#: taxonomy-tournament.php:34
+#: taxonomy-tournament.php:29 taxonomy-tournament.php:121
+msgid "Terminliste"
+msgstr ""
+
+#: taxonomy-tournament.php:30
+msgid "Tabell"
+msgstr ""
+
+#: taxonomy-tournament.php:31
+msgid "Statistikk"
+msgstr ""
+
+#: taxonomy-tournament.php:42
+msgid "Disse lagene deltar:"
+msgstr ""
+
+#: taxonomy-tournament.php:58
+msgid "Disse lagene har trukket seg:"
+msgstr ""
+
+#: taxonomy-tournament.php:124
 msgid "Day"
 msgstr ""
 
-#: taxonomy-tournament.php:35
+#: taxonomy-tournament.php:125
 msgid "Date"
 msgstr ""
 
-#: taxonomy-tournament.php:36
+#: taxonomy-tournament.php:126
 msgid "Time"
 msgstr ""
 
-#: taxonomy-tournament.php:37
+#: taxonomy-tournament.php:127
 msgid "Home team"
 msgstr ""
 
-#: taxonomy-tournament.php:38
+#: taxonomy-tournament.php:128
 msgid "Away team"
 msgstr ""
 
-#: taxonomy-tournament.php:39
+#: taxonomy-tournament.php:129
 msgid "Pitch"
 msgstr ""
 
-#: taxonomy-tournament.php:40
+#: taxonomy-tournament.php:130
 msgid "Result"
 msgstr ""
 
-#: taxonomy-tournament.php:154
-msgid "You can't select both walkover and inadequate report"
+#: taxonomy-tournament.php:167
+msgid "Nytt tidspunkt kommer"
 msgstr ""
 
-#: taxonomy-tournament.php:245 taxonomy-tournament.php:247
-msgid "&ndash;"
+#: taxonomy-tournament.php:246
+msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
 #: template-parts/featured-players.php:18
@@ -206,12 +194,61 @@ msgstr ""
 msgid "Missing player profile image"
 msgstr ""
 
-#: template-parts/next-match.php:61
+#: template-parts/next-match.php:74
 msgid "Next match:"
+msgstr ""
+
+#: template-parts/player-details.php:5
+#, php-format
+msgid "Portrait of %s"
+msgstr ""
+
+#: template-parts/player-details.php:21
+msgid "Position"
+msgstr ""
+
+#: template-parts/player-statistics.php:4
+msgid "Player Stats"
+msgstr ""
+
+#: template-parts/player-statistics.php:7
+msgid "Season"
+msgstr ""
+
+#: template-parts/player-statistics.php:8
+msgid "Matches"
+msgstr ""
+
+#: template-parts/player-statistics.php:9
+msgid "Goals"
+msgstr ""
+
+#: template-parts/player-statistics.php:10
+msgid "Assists"
+msgstr ""
+
+#: template-parts/player-statistics.php:11
+msgid "Yellow Cards"
+msgstr ""
+
+#: template-parts/player-statistics.php:12
+msgid "Red Cards"
+msgstr ""
+
+#: template-parts/player-statistics.php:46
+msgid "Total"
 msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Moustache"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/aprestmo/moustache"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "WordPress theme for Kampbart"
 msgstr ""
 
 #. Author of the plugin/theme

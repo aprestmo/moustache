@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
 "POT-Creation-Date: 2023-09-01 07:17+0200\n"
-"PO-Revision-Date: 2024-11-12 11:39+0100\n"
+"PO-Revision-Date: 2024-11-12 11:41+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -121,7 +121,7 @@ msgstr "F.eks. seiere, barter etc."
 
 #: single-pitch.php:20
 msgid "Image from "
-msgstr "Bilde fra"
+msgstr "Bilde fra "
 
 #: single-pitch.php:38
 msgid "Surface"
