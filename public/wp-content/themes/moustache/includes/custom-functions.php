@@ -53,7 +53,7 @@ class Walker_Texas_Ranger extends Walker_Nav_Menu
 	/**
 	 * @inheritDoc
 	 */
-	public function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output)
+	public function display_element($element, &$children_elements, $max_depth, $depth, $args, &$output)
 	{
 		$id_field = $this->db_fields['id'] ?? 'id';
 
@@ -209,7 +209,7 @@ function get_asset_base_path(): string
 /**
  * Format club titles with Norwegian 'og'
  */
-function format_club_titles_with_og(array $titles): string
+function formatClubTitlesWithOg(array $titles): string
 {
 	$count = count($titles);
 

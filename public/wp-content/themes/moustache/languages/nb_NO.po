@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2023-09-01 07:17+0200\n"
-"PO-Revision-Date: 2024-11-12 11:41+0100\n"
+"POT-Creation-Date: 2024-11-12 20:50+0100\n"
+"PO-Revision-Date: 2024-11-12 20:51+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -30,35 +30,43 @@ msgid ""
 msgstr ""
 "Det ser ut som ingenting finnes på denne adressen. Hva med å forsøke et søk?"
 
-#: archive-club.php:23
+#: archive-club.php:25
 msgid "Klubboversikt"
 msgstr ""
 
-#: archive-pitch.php:24
+#: archive-pitch.php:25
 msgid "Baneoversikt"
 msgstr ""
 
-#: archive-player.php:35
+#: archive-player.php:80
 msgid "Aktive spillere"
 msgstr ""
 
-#: footer.php:27
+#: archive-player.php:97
+msgid "Spillere med barten på hylla"
+msgstr ""
+
+#: archive-player.php:113
+msgid "Ingen spillere funnet."
+msgstr ""
+
+#: footer.php:26
 msgid "Founded 2003"
 msgstr "Grunnlagt 2003"
 
-#: footer.php:29
+#: footer.php:28
 msgid "Copyright"
 msgstr ""
 
-#: header.php:66
+#: header.php:62
 msgid "Menu"
 msgstr "Meny"
 
-#: header.php:70 searchform.php:6 searchform.php:8
+#: header.php:66 searchform.php:5 searchform.php:7
 msgid "Search"
 msgstr "Søk"
 
-#: header.php:80
+#: header.php:76
 msgid "Close"
 msgstr "Lukk"
 
@@ -78,7 +86,7 @@ msgstr "Kort i 1. omgang"
 msgid "Card in 2nd half"
 msgstr "Kort i 2. omgang"
 
-#: includes/layouts/_date-time.php:19 template-parts/next-match.php:61
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:74
 msgid "at"
 msgstr "kl."
 
@@ -115,88 +123,76 @@ msgstr "Kontonummer"
 msgid "Kit"
 msgstr "Drakter"
 
-#: searchform.php:7
+#: searchform.php:6
 msgid "E.g. wins, moustaches etc."
 msgstr "F.eks. seiere, barter etc."
 
-#: single-pitch.php:20
+#: single-pitch.php:43
 msgid "Image from "
 msgstr "Bilde fra "
 
-#: single-pitch.php:38
+#: single-pitch.php:61
 msgid "Surface"
 msgstr "Underlag"
-
-#: single-player.php:21
-msgid "Portrait of "
-msgstr "Portrett av "
-
-#: single-player.php:28
-msgid "Shirt Number"
-msgstr "Draktnummer"
-
-#: single-player.php:35
-msgid "Shirt Name"
-msgstr "Draktnavn"
-
-#: single-player.php:42
-msgid "Date of Birth"
-msgstr "Fødselsdato"
-
-#: single-player.php:53
-msgid "Position"
-msgstr "Posisjon"
-
-#: single-player.php:68
-msgid "Former Clubs"
-msgstr "Tidligere klubber"
-
-#: single-player.php:75
-msgid "Best Memory"
-msgstr "Beste Kampbart-minne"
-
-#: single-player.php:220
-msgid "Player Stats"
-msgstr "Spillerstatistikk"
 
 #: single.php:16
 msgid "Writer"
 msgstr "Skribent"
 
-#: taxonomy-tournament.php:34
+#: taxonomy-tournament.php:29 taxonomy-tournament.php:121
+msgid "Terminliste"
+msgstr ""
+
+#: taxonomy-tournament.php:30
+msgid "Tabell"
+msgstr ""
+
+#: taxonomy-tournament.php:31
+msgid "Statistikk"
+msgstr ""
+
+#: taxonomy-tournament.php:42
+msgid "Disse lagene deltar:"
+msgstr ""
+
+#: taxonomy-tournament.php:58
+msgid "Disse lagene har trukket seg:"
+msgstr ""
+
+#: taxonomy-tournament.php:124
 msgid "Day"
 msgstr "Dag"
 
-#: taxonomy-tournament.php:35
+#: taxonomy-tournament.php:125
 msgid "Date"
 msgstr "Dato"
 
-#: taxonomy-tournament.php:36
+#: taxonomy-tournament.php:126
 msgid "Time"
 msgstr "Tidspunkt"
 
-#: taxonomy-tournament.php:37
+#: taxonomy-tournament.php:127
 msgid "Home team"
 msgstr "Hjemmelag"
 
-#: taxonomy-tournament.php:38
+#: taxonomy-tournament.php:128
 msgid "Away team"
 msgstr "Bortelag"
 
-#: taxonomy-tournament.php:39
+#: taxonomy-tournament.php:129
 msgid "Pitch"
 msgstr "Bane"
 
-#: taxonomy-tournament.php:40
+#: taxonomy-tournament.php:130
 msgid "Result"
 msgstr "Resultat"
 
-#: taxonomy-tournament.php:154
-msgid "You can't select both walkover and inadequate report"
+#: taxonomy-tournament.php:167
+msgid "Nytt tidspunkt kommer"
 msgstr ""
 
-#: taxonomy-tournament.php:245 taxonomy-tournament.php:247
-msgid "&ndash;"
+#: taxonomy-tournament.php:246
+msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
 #: template-parts/featured-players.php:18
@@ -207,12 +203,61 @@ msgstr "Profilerte Barter"
 msgid "Missing player profile image"
 msgstr "Mangle profilbilde"
 
-#: template-parts/next-match.php:61
+#: template-parts/next-match.php:74
 msgid "Next match:"
 msgstr "Neste kamp:"
 
+#: template-parts/player-details.php:5
+#, php-format
+msgid "Portrait of %s"
+msgstr "Portrett av %s"
+
+#: template-parts/player-details.php:21
+msgid "Position"
+msgstr "Posisjon"
+
+#: template-parts/player-statistics.php:4
+msgid "Player Stats"
+msgstr "Spillerstatistikk"
+
+#: template-parts/player-statistics.php:7
+msgid "Season"
+msgstr "Sesong"
+
+#: template-parts/player-statistics.php:8
+msgid "Matches"
+msgstr "Kamper"
+
+#: template-parts/player-statistics.php:9
+msgid "Goals"
+msgstr "Mål"
+
+#: template-parts/player-statistics.php:10
+msgid "Assists"
+msgstr "Målgivende"
+
+#: template-parts/player-statistics.php:11
+msgid "Yellow Cards"
+msgstr "Gule kort"
+
+#: template-parts/player-statistics.php:12
+msgid "Red Cards"
+msgstr "Røde kort"
+
+#: template-parts/player-statistics.php:46
+msgid "Total"
+msgstr "Totalt"
+
 #. Theme Name of the plugin/theme
 msgid "Moustache"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/aprestmo/moustache"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "WordPress theme for Kampbart"
 msgstr ""
 
 #. Author of the plugin/theme
@@ -230,6 +275,21 @@ msgstr ""
 #. Template Name of the plugin/theme
 msgid "Klubbinfo */"
 msgstr ""
+
+#~ msgid "Shirt Number"
+#~ msgstr "Draktnummer"
+
+#~ msgid "Shirt Name"
+#~ msgstr "Draktnavn"
+
+#~ msgid "Date of Birth"
+#~ msgstr "Fødselsdato"
+
+#~ msgid "Former Clubs"
+#~ msgstr "Tidligere klubber"
+
+#~ msgid "Best Memory"
+#~ msgstr "Beste Kampbart-minne"
 
 #~ msgid "Sent off in 1st half"
 #~ msgstr "Utvist i 1. omgang"
@@ -278,10 +338,6 @@ msgstr ""
 #~ msgctxt "post type singular"
 #~ msgid "Add Fixture"
 #~ msgstr "Legg til kamp"
-
-#~ msgctxt "post type general name"
-#~ msgid "Pitches"
-#~ msgstr "Baner"
 
 #~ msgctxt "post type singular name"
 #~ msgid "Pitch"

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2024-11-12 11:41+0100\n"
+"POT-Creation-Date: 2024-11-12 20:50+0100\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -38,8 +38,16 @@ msgstr ""
 msgid "Baneoversikt"
 msgstr ""
 
-#: archive-player.php:35
+#: archive-player.php:80
 msgid "Aktive spillere"
+msgstr ""
+
+#: archive-player.php:97
+msgid "Spillere med barten på hylla"
+msgstr ""
+
+#: archive-player.php:113
+msgid "Ingen spillere funnet."
 msgstr ""
 
 #: footer.php:26
