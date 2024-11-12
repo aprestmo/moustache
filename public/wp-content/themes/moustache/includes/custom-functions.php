@@ -192,10 +192,14 @@ function get_asset_base_path()
 	return WP_ENVIRONMENT_TYPE === 'local' ? '/public/' : '/dist/';
 }
 
-// First, create an array of the club titles
+// Initialiser array før foreach-løkken
+$clubs_withdrawn = [];
 $club_titles = [];
-foreach ($clubs_withdrawn as $club) {
-	$club_titles[] = get_the_title($club); // Assuming get_the_title() returns the club name
+
+if (!empty($clubs_withdrawn)) {
+	foreach ($clubs_withdrawn as $club) {
+		$club_titles[] = get_the_title($club);
+	}
 }
 
 // Function to format club titles with 'og'
