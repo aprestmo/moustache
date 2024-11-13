@@ -45,3 +45,25 @@ dt {
 	margin: 0;
 	min-inline-size: 100%;
 }
+
+.c-button {
+	background-color: var(--c-site-grey);
+	border-radius: 0.25rem;
+	color: white;
+	display: inline-block;
+	font-family: var(--regular);
+	padding: 0.75rem 1.5rem;
+	text-decoration: none;
+	transition: background-color 200ms ease-in-out;
+}
+
+.c-button:hover,
+.c-button:focus {
+	background-color: var(--c-site-grey-dark);
+}
+
+.c-cards+h2 {
+	border-block-start: 1px solid var(--c-site-grey-light);
+	margin-block-start: 2rem;
+	padding-block-start: 2rem;
+}
