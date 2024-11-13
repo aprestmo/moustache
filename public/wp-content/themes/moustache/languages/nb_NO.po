@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2024-11-12 20:50+0100\n"
-"PO-Revision-Date: 2024-11-12 20:51+0100\n"
+"POT-Creation-Date: 2024-11-13 21:37+0100\n"
+"PO-Revision-Date: 2024-11-13 21:37+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -30,12 +30,20 @@ msgid ""
 msgstr ""
 "Det ser ut som ingenting finnes på denne adressen. Hva med å forsøke et søk?"
 
-#: archive-club.php:25
+#: archive-club.php:55
 msgid "Klubboversikt"
 msgstr ""
 
-#: archive-pitch.php:25
+#: archive-club.php:66
+msgid "Ingen klubber funnet."
+msgstr ""
+
+#: archive-pitch.php:55
 msgid "Baneoversikt"
+msgstr ""
+
+#: archive-pitch.php:66
+msgid "Ingen baner funnet."
 msgstr ""
 
 #: archive-player.php:80
@@ -86,7 +94,7 @@ msgstr "Kort i 1. omgang"
 msgid "Card in 2nd half"
 msgstr "Kort i 2. omgang"
 
-#: includes/layouts/_date-time.php:19 template-parts/next-match.php:74
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:113
 msgid "at"
 msgstr "kl."
 
@@ -195,15 +203,15 @@ msgstr ""
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: template-parts/featured-players.php:18
-msgid "Featured players"
-msgstr "Profilerte Barter"
-
-#: template-parts/featured-players.php:31
+#: template-parts/featured-players.php:45
 msgid "Missing player profile image"
 msgstr "Mangle profilbilde"
 
-#: template-parts/next-match.php:74
+#: template-parts/featured-players.php:59
+msgid "Featured players"
+msgstr "Profilerte Barter"
+
+#: template-parts/next-match.php:109
 msgid "Next match:"
 msgstr "Neste kamp:"
 
@@ -247,6 +255,16 @@ msgstr "Røde kort"
 #: template-parts/player-statistics.php:46
 msgid "Total"
 msgstr "Totalt"
+
+#: template-parts/songs.php:32
+#, php-format
+msgid "Download \"%s\""
+msgstr "Last ned «%s»"
+
+#: template-parts/songs.php:43
+#, php-format
+msgid "Download lyrics for \"%s\""
+msgstr "Last ned teksten til «%s»"
 
 #. Theme Name of the plugin/theme
 msgid "Moustache"

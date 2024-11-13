@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2024-11-12 20:50+0100\n"
+"POT-Creation-Date: 2024-11-13 21:37+0100\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,12 +30,20 @@ msgid ""
 "below or a search?"
 msgstr ""
 
-#: archive-club.php:25
+#: archive-club.php:55
 msgid "Klubboversikt"
 msgstr ""
 
-#: archive-pitch.php:25
+#: archive-club.php:66
+msgid "Ingen klubber funnet."
+msgstr ""
+
+#: archive-pitch.php:55
 msgid "Baneoversikt"
+msgstr ""
+
+#: archive-pitch.php:66
+msgid "Ingen baner funnet."
 msgstr ""
 
 #: archive-player.php:80
@@ -86,7 +94,7 @@ msgstr ""
 msgid "Card in 2nd half"
 msgstr ""
 
-#: includes/layouts/_date-time.php:19 template-parts/next-match.php:74
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:113
 msgid "at"
 msgstr ""
 
@@ -194,15 +202,15 @@ msgstr ""
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: template-parts/featured-players.php:18
-msgid "Featured players"
-msgstr ""
-
-#: template-parts/featured-players.php:31
+#: template-parts/featured-players.php:45
 msgid "Missing player profile image"
 msgstr ""
 
-#: template-parts/next-match.php:74
+#: template-parts/featured-players.php:59
+msgid "Featured players"
+msgstr ""
+
+#: template-parts/next-match.php:109
 msgid "Next match:"
 msgstr ""
 
@@ -245,6 +253,16 @@ msgstr ""
 
 #: template-parts/player-statistics.php:46
 msgid "Total"
+msgstr ""
+
+#: template-parts/songs.php:32
+#, php-format
+msgid "Download \"%s\""
+msgstr ""
+
+#: template-parts/songs.php:43
+#, php-format
+msgid "Download lyrics for \"%s\""
 msgstr ""
 
 #. Theme Name of the plugin/theme

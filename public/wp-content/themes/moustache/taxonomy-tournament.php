@@ -116,7 +116,7 @@ $term = get_queried_object();
 
 					if (! empty($posts)) :
 					?>
-						<div role="region" aria-labelledby="caption" tabindex="0">
+						<div class="table-scroll" role="region" aria-labelledby="caption" tabindex="0">
 							<table id="terminliste">
 								<caption><?php esc_html_e('Terminliste', 'moustache'); ?></caption>
 								<thead>

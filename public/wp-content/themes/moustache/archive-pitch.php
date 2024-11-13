@@ -3,36 +3,69 @@
 /**
  * Pitch overview template
  *
- * @package Moustache 5
+ * @package Moustache
  */
 
-get_header(); ?>
+// Exit if accessed directly
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+get_header();
+
+/**
+ * Get all pitches
+ *
+ * @return array Array of pitch posts
+ */
+function get_all_pitches(): array
+{
+	return get_posts([
+		'numberposts' => -1,
+		'post_type'   => 'pitch',
+		'orderby'     => 'title',
+		'order'       => 'ASC',
+	]);
+}
+
+/**
+ * Display pitch link
+ *
+ * @param WP_Post $pitch Pitch post object
+ * @return void
+ */
+function display_pitch_link(WP_Post $pitch): void
+{
+?>
+	<li class="o-grid__item u-1/2 u-1/5@md">
+		<a href="<?php echo esc_url(get_permalink($pitch->ID)); ?>">
+			<?php echo esc_html(get_the_title($pitch->ID)); ?>
+		</a>
+	</li>
+<?php
+}
+?>
 
 <div class="mou-site-wrap mou-site-wrap--padding wysiwyg u-soft-top-md u-push-bottom-lg">
 	<?php
-	$posts = get_posts(
-		array(
-			'numberposts' => -1,
-			'post_type'   => 'pitch',
-			'orderby'     => 'title',
-			'order'       => 'ASC',
-		)
-	);
+	$pitches = get_all_pitches();
 
-	if ($posts) :
-	?>
+	if ($pitches) : ?>
+		<header>
+			<h1><?php esc_html_e('Baneoversikt', 'moustache'); ?></h1>
+		</header>
 
-		<h2><?php esc_html_e('Baneoversikt', 'moustache'); ?></h2>
-		<ul class="u-soft-top-md u-flush-left">
-			<?php foreach ($posts as $post) : ?>
-				<li class="o-grid__item u-1/2 u-1/5@md">
-					<a href="/<?php echo ($post->post_name); ?>/">
-						<?php echo get_the_title($post->ID); ?>
-					</a>
-				</li>
-			<?php endforeach; ?>
+		<ul class="pitch-grid u-soft-top-md u-flush-left">
+			<?php
+			foreach ($pitches as $pitch) {
+				display_pitch_link($pitch);
+			}
+			?>
 		</ul>
+	<?php else : ?>
+		<p><?php esc_html_e('Ingen baner funnet.', 'moustache'); ?></p>
 	<?php endif; ?>
 </div>
 
-<?php get_footer(); ?>
+<?php
+get_footer();

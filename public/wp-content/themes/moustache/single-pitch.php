@@ -41,7 +41,7 @@ $fixtures_query = new WP_Query($args);
 			$size = 'medium';
 			if ($image) : ?>
 				<img src="<?php echo $image['sizes'][$size]; ?>" alt="<?php _e('Image from ', 'moustache');
-																															the_title(); ?>">
+																		the_title(); ?>">
 			<?php endif; ?>
 
 			<?php
@@ -61,64 +61,66 @@ $fixtures_query = new WP_Query($args);
 				<dt><?php esc_html_e('Surface', 'moustache'); ?>:</dt>
 				<dd class="u-flush-left"><?php esc_html_e($field['choices'][$value], 'moustache'); ?></dd>
 			</dl>
-			<table>
-				<?php if ($fixtures_query->have_posts()) : ?>
-					<thead>
-						<tr>
-							<th>Dato</th>
-							<th>Kamp</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						while ($fixtures_query->have_posts()) :
-							$fixtures_query->the_post();
-							$fixture_id = get_the_ID(); // Get the current fixture ID
-							$date_time = get_field('date_time');
+			<div class="table-scroll" role="region" aria-labelledby="caption" tabindex="0">
+				<table>
+					<?php if ($fixtures_query->have_posts()) : ?>
+						<thead>
+							<tr>
+								<th>Dato</th>
+								<th>Kamp</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							while ($fixtures_query->have_posts()) :
+								$fixtures_query->the_post();
+								$fixture_id = get_the_ID(); // Get the current fixture ID
+								$date_time = get_field('date_time');
 
-							// Check if the fixture date is in the past
-							if ($date_time && strtotime($date_time) < time()) {
-						?>
-								<tr>
-									<td>
-										<?php
-										$formatted_datetime = wp_date('j. F Y', strtotime($date_time));
-										echo esc_html($formatted_datetime);
-										?>
-									</td>
-									<td>
-										<?php
-										// Query for related posts for the current fixture ID
-										$related_posts_query = new WP_Query(array(
-											'post_type'      => 'post',
-											'posts_per_page' => -1,
-											'meta_query'     => array(
-												array(
-													'key'     => 'match_report', // ACF relationship field name
-													'value'   => $fixture_id,
-													'compare' => 'LIKE',
+								// Check if the fixture date is in the past
+								if ($date_time && strtotime($date_time) < time()) {
+							?>
+									<tr>
+										<td>
+											<?php
+											$formatted_datetime = wp_date('j. F Y', strtotime($date_time));
+											echo esc_html($formatted_datetime);
+											?>
+										</td>
+										<td>
+											<?php
+											// Query for related posts for the current fixture ID
+											$related_posts_query = new WP_Query(array(
+												'post_type'      => 'post',
+												'posts_per_page' => -1,
+												'meta_query'     => array(
+													array(
+														'key'     => 'match_report', // ACF relationship field name
+														'value'   => $fixture_id,
+														'compare' => 'LIKE',
+													),
 												),
-											),
-										));
+											));
 
-										if ($related_posts_query->have_posts()) :
-											while ($related_posts_query->have_posts()) : $related_posts_query->the_post(); ?>
-												<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-										<?php endwhile;
-										else :
-											echo the_title();
-										endif;
+											if ($related_posts_query->have_posts()) :
+												while ($related_posts_query->have_posts()) : $related_posts_query->the_post(); ?>
+													<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+											<?php endwhile;
+											else :
+												echo the_title();
+											endif;
 
-										wp_reset_postdata();
-										?>
-									</td>
-								</tr>
-						<?php
-							}
-						endwhile;
-						?>
-					</tbody>
-			</table>
+											wp_reset_postdata();
+											?>
+										</td>
+									</tr>
+							<?php
+								}
+							endwhile;
+							?>
+						</tbody>
+				</table>
+			</div>
 		<?php endif; ?>
 		</div>
 	</div>

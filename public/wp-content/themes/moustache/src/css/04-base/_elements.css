@@ -32,3 +32,16 @@ dl {
 dt {
 	font-family: var(--regular);
 }
+
+.table-scroll {
+	-webkit-overflow-scrolling: touch;
+	inline-size: 100%;
+	margin-block-end: 1em;
+	overflow-x: auto;
+}
+
+.table-scroll table {
+	inline-size: max-content;
+	margin: 0;
+	min-inline-size: 100%;
+}
