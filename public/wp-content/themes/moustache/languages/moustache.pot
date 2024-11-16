@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2024-11-16 09:16+0100\n"
+"POT-Creation-Date: 2024-11-16 09:29+0100\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -253,32 +253,32 @@ msgid "Season"
 msgstr ""
 
 #: template-parts/player-statistics.php:9
-#: template-parts/tournament-stats.php:148
+#: template-parts/tournament-stats.php:166
 msgid "Matches"
 msgstr ""
 
 #: template-parts/player-statistics.php:10
-#: template-parts/tournament-stats.php:149
+#: template-parts/tournament-stats.php:167
 msgid "Goals"
 msgstr ""
 
 #: template-parts/player-statistics.php:11
-#: template-parts/tournament-stats.php:150
+#: template-parts/tournament-stats.php:168
 msgid "Assists"
 msgstr ""
 
 #: template-parts/player-statistics.php:12
-#: template-parts/tournament-stats.php:151
+#: template-parts/tournament-stats.php:169
 msgid "Yellow Cards"
 msgstr ""
 
 #: template-parts/player-statistics.php:13
-#: template-parts/tournament-stats.php:152
+#: template-parts/tournament-stats.php:170
 msgid "Red Cards"
 msgstr ""
 
 #: template-parts/player-statistics.php:47
-#: template-parts/tournament-stats.php:190
+#: template-parts/tournament-stats.php:208
 msgid "Total"
 msgstr ""
 
@@ -292,11 +292,11 @@ msgstr ""
 msgid "Download lyrics for \"%s\""
 msgstr ""
 
-#: template-parts/tournament-stats.php:144
+#: template-parts/tournament-stats.php:162
 msgid "Tournament Statistics"
 msgstr ""
 
-#: template-parts/tournament-stats.php:147
+#: template-parts/tournament-stats.php:165
 msgid "Name"
 msgstr ""
 

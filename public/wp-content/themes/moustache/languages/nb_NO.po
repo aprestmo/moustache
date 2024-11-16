@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
 "POT-Creation-Date: 2024-11-16 09:16+0100\n"
-"PO-Revision-Date: 2024-11-16 09:16+0100\n"
+"PO-Revision-Date: 2024-11-16 09:29+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -99,10 +99,9 @@ msgid "Attendace"
 msgstr "Tilskuere"
 
 #: includes/layouts/_cards.php:26
-#, fuzzy, php-format
-#| msgid "Card in 1st half"
+#, php-format
 msgid "Card in %s half"
-msgstr "Kort i 1. omgang"
+msgstr "Kort i %s. omgang"
 
 #: includes/layouts/_cards.php:62
 msgid "Cards"
