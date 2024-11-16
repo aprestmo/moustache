@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2024-11-16 08:51+0100\n"
-"PO-Revision-Date: 2024-11-16 08:51+0100\n"
+"POT-Creation-Date: 2024-11-16 09:16+0100\n"
+"PO-Revision-Date: 2024-11-16 09:16+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -165,60 +165,24 @@ msgstr "Underlag"
 msgid "Writer"
 msgstr "Skribent"
 
-#: taxonomy-tournament.php:29 taxonomy-tournament.php:121
+#: taxonomy-tournament.php:77 template-parts/fixture-list.php:17
 msgid "Terminliste"
 msgstr ""
 
-#: taxonomy-tournament.php:30
+#: taxonomy-tournament.php:78
 msgid "Tabell"
 msgstr ""
 
-#: taxonomy-tournament.php:31
+#: taxonomy-tournament.php:79
 msgid "Statistikk"
 msgstr ""
 
-#: taxonomy-tournament.php:42
+#: taxonomy-tournament.php:93
 msgid "Disse lagene deltar:"
 msgstr ""
 
-#: taxonomy-tournament.php:58
+#: taxonomy-tournament.php:97
 msgid "Disse lagene har trukket seg:"
-msgstr ""
-
-#: taxonomy-tournament.php:124
-msgid "Day"
-msgstr "Dag"
-
-#: taxonomy-tournament.php:125
-msgid "Date"
-msgstr "Dato"
-
-#: taxonomy-tournament.php:126
-msgid "Time"
-msgstr "Tidspunkt"
-
-#: taxonomy-tournament.php:127
-msgid "Home team"
-msgstr "Hjemmelag"
-
-#: taxonomy-tournament.php:128
-msgid "Away team"
-msgstr "Bortelag"
-
-#: taxonomy-tournament.php:129
-msgid "Pitch"
-msgstr "Bane"
-
-#: taxonomy-tournament.php:130
-msgid "Result"
-msgstr "Resultat"
-
-#: taxonomy-tournament.php:167
-msgid "Nytt tidspunkt kommer"
-msgstr ""
-
-#: taxonomy-tournament.php:246
-msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
 #: template-parts/featured-players.php:45
@@ -228,6 +192,46 @@ msgstr "Mangle profilbilde"
 #: template-parts/featured-players.php:59
 msgid "Featured players"
 msgstr "Profilerte Barter"
+
+#: template-parts/fixture-list.php:20
+msgid "Day"
+msgstr "Dag"
+
+#: template-parts/fixture-list.php:21
+msgid "Date"
+msgstr "Dato"
+
+#: template-parts/fixture-list.php:22
+msgid "Time"
+msgstr "Tidspunkt"
+
+#: template-parts/fixture-list.php:23
+msgid "Home team"
+msgstr "Hjemmelag"
+
+#: template-parts/fixture-list.php:24
+msgid "Away team"
+msgstr "Bortelag"
+
+#: template-parts/fixture-list.php:25
+msgid "Pitch"
+msgstr "Bane"
+
+#: template-parts/fixture-list.php:26
+msgid "Result"
+msgstr "Resultat"
+
+#: template-parts/fixture-list.php:65
+msgid "Nytt tidspunkt kommer"
+msgstr ""
+
+#: template-parts/fixture-result.php:19
+msgid "You can't select both walkover and inadequate report"
+msgstr ""
+
+#: template-parts/fixture-result.php:26
+msgid "Walkover"
+msgstr ""
 
 #: template-parts/next-match.php:109
 msgid "Next match:"
@@ -251,26 +255,32 @@ msgid "Season"
 msgstr "Sesong"
 
 #: template-parts/player-statistics.php:9
+#: template-parts/tournament-stats.php:148
 msgid "Matches"
 msgstr "Kamper"
 
 #: template-parts/player-statistics.php:10
+#: template-parts/tournament-stats.php:149
 msgid "Goals"
 msgstr "Mål"
 
 #: template-parts/player-statistics.php:11
+#: template-parts/tournament-stats.php:150
 msgid "Assists"
 msgstr "Målgivende"
 
 #: template-parts/player-statistics.php:12
+#: template-parts/tournament-stats.php:151
 msgid "Yellow Cards"
 msgstr "Gule kort"
 
 #: template-parts/player-statistics.php:13
+#: template-parts/tournament-stats.php:152
 msgid "Red Cards"
 msgstr "Røde kort"
 
 #: template-parts/player-statistics.php:47
+#: template-parts/tournament-stats.php:190
 msgid "Total"
 msgstr "Totalt"
 
@@ -283,6 +293,17 @@ msgstr "Last ned «%s»"
 #, php-format
 msgid "Download lyrics for \"%s\""
 msgstr "Last ned teksten til «%s»"
+
+#: template-parts/tournament-stats.php:144
+#, fuzzy
+#| msgctxt "Taxonomy General Name"
+#| msgid "Tournaments"
+msgid "Tournament Statistics"
+msgstr "Turneringer"
+
+#: template-parts/tournament-stats.php:147
+msgid "Name"
+msgstr "Navn"
 
 #. Theme Name of the plugin/theme
 msgid "Moustache"
@@ -428,10 +449,6 @@ msgstr ""
 
 #~ msgid "Published"
 #~ msgstr "Publisert"
-
-#~ msgctxt "Taxonomy General Name"
-#~ msgid "Tournaments"
-#~ msgstr "Turneringer"
 
 #~ msgctxt "Taxonomy General Name"
 #~ msgid "Leagues"
