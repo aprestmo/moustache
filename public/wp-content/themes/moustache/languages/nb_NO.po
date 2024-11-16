@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2024-11-16 09:16+0100\n"
-"PO-Revision-Date: 2024-11-16 09:29+0100\n"
+"POT-Creation-Date: 2024-11-16 09:32+0100\n"
+"PO-Revision-Date: 2024-11-16 09:32+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -102,6 +102,14 @@ msgstr "Tilskuere"
 #, php-format
 msgid "Card in %s half"
 msgstr "Kort i %s. omgang"
+
+#: includes/layouts/_cards.php:27
+msgid "1st"
+msgstr "første"
+
+#: includes/layouts/_cards.php:27
+msgid "2nd"
+msgstr "andre"
 
 #: includes/layouts/_cards.php:62
 msgid "Cards"
@@ -254,32 +262,32 @@ msgid "Season"
 msgstr "Sesong"
 
 #: template-parts/player-statistics.php:9
-#: template-parts/tournament-stats.php:148
+#: template-parts/tournament-stats.php:166
 msgid "Matches"
 msgstr "Kamper"
 
 #: template-parts/player-statistics.php:10
-#: template-parts/tournament-stats.php:149
+#: template-parts/tournament-stats.php:167
 msgid "Goals"
 msgstr "Mål"
 
 #: template-parts/player-statistics.php:11
-#: template-parts/tournament-stats.php:150
+#: template-parts/tournament-stats.php:168
 msgid "Assists"
 msgstr "Målgivende"
 
 #: template-parts/player-statistics.php:12
-#: template-parts/tournament-stats.php:151
+#: template-parts/tournament-stats.php:169
 msgid "Yellow Cards"
 msgstr "Gule kort"
 
 #: template-parts/player-statistics.php:13
-#: template-parts/tournament-stats.php:152
+#: template-parts/tournament-stats.php:170
 msgid "Red Cards"
 msgstr "Røde kort"
 
 #: template-parts/player-statistics.php:47
-#: template-parts/tournament-stats.php:190
+#: template-parts/tournament-stats.php:208
 msgid "Total"
 msgstr "Totalt"
 
@@ -293,14 +301,14 @@ msgstr "Last ned «%s»"
 msgid "Download lyrics for \"%s\""
 msgstr "Last ned teksten til «%s»"
 
-#: template-parts/tournament-stats.php:144
+#: template-parts/tournament-stats.php:162
 #, fuzzy
 #| msgctxt "Taxonomy General Name"
 #| msgid "Tournaments"
 msgid "Tournament Statistics"
 msgstr "Turneringer"
 
-#: template-parts/tournament-stats.php:147
+#: template-parts/tournament-stats.php:165
 msgid "Name"
 msgstr "Navn"
 

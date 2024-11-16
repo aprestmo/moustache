@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2024-11-16 09:29+0100\n"
+"POT-Creation-Date: 2024-11-16 09:32+0100\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -101,6 +101,14 @@ msgstr ""
 #: includes/layouts/_cards.php:26
 #, php-format
 msgid "Card in %s half"
+msgstr ""
+
+#: includes/layouts/_cards.php:27
+msgid "1st"
+msgstr ""
+
+#: includes/layouts/_cards.php:27
+msgid "2nd"
 msgstr ""
 
 #: includes/layouts/_cards.php:62

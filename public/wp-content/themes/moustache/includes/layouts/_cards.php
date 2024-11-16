@@ -24,7 +24,7 @@ function display_half_cards(string $half): void
 			<?php
 			printf(
 				esc_html__('Card in %s half', 'moustache'),
-				$half === 'first' ? '1st' : '2nd'
+				$half === 'first' ? esc_html__('1st', 'moustache') : esc_html__('2nd', 'moustache')
 			);
 			?>
 		</strong>
