@@ -63,12 +63,12 @@ function get_player_tournament_stats(int $player_id, array $fixtures): array
 			}
 		}
 
-		// Tell kort i første omgang
-		if (have_rows('cards_first_half', $fixture->ID)) {
-			while (have_rows('cards_first_half', $fixture->ID)) {
+		// Sjekk først om det finnes kort i 'cards' feltet
+		if (have_rows('cards', $fixture->ID)) {
+			while (have_rows('cards', $fixture->ID)) {
 				the_row();
-				$card_player = get_sub_field('card_player_first_half');
-				$card_colour = get_sub_field('card_colour_first_half');
+				$card_player = get_sub_field('card_player');
+				$card_colour = get_sub_field('card_colour');
 
 				if ($card_player && $card_player->ID === $player_id) {
 					if ($card_colour === 'yellow') {
@@ -78,20 +78,38 @@ function get_player_tournament_stats(int $player_id, array $fixtures): array
 					}
 				}
 			}
-		}
+		} else {
+			// Hvis ikke, tell kort fra første og andre omgang
+			// Tell kort i første omgang
+			if (have_rows('cards_first_half', $fixture->ID)) {
+				while (have_rows('cards_first_half', $fixture->ID)) {
+					the_row();
+					$card_player = get_sub_field('card_player_first_half');
+					$card_colour = get_sub_field('card_colour_first_half');
 
-		// Tell kort i andre omgang
-		if (have_rows('cards_second_half', $fixture->ID)) {
-			while (have_rows('cards_second_half', $fixture->ID)) {
-				the_row();
-				$card_player = get_sub_field('card_player_second_half');
-				$card_colour = get_sub_field('card_colour_second_half');
+					if ($card_player && $card_player->ID === $player_id) {
+						if ($card_colour === 'yellow') {
+							$stats['yellow_cards']++;
+						} elseif ($card_colour === 'red') {
+							$stats['red_cards']++;
+						}
+					}
+				}
+			}
 
-				if ($card_player && $card_player->ID === $player_id) {
-					if ($card_colour === 'yellow') {
-						$stats['yellow_cards']++;
-					} elseif ($card_colour === 'red') {
-						$stats['red_cards']++;
+			// Tell kort i andre omgang
+			if (have_rows('cards_second_half', $fixture->ID)) {
+				while (have_rows('cards_second_half', $fixture->ID)) {
+					the_row();
+					$card_player = get_sub_field('card_player_second_half');
+					$card_colour = get_sub_field('card_colour_second_half');
+
+					if ($card_player && $card_player->ID === $player_id) {
+						if ($card_colour === 'yellow') {
+							$stats['yellow_cards']++;
+						} elseif ($card_colour === 'red') {
+							$stats['red_cards']++;
+						}
 					}
 				}
 			}
@@ -188,7 +206,7 @@ if ($fixtures_query->have_posts()) :
 			<tfoot>
 				<tr>
 					<th><?php esc_html_e('Total', 'moustache'); ?></th>
-					<th><?php // echo esc_html($totals['matches']); 
+					<th><?php // echo esc_html($totals['matches']);
 						?></th>
 					<th><?php echo esc_html($totals['goals']); ?></th>
 					<th><?php echo esc_html($totals['assists']); ?></th>
