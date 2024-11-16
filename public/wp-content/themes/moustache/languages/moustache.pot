@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2024-11-13 21:37+0100\n"
+"POT-Creation-Date: 2024-11-16 08:51+0100\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -58,12 +58,24 @@ msgstr ""
 msgid "Ingen spillere funnet."
 msgstr ""
 
+#: archive.php:38
+msgid "Arkiv"
+msgstr ""
+
+#: archive.php:82
+msgid "Ingen innlegg funnet."
+msgstr ""
+
 #: footer.php:26
 msgid "Founded 2003"
 msgstr ""
 
 #: footer.php:28
 msgid "Copyright"
+msgstr ""
+
+#: front-page.php:98
+msgid "See alle innlegg"
 msgstr ""
 
 #: header.php:62
@@ -86,12 +98,13 @@ msgstr ""
 msgid "Attendace"
 msgstr ""
 
-#: includes/layouts/_cards.php:10
-msgid "Card in 1st half"
+#: includes/layouts/_cards.php:26
+#, php-format
+msgid "Card in %s half"
 msgstr ""
 
-#: includes/layouts/_cards.php:27
-msgid "Card in 2nd half"
+#: includes/layouts/_cards.php:62
+msgid "Cards"
 msgstr ""
 
 #: includes/layouts/_date-time.php:19 template-parts/next-match.php:113
@@ -114,19 +127,23 @@ msgstr ""
 msgid "Primary Menu"
 msgstr ""
 
-#: page-klubbinfo.php:13
+#: page-klubbinfo.php:49
+msgid "Vinnere av gullbarten"
+msgstr ""
+
+#: page-klubbinfo.php:86
 msgid "Founded"
 msgstr ""
 
-#: page-klubbinfo.php:17
+#: page-klubbinfo.php:89
 msgid "Address"
 msgstr ""
 
-#: page-klubbinfo.php:27
+#: page-klubbinfo.php:92
 msgid "Account number"
 msgstr ""
 
-#: page-klubbinfo.php:31
+#: page-klubbinfo.php:95
 msgid "Kit"
 msgstr ""
 
@@ -223,35 +240,35 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
-#: template-parts/player-statistics.php:4
+#: template-parts/player-statistics.php:5
 msgid "Player Stats"
 msgstr ""
 
-#: template-parts/player-statistics.php:7
+#: template-parts/player-statistics.php:8
 msgid "Season"
 msgstr ""
 
-#: template-parts/player-statistics.php:8
+#: template-parts/player-statistics.php:9
 msgid "Matches"
 msgstr ""
 
-#: template-parts/player-statistics.php:9
+#: template-parts/player-statistics.php:10
 msgid "Goals"
 msgstr ""
 
-#: template-parts/player-statistics.php:10
+#: template-parts/player-statistics.php:11
 msgid "Assists"
 msgstr ""
 
-#: template-parts/player-statistics.php:11
+#: template-parts/player-statistics.php:12
 msgid "Yellow Cards"
 msgstr ""
 
-#: template-parts/player-statistics.php:12
+#: template-parts/player-statistics.php:13
 msgid "Red Cards"
 msgstr ""
 
-#: template-parts/player-statistics.php:46
+#: template-parts/player-statistics.php:47
 msgid "Total"
 msgstr ""
 
@@ -286,9 +303,5 @@ msgid "http://alexanderprestmo.no"
 msgstr ""
 
 #. Template Name of the plugin/theme
-msgid "Arkiv"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Klubbinfo */"
+msgid "Klubbinfo"
 msgstr ""

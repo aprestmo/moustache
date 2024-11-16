@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2024-11-13 21:37+0100\n"
-"PO-Revision-Date: 2024-11-13 21:37+0100\n"
+"POT-Creation-Date: 2024-11-16 08:51+0100\n"
+"PO-Revision-Date: 2024-11-16 08:51+0100\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -58,12 +58,24 @@ msgstr ""
 msgid "Ingen spillere funnet."
 msgstr ""
 
+#: archive.php:38
+msgid "Arkiv"
+msgstr ""
+
+#: archive.php:82
+msgid "Ingen innlegg funnet."
+msgstr ""
+
 #: footer.php:26
 msgid "Founded 2003"
 msgstr "Grunnlagt 2003"
 
 #: footer.php:28
 msgid "Copyright"
+msgstr ""
+
+#: front-page.php:98
+msgid "See alle innlegg"
 msgstr ""
 
 #: header.php:62
@@ -86,13 +98,15 @@ msgstr "Gå til nettstedet"
 msgid "Attendace"
 msgstr "Tilskuere"
 
-#: includes/layouts/_cards.php:10
-msgid "Card in 1st half"
+#: includes/layouts/_cards.php:26
+#, fuzzy, php-format
+#| msgid "Card in 1st half"
+msgid "Card in %s half"
 msgstr "Kort i 1. omgang"
 
-#: includes/layouts/_cards.php:27
-msgid "Card in 2nd half"
-msgstr "Kort i 2. omgang"
+#: includes/layouts/_cards.php:62
+msgid "Cards"
+msgstr "Kort"
 
 #: includes/layouts/_date-time.php:19 template-parts/next-match.php:113
 msgid "at"
@@ -115,19 +129,23 @@ msgstr ""
 msgid "Primary Menu"
 msgstr "Hovedmeny"
 
-#: page-klubbinfo.php:13
+#: page-klubbinfo.php:49
+msgid "Vinnere av gullbarten"
+msgstr ""
+
+#: page-klubbinfo.php:86
 msgid "Founded"
 msgstr "Stiftet"
 
-#: page-klubbinfo.php:17
+#: page-klubbinfo.php:89
 msgid "Address"
 msgstr "Postadresse"
 
-#: page-klubbinfo.php:27
+#: page-klubbinfo.php:92
 msgid "Account number"
 msgstr "Kontonummer"
 
-#: page-klubbinfo.php:31
+#: page-klubbinfo.php:95
 msgid "Kit"
 msgstr "Drakter"
 
@@ -224,35 +242,35 @@ msgstr "Portrett av %s"
 msgid "Position"
 msgstr "Posisjon"
 
-#: template-parts/player-statistics.php:4
+#: template-parts/player-statistics.php:5
 msgid "Player Stats"
 msgstr "Spillerstatistikk"
 
-#: template-parts/player-statistics.php:7
+#: template-parts/player-statistics.php:8
 msgid "Season"
 msgstr "Sesong"
 
-#: template-parts/player-statistics.php:8
+#: template-parts/player-statistics.php:9
 msgid "Matches"
 msgstr "Kamper"
 
-#: template-parts/player-statistics.php:9
+#: template-parts/player-statistics.php:10
 msgid "Goals"
 msgstr "Mål"
 
-#: template-parts/player-statistics.php:10
+#: template-parts/player-statistics.php:11
 msgid "Assists"
 msgstr "Målgivende"
 
-#: template-parts/player-statistics.php:11
+#: template-parts/player-statistics.php:12
 msgid "Yellow Cards"
 msgstr "Gule kort"
 
-#: template-parts/player-statistics.php:12
+#: template-parts/player-statistics.php:13
 msgid "Red Cards"
 msgstr "Røde kort"
 
-#: template-parts/player-statistics.php:46
+#: template-parts/player-statistics.php:47
 msgid "Total"
 msgstr "Totalt"
 
@@ -287,12 +305,11 @@ msgid "http://alexanderprestmo.no"
 msgstr ""
 
 #. Template Name of the plugin/theme
-msgid "Arkiv"
+msgid "Klubbinfo"
 msgstr ""
 
-#. Template Name of the plugin/theme
-msgid "Klubbinfo */"
-msgstr ""
+#~ msgid "Card in 2nd half"
+#~ msgstr "Kort i 2. omgang"
 
 #~ msgid "Shirt Number"
 #~ msgstr "Draktnummer"
