@@ -15,7 +15,7 @@
 	<div class="mou-site-wrap mou-site-wrap--padding">
 		<div class="o-grid o-section-md">
 			<div class="o-grid__item u-1/1 u-text-<?php if ('12' === date('m')) : ?>
-				  <img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'kampbart-logo-jul.svg'); ?>" alt="" width="96">
+				  <img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'kampbart-logo-jul.svg'); ?>" alt="">
 				<?php else : ?>
 				  <img class="c-footer__logo" src="<?php echo esc_url(get_template_directory_uri() . get_asset_base_path() . 'kampbart-logo.svg'); ?>" alt="" width="96" height="113.867">
 				<?php endif; ?>
