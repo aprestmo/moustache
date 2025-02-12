@@ -13,20 +13,20 @@
 @import '_utilities.css' layer(utilities);
 
 @layer components {
-	.acf-map {
-		border: 1px solid oklch(84.52% 0 0);
-		block-size: 25rem;
-		inline-size: 100%;
-		margin-block: 20px;
-		margin-inline: 0;
-	}
+  .acf-map {
+    border: 1px solid oklch(84.52% 0 0);
+    block-size: 25rem;
+    inline-size: 100%;
+    margin-block: 20px;
+    margin-inline: 0;
+  }
 
-	/* Fixes potential theme css conflict. */
-	.acf-map img {
-		max-inline-size: inherit !important;
-	}
+  /* Fixes potential theme css conflict. */
+  .acf-map img {
+    max-inline-size: inherit !important;
+  }
 }
 
 :where(.wysiwyg figure) {
-	margin-block-end: 2.8em;
+  margin-block-end: 2.8em;
 }

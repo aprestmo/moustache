@@ -95,7 +95,7 @@ if ($query->have_posts()) :
 
 	<div class="u-text-center u-push-bottom-lg">
 		<a href="<?php echo esc_url(home_url('/arkiv/')); ?>" class="c-button">
-			<?php esc_html_e('See alle innlegg', 'moustache'); ?>
+			<?php esc_html_e('Se alle innlegg', 'moustache'); ?>
 		</a>
 	</div>
 <?php endif; ?>

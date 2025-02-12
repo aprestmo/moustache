@@ -1,38 +1,11 @@
 {
-  "public/fonts/Pacaembu-Black.woff2": {
-    "file": "Pacaembu-Black.mlfvF07H.woff2",
-    "src": "public/fonts/Pacaembu-Black.woff2"
-  },
-  "public/fonts/Pacaembu-Bold.woff2": {
-    "file": "Pacaembu-Bold.Ci-WemVF.woff2",
-    "src": "public/fonts/Pacaembu-Bold.woff2"
-  },
-  "public/fonts/Pacaembu-Light.woff2": {
-    "file": "Pacaembu-Light.C3YUTOdu.woff2",
-    "src": "public/fonts/Pacaembu-Light.woff2"
-  },
-  "public/fonts/Pacaembu-Medium.woff2": {
-    "file": "Pacaembu-Medium.BZgRDV0B.woff2",
-    "src": "public/fonts/Pacaembu-Medium.woff2"
-  },
-  "public/fonts/Pacaembu-Regular.woff2": {
-    "file": "Pacaembu-Regular.Bw1gtxSN.woff2",
-    "src": "public/fonts/Pacaembu-Regular.woff2"
-  },
   "src/main.js": {
-    "file": "main.yoR6uZAf.js",
+    "file": "main.0Ej72REs.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
     "css": [
-      "main.BsHCbU7n.css"
-    ],
-    "assets": [
-      "Pacaembu-Black.mlfvF07H.woff2",
-      "Pacaembu-Bold.Ci-WemVF.woff2",
-      "Pacaembu-Light.C3YUTOdu.woff2",
-      "Pacaembu-Medium.BZgRDV0B.woff2",
-      "Pacaembu-Regular.Bw1gtxSN.woff2"
+      "main.BRLjin-O.css"
     ]
   }
 }
