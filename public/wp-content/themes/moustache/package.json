@@ -23,12 +23,12 @@
 	},
 	"devDependencies": {
 		"@divriots/jampack": "^0.33.0",
-		"prettier": "^3.5.0",
+		"prettier": "^3.5.1",
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {
 		"postcss": "^8.5.2",
-		"postcss-preset-env": "^10.1.3",
+		"postcss-preset-env": "^10.1.4",
 		"vite": "^6.1.0",
 		"vite-plugin-live-reload": "^3.0.4",
 		"vite-plugin-static-copy": "^2.2.0"
