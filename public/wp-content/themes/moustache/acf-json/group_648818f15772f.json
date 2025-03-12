@@ -1,0 +1,120 @@
+{
+    "key": "group_648818f15772f",
+    "title": "Sanger",
+    "fields": [
+        {
+            "key": "field_648818f1aa4c3",
+            "label": "Musikk",
+            "name": "music",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Legg til rad",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6488190eaa4c4",
+                    "label": "Tittel",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_648818f1aa4c3"
+                },
+                {
+                    "key": "field_64881940aa4c6",
+                    "label": "Lydfil",
+                    "name": "audio_file",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 1,
+                    "show_in_graphql": 1,
+                    "graphql_description": "test",
+                    "graphql_field_name": "audioFile",
+                    "parent_repeater": "field_648818f1aa4c3"
+                },
+                {
+                    "key": "field_64881921aa4c5",
+                    "label": "Tekstfil",
+                    "name": "lyrics_file",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "parent_repeater": "field_648818f1aa4c3"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "130"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "sanger",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1733570463
+}

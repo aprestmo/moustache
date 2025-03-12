@@ -1,0 +1,93 @@
+{
+    "key": "group_5611b70e91d20",
+    "title": "Kamprapport",
+    "fields": [
+        {
+            "key": "field_5611b722ce0d9",
+            "label": "Rapport",
+            "name": "match_report",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "fixture"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": 1,
+            "allow_in_bindings": 1,
+            "elements": "",
+            "bidirectional": 1,
+            "bidirectional_target": [
+                "field_5611b722ce0d9"
+            ],
+            "show_in_graphql": 1,
+            "graphql_description": "",
+            "graphql_field_name": "matchReport",
+            "graphql_connection_type": "one_to_many"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_category",
+                "operator": "==",
+                "value": "category:kamprapport"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "kamprapport",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": [
+        "ContentNode",
+        "Club",
+        "Fixture",
+        "MediaItem",
+        "Page",
+        "Pitch",
+        "Player",
+        "Post",
+        "TermNode",
+        "Category",
+        "Division",
+        "PostFormat",
+        "Tag",
+        "Tournament",
+        "ContentTemplate",
+        "DefaultTemplate",
+        "Template_Klubbinfo",
+        "AcfOptionsPage",
+        "ClubInformation",
+        "ThemeFooterSettings",
+        "ThemeGeneralSettings",
+        "ThemeHeaderSettings",
+        "Comment",
+        "Menu",
+        "MenuItem",
+        "User"
+    ],
+    "modified": 1732703852
+}

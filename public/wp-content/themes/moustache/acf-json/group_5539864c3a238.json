@@ -1,0 +1,1519 @@
+{
+    "key": "group_5539864c3a238",
+    "title": "Kamper",
+    "fields": [
+        {
+            "key": "field_553996e401243",
+            "label": "Kampinfo",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_5539868a27be4",
+            "label": "Hjemmelag",
+            "name": "home_team",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "club"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "elements": "",
+            "min": "",
+            "max": 1,
+            "return_format": "object",
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_553986be27be5",
+            "label": "Bortelag",
+            "name": "away_team",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "club"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "elements": "",
+            "min": "",
+            "max": 1,
+            "return_format": "object",
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_55398c3d2ab0b",
+            "label": "Tidspunkt",
+            "name": "date_time",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d.m.Y H.i",
+            "return_format": "Y-m-d H:i:s",
+            "first_day": 1
+        },
+        {
+            "key": "field_647d81057457d",
+            "label": "Utsatt",
+            "name": "postponed",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
+            "key": "field_647d816bf19f7",
+            "label": "Nytt tidspunkt",
+            "name": "new_date_time",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_647d81057457d",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d.m.Y H.i",
+            "return_format": "Y-m-d H:i:s",
+            "first_day": 1
+        },
+        {
+            "key": "field_55398a8fbcc47",
+            "label": "Bane",
+            "name": "pitch",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "pitch"
+            ],
+            "taxonomy": [],
+            "filters": "",
+            "elements": "",
+            "min": 0,
+            "max": 1,
+            "return_format": "object",
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_553999e095c5d",
+            "label": "Tilskuere",
+            "name": "attendance",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_56649d02b485f",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 2,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_553999f495c5e",
+            "label": "Forhold",
+            "name": "weather",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_56649d02b485f",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 2,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_5611b94e32f1c",
+            "label": "Tilstede",
+            "name": "present",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_56649d02b485f",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "player"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "elements": "",
+            "min": "",
+            "max": "",
+            "return_format": "object",
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_63217c9878b14",
+            "label": "Mediagalleri",
+            "name": "media_gallery",
+            "aria-label": "",
+            "type": "filebird_folder",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "field_type": "checkbox"
+        },
+        {
+            "key": "field_55399374c7c6e",
+            "label": "1. omgang",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5539868a27be4",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_5b5701e99d9dd",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "graphql_field_name": "forsteOmgang",
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_55399264f729d",
+            "label": "Mål og assist",
+            "name": "goals_assists_first_half",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Legg til mål",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_55399d91caaa9",
+                    "label": "Mål til",
+                    "name": "goal_for",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "kampbart": "Kampbart",
+                        "opponent": "Motstander"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "save_other_choice": 0,
+                    "default_value": "",
+                    "layout": "horizontal",
+                    "return_format": "value",
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_5539927df729e",
+                    "label": "Målscorer",
+                    "name": "goal_scorer_first_half",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "kampbart"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_56649128aa9ad",
+                    "label": "Assist",
+                    "name": "assist",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "kampbart"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "player_assist": "Spillerassist",
+                        "free_text_assist": "Fritekst"
+                    },
+                    "default_value": "",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "allow_in_bindings": 1,
+                    "layout": "horizontal",
+                    "show_in_graphql": 1,
+                    "graphql_description": "",
+                    "graphql_field_name": "assist",
+                    "graphql_non_null": 0,
+                    "save_other_choice": 0,
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_553993d4c7c6f",
+                    "label": "Spillerassist",
+                    "name": "assist_first_half",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "kampbart"
+                            },
+                            {
+                                "field": "field_56649128aa9ad",
+                                "operator": "==",
+                                "value": "player_assist"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_56649111aa9ac",
+                    "label": "Fritekst",
+                    "name": "assist_first_half_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "kampbart"
+                            },
+                            {
+                                "field": "field_56649128aa9ad",
+                                "operator": "==",
+                                "value": "free_text_assist"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": "",
+                    "readonly": 0,
+                    "disabled": 0,
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_55399defcaaaa",
+                    "label": "Mål til motstander",
+                    "name": "opponent_goal",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "opponent"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "club"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_651fba019eebc",
+                    "label": "Selvmål",
+                    "name": "own_goal_first_half",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Målet er et selvmål",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_633ae40da3717",
+                    "label": "Spiller",
+                    "name": "own_goal_first_half_kampbart_player",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_651fba019eebc",
+                                "operator": "==",
+                                "value": "1"
+                            },
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "opponent"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_55399264f729d"
+                },
+                {
+                    "key": "field_651fbd9080d39",
+                    "label": "Motstander",
+                    "name": "own_goal_first_half_opponent_player",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_651fba019eebc",
+                                "operator": "==",
+                                "value": "1"
+                            },
+                            {
+                                "field": "field_55399d91caaa9",
+                                "operator": "==",
+                                "value": "kampbart"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "club"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_55399264f729d"
+                }
+            ]
+        },
+        {
+            "key": "field_566c9d6565f1f",
+            "label": "Kort i 1. omgang",
+            "name": "has_cards_first_half",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Ble det noen kort i denne omgangen?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "no": "Nei",
+                "yes": "Ja"
+            },
+            "default_value": "no",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "horizontal",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_5b570281d02fb",
+            "label": "Kort",
+            "name": "cards_first_half",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_566c9d6565f1f",
+                        "operator": "==",
+                        "value": "yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Legg til kort",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_5b5702f9d0302",
+                    "label": "Spiller",
+                    "name": "card_player_first_half",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5b570281d02fb"
+                },
+                {
+                    "key": "field_5b57035dd0303",
+                    "label": "Farge",
+                    "name": "card_colour_first_half",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "yellow": "Gult",
+                        "red": "Rødt"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 1,
+                    "placeholder": "",
+                    "parent_repeater": "field_5b570281d02fb"
+                }
+            ]
+        },
+        {
+            "key": "field_5539952410f93",
+            "label": "2. omgang",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5539868a27be4",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_5b5701e99d9dd",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "graphql_field_name": "andreOmgang",
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_5539952d10f94",
+            "label": "Mål og assist",
+            "name": "goals_assists_second_half",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Legg til mål",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_55399b52a9a63",
+                    "label": "Mål til",
+                    "name": "goal_for",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "kampbart": "Kampbart",
+                        "opponent": "Motstander"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "save_other_choice": 0,
+                    "default_value": "",
+                    "layout": "horizontal",
+                    "return_format": "value",
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_5539952d10f95",
+                    "label": "Målscorer",
+                    "name": "goal_scorer_second_half",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "kampbart"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "taxonomy": [
+                        "status:aktiv"
+                    ],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_566494b79d673",
+                    "label": "Assist",
+                    "name": "assist",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "kampbart"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "player_assist": "Spillerassist",
+                        "free_text_assist": "Fritekst"
+                    },
+                    "default_value": "",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "allow_in_bindings": 1,
+                    "layout": "horizontal",
+                    "show_in_graphql": 1,
+                    "graphql_description": "",
+                    "graphql_field_name": "assistSecondHalfText",
+                    "graphql_non_null": 0,
+                    "save_other_choice": 0,
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_5539952d10f96",
+                    "label": "Spillerassist",
+                    "name": "assist_second_half",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "kampbart"
+                            },
+                            {
+                                "field": "field_566494b79d673",
+                                "operator": "==",
+                                "value": "player_assist"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_5664953f9d675",
+                    "label": "Fritekst",
+                    "name": "assist_second_half_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "kampbart"
+                            },
+                            {
+                                "field": "field_566494b79d673",
+                                "operator": "==",
+                                "value": "free_text_assist"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": "",
+                    "readonly": 0,
+                    "disabled": 0,
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_55399c3feacc7",
+                    "label": "Mål til motstander",
+                    "name": "opponent_goal",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "opponent"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "club"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_651fb5cdb1e22",
+                    "label": "Selvmål",
+                    "name": "own_goal_second_half",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Målet er et selvmål",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_651fbf20007d6",
+                    "label": "Spiller",
+                    "name": "own_goal_second_half_kampbart_player",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_651fb5cdb1e22",
+                                "operator": "==",
+                                "value": "1"
+                            },
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "opponent"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5539952d10f94"
+                },
+                {
+                    "key": "field_651fbf3f007d7",
+                    "label": "Motstander",
+                    "name": "own_goal_second_half_opponent_player",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_651fb5cdb1e22",
+                                "operator": "==",
+                                "value": "1"
+                            },
+                            {
+                                "field": "field_55399b52a9a63",
+                                "operator": "==",
+                                "value": "kampbart"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "club"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5539952d10f94"
+                }
+            ]
+        },
+        {
+            "key": "field_566c9e9a98df1",
+            "label": "Kort i 2. omgang",
+            "name": "has_cards_second_half",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Ble det noen kort i denne omgangen?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "no": "Nei",
+                "yes": "Ja"
+            },
+            "default_value": "no",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "horizontal",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_5b47370f205cd",
+            "label": "Kort",
+            "name": "cards_second_half",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_566c9e9a98df1",
+                        "operator": "==",
+                        "value": "yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Legg til kort",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_5b47376d205ce",
+                    "label": "Spiller",
+                    "name": "card_player_second_half",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5b47370f205cd"
+                },
+                {
+                    "key": "field_5b47382f205cf",
+                    "label": "Farge",
+                    "name": "card_colour_second_half",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "yellow": "Gult",
+                        "red": "Rødt"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 1,
+                    "placeholder": "",
+                    "parent_repeater": "field_5b47370f205cd"
+                }
+            ]
+        },
+        {
+            "key": "field_66f66f04a7f84",
+            "label": "Avlyst kamp",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_66f66f38a7f85",
+            "label": "Avlyst kamp",
+            "name": "canceled",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "match_abandonded": "Motstander har trukket laget",
+                "match_canceled": "Ett lag møtte ikke (walkover)"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_66f67356bd63b",
+            "label": "Walkover",
+            "name": "walkover",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66f66f38a7f85",
+                        "operator": "==",
+                        "value": "match_canceled"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "75",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hvis ett av lagene ikke møtte opp til kamp så er dette riktig valg. Det er mulig å sette resultat på kampen. Hvis ikke vil resultatet automatisk bli satt til 0–0.",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5b56fe5dc8ceb",
+            "label": "Vinner på walkover",
+            "name": "walkover_winner",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66f67356bd63b",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "kampbart": "Kampbart",
+                "opponent": "Motstander"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "ui": 1,
+            "ajax": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_5b562f29b0299",
+            "label": "Mangefull rapport",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_5b5701e99d9dd",
+            "label": "Kun sluttresultat",
+            "name": "only_result_fulltime",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5664aa008435c",
+            "label": "Fulltid",
+            "name": "result_fulltime",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "0–0",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5b562f79b029b",
+            "label": "Pause",
+            "name": "result_pause",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b5701e99d9dd",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "0–0",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5b570653cb32e",
+            "label": "Kort",
+            "name": "cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Det ble gitt kort i kampen, men vi vet ikke i hvilken omgang.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_5b57069dcb32f",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Legg til kort",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_5b57069dcb32f",
+                    "label": "Spiller",
+                    "name": "card_player",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "player"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_5b570653cb32e"
+                },
+                {
+                    "key": "field_5b5706becb330",
+                    "label": "Farge",
+                    "name": "card_colour",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "yellow": "Gult",
+                        "red": "Rødt"
+                    },
+                    "default_value": false,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 1,
+                    "return_format": "value",
+                    "placeholder": "",
+                    "parent_repeater": "field_5b570653cb32e"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fixture"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "kamper",
+    "map_graphql_types_from_location_rules": 0,
+    "graphql_types": "",
+    "modified": 1741729752
+}
