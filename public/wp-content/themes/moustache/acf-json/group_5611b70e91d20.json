@@ -37,7 +37,7 @@
             "show_in_graphql": 1,
             "graphql_description": "",
             "graphql_field_name": "matchReport",
-            "graphql_connection_type": "one_to_many"
+            "graphql_connection_type": "one_to_one"
         }
     ],
     "location": [
@@ -62,32 +62,7 @@
     "graphql_field_name": "kamprapport",
     "map_graphql_types_from_location_rules": 1,
     "graphql_types": [
-        "ContentNode",
-        "Club",
-        "Fixture",
-        "MediaItem",
-        "Page",
-        "Pitch",
-        "Player",
-        "Post",
-        "TermNode",
-        "Category",
-        "Division",
-        "PostFormat",
-        "Tag",
-        "Tournament",
-        "ContentTemplate",
-        "DefaultTemplate",
-        "Template_Klubbinfo",
-        "AcfOptionsPage",
-        "ClubInformation",
-        "ThemeFooterSettings",
-        "ThemeGeneralSettings",
-        "ThemeHeaderSettings",
-        "Comment",
-        "Menu",
-        "MenuItem",
-        "User"
+        "Post"
     ],
-    "modified": 1732703852
+    "modified": 1742678735
 }
