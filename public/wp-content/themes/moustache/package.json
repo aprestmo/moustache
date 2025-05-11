@@ -23,14 +23,15 @@
 	},
 	"devDependencies": {
 		"@divriots/jampack": "^0.33.0",
-		"prettier": "^3.5.2",
+		"prettier": "^3.5.3",
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {
+		"caniuse-lite": "^1.0.30001717",
 		"postcss": "^8.5.3",
-		"postcss-preset-env": "^10.1.5",
-		"vite": "^6.1.1",
+		"postcss-preset-env": "^10.1.6",
+		"vite": "^6.3.5",
 		"vite-plugin-live-reload": "^3.0.4",
-		"vite-plugin-static-copy": "^2.2.0"
+		"vite-plugin-static-copy": "^3.0.0"
 	}
 }
