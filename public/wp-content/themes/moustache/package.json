@@ -27,7 +27,7 @@
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {
-		"caniuse-lite": "^1.0.30001717",
+		"caniuse-lite": "^1.0.30001718",
 		"postcss": "^8.5.3",
 		"postcss-preset-env": "^10.1.6",
 		"vite": "^6.3.5",
