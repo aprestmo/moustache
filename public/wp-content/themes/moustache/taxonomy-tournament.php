@@ -144,7 +144,21 @@ $term = get_queried_object();
                     ?>
 
                     <div id="tabell" role="region" aria-labelledby="caption" tabindex="0">
-                        <?php echo wp_kses_post(get_field('tournament_content', $term)); ?>
+                        <?php
+                        // Check if this is the specific tournament that should show the standings table
+                        $should_show_standings = (
+                            $term->slug === 'uteserie-2025' ||
+                            $term->term_id === 311
+                        );
+
+                        if ($should_show_standings) {
+                            // Show the dynamic standings table for the specific tournament
+                            include(locate_template('template-parts/standings-table.php'));
+                        } else {
+                            // Show the original tournament content for other tournaments
+                            echo wp_kses_post(get_field('tournament_content', $term));
+                        }
+                        ?>
                     </div>
 
                     <div id="statistikk" role="region" aria-labelledby="caption" tabindex="0">
