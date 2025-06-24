@@ -114,3 +114,143 @@ function inject_google_maps_api_key()
 	}
 }
 add_action('wp_head', 'inject_google_maps_api_key');
+
+/**
+ * Fetch standings data from JSON URL with improved caching and error handling
+ *
+ * @return array|false Standings data or false on error
+ */
+function fetch_standings_data(): array|false
+{
+	// Check for cached data (cache for 6 hours since data updates weekly)
+	$cache_key = 'standings_data';
+	$cached_data = get_transient($cache_key);
+
+	if ($cached_data !== false) {
+		return $cached_data;
+	}
+
+	// Use a more reliable URL format
+	$json_url = 'https://raw.githubusercontent.com/aprestmo/bedriftsidretten-standings-scraper/refs/heads/main/public/standings.json?token=GHSAT0AAAAAADFPKLZBELTJLJGDSCIRDCVM2C2NZUA';
+
+	// Use WordPress HTTP API with better error handling
+	$response = wp_remote_get($json_url, [
+		'timeout' => 15,
+		'user-agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
+		'headers' => [
+			'Accept' => 'application/json',
+			'Cache-Control' => 'no-cache'
+		]
+	]);
+
+	if (is_wp_error($response)) {
+		error_log('Standings API Error: ' . $response->get_error_message());
+		return false;
+	}
+
+	$status_code = wp_remote_retrieve_response_code($response);
+	if ($status_code !== 200) {
+		error_log('Standings API HTTP Error: ' . $status_code);
+		return false;
+	}
+
+	$body = wp_remote_retrieve_body($response);
+	if (empty($body)) {
+		error_log('Standings API: Empty response body');
+		return false;
+	}
+
+	$data = json_decode($body, true);
+
+	if (json_last_error() !== JSON_ERROR_NONE) {
+		error_log('Standings API JSON Error: ' . json_last_error_msg());
+		return false;
+	}
+
+	// Validate data structure
+	if (!is_array($data) || empty($data)) {
+		error_log('Standings API: Invalid data structure');
+		return false;
+	}
+
+	// Cache the data for 6 hours (since data updates weekly)
+	set_transient($cache_key, $data, 6 * HOUR_IN_SECONDS);
+
+	return $data;
+}
+
+/**
+ * Get the last update time for standings data
+ *
+ * @return string|false Last update time or false if not available
+ */
+function get_standings_last_update(): string|false
+{
+	$cache_key = 'standings_last_update';
+	$last_update = get_transient($cache_key);
+
+	if ($last_update === false) {
+		$last_update = current_time('mysql');
+		set_transient($cache_key, $last_update, 6 * HOUR_IN_SECONDS);
+	}
+
+	return $last_update;
+}
+
+/**
+ * Clear standings cache (useful for manual refresh)
+ */
+function clear_standings_cache(): void
+{
+	delete_transient('standings_data');
+	delete_transient('standings_last_update');
+}
+
+// Add admin action to clear cache
+add_action('wp_ajax_clear_standings_cache', function() {
+	if (current_user_can('manage_options')) {
+		clear_standings_cache();
+		wp_send_json_success('Standings cache cleared');
+	}
+	wp_send_json_error('Unauthorized');
+});
+
+/**
+ * Register REST API endpoint for standings data
+ */
+add_action('rest_api_init', function() {
+	register_rest_route('moustache/v1', '/standings', [
+		'methods' => 'GET',
+		'callback' => 'get_standings_rest_data',
+		'permission_callback' => '__return_true',
+		'args' => [
+			'team' => [
+				'required' => false,
+				'type' => 'string',
+				'description' => 'Filter by team name'
+			]
+		]
+	]);
+});
+
+function get_standings_rest_data($request) {
+	$standings = fetch_standings_data();
+
+	if (!$standings) {
+		return new WP_Error('no_data', 'No standings data available', ['status' => 404]);
+	}
+
+	$team_filter = $request->get_param('team');
+
+	if ($team_filter) {
+		$standings = array_filter($standings, function($team) use ($team_filter) {
+			return stripos($team['team'], $team_filter) !== false;
+		});
+	}
+
+	return [
+		'data' => $standings,
+		'last_update' => get_standings_last_update(),
+		'count' => count($standings)
+	];
+}

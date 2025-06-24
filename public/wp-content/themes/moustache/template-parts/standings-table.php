@@ -11,56 +11,32 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Fetch standings data from JSON URL with caching
- *
- * @return array|false Standings data or false on error
- */
-function fetch_standings_data(): array|false
-{
-    // Check for cached data (cache for 1 hour)
-    $cache_key = 'standings_data';
-    $cached_data = get_transient($cache_key);
+// Simple debug version to prevent page breaking
+echo '<div class="standings-debug">';
+echo '<h3>Standings Table</h3>';
 
-    if ($cached_data !== false) {
-        return $cached_data;
-    }
-
-    $json_url = 'https://raw.githubusercontent.com/aprestmo/bedriftsidretten-standings-scraper/refs/heads/main/public/standings.json?token=GHSAT0AAAAAAC5EUUJLY5Q6O32EOEILHBJY2C2FISA';
-
-    // Use WordPress HTTP API
-    $response = wp_remote_get($json_url, [
-        'timeout' => 10,
-        'user-agent' => 'WordPress/' . get_bloginfo('version')
-    ]);
-
-    if (is_wp_error($response)) {
-        return false;
-    }
-
-    $status_code = wp_remote_retrieve_response_code($response);
-    if ($status_code !== 200) {
-        return false;
-    }
-
-    $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body, true);
-
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        return false;
-    }
-
-    // Cache the data for 1 hour
-    set_transient($cache_key, $data, HOUR_IN_SECONDS);
-
-    return $data;
+// Check if functions exist before calling them
+if (!function_exists('fetch_standings_data') || !function_exists('get_standings_last_update')) {
+    echo '<p>Standings functions not available.</p>';
+    echo '</div>';
+    return;
 }
 
-// Fetch standings data
-$standings = fetch_standings_data();
+// Fetch standings data using the function from functions.php
+try {
+    $standings = fetch_standings_data();
+    $last_update = get_standings_last_update();
+    echo '<p>Functions called successfully.</p>';
+} catch (Exception $e) {
+    error_log('Standings table error: ' . $e->getMessage());
+    $standings = false;
+    $last_update = false;
+    echo '<p>Error occurred: ' . esc_html($e->getMessage()) . '</p>';
+}
 
-if ($standings && is_array($standings)) :
-?>
+if ($standings && is_array($standings)) {
+    echo '<p>Data loaded: ' . count($standings) . ' teams</p>';
+    ?>
     <div class="table-scroll" role="region" aria-labelledby="standings-table" tabindex="0">
         <table>
             <caption id="standings-table"><?php esc_html_e('Tabell', 'moustache'); ?></caption>
@@ -68,7 +44,7 @@ if ($standings && is_array($standings)) :
                 <tr>
                     <th scope="col"><?php esc_html_e('Pos', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('Lag', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('K', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('S', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('V', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('U', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('T', 'moustache'); ?></th>
@@ -80,19 +56,25 @@ if ($standings && is_array($standings)) :
             </thead>
             <tbody>
                 <?php foreach ($standings as $team) : ?>
-                    <tr<?php echo ($team['team'] === 'FK Kampbart') ? ' class="highlight-team"' : ''; ?>>
+                    <?php
+                    // Validate team data structure
+                    if (!isset($team['team']) || !isset($team['position'])) {
+                        continue;
+                    }
+                    ?>
+                    <tr>
                         <td><?php echo esc_html($team['position']); ?></td>
                         <td><?php echo esc_html($team['team']); ?></td>
-                        <td><?php echo esc_html($team['matches']); ?></td>
-                        <td><?php echo esc_html($team['wins']); ?></td>
-                        <td><?php echo esc_html($team['draws']); ?></td>
-                        <td><?php echo esc_html($team['losses']); ?></td>
-                        <td><strong><?php echo esc_html($team['points']); ?></strong></td>
-                        <td><?php echo esc_html($team['goalsScored']); ?></td>
-                        <td><?php echo esc_html($team['goalsConceded']); ?></td>
-                        <td><?php echo esc_html($team['goalsScored'] - $team['goalsConceded']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                        <td><?php echo esc_html($team['matches'] ?? 0); ?></td>
+                        <td><?php echo esc_html($team['wins'] ?? 0); ?></td>
+                        <td><?php echo esc_html($team['draws'] ?? 0); ?></td>
+                        <td><?php echo esc_html($team['losses'] ?? 0); ?></td>
+                        <td><?php echo esc_html($team['points'] ?? 0); ?></td>
+                        <td><?php echo esc_html($team['goalsScored'] ?? 0); ?></td>
+                        <td><?php echo esc_html($team['goalsConceded'] ?? 0); ?></td>
+                        <td><?php echo esc_html(($team['goalsScored'] ?? 0) - ($team['goalsConceded'] ?? 0)); ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -100,16 +82,21 @@ if ($standings && is_array($standings)) :
     <div class="u-soft-top-sm">
         <small>
             <?php
-            printf(
-                esc_html__('Sist oppdatert: %s', 'moustache'),
-                esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format')))
-            );
+            if ($last_update) {
+                printf(
+                    esc_html__('Sist oppdatert: %s', 'moustache'),
+                    esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($last_update)))
+                );
+            } else {
+                esc_html_e('Sist oppdatert: Ukjent', 'moustache');
+            }
             ?>
         </small>
     </div>
-<?php else : ?>
-    <div class="u-text-center">
-        <p><?php esc_html_e('Kunne ikke laste tabell data for øyeblikket.', 'moustache'); ?></p>
-        <p><small><?php esc_html_e('Prøv å laste siden på nytt senere.', 'moustache'); ?></small></p>
-    </div>
-<?php endif; ?>
+    <?php
+} else {
+    echo '<p>No standings data available.</p>';
+}
+
+echo '</div>';
+?>

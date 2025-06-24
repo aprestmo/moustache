@@ -147,8 +147,7 @@ $term = get_queried_object();
                         <?php
                         // Check if this is the specific tournament that should show the standings table
                         $should_show_standings = (
-                            $term->slug === 'uteserie-2025' ||
-                            $term->term_id === 311
+                            $term->slug === 'uteserie-2025'
                         );
 
                         if ($should_show_standings) {

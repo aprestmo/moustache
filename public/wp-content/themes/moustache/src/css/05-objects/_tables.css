@@ -12,6 +12,7 @@ td {
 
 th {
   font-family: var(--regular);
+  font-weight: 400;
 }
 
 tbody th {
@@ -20,63 +21,4 @@ tbody th {
 
 caption {
   display: none;
-}
-
-/* Standings table specific styles */
-.table-scroll {
-  overflow-x: auto;
-  margin-bottom: 1rem;
-}
-
-.table-scroll table {
-  width: 100%;
-  min-width: 600px;
-  border: 1px solid var(--c-grey);
-}
-
-.table-scroll th,
-.table-scroll td {
-  padding: 0.5rem 0.75rem;
-  text-align: center;
-  border-bottom: 1px solid var(--c-grey);
-}
-
-.table-scroll th {
-  background-color: var(--c-grey);
-  font-weight: 600;
-}
-
-.table-scroll tbody tr:nth-child(even) {
-  background-color: var(--c-grey);
-}
-
-.table-scroll tbody tr:hover {
-  background-color: oklch(94% 0 0);
-}
-
-/* Highlight FK Kampbart team */
-.table-scroll tbody tr.highlight-team {
-  background-color: oklch(90% 0.05 25.64);
-  font-weight: 600;
-}
-
-.table-scroll tbody tr.highlight-team:hover {
-  background-color: var(--c-monza);
-  color: white;
-}
-
-/* Position column styling */
-.table-scroll td:first-child {
-  font-weight: 600;
-}
-
-/* Points column styling */
-.table-scroll td:nth-child(7) {
-  font-weight: 700;
-  color: var(--c-monza);
-}
-
-/* Goal difference column styling */
-.table-scroll td:last-child {
-  font-weight: 600;
 }

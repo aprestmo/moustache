@@ -1,88 +1,162 @@
-# Standings Table Integration
+# Standings Integration Documentation
 
-This integration fetches and displays standings data from an external JSON source on a specific tournament page.
+This WordPress theme includes a smart integration system for displaying standings data from an external JSON source.
 
-## Files Modified/Created
+## Overview
 
-### New Files
-
-- `template-parts/standings-table.php` - Template part that fetches and displays the standings table
-
-### Modified Files
-
-- `taxonomy-tournament.php` - Updated to conditionally include the standings table for specific tournaments
-- `src/css/05-objects/_tables.css` - Added styling for the standings table
-
-## Scope
-
-The standings table is **only displayed** on the tournament page with:
-
-- Slug: `uteserie-2025`
-- Term ID: `311`
-
-For all other tournament pages, the original `tournament_content` field is displayed instead.
+The system fetches standings data from a GitHub-hosted JSON file and displays it in a responsive table format. It includes caching, error handling, and admin management tools.
 
 ## Features
 
-1. **Conditional Display**: Only shows on the specified tournament page
-2. **Automatic Data Fetching**: Fetches standings data from the JSON URL automatically
-3. **Caching**: Implements WordPress transients to cache data for 1 hour to improve performance
-4. **Error Handling**: Graceful fallback if the JSON data cannot be fetched
-5. **Team Highlighting**: FK Kampbart team is highlighted in the table
-6. **Responsive Design**: Table is horizontally scrollable on smaller screens
-7. **Accessibility**: Proper ARIA labels and semantic HTML structure
+- **Smart Caching**: Data is cached for 6 hours to reduce API calls
+- **Error Handling**: Graceful fallbacks when data is unavailable
+- **Admin Interface**: Manage cache and view data status
+- **REST API**: Access data programmatically via REST endpoints
+- **Responsive Design**: Table works on all device sizes
+- **Accessibility**: Proper ARIA labels and semantic HTML
 
 ## Data Source
 
-The standings data is fetched from:
+The system fetches data from:
 
 ```
-https://raw.githubusercontent.com/aprestmo/bedriftsidretten-standings-scraper/refs/heads/main/public/standings.json
+https://raw.githubusercontent.com/aprestmo/bedriftsidretten-standings-scraper/refs/heads/main/public/standings.json?token=GHSAT0AAAAAADFPKLZBELTJLJGDSCIRDCVM2C2NZUA
 ```
 
-## Table Columns
+## Usage
 
-- **Pos**: Position in the table
-- **Lag**: Team name
-- **K**: Matches played
-- **V**: Wins
-- **U**: Draws
-- **T**: Losses
-- **P**: Points (highlighted)
-- **M+**: Goals scored
-- **M-**: Goals conceded
-- **M±**: Goal difference
+### Display Standings Table
 
-## Styling
+Include the template part in any page or post:
 
-The table uses the theme's color scheme:
+```php
+<?php get_template_part('template-parts/standings-table'); ?>
+```
 
-- FK Kampbart team is highlighted with a light red background
-- Points column is highlighted in the brand red color
-- Alternating row colors for better readability
-- Hover effects for better user interaction
+### Programmatic Access
 
-## Caching
+Get standings data in PHP:
 
-Data is cached using WordPress transients for 1 hour to:
+```php
+$standings = fetch_standings_data();
+if ($standings) {
+    // Process standings data
+    foreach ($standings as $team) {
+        echo $team['team'] . ': ' . $team['points'] . ' points';
+    }
+}
+```
 
-- Reduce load on the external API
-- Improve page load performance
-- Provide fallback data if the external service is temporarily unavailable
+### REST API Access
+
+Access standings data via REST API:
+
+```javascript
+// Get all standings
+fetch('/wp-json/moustache/v1/standings')
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+
+// Filter by team name
+fetch('/wp-json/moustache/v1/standings?team=Kampbart')
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+```
+
+## Admin Management
+
+### Access Admin Interface
+
+1. Go to **WordPress Admin → Theme Settings → Standings**
+2. View cache status and last update time
+3. Clear cache manually if needed
+4. Preview current standings data
+
+### Cache Management
+
+The system automatically caches data for 6 hours. You can:
+
+- **Clear cache manually** via admin interface
+- **Clear cache programmatically**:
+  ```php
+  clear_standings_cache();
+  ```
+- **Check last update time**:
+  ```php
+  $last_update = get_standings_last_update();
+  ```
+
+## Data Structure
+
+The JSON data should have this structure:
+
+```json
+[
+  {
+    "position": 1,
+    "team": "Team Name",
+    "matches": 10,
+    "wins": 8,
+    "draws": 1,
+    "losses": 1,
+    "points": 25,
+    "goalsScored": 20,
+    "goalsConceded": 5
+  }
+]
+```
 
 ## Error Handling
 
-If the JSON data cannot be fetched, a user-friendly error message is displayed in Norwegian.
+The system handles various error scenarios:
 
-## Implementation Details
+- **Network errors**: Logs errors and shows fallback message
+- **Invalid JSON**: Validates data structure
+- **Empty responses**: Checks for valid data
+- **Missing fields**: Uses null coalescing operators for safety
 
-The conditional logic checks for both the term slug and term ID to ensure compatibility:
+## Customization
+
+### Cache Duration
+
+To change cache duration, modify the `set_transient` call in `functions.php`:
 
 ```php
-$should_show_standings = (
-    $term->slug === 'uteserie-2025' ||
-    $term->term_id === 311
-);
+// Cache for 12 hours instead of 6
+set_transient($cache_key, $data, 12 * HOUR_IN_SECONDS);
 ```
 
-This approach ensures the standings table appears on the correct tournament page while preserving the original functionality for all other tournament pages.
+## Troubleshooting
+
+### Data Not Loading
+
+1. Check if the JSON URL is accessible
+2. Verify JSON structure is correct
+3. Clear cache via admin interface
+4. Check error logs for specific issues
+
+### Cache Issues
+
+1. Clear cache manually via admin interface
+2. Check if transients are working on your server
+3. Verify WordPress permissions
+
+### Performance
+
+1. Cache duration is optimized for weekly updates
+2. Consider increasing cache time if data updates less frequently
+3. Monitor server response times for the JSON endpoint
+
+## Security
+
+- All output is properly escaped
+- Admin functions require proper capabilities
+- REST API includes permission checks
+- Nonces are used for admin actions
+
+## Maintenance
+
+- Monitor the GitHub repository for updates
+- Check admin interface regularly for data status
+- Review error logs for any issues
+- Update cache duration based on data update frequency
