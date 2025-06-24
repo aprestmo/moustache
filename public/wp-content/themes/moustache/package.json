@@ -22,16 +22,16 @@
 		"optimize": "yarn jampack dist"
 	},
 	"devDependencies": {
-		"@divriots/jampack": "^0.33.0",
-		"prettier": "^3.5.3",
+		"@divriots/jampack": "^0.33.1",
+		"prettier": "^3.6.0",
 		"wysiwyg.css": "0.0.4"
 	},
 	"dependencies": {
-		"caniuse-lite": "^1.0.30001718",
-		"postcss": "^8.5.3",
-		"postcss-preset-env": "^10.1.6",
+		"caniuse-lite": "^1.0.30001724",
+		"postcss": "^8.5.6",
+		"postcss-preset-env": "^10.2.3",
 		"vite": "^6.3.5",
 		"vite-plugin-live-reload": "^3.0.4",
-		"vite-plugin-static-copy": "^3.0.0"
+		"vite-plugin-static-copy": "^3.0.2"
 	}
 }
