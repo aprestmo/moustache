@@ -17,11 +17,13 @@ The system fetches standings data from a GitHub-hosted JSON file and displays it
 
 ## Data Source
 
-The system fetches data from:
+The system fetches data from the GitHub API:
 
 ```
-https://raw.githubusercontent.com/aprestmo/bedriftsidretten-standings-scraper/refs/heads/main/public/standings.json?token=GHSAT0AAAAAADFPKLZBELTJLJGDSCIRDCVM2C2NZUA
+https://api.github.com/repos/aprestmo/bedriftsidretten-standings-scraper/contents/public/standings.json?ref=main
 ```
+
+This approach is more reliable than raw file URLs as it doesn't require authentication tokens that expire when files are updated.
 
 ## Usage
 
@@ -127,6 +129,17 @@ set_transient($cache_key, $data, 12 * HOUR_IN_SECONDS);
 ```
 
 ## Troubleshooting
+
+### Token Expiration Issues
+
+**Problem**: The JSON URL token expires when the file is updated, causing data fetching to fail.
+
+**Solution**: The system now uses the GitHub API instead of raw file URLs. This approach:
+
+- Doesn't require authentication tokens
+- Is more stable and reliable
+- Automatically handles file updates
+- Provides better error handling
 
 ### Data Not Loading
 

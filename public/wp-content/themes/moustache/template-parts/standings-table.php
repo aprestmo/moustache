@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) {
 
 // Simple debug version to prevent page breaking
 echo '<div class="standings-debug">';
-echo '<h3>Standings Table</h3>';
 
 // Check if functions exist before calling them
 if (!function_exists('fetch_standings_data') || !function_exists('get_standings_last_update')) {
@@ -26,7 +25,6 @@ if (!function_exists('fetch_standings_data') || !function_exists('get_standings_
 try {
     $standings = fetch_standings_data();
     $last_update = get_standings_last_update();
-    echo '<p>Functions called successfully.</p>';
 } catch (Exception $e) {
     error_log('Standings table error: ' . $e->getMessage());
     $standings = false;
@@ -35,8 +33,7 @@ try {
 }
 
 if ($standings && is_array($standings)) {
-    echo '<p>Data loaded: ' . count($standings) . ' teams</p>';
-    ?>
+?>
     <div class="table-scroll" role="region" aria-labelledby="standings-table" tabindex="0">
         <table>
             <caption id="standings-table"><?php esc_html_e('Tabell', 'moustache'); ?></caption>
@@ -93,7 +90,7 @@ if ($standings && is_array($standings)) {
             ?>
         </small>
     </div>
-    <?php
+<?php
 } else {
     echo '<p>No standings data available.</p>';
 }
