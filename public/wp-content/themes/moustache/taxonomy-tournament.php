@@ -161,8 +161,6 @@ $term = get_queried_object();
                     </div>
 
                     <div id="statistikk" role="region" aria-labelledby="caption" tabindex="0">
-                        <?php // echo wp_kses_post(get_field('tournament_stats', $term));
-                        ?>
                         <?php include(locate_template('template-parts/tournament-stats.php')); ?>
                     </div>
 
