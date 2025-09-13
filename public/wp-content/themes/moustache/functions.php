@@ -122,6 +122,12 @@ add_action('wp_head', 'inject_google_maps_api_key');
  */
 function fetch_standings_data(): array|false
 {
+    // Check if the 2025 season is still active
+    if (!is_season_2025_active()) {
+        error_log('Standings: Season 2025 has ended, no longer fetching data');
+        return false;
+    }
+    
     // Check for cached data (cache for 6 hours since data updates weekly)
     $cache_key = 'standings_data';
     $cached_data = get_transient($cache_key);
@@ -219,6 +225,55 @@ function get_standings_last_update(): string|false
 }
 
 /**
+ * Check if the 2025 season is still active based on fixtures
+ *
+ * @return bool True if season is active, false if ended
+ */
+function is_season_2025_active(): bool
+{
+    // First check the simple date cutoff
+    $current_date = current_time('Y-m-d');
+    if ($current_date > '2025-12-31') {
+        return false;
+    }
+    
+    // Check if there are any future matches in the uteserie-2025 tournament
+    $current_datetime = current_time('mysql');
+    
+    $future_matches = new WP_Query([
+        'posts_per_page' => 1,
+        'post_type' => 'fixture',
+        'tax_query' => [
+            [
+                'taxonomy' => 'tournament',
+                'field' => 'slug',
+                'terms' => 'uteserie-2025',
+            ],
+        ],
+        'meta_query' => [
+            'relation' => 'OR',
+            [
+                'key' => 'new_date_time',
+                'value' => $current_datetime,
+                'compare' => '>',
+                'type' => 'DATETIME'
+            ],
+            [
+                'key' => 'date_time',
+                'value' => $current_datetime,
+                'compare' => '>',
+                'type' => 'DATETIME'
+            ],
+        ],
+        'fields' => 'ids'
+    ]);
+    
+    wp_reset_postdata();
+    
+    return $future_matches->found_posts > 0;
+}
+
+/**
  * Clear standings cache (useful for manual refresh)
  */
 function clear_standings_cache(): void
@@ -235,6 +290,67 @@ add_action('wp_ajax_clear_standings_cache', function () {
     }
     wp_send_json_error('Unauthorized');
 });
+
+// Add admin menu for standings management
+add_action('admin_menu', function() {
+    add_management_page(
+        'Standings Management',
+        'Standings',
+        'manage_options',
+        'standings-management',
+        'standings_admin_page'
+    );
+});
+
+function standings_admin_page() {
+    if (isset($_POST['clear_cache']) && check_admin_referer('clear_standings_cache', 'standings_nonce')) {
+        clear_standings_cache();
+        echo '<div class="notice notice-success"><p>Standings cache cleared!</p></div>';
+    }
+    
+    ?>
+    <div class="wrap">
+        <h1>Standings Management</h1>
+        
+        <h2>Cache Status</h2>
+        <?php
+        $cached_data = get_transient('standings_data');
+        if ($cached_data) {
+            echo '<p>✓ Cached data exists (' . count($cached_data) . ' teams)</p>';
+        } else {
+            echo '<p>No cached data found</p>';
+        }
+        ?>
+        
+        <h2>Season Status</h2>
+        <?php
+        $is_active = is_season_2025_active();
+        echo '<p>Season 2025 active: ' . ($is_active ? 'YES' : 'NO') . '</p>';
+        echo '<p>Current date: ' . current_time('Y-m-d H:i:s') . '</p>';
+        ?>
+        
+        <h2>Test Data Fetch</h2>
+        <?php
+        try {
+            $standings = fetch_standings_data();
+            if (is_array($standings)) {
+                echo '<p>✓ Successfully fetched ' . count($standings) . ' teams</p>';
+            } else {
+                echo '<p>✗ fetch_standings_data returned: ' . gettype($standings) . '</p>';
+            }
+        } catch (Exception $e) {
+            echo '<p>✗ Error: ' . $e->getMessage() . '</p>';
+        }
+        ?>
+        
+        <h2>Clear Cache</h2>
+        <form method="post">
+            <?php wp_nonce_field('clear_standings_cache', 'standings_nonce'); ?>
+            <input type="submit" name="clear_cache" class="button button-secondary" value="Clear Standings Cache">
+        </form>
+    </div>
+    <?php
+}
 
 /**
  * Register REST API endpoint for standings data

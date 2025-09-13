@@ -11,25 +11,50 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Simple debug version to prevent page breaking
-echo '<div class="standings-debug">';
+// Debug mode - show what's happening
+$debug_mode = true; // Set to false in production
+
+// Add debug styles
+if ($debug_mode) {
+    echo '<style>
+    .debug-info { background: #e7f3ff; border: 1px solid #b0d4f1; padding: 10px; margin: 10px 0; }
+    .debug-error { background: #ffebee; border: 1px solid #ffcdd2; padding: 10px; margin: 10px 0; }
+    .error-message { background: #ffebee; border: 1px solid #f44336; padding: 10px; margin: 10px 0; }
+    .no-data-message { background: #fff3e0; border: 1px solid #ffcc02; padding: 10px; margin: 10px 0; }
+    </style>';
+}
 
 // Check if functions exist before calling them
 if (!function_exists('fetch_standings_data') || !function_exists('get_standings_last_update')) {
-    echo '<p>Standings functions not available.</p>';
-    echo '</div>';
+    if ($debug_mode) {
+        echo '<div class="debug-error"><p><strong>Debug:</strong> Standings functions not available in functions.php</p></div>';
+    }
     return;
+}
+
+if ($debug_mode) {
+    echo '<div class="debug-info"><p><strong>Debug:</strong> Functions found, attempting to fetch data...</p></div>';
 }
 
 // Fetch standings data using the function from functions.php
 try {
     $standings = fetch_standings_data();
     $last_update = get_standings_last_update();
+    
+    if ($debug_mode) {
+        echo '<div class="debug-info"><p><strong>Debug:</strong> ' . (is_array($standings) ? 'Got ' . count($standings) . ' teams' : 'No data returned') . '</p></div>';
+    }
+    
+    // Debug: Log what we got
+    error_log('Standings debug: ' . (is_array($standings) ? 'Got ' . count($standings) . ' teams' : 'No data returned'));
+    
 } catch (Exception $e) {
     error_log('Standings table error: ' . $e->getMessage());
     $standings = false;
     $last_update = false;
-    echo '<p>Error occurred: ' . esc_html($e->getMessage()) . '</p>';
+    if ($debug_mode) {
+        echo '<div class="error-message"><p><strong>Error:</strong> ' . esc_html($e->getMessage()) . '</p></div>';
+    }
 }
 
 if ($standings && is_array($standings)) {
@@ -92,8 +117,9 @@ if ($standings && is_array($standings)) {
     </div>
 <?php
 } else {
-    echo '<p>No standings data available.</p>';
+    if ($debug_mode) {
+        echo '<div class="debug-info"><p><strong>Debug:</strong> No standings data returned from fetch_standings_data()</p></div>';
+    }
+    echo '<div class="no-data-message"><p>No standings data available at this time.</p></div>';
 }
-
-echo '</div>';
 ?>
