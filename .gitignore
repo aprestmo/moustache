@@ -28,6 +28,7 @@ public/wp-content/*
 !public/wp-content/languages/plugins/
 !public/wp-content/galleri/
 !public/wp-content/sanger/
+!public/wp-content/uploads/
 
 # Ignore everything in the "plugins" directory, except the plugins you
 # specify (see the commented-out examples for hints on how to do this.)

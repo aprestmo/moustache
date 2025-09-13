@@ -1,0 +1,16 @@
+
+<FilesMatch "\.(?i:php)$">
+	<IfModule !mod_authz_core.c>
+		Order allow,deny
+		Deny from all
+	</IfModule>
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+</FilesMatch>
+
+# BEGIN Register webp mime type
+<IfModule mod_mime.c>
+	AddType image/webp .webp
+</IfModule>
+# END Register webp mime type
