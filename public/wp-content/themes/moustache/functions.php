@@ -140,18 +140,25 @@ function fetch_standings_data(): array|false
     // Note: The ?ref=main parameter is required to specify the branch
     $json_url = 'https://api.github.com/repos/aprestmo/bedriftsidretten-standings-scraper/contents/public/standings.json?ref=main';
 
-    // Use WordPress HTTP API with better error handling
+    // Use WordPress HTTP API with better error handling and production-friendly settings
     $response = wp_remote_get($json_url, [
-        'timeout' => 15,
+        'timeout' => 30, // Increased timeout for production
         'user-agent' => 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url'),
         'headers' => [
             'Accept' => 'application/json',
             'Cache-Control' => 'no-cache'
-        ]
+        ],
+        'sslverify' => true, // Ensure SSL verification
+        'redirection' => 5,
+        'httpversion' => '1.1'
     ]);
 
     if (is_wp_error($response)) {
-        error_log('Standings API Error: ' . $response->get_error_message());
+        $error_msg = 'Standings API Error: ' . $response->get_error_message();
+        if ($response->get_error_code()) {
+            $error_msg .= ' (Code: ' . $response->get_error_code() . ')';
+        }
+        error_log($error_msg);
         return false;
     }
 
@@ -222,6 +229,47 @@ function get_standings_last_update(): string|false
     }
 
     return $last_update;
+}
+
+/**
+ * Check production environment for common issues
+ *
+ * @return array Array of potential issues
+ */
+function check_production_environment(): array
+{
+    $issues = [];
+    
+    // Check if wp_remote_get is working
+    if (!function_exists('wp_remote_get')) {
+        $issues[] = 'wp_remote_get function not available';
+    }
+    
+    // Check if allow_url_fopen is enabled (affects some HTTP functions)
+    if (!ini_get('allow_url_fopen')) {
+        $issues[] = 'allow_url_fopen is disabled - may affect HTTP requests';
+    }
+    
+    // Check if cURL is available
+    if (!function_exists('curl_init')) {
+        $issues[] = 'cURL extension not available';
+    }
+    
+    // Check SSL/HTTPS support
+    if (!extension_loaded('openssl')) {
+        $issues[] = 'OpenSSL extension not loaded - may affect HTTPS requests';
+    }
+    
+    // Check if we can write to cache (transients)
+    $test_key = 'standings_env_test';
+    set_transient($test_key, 'test', 60);
+    if (get_transient($test_key) !== 'test') {
+        $issues[] = 'Transient caching not working properly';
+    } else {
+        delete_transient($test_key);
+    }
+    
+    return $issues;
 }
 
 /**
@@ -327,6 +375,20 @@ function standings_admin_page() {
         $is_active = is_season_2025_active();
         echo '<p>Season 2025 active: ' . ($is_active ? 'YES' : 'NO') . '</p>';
         echo '<p>Current date: ' . current_time('Y-m-d H:i:s') . '</p>';
+        ?>
+        
+        <h2>Environment Check</h2>
+        <?php
+        $issues = check_production_environment();
+        if (empty($issues)) {
+            echo '<p>✓ No environment issues detected</p>';
+        } else {
+            echo '<div class="notice notice-warning"><p><strong>Environment Issues:</strong></p><ul>';
+            foreach ($issues as $issue) {
+                echo '<li>' . esc_html($issue) . '</li>';
+            }
+            echo '</ul></div>';
+        }
         ?>
         
         <h2>Test Data Fetch</h2>

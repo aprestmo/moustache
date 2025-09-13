@@ -12,7 +12,12 @@ if (!defined('ABSPATH')) {
 }
 
 // Debug mode - show what's happening
-$debug_mode = true; // Set to false in production
+// Only enable debug on localhost or if WP_DEBUG is true
+$debug_mode = (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) || 
+              (defined('WP_DEBUG') && WP_DEBUG === true);
+              
+// Production-safe debug (only logs, no output)
+$log_debug = true;
 
 // Add debug styles
 if ($debug_mode) {
@@ -26,12 +31,18 @@ if ($debug_mode) {
 
 // Check if functions exist before calling them
 if (!function_exists('fetch_standings_data') || !function_exists('get_standings_last_update')) {
+    if ($log_debug) {
+        error_log('Standings Error: Required functions not found in functions.php');
+    }
     if ($debug_mode) {
         echo '<div class="debug-error"><p><strong>Debug:</strong> Standings functions not available in functions.php</p></div>';
     }
     return;
 }
 
+if ($log_debug) {
+    error_log('Standings: Functions found, attempting to fetch data');
+}
 if ($debug_mode) {
     echo '<div class="debug-info"><p><strong>Debug:</strong> Functions found, attempting to fetch data...</p></div>';
 }
@@ -41,12 +52,12 @@ try {
     $standings = fetch_standings_data();
     $last_update = get_standings_last_update();
     
+    if ($log_debug) {
+        error_log('Standings: ' . (is_array($standings) ? 'Successfully got ' . count($standings) . ' teams' : 'No data returned - type: ' . gettype($standings)));
+    }
     if ($debug_mode) {
         echo '<div class="debug-info"><p><strong>Debug:</strong> ' . (is_array($standings) ? 'Got ' . count($standings) . ' teams' : 'No data returned') . '</p></div>';
     }
-    
-    // Debug: Log what we got
-    error_log('Standings debug: ' . (is_array($standings) ? 'Got ' . count($standings) . ' teams' : 'No data returned'));
     
 } catch (Exception $e) {
     error_log('Standings table error: ' . $e->getMessage());
