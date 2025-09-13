@@ -24,7 +24,6 @@
 
 # Ignore everything in the "wp-content" directory, except "themes" folder:
 public/wp-content/*
-!public/wp-content/plugins/
 !public/wp-content/themes/
 !public/wp-content/languages/plugins/
 !public/wp-content/galleri/
