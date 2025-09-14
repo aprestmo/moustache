@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import liveReload from 'vite-plugin-live-reload'
-import { basename } from 'path'
+import { basename } from 'node:path'
 
 const themeName = basename(__dirname)
 const basePath = `/wp-content/themes/${themeName}`
@@ -37,6 +37,11 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: '[name].[hash].js',
         assetFileNames: '[name].[hash][extname]',
       },
+    },
+  },
+  css: {
+    lightningcss: {
+      minify: true,
     },
   },
 }))
