@@ -18,12 +18,11 @@
 
 
 # Ignore everything in the "public" directory, except the "wp-content" folder:
-public
-public/*
+!public/*
 !public/wp-content
 
 # Ignore everything in the "wp-content" directory, except "themes" folder:
-public/wp-content/*
+!public/wp-content/*
 !public/wp-content/themes/
 !public/wp-content/uploads/
 
