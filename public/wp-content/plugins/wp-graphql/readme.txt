@@ -2,9 +2,9 @@
 Contributors: jasonbahl, tylerbarnes1, ryankanner, chopinbach, kidunot89, justlevine
 Tags: GraphQL, Headless, REST API, Decoupled, React
 Requires at least: 6.0
-Tested up to: 6.7.1
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.1
+Stable tag: 2.3.6
 License: GPL-3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -283,6 +283,112 @@ The `uri` field was non-null on some Types in the Schema but has been changed to
 Composer dependencies are no longer versioned in Github. Recommended install source is WordPress.org or using Composer to get the code from Packagist.org or WPackagist.org.
 
 == Changelog ==
+
+= 2.3.6 =
+
+**Bug Fixes**
+
+* fix: update failing e2e tests for graphiql (https://github.com/jasonbahl/automation-tests/pull/3414)
+* fix: Prevent printed scripts from breaking GraphQL responses (https://github.com/jasonbahl/automation-tests/pull/3413)
+* fix: prevent changeset deletions from being synced back to develop (https://github.com/jasonbahl/automation-tests/pull/3412)
+* fix: wp 6.8 test failures (https://github.com/jasonbahl/automation-tests/pull/3410)
+* fix: Move graphql_root_value filter execution to runtime for access to request params (https://github.com/jasonbahl/automation-tests/pull/3406)
+* fix: make  void and call on  (https://github.com/jasonbahl/automation-tests/pull/3371)
+
+**Other Changes**
+
+* chore: update npm deps (https://github.com/jasonbahl/automation-tests/pull/3408)
+* chore: update composer deps (https://github.com/jasonbahl/automation-tests/pull/3407)
+* refactor: prepare deprecations for v3 removal (https://github.com/jasonbahl/automation-tests/pull/3400)
+
+= 2.3.5 =
+
+**Bug Fixes**
+
+* fix: prevent changeset deletions from being synced back to develop (https://github.com/jasonbahl/automation-tests/pull/3412)
+* fix: wp 6.8 test failures (https://github.com/jasonbahl/automation-tests/pull/3410)
+* fix: Move graphql_root_value filter execution to runtime for access to request params (https://github.com/jasonbahl/automation-tests/pull/3406)
+
+**Other Changes**
+
+* chore: update npm deps (https://github.com/jasonbahl/automation-tests/pull/3408)
+* chore: update composer deps (https://github.com/jasonbahl/automation-tests/pull/3407)
+* refactor: prepare deprecations for v3 removal (https://github.com/jasonbahl/automation-tests/pull/3400)
+
+= 2.3.4 =
+
+**Bug Fixes**
+
+* fix: make  void and call on  (https://github.com/jasonbahl/automation-tests/pull/3371)
+
+= 2.3.3 =
+
+**Bug Fixes**
+
+* fix: update skipped since tags (https://github.com/jasonbahl/automation-tests/pull/3372)
+* fix: check for preloaded AppContext::get_loader() (https://github.com/jasonbahl/automation-tests/pull/3384)
+* fix: cleanup  logic (https://github.com/jasonbahl/automation-tests/pull/3383)
+
+**Other Changes**
+
+* chore: improve type safety of  and schema registration (https://github.com/jasonbahl/automation-tests/pull/3382)
+* refactor: cleanup  class to reduce complexity and improve type safety (https://github.com/jasonbahl/automation-tests/pull/3381)
+* perf: refactor  to lazy-load dataloaders (https://github.com/jasonbahl/automation-tests/pull/3380)
+* chore: update Composer dev-deps and PHPCs ruleset (https://github.com/jasonbahl/automation-tests/pull/3379)
+* chore: expose array shape for   (https://github.com/jasonbahl/automation-tests/pull/3374)
+* chore: expose array shapes for register_graphql_enum_type()  (https://github.com/jasonbahl/automation-tests/pull/3373)
+* chore: narrow/fix php types on WPGraphQL, Server, Utils namespaces (https://github.com/jasonbahl/automation-tests/pull/3368)
+
+= 2.3.2 =
+
+**Other Changes**
+
+* chore: improve type safety of  and schema registration (https://github.com/jasonbahl/automation-tests/pull/3382)
+* refactor: cleanup  class to reduce complexity and improve type safety (https://github.com/jasonbahl/automation-tests/pull/3381)
+* perf: refactor  to lazy-load dataloaders (https://github.com/jasonbahl/automation-tests/pull/3380)
+* chore: update Composer dev-deps and PHPCs ruleset (https://github.com/jasonbahl/automation-tests/pull/3379)
+
+= 2.3.1 =
+
+**Other Changes**
+
+* chore: expose array shape for   (https://github.com/jasonbahl/automation-tests/pull/3374)
+* chore: expose array shapes for register_graphql_enum_type()  (https://github.com/jasonbahl/automation-tests/pull/3373)
+* chore: narrow/fix php types on WPGraphQL, Server, Utils namespaces (https://github.com/jasonbahl/automation-tests/pull/3368)
+
+= 2.3.0 =
+
+**New Features**
+
+* feat: lazy loading fields for Object Types and Interface Types (https://github.com/jasonbahl/automation-tests/pull/3356)
+* feat: Update Enum Type descriptions (https://github.com/jasonbahl/automation-tests/pull/3355)
+
+**Bug Fixes**
+
+* fix: don't initialize  twice in class constructor (https://github.com/jasonbahl/automation-tests/pull/3369)
+* fix: cleanup Model fields for better source-of-truth and type-safety. (https://github.com/jasonbahl/automation-tests/pull/3363)
+* fix: bump  and remove 7.3 references (https://github.com/jasonbahl/automation-tests/pull/3360)
+
+**Other Changes**
+
+* chore: improve type-safety for  class (https://github.com/jasonbahl/automation-tests/pull/3367)
+* chore: add array shapes to  and  (https://github.com/jasonbahl/automation-tests/pull/3366)
+* chore: inline (non-breaking) native return types (https://github.com/jasonbahl/automation-tests/pull/3362)
+* chore: implement array shapes for  (https://github.com/jasonbahl/automation-tests/pull/3364)
+* chore: Test compatibility with WordPress 6.8 (https://github.com/jasonbahl/automation-tests/pull/3361)
+* ci: trigger Codeception workflow more often (https://github.com/jasonbahl/automation-tests/pull/3359)
+* chore: Update Composer deps (https://github.com/jasonbahl/automation-tests/pull/3358)
+
+= 2.2.0 =
+
+**New Features**
+
+* feat: add support for graphql_description on register_post_type and register_taxonomy (https://github.com/jasonbahl/automation-tests/pull/3346)
+
+**Other Changes**
+
+* chore: update  placeholder that didn't properly get replaced during release (https://github.com/jasonbahl/automation-tests/pull/3349)
+* chore: update interface descriptions (https://github.com/jasonbahl/automation-tests/pull/3347)
 
 = 2.1.1 =
 

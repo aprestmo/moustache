@@ -41,7 +41,11 @@ $poll_page_url = sprintf('?page=%s', "poll-maker");
                 <h4><?php echo esc_html__( "Community", "poll-maker" ); ?></h4>
             </div>
             <div class="ays-poll-community-youtube-video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/RDKZXFmG6Pc" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="ays-poll-create-poll-youtube-video">
+                    <div class="ays-poll-youtube-placeholder" data-video-id="RDKZXFmG6Pc">
+                        <img src="<?php echo esc_url(POLL_MAKER_AYS_ADMIN_URL .'/images/wordpress-poll-plugin.webp'); ?>" loading="lazy" width="560" height="315">
+                    </div>
+                </div>                
             </div>
             <div class="ays-poll-community-container">
                 <div class="ays-poll-community-item">

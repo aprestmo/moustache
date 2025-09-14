@@ -112,6 +112,11 @@ class Server_Utils {
 		return '';
 	}
 
+	public function browser_supports_nextgen_format( $format ) {
+		$http_accept = $this->get_http_accept_header();
+		return ! empty( $http_accept ) && false !== strpos( $http_accept, $format );
+	}
+
 	public function browser_supports_webp() {
 		$http_accept = $this->get_http_accept_header();
 		if ( ! empty( $http_accept ) && false !== strpos( $http_accept, 'webp' ) ) {
@@ -147,10 +152,17 @@ class Server_Utils {
 
 	public function get_current_url() {
 		$protocol = is_ssl() ? 'https:' : 'http:';
-		$domain   = parse_url( site_url(), PHP_URL_HOST );
-		$path     = parse_url( $this->get_request_uri(), PHP_URL_PATH );
+		$domain   = wp_parse_url( site_url(), PHP_URL_HOST );
+		$path     = wp_parse_url( $this->get_request_uri(), PHP_URL_PATH );
+		$query    = wp_parse_url( $this->get_request_uri(), PHP_URL_QUERY );
 
-		return $protocol . '//' . $domain . $path;
+		$url = $protocol . '//' . $domain . $path;
+
+		if ( $query ) {
+			$url .= '?' . $query;
+		}
+
+		return $url;
 	}
 
 	public function get_request_method() {

@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://ays-pro.com/wordpress/poll-maker
 Tags:  WordPress Poll, vote, poll plugin, polls, polling
 Requires at least: 4.0
-Tested up to: 6.7.2
-Stable tag: 5.7.6
+Tested up to: 6.8.2
+Stable tag: 6.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -238,7 +238,8 @@ Don't forget that, in case of any problems or upcoming questions, please contact
 **Other plugins from Ays Pro Team** 
 
 * [Quiz Maker](https://wordpress.org/plugins/quiz-maker/) for creating advanced quizzes and exams easily and quickly.
-* [Survey Maker](https://wordpress.org/plugins/survey-maker/) for collecting data and analyze it.  
+* [Survey Maker](https://wordpress.org/plugins/survey-maker/) for collecting data and analyze it.
+* [Fox LMS](https://wordpress.org/plugins/fox-lms/) to create online courses with quizzes and certificates for your WordPress website.
 * [Popup Box](https://wordpress.org/plugins/ays-popup-box/), an easy way to create eye-catching and engaging popups. 
 * [Secure Copy Content Protection](https://wordpress.org/plugins/secure-copy-content-protection/) to protect web content from being plagiarized.
 * [Chartify](https://wordpress.org/plugins/chart-builder/) to build both static and dynamic charts, graphs and diagrams. 
@@ -352,6 +353,106 @@ By this, you will save your already created data (quizzes with questions). You c
 
 
 == Changelog ==
+
+= 6.0.0 ( September 09, 2025 ) =
+* Added: Post Author First name message variable on the general settings
+
+= 5.9.9 ( September 03, 2025 ) =
+* Improved: Some styles on the admin dashboard
+* Updated: POT and Po files
+
+= 5.9.8 ( August 26, 2025 ) =
+* Added: Post Author Nickname message variable on the general settings
+* Improved: Some changes on the admin dashboard
+
+= 5.9.7 ( August 19, 2025 ) =
+* Improved: HTML structure for iframe embeds
+* Improved: Some changes on the admin dashboard
+
+= 5.9.6 ( August 12, 2025 ) =
+* Fixed: See results in limitation user while Directly chosen
+
+= 5.9.5 ( August 05, 2025 ) =
+* Added: Post Author Email message variable on the general settings
+
+= 5.9.4 ( July 29, 2025 ) =
+* Added: Admin Email message variable on the general settings
+
+= 5.9.3 ( July 22, 2025 ) =
+* Added: Post ID message variable on the general settings
+* Tested: Compatible up to 6.8.2
+
+= 5.9.2 ( July 15, 2025 ) =
+* Added: After vote hook on front-end
+* Improved: Notice functionality behavior
+* Improved: Some changes on the admin dashboard
+
+= 5.9.1 ( July 08, 2025 ) =
+* Improved: Some changes on the admin dashboard
+
+= 5.9.0 ( July 01, 2025 ) =
+* Added: Dashboard submenu
+* Improved: Poll Maker welcome page
+* Fixed: Admin email vulnerability issue
+
+= 5.8.9 ( June 24, 2025 ) =
+* Added: Site title message variable on the general settings
+
+= 5.8.8 ( June 17, 2025 ) =
+* Added: Home page message variable on the general settings
+* Improved: Some changes on the admin dashboard
+
+= 5.8.7 ( June 12, 2025 ) =
+* Updated: POT and Po files
+* Fixed: Language translation proble
+
+= 5.8.6 ( June 10, 2025 ) =
+* Added: Post title message variable on the general settings
+* Fixed: Animation problem on the admin dashboard
+
+= 5.8.5 ( June 03, 2025 ) =
+* Added: Current poll author email message variable on the general settings
+
+= 5.8.4 ( May 27, 2025 ) =
+* Improved: Code changes on the admin dashboard
+* Fixed: Conflict with Pixel Ebook Store theme
+* Fixed: Conflict with Interactive Education theme
+
+= 5.8.3 ( May 20, 2025 ) =
+* Improved: Some changes on the admin dashboard
+* Fixed: Dismiss button problem on the admin dashboard
+* Fixed: CSS conflict with the WP Social Login and Register plugin
+
+= 5.8.2 ( May 14, 2025 ) =
+* Improved: Some styles on the admin dashboard
+* Updated: POT and Po files
+
+= 5.8.1 =
+* Changed: The location of the Save as default button on the polls edit page
+* Improved: Some styles on the admin dashboard
+* Tested: Compatible up to 6.8.1
+
+= 5.8.0 =
+* Fixed: issue with multisite logs and network deactivation
+
+= 5.7.9 =
+* Added: [Fox LMS](https://wordpress.org/plugins/fox-lms) Plugin to the Our Products page
+* Added: Automatic activation/installation of the plugin on the Products submenu
+* Improved: Some styles on the admin dashboard
+
+= 5.7.8 =
+* Added: Preview Poll button on the Quick Poll Preview Popup
+* Improved: Some styles on the admin dashboard
+* Fixed: CSS conflict with the HTML5 Video Player plugin
+* Fixed: CSS conflict with the Panorama Viewer plugin
+* Fixed: Vulnerability issue with user vote limitation
+
+= 5.7.7 =
+* Added: Auto-generate custom post for immediate poll preview on front-end
+* Added: Preview link on the Polls List Table
+* Added: Preview Poll button on the Preview Popup of the created poll
+* Improved: Some styles on the admin dashboard
+* Tested: Compatible up to 6.8
 
 = 5.7.6 =
 * Improved: Some styles on the admin dashboard

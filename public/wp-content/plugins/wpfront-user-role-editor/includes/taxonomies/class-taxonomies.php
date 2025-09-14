@@ -86,7 +86,7 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
                 return;
             }
 
-            $this->set_admin_menu(__('Taxonomies', 'wpfront-user-role-editor'), __('Taxonomies', 'wpfront-user-role-editor'), 70);
+            $this->set_admin_menu('Taxonomies', 'Taxonomies', 70);
         }
 
         /**
@@ -1365,7 +1365,7 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
         }
 
         public static function get_debug_setting() {
-            return array('key' => 'taxonomies', 'label' => __('Taxonomies', 'wpfront-user-role-editor'), 'position' => 100, 'description' => __('Disables all taxonomy functionalities.', 'wpfront-user-role-editor'));
+            return array('key' => 'taxonomies', 'label' => 'Taxonomies', 'position' => 100, 'description' => 'Disables all taxonomy functionalities.');
         }
 
         /**

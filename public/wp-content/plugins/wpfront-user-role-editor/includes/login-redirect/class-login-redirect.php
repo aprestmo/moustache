@@ -68,7 +68,7 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
                 return;
             }
             
-            $this->set_admin_menu(__('Login Redirect', 'wpfront-user-role-editor'), __('Login Redirect', 'wpfront-user-role-editor'));
+            $this->set_admin_menu('Login Redirect', 'Login Redirect');
             
             add_action('admin_init', array($this, 'admin_init'), 1);
         }
@@ -637,7 +637,7 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
         }
         
         public static function get_debug_setting() {
-            return array('key' => 'login-redirect', 'label' =>  __('Login Redirect', 'wpfront-user-role-editor'), 'position' => 60, 'description' => __('Disables the login redirect functionality.', 'wpfront-user-role-editor'));
+            return array('key' => 'login-redirect', 'label' => 'Login Redirect', 'position' => 60, 'description' => 'Disables the login redirect functionality.');
         }
     }
     

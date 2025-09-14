@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Plugins - Poll Maker &#8211; Best WordPress Poll Plugin - Stable (latest release)\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-09-02 15:03+0400\n"
+"PO-Revision-Date: 2025-05-13 07:24+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: admin/partials/poll-maker-ays-polls-actions.php:5962
 msgid "Option Redirect Delay"
@@ -260,7 +260,7 @@ msgstr "Conteggio votanti"
 
 #: includes/lists/class-poll-maker-each-results-poll-list-table.php:554
 msgid "Result(s) marked as read."
-msgstr "Risultati segnati come letti"
+msgstr "Risultati segnati come letti."
 
 #: includes/lists/class-poll-maker-each-results-poll-list-table.php:551
 msgid "Result(s) deleted."
@@ -636,7 +636,7 @@ msgstr "%sSei nel posto giusto!%s Devi solo abilitare il %sModulo informazioni%s
 
 #: admin/partials/features/poll-maker-how-to-use-display.php:138
 msgid "To do that, please go to the %sLimitation%s tab of the given poll. The plugin suggests two methods to prevent repeat voting from the same person. Those are %sLimit the user to rate only once by IP%s or %sLimit the user to rate only once by User ID.%s The other awesome functionality that the plugin suggests is %sOnly for logged in users%s to enable access to the poll those, who have logged in. This option will allow you to precisely target your respondents, and not receive unnecessary votes from others, who have not logged in. Moreover, with the help of the %sOnly selected user role%s option, you can select your preferred user role for example administrator, editor, subscriber, customer and etc."
-msgstr "Per fare ciò, vai alla scheda %sLimitazioni%s del sondaggio in questione. Il plugin suggerisce due metodi per evitare che la stessa persona voti ripetutamente. Si tratta di %sLimita l'utente a valutare solo una volta per IP%s o %sLimita l'utente a valutare solo una volta per ID utente.%s L'altra fantastica funzionalità che il plugin propone è %sSolo per gli utenti connessi%s, per consentire l'accesso al sondaggio a coloro che si sono connessi. Questa opzione ti consentirà di indirizzare con precisione i tuoi partecipanti e di non ricevere voti inutili da altri che non hanno effettuato l'accesso. Inoltre, con l'aiuto dell'opzione %sSolo ruolo utente selezionato%s, è possibile selezionare il ruolo utente preferito, ad esempio amministratore, editore, abbonato, cliente e così via."
+msgstr "Per fare ciò, vai alla scheda %sLimitazioni%s del sondaggio in questione. Il plugin suggerisce due metodi per evitare che la stessa persona voti ripetutamente. Si tratta di %sLimita l'utente a valutare solo una volta per IP%s o %sLimita l'utente a valutare solo una volta per ID utente.%s L'altra fantastica funzionalità che il plugin propone è %sSolo per gli utenti connessi%s, per consentire l'accesso al sondaggio a coloro che si sono connessi. Questa opzione ti consentirà di indirizzare con precisione i tuoi partecipanti e di non ricevere voti inutili da altri che non hanno effettuato l'accesso. Inoltre, con l'aiuto dell'opzione %sSolo ruolo utente selezionato%s è possibile selezionare il ruolo utente preferito, ad esempio amministratore, editore, abbonato, cliente e così via."
 
 #: admin/partials/features/poll-maker-how-to-use-display.php:117
 msgid "%sYes!%s Please go to the Settings tab of the given poll, and find the %sAllow anonymity%s option there. Enable it, and it will allow participants to respond to your polls without ever revealing their identities, even if they are registered on your website. After enabling the option, the wp _user and User IP will not be stored in the database. A giant step toward democracy!"
@@ -660,7 +660,7 @@ msgstr "Grafico a barre(Google)"
 
 #: admin/partials/poll-maker-ays-admin-display.php:67
 msgid "Create Your First Poll in Under One Minute"
-msgstr "Crea il tuo primo sondaggio in meno di un minuto."
+msgstr "Crea il tuo primo sondaggio in meno di un minuto"
 
 #: admin/class-poll-maker-ays-admin.php:1865
 msgid "Hurry up! <a href='https://ays-pro.com/wordpress/poll-maker' target='_blank'>Check it out!</a>"
@@ -692,7 +692,7 @@ msgstr "Mostra conteggio delle risposte del sondaggio"
 
 #: admin/partials/settings/poll-maker-settings.php:2224
 msgid "Passed polls count per user."
-msgstr "Conteggio dei sondaggi superati per utente"
+msgstr "Conteggio dei sondaggi superati per utente."
 
 #: admin/partials/features/poll-maker-how-to-use-display.php:76
 msgid "Contact"
@@ -1063,7 +1063,7 @@ msgstr "È necessario inserire l'ID del sondaggio nello shortcode che mostrerà 
 
 #: admin/partials/settings/poll-maker-settings.php:2144
 msgid "The creation date of the poll."
-msgstr "La data di creazione del sondaggio"
+msgstr "La data di creazione del sondaggio."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2044
 msgid "Specify text shadow color."
@@ -1071,7 +1071,7 @@ msgstr "Specifica il colore dell'ombra del testo."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2029
 msgid "Add text shadow for the poll title."
-msgstr "Aggiungi l'ombra al testo del titolo del sondaggio"
+msgstr "Aggiungi l'ombra al testo del titolo del sondaggio."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2028
 msgid "Title text shadow"
@@ -1487,7 +1487,7 @@ msgstr "Scegli il tipo di testo"
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2010
 msgid "Specify the alignment of the title."
-msgstr "Specifica l'allineamento del titolo"
+msgstr "Specifica l'allineamento del titolo."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2006
 msgid "Title alignment"
@@ -2020,7 +2020,7 @@ msgstr "Diagramma risposte"
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2238
 msgid "Specify the color of the border."
-msgstr "Specificare il colore del bordo"
+msgstr "Specificare il colore del bordo."
 
 #: admin/partials/settings/poll-maker-settings.php:235
 msgid "Choose the type of the poll which will be selected by default each time you create a poll by the Add New button."
@@ -2444,7 +2444,7 @@ msgstr "Rimuovi"
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2733
 msgid "Add logo image for poll. Advisable size for image is 50x50"
-msgstr "Aggiungi l'immagine del logo per il sondaggio. Le dimensioni consigliate per l'immagine sono 50x50."
+msgstr "Aggiungi l'immagine del logo per il sondaggio. Le dimensioni consigliate per l'immagine sono 50x50"
 
 #: admin/partials/poll-maker-ays-polls-actions.php:2730
 msgid "Poll Logo"
@@ -2596,7 +2596,7 @@ msgstr "Se nessuno di queste guide ti aiutano, fai la tua domanda contattando i 
 
 #: admin/partials/features/poll-maker-how-to-use-display.php:228
 msgid "Poll Maker plugin User Manual."
-msgstr "Manuale utente plugin Poll Maker"
+msgstr "Manuale utente plugin Poll Maker."
 
 #: admin/partials/features/poll-maker-how-to-use-display.php:227
 msgid "For more advanced needs, please take a look at our"
@@ -2821,7 +2821,7 @@ msgstr " - Rileva gli utenti dagli indirizzi IP per limitarli. Funziona sia per 
 
 #: admin/partials/poll-maker-ays-polls-actions.php:3738
 msgid "Write the text of the vote button."
-msgstr "Scrivi il testo del pulsante per votare"
+msgstr "Scrivi il testo del pulsante per votare."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:3721
 msgid "Show the vote button during the vote. If this option is disabled, then the user needs to click on the answer to vote without a chance of changing it."
@@ -2853,7 +2853,7 @@ msgstr "Mostra quanti utenti hanno superato il sondaggio. Verrà mostrato nell'a
 
 #: admin/partials/poll-maker-ays-polls-actions.php:3579
 msgid "Write the text of the button, which shows results."
-msgstr "Scrivi il testo del pulsante per mostrare i risultati"
+msgstr "Scrivi il testo del pulsante per mostrare i risultati."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:3564
 msgid "Allow the user to directly see the results without participating in the vote. If the option is checked, it is impossible to hide the results."
@@ -2997,7 +2997,7 @@ msgstr "Abilita il reindirizzamento all'URL personalizzato dopo che l'utente ha 
 
 #: admin/partials/poll-maker-ays-polls-actions.php:894
 msgid "Add an image to the question."
-msgstr "Aggiungi immagine alla domanda"
+msgstr "Aggiungi immagine alla domanda."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:890
 msgid "Write the main content/question, which will be shown inside the poll."
@@ -3244,7 +3244,7 @@ msgstr "Crea articolo per il sondaggio"
 
 #: admin/partials/settings/poll-maker-settings.php:1401
 msgid "Field for entering your own CSS code"
-msgstr "Campo per inserire il proprio codice CSS."
+msgstr "Campo per inserire il proprio codice CSS"
 
 #: admin/partials/settings/poll-maker-settings.php:1388
 msgid "Top color of the leaderboard"
@@ -3283,7 +3283,7 @@ msgstr "Larghezza"
 
 #: admin/partials/settings/poll-maker-settings.php:1337
 msgid "How many users’ results will be shown in the leaderboard."
-msgstr "Quanti risultati degli utenti verranno mostrati nella classifica globale"
+msgstr "Quanti risultati degli utenti verranno mostrati nella classifica globale."
 
 #: admin/partials/poll-maker-ays-polls-actions.php:5940
 #: admin/partials/settings/poll-maker-settings.php:1336
@@ -3764,7 +3764,7 @@ msgstr "Salva modifiche"
 
 #: admin/partials/settings/poll-maker-settings.php:786
 msgid "You can get your App Client ID and Client Secret from your App's the Basic Information page"
-msgstr "Puoi ottenere l'ID cliente e il Segreto cliente della tua applicazione dalla pagina \"Informazioni di base\" della tua applicazione."
+msgstr "Puoi ottenere l'ID cliente e il Segreto cliente della tua applicazione dalla pagina \"Informazioni di base\" della tua applicazione"
 
 #: admin/partials/settings/poll-maker-settings.php:780
 msgid "Need Authorization"
@@ -3796,7 +3796,7 @@ msgstr "Slack"
 
 #: admin/partials/settings/poll-maker-settings.php:694
 msgid "Your API URL and Key can be found in your account on the My Settings page under the \"Developer\" tab"
-msgstr "L'URL e la chiave dell'API sono disponibili nel tuo account nella pagina impostazioni personali nella scheda \"Sviluppatore\"."
+msgstr "L'URL e la chiave dell'API sono disponibili nel tuo account nella pagina impostazioni personali nella scheda \"Sviluppatore\""
 
 #: admin/partials/settings/poll-maker-settings.php:682
 msgid "API Access Key"
@@ -3812,7 +3812,7 @@ msgstr "ActiveCampaign"
 
 #: admin/partials/settings/poll-maker-settings.php:636
 msgid "We will send you all data from poll information form with \"AysPoll\" key by POST method"
-msgstr "Ti invieremo tutti i dati dal modulo di informazioni sul sondaggio con la chiave \"AysSurvey\" con il metodo POST."
+msgstr "Ti invieremo tutti i dati dal modulo di informazioni sul sondaggio con la chiave \"AysSurvey\" con il metodo POST"
 
 #: admin/partials/settings/poll-maker-settings.php:633
 msgid "If you do not have any ZAP created, go <a href='%s' target='_blank'>%s</a>. Remember to choose Webhooks by Zapier as Trigger App."
@@ -4644,7 +4644,7 @@ msgstr "Consenti di saltare i sondaggi"
 
 #. Author of the plugin
 msgid "Poll Maker Team"
-msgstr "Team Poll Maker!"
+msgstr "Team Poll Maker"
 
 #: admin/partials/poll-maker-ays-polls-actions.php:3016
 msgid "Feature options"
@@ -4748,7 +4748,7 @@ msgstr "Tipo"
 #: admin/partials/results/poll-maker-ays-results-display.php:52
 #: includes/lists/class-poll-maker-polls-list-table.php:1375
 msgid "There are no polls yet."
-msgstr "Non ci sono ancora sondaggi"
+msgstr "Non ci sono ancora sondaggi."
 
 #: admin/partials/features/poll-maker-how-to-use-display.php:28
 #: includes/lists/class-poll-maker-polls-list-table.php:13

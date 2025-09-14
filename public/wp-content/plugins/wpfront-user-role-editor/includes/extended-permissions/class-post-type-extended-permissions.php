@@ -142,7 +142,7 @@ if (!class_exists('\WPFront\URE\Extended_Permissions\WPFront_User_Role_Editor_Po
             /* Login and redirect back to requested page end */
 
             public static function get_debug_setting() {
-                return array('key' => 'extended-permissions', 'label' => __('Extended Permissions', 'wpfront-user-role-editor'), 'position' => 110, 'description' => __('Disables extended permissions functionality for all post types and taxonomies.', 'wpfront-user-role-editor'));
+                return array('key' => 'extended-permissions', 'label' => 'Extended Permissions', 'position' => 110, 'description' => 'Disables extended permissions functionality for all post types and taxonomies.');
             }
 
         }

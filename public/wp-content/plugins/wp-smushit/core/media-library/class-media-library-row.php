@@ -545,7 +545,8 @@ class Media_Library_Row {
 		return array_filter(
 			$applied_ordered_optimizations,
 			function ( $optimization ) {
-				return $optimization && $optimization->is_optimized() && ! $optimization->get_stats()->is_empty();
+				return $optimization && $optimization->is_optimized()
+						&& $optimization->get_stats()->get_bytes() > 0;
 			}
 		);
 	}
@@ -593,7 +594,9 @@ class Media_Library_Row {
 		 * @var Media_Item_Stats $main_size_stats
 		 */
 		$main_size_stats = $this->get_array_value( $sizes_stats, $main_size->get_key() );
-		$main_file_size  = $main_size_stats ? $main_size_stats->get_size_after() : $main_size->get_filesize();
+		$main_file_size  = ( $main_size_stats && $main_size_stats->get_size_after() > 0 )
+			? $main_size_stats->get_size_after()
+			: $main_size->get_filesize();
 
 		$status_text .= sprintf(
 		/* translators: 1: <br/> tag, 2: Image file size */

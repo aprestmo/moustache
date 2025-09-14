@@ -87,7 +87,7 @@
                         </p>
                     </div>
                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/poll-maker?utm_source=dashboard&utm_medium=poll-free&utm_campaign=pro-popup-export-results">
-                        <?php echo esc_html__("Upgrade PRO NOW", "poll-maker"); ?>
+                        <?php echo esc_html__("Pricing", "poll-maker"); ?>
                     </div>
                 </div>
             </div>
@@ -420,6 +420,9 @@
                                     <a href="#" class="pro-features-popup-modal-right-box-link" target="_blank"></a>
                                 </div>
                            </div>
+                           <div class="pro-features-popup-modal-right-box-footer-text">
+                                <span class="ays_poll_small_hint_text_for_message_variables"><?php echo esc_html__( "One-time payment", 'poll-maker' ); ?></span>
+                            </div>
                         </div>
                     </div>
                 </div>

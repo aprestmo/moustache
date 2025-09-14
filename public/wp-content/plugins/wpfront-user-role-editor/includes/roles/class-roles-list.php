@@ -71,7 +71,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List')) {
                 return;
             }
             
-            $this->set_admin_menu(__('All Roles', 'wpfront-user-role-editor'), __('All Roles', 'wpfront-user-role-editor'));
+            $this->set_admin_menu('All Roles', 'All Roles');
             
             add_filter('wpfront_ure_options_register_ui_field', array($this, 'wpfront_ure_options_register_ui_field'), 10, 1);
             add_filter('wpfront_ure_ms_options_register_ui_field', array($this, 'wpfront_ure_options_register_ui_field'), 10, 1);
@@ -664,7 +664,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List')) {
         }
         
         public static function get_debug_setting() {
-            return array('key' => 'roles', 'label' => __('All Roles & Add New', 'wpfront-user-role-editor'), 'position' => 10, 'description' => __('Disables all roles actions and also users ability to create new role.', 'wpfront-user-role-editor'));
+            return array('key' => 'roles', 'label' => 'All Roles & Add New', 'position' => 10, 'description' => 'Disables all roles actions and also users ability to create new role.');
         }
     }
     

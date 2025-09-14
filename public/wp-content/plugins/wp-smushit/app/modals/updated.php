@@ -7,6 +7,7 @@
  * @since 3.7.0
  *
  * @var string $cta_url URL for the modal's CTA button.
+ * @var bool $show_cta_button Indicates whether the CTA button should be displayed.
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -37,43 +38,77 @@ if ( ! defined( 'WPINC' ) ) {
 				</button>
 			</div>
 
-			<div class="sui-box-body sui-content-center sui-spacing-sides--30 sui-spacing-top--40 sui-spacing-bottom--50">
+			<div class="sui-box-body sui-content-center sui-spacing-sides--30 sui-spacing-top--40 sui-spacing-bottom--30">
 				<h3 class="sui-box-title sui-lg" id="smush-title-updated-dialog" style="white-space: normal">
-					<?php esc_html_e( 'New: AVIF File Compression!', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'New: Advanced Image Sizing', 'wp-smushit' ); ?>
+					<?php if ( ! WP_Smush::is_pro() ) : ?>
+                        <span class="sui-tag sui-tag-pro" style="font-size: 10px; line-height: 12px;">
+                            <?php esc_html_e( 'Pro', 'wp-smushit' ); ?>
+                        </span>
+                    <?php endif; ?>
 				</h3>
 
-				<p class="sui-description">
-					<?php esc_html_e( 'Say hello to AVIF, the next-gen image format that outperforms WebP and JPEG in compression and quality. Enjoy faster page loads, smaller file sizes, and sharper visuals—helping improve site performance and giving your visitors a smoother browsing experience!', 'wp-smushit' ); ?>
-				</p>
-				<?php
-				if ( $cta_url ) {
-					$is_pro    = WP_Smush::is_pro();
-					$cta_label = $is_pro ? __( 'Go to Next-Gen Formats', 'wp-smushit' ) : __( 'See Plans', 'wp-smushit' );
-					$target    = $is_pro ? '_self' : '_blank';
 
-					$class_names = array(
-						'sui-button',
-						'wp-smush-upgrade-modal-cta',
-					);
-					if ( $is_pro ) {
-						$class_names[] = 'sui-button-grey';
-					} else {
-						$class_names[] = 'sui-button-blue';
-					}
-					?>
-						<a href="<?php echo esc_js( $cta_url ); ?>"
-							target="<?php echo esc_attr( $target ); ?>"
-							class="<?php echo esc_attr( join( ' ', $class_names ) ); ?>"
-							onclick="WP_Smush.onboarding.hideUpgradeModal(event, this)">
-						<?php echo esc_html( $cta_label ); ?>
-						<?php if ( ! $is_pro ) : ?>
-							<span class="sui-icon-open-new-window" style="margin-left: 3px; width:auto;" aria-hidden="true"></span>
-						<?php endif; ?>
-						</a>
-					<?php
-				}
-				?>
+				<p class="sui-description">
+					<?php esc_html_e( 'We\'ve streamlined the image sizing tools for ease of use. All resizing and detection features are now in one place - The Lazy Loading page.', 'wp-smushit' ); ?>
+				</p>
+				<div class="sui-modal-list" style="text-align: left; background-color: #F8F8F8; padding: 15px; border-radius: 5px;">
+					<h4>
+						<?php esc_html_e( 'What\'s New?', 'wp-smushit' ); ?>
+					</h4>
+					<ul>
+						<li>
+							<h3>
+								<span class="sui-icon-check-tick sui-sm sui-success" aria-hidden="true"></span>
+								<?php esc_html_e( 'New Automatic Resizing', 'wp-smushit' ); ?>
+							</h3>
+						</li>
+						<li>
+							<h3>
+								<span class="sui-icon-check-tick sui-sm sui-success" aria-hidden="true"></span>
+
+								<?php esc_html_e( 'Add Missing Dimensions', 'wp-smushit' ); ?>
+							</h3>
+						</li>
+					</ul>
+				</div>
 			</div>
+			<?php
+
+			$cta_config = array(
+				'label'     => __( 'Go to Image sizing', 'wp-smushit' ),
+				'target'    => '_self',
+				'classes'   => array(
+					'sui-button',
+					'wp-smush-upgrade-modal-cta',
+					'sui-button-grey',
+				),
+				'show_icon' => false,
+			);
+
+			if ( ! WP_Smush::is_pro() ) {
+				$cta_config['target']    = '_blank';
+				$cta_config['label']     = __( ' UNLOCK PRO – ON SALE ', 'wp-smushit' );
+				$cta_config['classes'][] = 'sui-button-purple';
+				$cta_config['show_icon'] = true;
+			}
+
+			$class_string = implode( ' ', $cta_config['classes'] );
+			?>
+			<?php if ( $show_cta_button ) : ?>
+			<div class="sui-box-footer sui-flatten sui-content-center sui-spacing-bottom--50">
+				<a href="<?php echo esc_url( $cta_url ); ?>"
+					target="<?php echo esc_attr( $cta_config['target'] ); ?>"
+					class="<?php echo esc_attr( $class_string ); ?>"
+					onclick="WP_Smush.onboarding.hideUpgradeModal(event, this)">
+					<?php echo esc_html( $cta_config['label'] ); ?>
+
+					<?php if ( $cta_config['show_icon'] ) : ?>
+						<span class="sui-icon-open-new-window" aria-hidden="true"></span>
+					<?php endif; ?>
+				</a>
+			</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

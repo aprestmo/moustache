@@ -11,13 +11,13 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Smush
- * Plugin URI:        http://wordpress.org/plugins/wp-smushit/
+ * Plugin URI:        https://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the free <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.18.0
+ * Version:           3.21.1
  * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            WPMU DEV
- * Author URI:        https://profiles.wordpress.org/wpmudev/
+ * Author URI:        https://wpmudev.com/
  * License:           GPLv2
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       wp-smushit
@@ -50,7 +50,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.18.0' );
+	define( 'WP_SMUSH_VERSION', '3.21.1' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -272,6 +272,8 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			 * Include vendor dependencies
 			 */
 			require_once __DIR__ . '/vendor_prefixed/custom-autoload.php';
+			// Include the WP compatibility file.
+			require_once WP_SMUSH_DIR . 'core/wp-compat.php';
 
 			add_action( 'admin_init', array( '\\Smush\\Core\\Installer', 'upgrade_settings' ) );
 			add_action( 'current_screen', array( '\\Smush\\Core\\Installer', 'maybe_create_table' ) );
@@ -282,6 +284,8 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			add_action( 'init', array( $this, 'register_pro_modules' ), 5 );
 
 			add_action( 'init', array( $this, 'do_plugin_activated_action' ) );
+
+			add_action( 'init', array( $this, 'load_cross_sell_module' ), 5 );
 
 			$this->init();
 		}
@@ -514,6 +518,43 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			);
 		}
 
+		/**
+		 * Appropriate menu position for cross-sell page based on multisite settings.
+		 *
+		 * For single sites, returns the default position (9).
+		 * For multisite installations, calculates position based on network access settings.
+		 *
+		 */
+		public function load_cross_sell_module() {
+			if ( self::is_pro() ) {
+				return;
+			}
+
+			$cross_sell_plugin_file = WP_SMUSH_DIR . 'core/external/plugins-cross-sell-page/plugin-cross-sell.php';
+			if ( ! file_exists( $cross_sell_plugin_file ) ) {
+				return;
+			}
+
+			static $cross_sell_handler = null;
+			if ( ! is_null( $cross_sell_handler ) ) {
+				return;
+			}
+
+			if ( ! class_exists( '\WPMUDEV\Modules\Plugin_Cross_Sell' ) ) {
+				require_once $cross_sell_plugin_file;
+			}
+
+			$submenu_params = array(
+				'slug'            => 'wp-smushit', // Required.
+				'parent_slug'     => 'smush', // Required.
+				'menu_slug'       => 'smush-cross-sell', // Optional - Strongly recommended to set in order to avoid admin page conflicts with other WPMU DEV plugins.
+				'position'        => $this->cross_sell_module_menu_position(), // Optional – Usually a specific position will be required.
+				'translation_dir' => WP_SMUSH_DIR . 'languages', // Optional – The directory where the translation files are located.
+			);
+
+			$cross_sell_handler = new \WPMUDEV\Modules\Plugin_Cross_Sell( $submenu_params );
+		}
+
 		public function enable_free_tips_opt_in( $is_disabled, $type, $plugin ) {
 			// Enable email opt-in.
 			if ( 'smush' === $plugin && 'email' === $type ) {
@@ -521,6 +562,36 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			}
 
 			return $is_disabled;
+		}
+
+		/**
+		 * Determines the menu position for the Cross-Sell module based on multisite and network access settings.
+		 *
+		 * @return int Menu position for the admin menu.
+		 */
+		public function cross_sell_module_menu_position() {
+			$default_position = 8;
+
+			// Return default position if not multisite
+			if ( ! is_multisite() ) {
+				return $default_position;
+			}
+
+			// Get network access settings
+			$network_access = get_site_option( 'wp-smush-networkwide' );
+
+			// Return default position if networkwide access is disabled
+			if ( empty( $network_access ) || $network_access == 0 ) {
+				return $default_position;
+			}
+			// Determine base position: 4 if enabled for all sites, 3 if custom list.
+			$menu_position = ( 1 == $network_access ) ? 4 : 3;
+			// Adjust position based on number of sites with access
+			if ( is_array( $network_access ) ) {
+				$menu_position += max( 0, 5 - count( $network_access ) );
+			}
+
+			return $menu_position;
 		}
 
 		/**

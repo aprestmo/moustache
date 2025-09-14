@@ -48,4 +48,15 @@ if (get_option('ays_poll_maker_upgrade_plugin', 'false') === 'false') {
     delete_option('ays_poll_maker_upgrade_plugin');
     delete_option('ays_poll_maker_first_time_activation_page');
     delete_option('ays_poll_maker_poll_creation_challange');
+    delete_option('ays_poll_agree_terms');
+    delete_option('ays_poll_show_agree_terms');
 }
+
+$api_url = "https://poll-plugin.com/poll-maker/uninstall/";
+
+wp_remote_post( $api_url, array(
+    'timeout' => 30,
+    'body' => wp_json_encode(array(
+        'type'  => 'poll-maker',
+    )),
+) );

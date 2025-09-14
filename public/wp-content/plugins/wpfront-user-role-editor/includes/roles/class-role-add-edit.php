@@ -85,7 +85,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
                 return;
             }
             
-            $this->set_admin_menu(__('Add New Role', 'wpfront-user-role-editor'), __('Add New', 'wpfront-user-role-editor'));
+            $this->set_admin_menu('Add New Role', 'Add New');
             
             add_filter('wpfront_ure_capability_edit_role_menus_functionality_enabled', '__return_false');
             add_filter('wpfront_ure_capability_edit_content_shortcodes_functionality_enabled', '__return_false');

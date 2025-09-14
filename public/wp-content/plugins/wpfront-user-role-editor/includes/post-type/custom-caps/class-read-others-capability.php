@@ -77,7 +77,7 @@ if (!class_exists('\WPFront\URE\Post_Type\Custom_Caps\WPFront_User_Role_Editor_R
         }
         
         protected function get_debug_setting() {
-            return array('key' => 'read_others-custom-capability', 'label' => __('"read_others" Capabilities', 'wpfront-user-role-editor'), 'position' => 40, 'description' => __('Disables all "read_others_" capabilities.', 'wpfront-user-role-editor'));
+            return array('key' => 'read_others-custom-capability', 'label' => '"read_others" Capabilities', 'position' => 40, 'description' => 'Disables all "read_others_" capabilities.');
         }
 
 

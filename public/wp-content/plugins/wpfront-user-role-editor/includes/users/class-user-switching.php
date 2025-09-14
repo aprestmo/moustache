@@ -72,7 +72,7 @@ if (!class_exists('\WPFront\URE\User_Switching\WPFront_User_Role_Editor_User_Swi
                 return;
             }
 
-            RolesHelper::add_capability_group('users', __('Users', 'wpfront-user-role-editor'));
+            RolesHelper::add_capability_group('users', 'Users');
             RolesHelper::add_new_capability_to_group('users', self::CAP);
             add_filter("wpfront_ure_capability_" . self::CAP . "_ui_help_link", array($this, 'cap_help_link'), 10, 2);
             
@@ -582,7 +582,7 @@ if (!class_exists('\WPFront\URE\User_Switching\WPFront_User_Role_Editor_User_Swi
         }
 
         public static function get_debug_setting() {
-            return array('key' => 'user-switching', 'label' => __('User Switching', 'wpfront-user-role-editor'), 'position' => 195, 'description' => __('Disables switching between users functionality.', 'wpfront-user-role-editor'));
+            return array('key' => 'user-switching', 'label' => 'User Switching', 'position' => 195, 'description' => 'Disables switching between users functionality.');
         }
 
     }

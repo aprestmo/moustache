@@ -467,7 +467,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_User_Pro
         }
         
         public static function get_debug_setting() {
-            return array('key' => 'user-profile', 'label' => __('User Profile Functions', 'wpfront-user-role-editor'), 'position' => 200, 'description' => __('Disables all user profile functionalities.', 'wpfront-user-role-editor'));
+            return array('key' => 'user-profile', 'label' => 'User Profile Functions', 'position' => 200, 'description' => 'Disables all user profile functionalities.');
         }
     }
     

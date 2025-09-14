@@ -285,7 +285,7 @@ if (!class_exists('\WPFront\URE\Comments\WPFront_User_Role_Editor_Comment_Capabi
          */
         public static function get_debug_setting()
         {
-            return array('key' => 'comment-capabilities', 'label' => __('Comments Custom Capabilities', 'wpfront-user-role-editor'), 'position' => 45, 'description' => __('Disables all comment custom capabilities.', 'wpfront-user-role-editor'));
+            return array('key' => 'comment-capabilities', 'label' => 'Comments Custom Capabilities', 'position' => 45, 'description' => 'Disables all comment custom capabilities.');
         }
     }
 

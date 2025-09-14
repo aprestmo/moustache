@@ -2298,6 +2298,10 @@
         var attr_plugin = $this.attr('data-plugin');
         var wp_nonce    = thisParent.find('#poll-maker-ays-sale-banner').val();
 
+        if(typeof wp_nonce == 'undefined'){
+            wp_nonce    = $(document).find('#poll-maker-ays-sale-banner').val();
+        }
+
         var data = {
             action: 'ays_poll_dismiss_button',
             _ajax_nonce: wp_nonce,
@@ -2360,20 +2364,39 @@
     if(createdNewPoll && createdNewPoll > 1){
         var url = new URL(window.location.href);
 
+        var getCustomPostId = aysPollGetCookie('ays_poll_created_new_'+createdNewPoll+'_post_id');
+
+        var link = "#";
+        if(getCustomPostId){
+            link = getCustomPostId;
+        }
+
         // Get a specific GET parameter by name
         var parameterValue = url.searchParams.get("action");
-        var htmlDefaultText = '<p style="margin-top:1rem;">'+ pollLangObj.formMoreDetailed +' <a href="admin.php?page=poll-maker&action=edit&id=' + createdNewPoll + '">'+ pollLangObj.editPollPage +'</a>.</p>';
+        var htmlDefaultText = '<p style="margin-top:1rem;">'+ pollLangObj.formMoreDetailed +' <a href="admin.php?page=poll-maker-ays&action=edit&poll=' + createdNewPoll + '">'+ pollLangObj.editPollPage +'</a>.</p>';        
+
+        var htmlContent = parameterValue && parameterValue == 'edit' ? '' : htmlDefaultText;
+
+        var previewButtonSvgIcon = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+            '<path d="M11.9999 7.21325C11.8231 7.21325 11.6535 7.28349 11.5285 7.40851C11.4035 7.53354 11.3333 7.70311 11.3333 7.87992V12.6666C11.3333 12.8434 11.263 13.013 11.138 13.138C11.013 13.263 10.8434 13.3333 10.6666 13.3333H3.33325C3.15644 13.3333 2.98687 13.263 2.86185 13.138C2.73682 13.013 2.66659 12.8434 2.66659 12.6666V5.33325C2.66659 5.15644 2.73682 4.98687 2.86185 4.86185C2.98687 4.73682 3.15644 4.66658 3.33325 4.66658H8.11992C8.29673 4.66658 8.4663 4.59635 8.59132 4.47132C8.71635 4.3463 8.78658 4.17673 8.78658 3.99992C8.78658 3.82311 8.71635 3.65354 8.59132 3.52851C8.4663 3.40349 8.29673 3.33325 8.11992 3.33325H3.33325C2.80282 3.33325 2.29411 3.54397 1.91904 3.91904C1.54397 4.29411 1.33325 4.80282 1.33325 5.33325V12.6666C1.33325 13.197 1.54397 13.7057 1.91904 14.0808C2.29411 14.4559 2.80282 14.6666 3.33325 14.6666H10.6666C11.197 14.6666 11.7057 14.4559 12.0808 14.0808C12.4559 13.7057 12.6666 13.197 12.6666 12.6666V7.87992C12.6666 7.70311 12.5963 7.53354 12.4713 7.40851C12.3463 7.28349 12.1767 7.21325 11.9999 7.21325ZM14.6133 1.74659C14.5456 1.58369 14.4162 1.45424 14.2533 1.38659C14.1731 1.35242 14.087 1.33431 13.9999 1.33325H9.99992C9.82311 1.33325 9.65354 1.40349 9.52851 1.52851C9.40349 1.65354 9.33325 1.82311 9.33325 1.99992C9.33325 2.17673 9.40349 2.3463 9.52851 2.47132C9.65354 2.59635 9.82311 2.66659 9.99992 2.66659H12.3933L5.52659 9.52658C5.4641 9.58856 5.4145 9.66229 5.38066 9.74353C5.34681 9.82477 5.32939 9.91191 5.32939 9.99992C5.32939 10.0879 5.34681 10.1751 5.38066 10.2563C5.4145 10.3375 5.4641 10.4113 5.52659 10.4733C5.58856 10.5357 5.66229 10.5853 5.74353 10.6192C5.82477 10.653 5.91191 10.6705 5.99992 10.6705C6.08793 10.6705 6.17506 10.653 6.2563 10.6192C6.33754 10.5853 6.41128 10.5357 6.47325 10.4733L13.3333 3.60659V5.99992C13.3333 6.17673 13.4035 6.3463 13.5285 6.47132C13.6535 6.59635 13.8231 6.66658 13.9999 6.66658C14.1767 6.66658 14.3463 6.59635 14.4713 6.47132C14.5963 6.3463 14.6666 6.17673 14.6666 5.99992V1.99992C14.6655 1.9128 14.6474 1.82673 14.6133 1.74659Z" fill="#007DCB"/>'+
+            '</svg>';
 
         swal({
-            title: '<strong>' + pollLangObj.greateJob + '</strong>',
-            type: 'success',
-            html: '<p>' + pollLangObj.youCanUuseThisShortcode + '</p><input type="text" id="ays-poll-create-new" onClick="this.setSelectionRange(0, this.value.length)" readonly value="[ays_poll id=\'' + createdNewPoll + '\']" />',
+            title: '<strong class="ays-poll-maker-swal2-title">' + pollLangObj.greateJob + '</strong>',
+            type: 'success',            
+            html: '<p class="ays-poll-maker-swal2-created-row">' + pollLangObj.youPollIsCreated + '</p><p clas="ays-poll-maker-swal2-content-text-row">' + pollLangObj.youCanUuseThisShortcode + '</p><input type="text" id="ays-poll-create-new" onClick="this.setSelectionRange(0, this.value.length)" readonly value="[ays_poll id=\'' + createdNewPoll + '\']" />' + htmlContent,
+            showCancelButton: true,
             showCloseButton: true,
             focusConfirm: false,
+            cancelButtonClass: "ays-poll-preview-popup-cancel-button",
             confirmButtonText: '<i class="ays_poll_fas ays_poll_fa_thumbs_up"></i> '+ pollLangObj.done,
             confirmButtonAriaLabel: pollLangObj.thumbsUpGreat,
+            cancelButtonText: '<a href="'+ link +'" target="_blank">'+ pollLangObj.preivewPoll + ' ' + previewButtonSvgIcon +'</a>',
+            cancelButtonAriaLabel: pollLangObj.thumbsUpGreat,
+
         });
         aysPollDeleteCookie('ays_poll_created_new');
+        aysPollDeleteCookie('ays_poll_created_new_'+createdNewPoll+'_post_id');
     }
 
     function aysPollDeleteCookie(name) {
@@ -2848,7 +2871,7 @@
     $(document).on('click', '.ays_menu_right', function(){
         var scroll = parseInt($(this).attr('data-scroll'));
         var howTranslate = $(document).find('div.ays-top-tab-wrapper').width() - $(document).find('.ays-top-menu').width();
-        howTranslate += 7;
+        howTranslate += 250;
         if(scroll == -1){
             scroll = menuItemWidth;
         }
@@ -3397,6 +3420,136 @@
         });
 	// 	// Pro features end
 
+    $(document).on("click", ".ays-poll-cards-block .ays-poll-card__footer button.status-missing", function(e){
+        var $this = $(this);
+        var thisParent = $this.parents(".ays-poll-cards-block");
+
+        $this.prop('disabled', true);
+        $this.addClass('disabled');
+
+        var loader_html = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
+
+        $this.html(loader_html);
+
+        var attr_plugin = $this.attr('data-plugin');
+        var wp_nonce = thisParent.find('#ays_poll_ajax_install_plugin_nonce').val();
+
+        var data = {
+            action: 'ays_poll_install_plugin',
+            _ajax_nonce: wp_nonce,
+            plugin: attr_plugin,
+            type: 'plugin'
+        };
+
+        $.ajax({
+            url: poll.ajax,
+            method: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (response) {
+                if (response.success) {
+                    swal.fire({
+                        type: 'success',
+                        html: "<h4>"+ response['data']['msg'] +"</h4>"
+                    }).then( function(res) {
+                        if ( $this.hasClass('status-missing') ) {
+                            $this.removeClass('status-missing');
+                        }
+                        $this.text(poll.activated);
+                        $this.addClass('status-active');
+                    });
+                }
+                else {
+                    swal.fire({
+                        type: 'info',
+                        html: "<h4>"+ response['data'][0]['message'] +"</h4>"
+                    }).then( function(res) {
+                        $this.text(poll.errorMsg);
+                    });
+                }
+            },
+            error: function(){
+                swal.fire({
+                    type: 'info',
+                    html: "<h2>"+ poll.loadResource +"</h2><br><h6>"+ poll.somethingWentWrong +"</h6>"
+                }).then( function(res) {
+                    $this.text(poll.errorMsg);
+                });                
+            }
+        });
+    });
+
+    $(document).on("click", ".ays-poll-cards-block .ays-poll-card__footer button.status-installed", function(e){
+        var $this = $(this);
+        var thisParent = $this.parents(".ays-poll-cards-block");
+
+        $this.prop('disabled', true);
+        $this.addClass('disabled');
+
+        var loader_html = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
+
+        $this.html(loader_html);
+
+        var attr_plugin = $this.attr('data-plugin');
+        var wp_nonce = thisParent.find('#ays_poll_ajax_install_plugin_nonce').val();
+
+        var data = {
+            action: 'ays_poll_activate_plugin',
+            _ajax_nonce: wp_nonce,
+            plugin: attr_plugin,
+            type: 'plugin'
+        };
+
+        $.ajax({
+            url: poll.ajax,
+            method: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (response) {
+                if( response.success ){
+                    swal.fire({
+                        type: 'success',
+                        html: "<h4>"+ response['data'] +"</h4>"
+                    }).then( function(res) {
+                        if ( $this.hasClass('status-installed') ) {
+                            $this.removeClass('status-installed');
+                        }
+                        $this.text(poll.activated);
+                        $this.addClass('status-active disabled');
+                    });
+                } else {
+                    swal.fire({
+                        type: 'info',
+                        html: "<h4>"+ response['data'][0]['message'] +"</h4>"
+                    });
+                }
+            },
+            error: function(){
+                swal.fire({
+                    type: 'info',
+                    html: "<h2>"+ poll.loadResource +"</h2><br><h6>"+ poll.somethingWentWrong +"</h6>"
+                }).then( function(res) {
+                    $this.text(poll.errorMsg);
+                });                
+            }
+        });
+    });
+
+    // Replace image to YouTube embed video
+    $(document).on('click', '.ays-poll-youtube-placeholder', function() {
+        var videoId = $(this).data('video-id');
+        var iframe = $('<iframe>', {
+            src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1',
+            class: '',
+            width: 560,
+            height: 315,
+            frameborder: 0,
+            allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+            allowfullscreen: true,
+        });
+        $(this).replaceWith(iframe);
+    });
+
 })(jQuery);
 
 
@@ -3543,4 +3696,32 @@ function resizeChart(chart, data, options){
     jQuery(window).on('resizeEnd', function() {
         chart.draw(data, options);
     });
+}
+
+function selectAndCopyElementContents(el) {
+    if (window.getSelection && document.createRange) {
+        var _this = jQuery(document).find('.ays-poll-copy-element-box');
+
+        var text      = el.textContent;
+        var textField = document.createElement('textarea');
+
+        textField.innerText = text;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+
+        var selection = window.getSelection();
+        selection.setBaseAndExtent(el,0,el,1);
+
+        _this.attr( "data-original-title", pollLangObj.copied );
+        _this.attr( "title", pollLangObj.copied );
+
+        _this.tooltip("show");
+
+    } else if (document.selection && document.body.createTextRange) {
+        var textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.select();
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 global $ays_poll_db_version;
-$ays_poll_db_version = '1.8.7';
+$ays_poll_db_version = '1.8.9';
 /**
  * Fired during plugin activation
  *
@@ -31,6 +31,24 @@ class Poll_Maker_Ays_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+		if (function_exists('is_multisite') && is_multisite()) {
+			if (isset($_GET['networkwide']) && (int)$_GET['networkwide'] === 1) {
+				global $wpdb;
+				$blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+				
+				foreach ($blog_ids as $blog_id) {
+					switch_to_blog($blog_id);
+					self::create_tables();
+					restore_current_blog();
+				}
+				return;
+			}
+		}
+		
+		self::create_tables();
+	}
+	
+	private static function create_tables() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		global $wpdb;
 		$polls_table     = $wpdb->prefix . 'ayspoll_polls';
@@ -39,7 +57,8 @@ class Poll_Maker_Ays_Activator {
 		$reports_table   = $wpdb->prefix . 'ayspoll_reports';
         $settings_table  = $wpdb->prefix . 'ayspoll_settings';
 		$charset_collate = $wpdb->get_charset_collate();
-
+		$is_multisite =    function_exists('is_multisite') && is_multisite();
+	
 		$sql = "CREATE TABLE $polls_table (
                 id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 				post_id INT(16) UNSIGNED DEFAULT NULL,
@@ -49,10 +68,11 @@ class Poll_Maker_Ays_Activator {
                 type VARCHAR(32) NOT NULL,
                 view_type VARCHAR(64) NOT NULL,
                 categories VARCHAR(255) NOT NULL,
-                image TEXT DEFAULT '',
+                image TEXT NULL,
                 show_title INT(1) DEFAULT 1,
-                styles TEXT DEFAULT '',
-                custom_css TEXT DEFAULT '',
+                styles TEXT NULL,
+                custom_post_id INT(16) UNSIGNED DEFAULT NULL,
+                custom_css TEXT NULL,
                 theme_id INT(5) DEFAULT 1,
                 PRIMARY KEY (id)
             )$charset_collate;";
@@ -61,20 +81,20 @@ class Poll_Maker_Ays_Activator {
                 id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                 title VARCHAR(255) NOT NULL,
                 description TEXT NOT NULL,
-                options TEXT DEFAULT '',
+                options TEXT NULL,
                 PRIMARY KEY (`id`)
             )$charset_collate;";
 		dbDelta($sql);
 		$sql = "CREATE TABLE $answers_table (
                 id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                 poll_id INT(11) UNSIGNED NOT NULL,
-                answer TEXT DEFAULT '',
+                answer TEXT NULL,
                 votes INT(11) NOT NULL,
                 ordering INT(11) NOT NULL DEFAULT 1,
-                redirect TEXT DEFAULT '',
+                redirect TEXT NULL,
                 user_added INT(1) DEFAULT 0,
                 show_user_added INT(1) DEFAULT 1,
-                answer_img TEXT DEFAULT '',
+                answer_img TEXT NULL,
                 PRIMARY KEY (`id`)
             )$charset_collate;";
 		dbDelta($sql);
@@ -86,23 +106,22 @@ class Poll_Maker_Ays_Activator {
                 vote_date DATETIME NOT NULL,
 				user_email VARCHAR(255) NOT NULL,
                 unread  INT(1) DEFAULT 1,
-                other_info  TEXT DEFAULT '',
+                other_info TEXT NULL,
 				poll_id INT(11) UNSIGNED NOT NULL,
-                multi_answer_ids  TEXT DEFAULT '',
+                multi_answer_ids TEXT NULL,
                 PRIMARY KEY (`id`)
             )$charset_collate;";
         dbDelta($sql);
             $sql = "CREATE TABLE $settings_table (
                 `id` INT(11) NOT NULL AUTO_INCREMENT,
-                `meta_key` TEXT NULL DEFAULT NULL,
-                `meta_value` TEXT NULL DEFAULT NULL,
-                `note` TEXT NULL DEFAULT NULL,
-                `options` TEXT NULL DEFAULT NULL,
+                `meta_key` TEXT NULL,
+                `meta_value` TEXT NULL,
+                `note` TEXT NULL,
+                `options` TEXT NULL,
                 PRIMARY KEY (`id`)
             )$charset_collate;";
 		dbDelta($sql);
 
-		// AV added Poll id for report table
 		$answers_table = $wpdb->prefix . 'ayspoll_answers';
         $report_table = $wpdb->prefix . 'ayspoll_reports';
 
@@ -256,6 +275,15 @@ class Poll_Maker_Ays_Activator {
 	        }
 
 		}
+
+		$terms_activation = get_option('ays_poll_show_agree_terms');
+		$first_activation = get_option('ays_poll_maker_first_time_activation_page', false);
+
+		if ( !$terms_activation && $first_activation ) {
+			self::ays_poll_activator_request( 'activator' );
+			update_option('ays_poll_agree_terms', 'true');
+			update_option('ays_poll_show_agree_terms', 'hide');
+		}
 	}
 
 	public static function ays_poll_update_db_check() {
@@ -268,9 +296,32 @@ class Poll_Maker_Ays_Activator {
 		}
 
 		if (get_site_option('ays_poll_db_version') != $ays_poll_db_version) {
-			self::activate();
-			update_option('ays_poll_db_version', $ays_poll_db_version);
-			self::insert_default_values();
+			if (function_exists('is_multisite') && is_multisite()) {
+				$current_blog_id = get_current_blog_id();
+				if (is_main_site($current_blog_id)) {
+					self::activate();
+					update_option('ays_poll_db_version', $ays_poll_db_version);
+					self::insert_default_values();
+				}
+			} else {
+				self::activate();
+				update_option('ays_poll_db_version', $ays_poll_db_version);
+				self::insert_default_values();
+			}
 		}
 	}
+
+	public static function ays_poll_activator_request($cta){
+        $curl = curl_init();
+
+        $api_url = "https://poll-plugin.com/poll-maker/";
+
+        wp_remote_post( $api_url, array(
+            'timeout' => 30,
+            'body' => wp_json_encode(array(
+                'type'  => 'poll-maker',
+                'cta'   => $cta,
+            )),
+        ) );
+    }
 }

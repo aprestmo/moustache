@@ -79,7 +79,7 @@ if (!class_exists('\WPFront\URE\Post_Type\Custom_Caps\WPFront_User_Role_Editor_C
         }
 
         protected function get_debug_setting() {
-            return array('key' => 'create-custom-capability', 'label' => __('"create" Capabilities', 'wpfront-user-role-editor'), 'position' => 30, 'description' => __('Disables all "create_" capabilities.', 'wpfront-user-role-editor'));
+            return array('key' => 'create-custom-capability', 'label' => '"create" Capabilities', 'position' => 30, 'description' => 'Disables all "create_" capabilities.');
         }
 
     }

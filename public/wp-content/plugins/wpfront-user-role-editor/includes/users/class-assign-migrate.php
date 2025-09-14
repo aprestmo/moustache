@@ -89,7 +89,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
         public function initialize() {
 
             $debug = WPFront_User_Role_Editor_Debug::instance();
-            $debug->add_setting('assign-migrate', __('Assign/Migrate Role', 'wpfront-user-role-editor'), 210, __('Disables role assignment and role migration functionalities.', 'wpfront-user-role-editor'));
+            $debug->add_setting('assign-migrate', 'Assign/Migrate Role', 210, 'Disables role assignment and role migration functionalities.');
 
             if ($debug->is_disabled('assign-migrate')) {
                 return;
@@ -101,7 +101,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
                 return;
             }
 
-            $this->set_admin_menu(__('Assign Roles | Migrate Users', 'wpfront-user-role-editor'), __('Assign / Migrate', 'wpfront-user-role-editor'));
+            $this->set_admin_menu('Assign Roles | Migrate Users', 'Assign / Migrate');
 
             add_filter('user_row_actions', array($this, 'user_row_actions'), 10, 2);
         }

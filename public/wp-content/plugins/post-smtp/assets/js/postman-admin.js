@@ -63,7 +63,7 @@ jQuery( document ).ready( function() {
     /**
      * Webhook Alerts
      * 
-     * @since 3.1.0
+     * @since 3.0.0
      */
     jQuery( document ).on( 'click', '.post-smtp-add-webhook-url', function( e ) {
         e.preventDefault();
@@ -81,5 +81,25 @@ jQuery( document ).ready( function() {
     } ); 
 
     jQuery( '.postman_sent_mail-count' ).closest( 'li' ).css( 'display', 'none' );
+
+    //Discard less secure notification
+	jQuery( document ).on( 'click', '#discard-less-secure-notification', function( e ) {
+		e.preventDefault();
+
+		jQuery.ajax( {
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+				action: 'ps-discard-less-secure-notification',
+				_wp_nonce: postmanPro.lessSecureNotice
+			},
+			success: function(data) {
+				jQuery( '.ps-less-secure-notice .notice-dismiss' ).click();
+            }
+		} )
+
+		jQuery( '.ps-less-secure-notice .notice-dismiss' ).click();
+	} )
+
 
 } );

@@ -1012,6 +1012,15 @@ class Polls_List_Table extends WP_List_Table {
 					);
 				}
 				$message = 'created';
+
+				$post_type_args = array(
+                    'poll_id'       => $last_id,
+                    'author_id'     => !empty($poll_create_author) ? $poll_create_author : get_current_user_id(),
+                    'poll_title'    => $title,
+                );
+                
+                $custom_post_id = Poll_Maker_Custom_Post_Type::ays_poll_add_custom_post($post_type_args);
+
 			} else {
 				$poll        = $this->get_poll_by_id($id);
 				$poll_result = $wpdb->update(
@@ -1290,6 +1299,18 @@ class Polls_List_Table extends WP_List_Table {
 			if ($poll_result >= 0) {
 				if($message == 'created'){
 					setcookie('ays_poll_created_new', $last_id, time() + 3600, '/');
+					if(!empty($custom_post_id)){
+	                    $custom_post_url = array(
+	                        'post_type' => 'ays-poll-maker',
+	                        'p' => $custom_post_id,
+	                        'preview' => 'true',
+	                    );
+	                    $custom_post_url_ready = http_build_query($custom_post_url);
+	                    $ready_url = get_home_url();
+	                    $ready_url .= '/?' . $custom_post_url_ready;
+	                    setcookie('ays_poll_created_new_'.$last_id.'_post_id', $ready_url, time() + 3600, '/');
+	                }
+
 				}
 			}
 			
@@ -1399,6 +1420,15 @@ class Polls_List_Table extends WP_List_Table {
 		}
 		$message = 'duplicated';
 		if ($result >= 0 && $flag == true) {
+
+			$post_type_args = array(
+                'poll_id'       => $poll_id,
+                'author_id'     => !empty($user->ID) ? $user->ID : $user_id,
+                'poll_title'    => "Copy - ".$duplicate['title'],
+            );
+            
+            $custom_post_id = Poll_Maker_Custom_Post_Type::ays_poll_add_custom_post($post_type_args);
+
 			$url = esc_url_raw(remove_query_arg(array('action', 'poll'))) . '&status=' . $message;
 			wp_redirect($url);
 			exit;
@@ -1510,18 +1540,27 @@ class Polls_List_Table extends WP_List_Table {
 
 		$poll_title = stripcslashes($item['title']);
 
+		$custom_post_id = isset($item['custom_post_id']) && $item['custom_post_id'] != 0 && $item['custom_post_id'] != '' ? esc_attr(intval($item['custom_post_id'])) : 0;
+
         $p = esc_attr($poll_title);
         $polls_title_length = intval( $this->title_length );
 
         $restitle = Poll_Maker_Ays_Admin::ays_restriction_string("word", $poll_title, $polls_title_length);
 
-		$title   = sprintf('<a href="?page=%s&action=%s&poll=%d" title="%s">%s</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']), $p, $restitle);
-		$actions = [
-			'edit'      => sprintf('<a href="?page=%s&action=%s&poll=%d">' .esc_html__('Edit', "poll-maker") . '</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id'])),
-			'duplicate' => sprintf('<a href="?page=%s&action=%s&poll=%d&_wpnonce=%s">' .esc_html__('Duplicate', "poll-maker") . '</a>', esc_attr($_REQUEST['page']), 'duplicate', absint($item['id']),$duplicate_nonce),
-			'results'   => sprintf('<a href="?page=%s&poll=%d&title=%s">'.esc_html__('View Results', "poll-maker") .'</a>', esc_attr( $_REQUEST['page'] ) . '-results-each', absint( $item['id'] ) , $poll_title ),
-			'delete'    => sprintf('<a href="?page=%s&action=%s&poll=%d&_wpnonce=%s">' .esc_html__('Delete', "poll-maker") . '</a>', esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce),
-		];
+		$title   = sprintf('<a href="?page=%s&action=%s&poll=%d" title="%s">%s</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']), $p, $restitle);		
+
+		$actions['edit'] = sprintf( '<a href="?page=%s&action=%s&poll=%d">'. esc_html__('Edit', 'poll-maker') .'</a>', esc_attr( $_REQUEST['page'] ), 'edit', absint( $item['id'] ) );
+
+        $actions['duplicate'] = sprintf('<a href="?page=%s&action=%s&poll=%d&_wpnonce=%s">' .esc_html__('Duplicate', "poll-maker") . '</a>', esc_attr($_REQUEST['page']), 'duplicate', absint($item['id']),$duplicate_nonce);
+
+        $actions['results'] = sprintf( '<a href="?page=%s&poll=%d&title=%s">'. esc_html__('View Results', 'poll-maker') .'</a>', esc_attr( $_REQUEST['page'] ) . '-results-each', absint( $item['id'] ), $poll_title );
+
+        if($custom_post_id > 0){
+            $actions['custom_posts'] = sprintf( '<a href="%s" target="_blank">'. esc_html__('Preview', "poll-maker") .'</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($custom_post_id) ) ));
+        }
+
+        $actions['delete'] = sprintf( '<a class="ays_confirm_del" data-message="%s" href="?page=%s&action=%s&poll=%d&_wpnonce=%s">'. esc_html__('Delete', 'poll-maker') .'</a>', $restitle, esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce );
+
 
 		return $title . $this->row_actions($actions);
 	}
@@ -2070,7 +2109,7 @@ class Polls_List_Table extends WP_List_Table {
 		}
 
 		?>
-        <div class="notice notice-success is-dismissible">
+        <div class="ays-poll-admin-notice notice notice-success is-dismissible">
             <p>
 				<?php echo $updated_message; ?>
             </p>

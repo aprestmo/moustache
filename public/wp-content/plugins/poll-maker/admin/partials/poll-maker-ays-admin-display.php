@@ -189,8 +189,16 @@ $quick_poll_plugin_nonce = wp_create_nonce( 'poll-maker-ajax-quick-poll-nonce' )
                 <h4><?php echo esc_html__( "Create Your First Poll in Under One Minute", "poll-maker" ); ?></h4>
             </div>
             <div class="ays-poll-create-poll-youtube-video">
-                <iframe width="560" height="315" class="ays-poll-youtube-video-responsive" src="https://www.youtube.com/embed/0dfJQdAwdL4" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="ays-poll-youtube-placeholder" data-video-id="0dfJQdAwdL4">
+                    <img src="<?php echo esc_url(POLL_MAKER_AYS_ADMIN_URL .'/images/create-poll-on-wordpress.webp'); ?>" loading="lazy" width="560" height="315">
+                </div>
             </div>
+            <div class="ays_poll_small_hint_text_for_message_variables" style="text-align: center;">
+                <?php echo esc_html__( 'Please note that this video will disappear once you created 4 polls.', 'poll-maker' ); ?>
+            </div>
+            <div class="ays-poll-create-poll-youtube-video-button-box create-poll-youtube-video-bottom">
+                <?php echo sprintf( '<a href="?page=%s&action=%s" class="ays-poll-add-new-button-video  ays-poll-add-new-button-new-design"> %s ' .esc_html__('Add New', "poll-maker") . '</a>', esc_attr( $_REQUEST['page'] ), 'add', wp_kses_post($plus_icon_svg));?>
+            </div>            
         </div>
     <?php else: ?>
         <div class="ays-poll-create-poll-video-box" style="margin: auto;">

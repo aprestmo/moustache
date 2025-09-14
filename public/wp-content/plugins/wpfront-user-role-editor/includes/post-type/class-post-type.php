@@ -89,7 +89,7 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
                 return;
             }
 
-            $this->set_admin_menu(__('Post Types', 'wpfront-user-role-editor'), __('Post Types', 'wpfront-user-role-editor'), 60);
+            $this->set_admin_menu('Post Types', 'Post Types', 60);
         }
 
         /**
@@ -1532,7 +1532,7 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
         }
 
         public static function get_debug_setting() {
-            return array('key' => 'post-type', 'label' => __('Post Types', 'wpfront-user-role-editor'), 'position' => 90, 'description' => __('Disables all Post Type functionalities including custom capabilities.', 'wpfront-user-role-editor'));
+            return array('key' => 'post-type', 'label' => 'Post Types', 'position' => 90, 'description' => 'Disables all Post Type functionalities including custom capabilities.');
         }
 
     }

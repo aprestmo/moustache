@@ -68,7 +68,7 @@ if (!class_exists('\WPFront\URE\WP\WPFront_User_Role_Editor_Login_Page_Url')) {
          */
         public static function init() {
             $debug = WPFront_User_Role_Editor_Debug::instance();
-            $debug->add_setting('login_page_url', __('Login Page URL', 'wpfront-user-role-editor'), 220, __('Disables Login Page URL functionality.', 'wpfront-user-role-editor'));
+            $debug->add_setting('login_page_url', 'Login Page URL', 220, 'Disables Login Page URL functionality.');
 
             if ($debug->is_disabled('login_page_url')) {
                 return;

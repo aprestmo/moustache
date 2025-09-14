@@ -1,35 +1,46 @@
-(function ($) {
-    // Open modal and play How To video.
-    $( document ).on( 'click', '#poll-maker-welcome .play-video', function( event ) {
-        event.preventDefault();
-
-        var video = '<div class="poll-maker-welcome-video-container"><iframe height="400" loading="lazy" src="https://www.youtube.com/embed/0dfJQdAwdL4" frameborder="0" allowfullscreen></iframe></div>';
-
-        var modal = $('<div class="poll-maker-welcome-modal"></div>');
-        var modalContent = $('<div class="poll-maker-welcome-modal-content"></div>');
-        var closeIcon = $('<span class="poll-maker-welcome-modal-close">&times;</span>');
-
-        modal.append(modalContent);
-        modalContent.append(closeIcon);
-        modalContent.append(video);
-
-        $('body').append(modal);
-
-        closeIcon.on('click', function () {
-            modal.remove();
+// Poll Maker welcome page simple JS
+(function($){
+    $(function(){
+        // Changelog toggle
+        var $toggle = $('#wn-toggle');
+        var $chg = $('.ays-pm-w-changelog');
+        $toggle.on('click', function(){
+        if($chg.hasClass('ays-pm-w-collapsed')){
+            $chg.removeClass('ays-pm-w-collapsed').addClass('ays-pm-w-expanded');
+            $('.ays-pm-w-wn-arrow').html('▴');
+            $toggle.text(poll_maker_ays_welcome.show_less).append($('<span/>',{class:'ays-pm-w-wn-arrow',html:'▴'}));
+        }else{
+            $chg.removeClass('ays-pm-w-expanded').addClass('ays-pm-w-collapsed');
+            $('.ays-pm-w-wn-arrow').html('▾');
+            $toggle.text(poll_maker_ays_welcome.show_more).append($('<span/>',{class:'ays-pm-w-wn-arrow',html:'▾'}));
+        }
         });
 
-        $(document).on('keyup', function (event) {
-            if (event.key === 'Escape') {
-                modal.remove();
-            }
+        // Video lightbox
+        var $lightbox = $('#ays-pm-w-video-lightbox');
+        var $iframe = $('#ays-pm-w-video-iframe');
+
+        function closeLightbox() {
+        $lightbox.removeClass('ays-pm-w-show');
+        setTimeout(function() {
+            $iframe.attr('src', '');
+        }, 300); // Wait for fade out transition
+        }
+        
+        $('.ays-pm-w-video-card').on('click', function(){
+        var videoId = $(this).data('video-id');
+        if (videoId) {
+            $iframe.attr('src', 'https://www.youtube.com/embed/' + videoId);
+            $lightbox.addClass('ays-pm-w-show');
+        }
         });
 
-        modal.on('click', function (event) {
-            if (!$(event.target).closest('.poll-maker-welcome-modal-content').length) {
-                modal.remove();
-            }
-        });
+        $('#ays-pm-w-video-lightbox-close').on('click', closeLightbox);
 
-    } );
+        $lightbox.on('click', function(e){
+        if ($(e.target).is($lightbox)) {
+            closeLightbox();
+        }
+        });
+    });
 })(jQuery);

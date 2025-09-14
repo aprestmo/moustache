@@ -78,7 +78,7 @@ class Poll_Maker_Ays {
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
-
+        $this->define_custom_post_type_hooks();
     }
 
     /**
@@ -128,6 +128,11 @@ class Poll_Maker_Ays {
          * The class responsible for showing Poll Maker Welcome page.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-poll-maker-ays-welcome.php';
+
+        /**
+         * The class responsible for showing Poll Maker Feedback popup.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-poll-maker-feedback.php';
         
         /*
          * The class is responsible for showing polls in wordpress default WP_LIST_TABLE style
@@ -164,6 +169,11 @@ class Poll_Maker_Ays {
          * The class is responsible for showing poll settings
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/settings/poll-maker-settings-actions.php';
+
+        /**
+         * The class responsible for defining all functions for getting all custom post type functions
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-poll-maker-custom-post-type.php';
 
         // Answer results actions
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/results/poll-maker-ays-answer-results-actions.php';
@@ -205,6 +215,8 @@ class Poll_Maker_Ays {
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'disable_scripts', 100);
+        $this->loader->add_action('current_screen', $plugin_admin, 'ays_poll_disable_all_notice_from_plugin', 200, 1);
+
         $this->loader->add_action('widgets_init', $plugin_admin, 'register_poll_ays_widget');
 
         //Plugin deactivate
@@ -218,7 +230,8 @@ class Poll_Maker_Ays {
         // Add menu item
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_plugin_admin_menu');
 
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_polls_submenu', 90 );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_dashboard_submenu', 80 );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_polls_submenu', 85 );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_add_new_poll_submenu', 95 );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_categories_submenu', 100 );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_results_submenu', 105 );
@@ -253,6 +266,11 @@ class Poll_Maker_Ays {
         $this->loader->add_action( 'wp_ajax_ays_poll_dismiss_button', $plugin_admin, 'ays_poll_dismiss_button' );
         $this->loader->add_action( 'wp_ajax_nopriv_ays_poll_dismiss_button', $plugin_admin, 'ays_poll_dismiss_button' );
 
+        $this->loader->add_action( 'wp_ajax_ays_poll_install_plugin', $plugin_admin, 'ays_poll_install_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_poll_install_plugin', $plugin_admin, 'ays_poll_install_plugin' );
+
+        $this->loader->add_action( 'wp_ajax_ays_poll_activate_plugin', $plugin_admin, 'ays_poll_activate_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_poll_activate_plugin', $plugin_admin, 'ays_poll_activate_plugin' );
 
         $this->loader->add_action( 'wp_ajax_ays_poll_create_author', $plugin_admin, 'ays_poll_create_author' );
         $this->loader->add_action( 'wp_ajax_nopriv_ays_poll_create_author', $plugin_admin, 'ays_poll_create_author' );
@@ -290,6 +308,15 @@ class Poll_Maker_Ays {
 
         $this->loader->add_action( 'wp_ajax_ays_poll_get_user_information', $plugin_public, 'ays_poll_get_user_information' );
         $this->loader->add_action( 'wp_ajax_nopriv_ays_poll_get_user_information', $plugin_public, 'ays_poll_get_user_information' );
+    }
+
+    /**
+     * Run the loader to execute all of the hooks with WordPress.
+     *
+     * @since    1.0.0
+     */
+    private function define_custom_post_type_hooks(){
+        $plugin_custom_post_type = new Poll_Maker_Custom_Post_Type( $this->get_plugin_name(), $this->get_version() );
     }
 
     /**

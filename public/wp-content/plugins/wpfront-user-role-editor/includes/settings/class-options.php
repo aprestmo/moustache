@@ -88,7 +88,7 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options')) {
                 return;
             }
             
-            $this->set_admin_menu(__('Settings', 'wpfront-user-role-editor'), __('Settings', 'wpfront-user-role-editor'), 100);
+            $this->set_admin_menu('Settings', 'Settings', 100);
             
             add_action('plugin_action_links_' . $this->WPFURE->get_plugin_basename(), array($this, 'plugin_action_links'));
         }

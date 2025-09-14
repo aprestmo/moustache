@@ -16,7 +16,7 @@ ob_start();
  * Plugin Name:       Poll Maker
  * Plugin URI:        https://ays-pro.com/wordpress/poll-maker/
  * Description:       Poll Maker is a powerful plugin for creating custom polls and gathering opinions. It lets you design and share polls quickly to engage your audience and collect feedback.
- * Version:           5.7.6
+ * Version:           6.0.0
  * Author:            Poll Maker Team
  * Author URI:        https://ays-pro.com/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('POLL_MAKER_AYS_VERSION', '5.7.6');
+define('POLL_MAKER_AYS_VERSION', '6.0.0');
 define('POLL_MAKER_AYS_NAME', 'poll-maker-ays');
 
 if (!defined('POLL_MAKER_AYS_DIR')) {
@@ -143,40 +143,43 @@ function poll_maker_admin_notice() {
                 <div id="navigation-container">
                     <div class="ays-poll-logo-container-upgrade">
                         <div class="logo-container">
-                            <a href="https://ays-pro.com/wordpress/poll-maker" target="_blank" style="box-shadow: none;">
+                            <a href="https://ays-pro.com/wordpress/poll-maker?utm_source=dashboard&utm_medium=poll-free&utm_campaign=poll-maker-top-banner-logo-link-<?php echo esc_attr( POLL_MAKER_AYS_VERSION ); ?>" target="_blank" style="box-shadow: none;">
                                 <img  class="poll-logo" src="<?php echo esc_attr(POLL_MAKER_AYS_ADMIN_URL) . '/images/icons/icon-poll-128x128.png'; ?>" alt="<?php echo esc_html__( "Poll Maker", "poll-maker" ); ?>" title="<?php echo esc_html__( "Poll Maker", "poll-maker" ); ?>"/>
                             </a>
                         </div>
                         <div class="ays-poll-upgrade-container">
-                            <a href="https://ays-pro.com/wordpress/poll-maker?utm_source=dashboard&utm_medium=poll-free&utm_campaign=poll-top-banner-upgrade-button" target="_blank" class="poll-maker-upgrade-to-pro">
+                            <a href="https://ays-pro.com/wordpress/poll-maker?utm_source=dashboard&utm_medium=poll-free&utm_campaign=poll-top-banner-upgrade-button-<?php echo esc_attr( POLL_MAKER_AYS_VERSION ); ?>" target="_blank" class="poll-maker-upgrade-to-pro">
                                 <img src="<?php echo esc_url(POLL_MAKER_AYS_ADMIN_URL) . '/images/icons/lightning-white.svg' ?>" class="poll-maker-upgrade-white-icon">
                                 <span><?php echo esc_html__( "Upgrade", "poll-maker" ); ?></span>
                             </a>
                             <span class="ays-poll-logo-container-one-time-text"><?php echo esc_html__( "One-time payment", "poll-maker" ); ?></span>
-                        </div>
+                        </div>                        
                     </div>
                     <ul id="menu">
-                            <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://poll-plugin.com/wordpress-poll-plugin-free-demo/" target="_blank">Demo</a></li>
-                            <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank">Free Support</a></li>
-                            <li class="modile-ddmenu-xs make_a_suggestion"><a class="ays-btn" href="https://ays-demo.com/poll-maker-plugin-survey/" target="_blank">Make a Suggestion</a></li>
-                            <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank">Contact us</a></li>
-                            <li class="modile-ddmenu-md">
-                                <a class="toggle_ddmenu" href="javascript:void(0);"><i class="ays_poll_fa ays_fa_ellipsis_h"></i></a>
-                                <ul class="ddmenu" data-expanded="false">
-                                    <li><a class="ays-btn" href="https://poll-plugin.com/wordpress-poll-plugin-free-demo/" target="_blank">Demo</a></li>
-                                    <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank">Free Support</a></li>
-                                    <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank">Contact us</a></li>
-                                </ul>
-                            </li>
-                            <li class="modile-ddmenu-sm">
-                                <a class="toggle_ddmenu" href="javascript:void(0);"><i class="ays_poll_fa ays_fa_ellipsis_h"></i></a>
-                                <ul class="ddmenu" data-expanded="false">                               
-                                    <li><a class="ays-btn" href="https://poll-plugin.com/wordpress-poll-plugin-free-demo/" target="_blank">Demo</a></li>
-                                    <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank">Free Support</a></li>
-                                    <li    class="make_a_suggestion"><a class="ays-btn" href="https://ays-demo.com/poll-maker-plugin-survey/" target="_blank">Make a Suggestion</a></li>
-                                    <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank">Contact us</a></li>
-                                </ul>
-                            </li>
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://ays-pro.com/wordpress/poll-maker/?utm_source=dashboard&utm_medium=poll-free&utm_campaign=poll-top-banner-pricing-link-<?php echo esc_attr( POLL_MAKER_AYS_VERSION ); ?>" target="_blank"><?php echo esc_html__( "Pricing", 'poll-maker' ); ?></a></li>
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://poll-plugin.com/wordpress-poll-plugin-free-demo/" target="_blank"><?php echo esc_html__( "Demo", 'poll-maker' ); ?></a></li>
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank"><?php echo esc_html__( "Free Support", 'poll-maker' ); ?></a></li>
+                        <li class="modile-ddmenu-xs make_a_suggestion"><a class="ays-btn" href="https://ays-demo.com/poll-maker-plugin-survey/" target="_blank"><?php echo esc_html__( "Make a Suggestion", 'poll-maker' ); ?></a></li>
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank"><?php echo esc_html__( "Contact us", 'poll-maker' ); ?></a></li>
+                        <li class="modile-ddmenu-md">
+                            <a class="toggle_ddmenu" href="javascript:void(0);"><i class="ays_poll_fa ays_fa_ellipsis_h"></i></a>
+                            <ul class="ddmenu" data-expanded="false">
+                                <li><a class="ays-btn" href="https://ays-pro.com/wordpress/poll-maker/?utm_source=dashboard&utm_medium=poll-free&utm_campaign=poll-top-banner-pricing-link-<?php echo esc_attr( POLL_MAKER_AYS_VERSION ); ?>" target="_blank"><?php echo esc_html__( "Pricing", 'poll-maker' ); ?></a></li>
+                                <li><a class="ays-btn" href="https://poll-plugin.com/wordpress-poll-plugin-free-demo/" target="_blank"><?php echo esc_html__( "Demo", 'poll-maker' ); ?></a></li>
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank"><?php echo esc_html__( "Free Support", 'poll-maker' ); ?></a></li>
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank"><?php echo esc_html__( "Contact us", 'poll-maker' ); ?></a></li>
+                            </ul>
+                        </li>
+                        <li class="modile-ddmenu-sm">
+                            <a class="toggle_ddmenu" href="javascript:void(0);"><i class="ays_poll_fa ays_fa_ellipsis_h"></i></a>
+                            <ul class="ddmenu" data-expanded="false">                               
+                                <li><a class="ays-btn" href="https://ays-pro.com/wordpress/poll-maker/?utm_source=dashboard&utm_medium=poll-free&utm_campaign=poll-top-banner-pricing-link-<?php echo esc_attr( POLL_MAKER_AYS_VERSION ); ?>" target="_blank"><?php echo esc_html__( "Pricing", 'poll-maker' ); ?></a></li>
+                                <li><a class="ays-btn" href="https://poll-plugin.com/wordpress-poll-plugin-free-demo/" target="_blank"><?php echo esc_html__( "Demo", 'poll-maker' ); ?></a></li>
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank"><?php echo esc_html__( "Free Support", 'poll-maker' ); ?></a></li>
+                                <li    class="make_a_suggestion"><a class="ays-btn" href="https://ays-demo.com/poll-maker-plugin-survey/" target="_blank"><?php echo esc_html__( "Make a Suggestion", 'poll-maker' ); ?></a></li>
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/poll-maker/" target="_blank"><?php echo esc_html__( "Contact us", 'poll-maker' ); ?></a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -187,12 +190,11 @@ function poll_maker_admin_notice() {
             <div class="ays_ask_question_content_inner">
                 <a href="https://wordpress.org/support/plugin/poll-maker" class="ays_poll_question_link" target="_blank">
                     <span class="ays-ask-question-content-inner-question-mark-text">?</span>
-                    <span class="ays-ask-question-content-inner-hidden-text">Ask a question</span>
+                    <span class="ays-ask-question-content-inner-hidden-text"><?php echo esc_html__( "Ask a question", 'poll-maker' ); ?></span>
                 </a>
             </div>
         </div>
-        <!-- Ask a question box end -->
-        
+        <!-- Ask a question box end -->        
 <?php
 	}
 }

@@ -112,11 +112,11 @@ if (!class_exists('\WPFront\URE\Go_Pro\WPFront_User_Role_Editor_Go_Pro')) {
          * @return string
          */
         protected function get_menu_label() {
-            return '<span class="wpfront-go-pro">' . __('Go Pro', 'wpfront-user-role-editor') . '</span>' ;
+            return '<span class="wpfront-go-pro">' . 'Go Pro' . '</span>' ;
         }
         
         protected function get_page_title() {
-            return __('Go Pro', 'wpfront-user-role-editor');
+            return 'Go Pro';
         }
     }
     

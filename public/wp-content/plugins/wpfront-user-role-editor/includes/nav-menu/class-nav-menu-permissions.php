@@ -466,7 +466,7 @@ if (!class_exists('\WPFront\URE\Nav_Menu\WPFront_User_Role_Editor_Nav_Menu_Permi
         }
         
         public static function get_debug_setting() {
-            return array('key' => 'nav-menu-permissions', 'label' => __('Navigation Menu Permissions', 'wpfront-user-role-editor'), 'position' => 160, 'description' => __('Disables navigation menu permissions functionality.', 'wpfront-user-role-editor'));
+            return array('key' => 'nav-menu-permissions', 'label' => 'Navigation Menu Permissions', 'position' => 160, 'description' => 'Disables navigation menu permissions functionality.');
         }
         
     }

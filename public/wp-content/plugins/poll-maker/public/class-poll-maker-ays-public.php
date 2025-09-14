@@ -391,6 +391,31 @@ class Poll_Maker_Ays_Public {
 			else{
 				foreach ($poll_answers as $ans_key => $ans_val) {
 					$percent = round($one_percent*intval($ans_val['votes']));
+					$real_votes = 0;
+                    $all_votes_bar = 0;
+                    if($polls['type'] == 'choosing'){
+                        $real_votes = isset($ans_val['votes']) ? intval($ans_val['votes']) : 0;
+                        $fake_votes = isset($ans_val['fake_votes']) ? intval($ans_val['fake_votes']) : 0;
+                        if($poll_fake_votes){
+                            if($fake_votes + $real_votes < 0){
+                                $all_votes_bar += $real_votes;
+                            }
+                            else{
+                                $all_votes_bar += ($real_votes + $fake_votes);
+                            }
+                        }
+                        else{
+                            $all_votes_bar += $real_votes;
+                        }
+
+                        if($sum_of_votes > 0){
+                            $percent = round((100*$all_votes_bar)/$sum_of_votes);
+                        }
+                    }
+                    else{
+                        $all_votes_bar = $ans_val['votes'];
+                    }
+
 					if ($percent == 0) {
 						$perc_cont = '';
 					}else{
@@ -412,6 +437,7 @@ class Poll_Maker_Ays_Public {
 								<div class="ays-poll-answer-text-and-percent-box">
 									<div class="answer-title flex-apm">
 										<span class="answer-text">'.stripslashes($ans_val['answer']).'</span>
+										<span class="answer-votes">'.$all_votes_bar.' ('.$percent.'%)</span>
 									</div>
 									<div class="progress-bar-container">
 										<div class="answer-percent-res" 
@@ -506,7 +532,7 @@ class Poll_Maker_Ays_Public {
 									}
 									$content .= '<div class="answer-title flex-apm">
 													<span class="answer-text">'.$hand_type.'</span>
-													<span class="answer-votes">'.$ans_val['votes'].'</span>
+													<span class="answer-votes">'.$all_votes_bar.' ('.$percent.'%)</span>
 												</div>
 												<div class="answer-percent" style="width: '.$percent.'%; background-color: '.$polls_options['main_color'].'; color: '.$polls_options['bg_color'].';">'.$perc_cont.'</div>';
 									break;
@@ -519,7 +545,7 @@ class Poll_Maker_Ays_Public {
 									}
 									$content .= '<div class="answer-title flex-apm">
 													<span class="answer-text">'.$emojy_type.'</span>
-													<span class="answer-votes">'.$ans_val['votes'].'</span>
+													<span class="answer-votes">'.$all_votes_bar.' ('.$percent.'%)</span>
 												</div>
 												<div class="answer-percent" style="width: '.$percent.'%; background-color: '.$polls_options['main_color'].'; color: '.$polls_options['bg_color'].';">'.$perc_cont.'</div>';
 
@@ -1983,7 +2009,7 @@ class Poll_Maker_Ays_Public {
 		$user_last_name = (isset( $poll_user_information['user_last_name'] ) && $poll_user_information['user_last_name']  != "") ? $poll_user_information['user_last_name'] : '';	
 		$creation_date = (isset( $poll['styles']['create_date'] ) && $poll['styles']['create_date'] != '') ? $poll['styles']['create_date'] : '';
 
-		$current_poll_author =esc_html__( "Unknown", "poll-maker" );
+		$current_poll_author = esc_html__( "Unknown", "poll-maker" );
 		if( !empty($options['author']) ){
 			if( !is_array($options['author']) ){
 				$options['author'] = json_decode($options['author'], true);
@@ -3232,10 +3258,20 @@ class Poll_Maker_Ays_Public {
 					$current_poll_user_data = get_userdata( $poll_current_author );
 					if ( ! is_null( $current_poll_user_data ) && $current_poll_user_data ) {
 						$current_poll_author = ( isset( $current_poll_user_data->data->display_name ) && $current_poll_user_data->data->display_name != '' ) ? sanitize_text_field( $current_poll_user_data->data->display_name ) : "";
+						$current_poll_author_email = ( isset( $current_poll_user_data->data->user_email ) && $current_poll_user_data->data->user_email != '' ) ? sanitize_text_field( $current_poll_user_data->data->user_email ) : "";
 					}
 				}
 
                 $poll_current_date = date_i18n( 'M d, Y', strtotime( sanitize_text_field( $_REQUEST['end_date'] ) ) );
+
+                // Get Post Title
+                $post_id = url_to_postid( $_POST['_wp_http_referer'] );
+                $post_title = get_the_title( $post_id );
+                $get_site_title = get_bloginfo('name');
+                
+                // WP home page url
+		        $home_main_url = home_url();
+		        $home_page_url = '<a href="'. $home_main_url .'" target="_blank">'. $home_main_url .'</a>';
 
 				$user_nickname        	= '';
 				$user_display_name    	= '';
@@ -3244,6 +3280,14 @@ class Poll_Maker_Ays_Public {
 				$user_wordpress_website = '';
 				$user_ip_address 		= '';
 				$user_id = get_current_user_id();
+				$super_admin_email = get_option('admin_email');
+
+				$post_author = get_post_field( 'post_author', $post_id );
+				$author_id = get_the_author_meta('ID', $post_author);
+				$post_author_email = get_the_author_meta( 'email', $author_id );
+				$post_author_nickname = get_the_author_meta( 'nickname', $author_id );
+				$post_author_first_name = get_the_author_meta( 'first_name', $author_id );
+
 				if($user_id != 0){
 					$usermeta = get_user_meta( $user_id );
 					if($usermeta !== null){
@@ -3294,29 +3338,80 @@ class Poll_Maker_Ays_Public {
 				$form_apm_name = (isset($_POST['apm_name']) && $_POST['apm_name'] != "") ? esc_attr($_POST['apm_name']) : "";
 				$form_apm_email = (isset($_POST['apm_email']) && $_POST['apm_email'] != "") ? esc_attr($_POST['apm_email']) : "";
 				$form_apm_phone = (isset($_POST['apm_phone']) && $_POST['apm_phone'] != "") ? esc_attr($_POST['apm_phone']) : "";
-
+				
 				$message_data = array(
-					'user_name'   				  => $form_apm_name,
-					'user_email'  				  => $form_apm_email,
-					'user_phone'  				  => $form_apm_phone,
-					'poll_title'       		      => $poll_title,
-					'users_first_name' 		      => $user_first_name,
-					'users_last_name'  		      => $user_last_name,
-					'creation_date'    		      => $creation_date,
-					'current_date'                => $poll_current_date,
-					'current_poll_author'         => $current_poll_author,
-					'user_nickname'   		      => $user_nickname,
-					'user_display_name'   	      => $user_display_name,
-					'user_wordpress_email'        => $user_wordpress_email,
-					'user_wordpress_roles'        => $user_wordpress_roles,
-					'poll_pass_count'  			  => $pass_count,
-					'passed_poll_count_per_user'  => $passed_poll_count_per_user,
-					'current_poll_page_link'      => $current_poll_page_link_html,
-					'user_wordpress_website'	  => $user_wordpress_website,
-					'user_ip_address'			  => $user_ip_address,					
+					'user_name'   				  	=> $form_apm_name,
+					'user_email'  				  	=> $form_apm_email,
+					'user_phone'  				  	=> $form_apm_phone,
+					'poll_title'       		      	=> $poll_title,
+					'users_first_name' 		      	=> $user_first_name,
+					'users_last_name'  		      	=> $user_last_name,
+					'creation_date'    		      	=> $creation_date,
+					'current_date'                	=> $poll_current_date,
+					'current_poll_page_link'      	=> $current_poll_page_link_html,
+					'current_poll_author'         	=> $current_poll_author,
+					'current_poll_author_email'   	=> $current_poll_author_email,
+					'admin_email'   				=> $super_admin_email,
+					'user_nickname'   		      	=> $user_nickname,
+					'user_display_name'   	      	=> $user_display_name,
+					'user_wordpress_email'        	=> $user_wordpress_email,
+					'user_wordpress_roles'        	=> $user_wordpress_roles,
+					'poll_pass_count'  			  	=> $pass_count,
+					'passed_poll_count_per_user'  	=> $passed_poll_count_per_user,
+					'user_wordpress_website'	  	=> $user_wordpress_website,
+					'user_ip_address'			  	=> $user_ip_address,
+					'post_title'			  		=> $post_title,
+					'post_author_email'			  	=> $post_author_email,
+					'post_author_nickname'			=> $post_author_nickname,
+					'post_author_first_name'		=> $post_author_first_name,
+					'post_id'			  			=> $post_id,
+					'site_title'			  		=> $get_site_title,
+					'home_page_url'			  		=> $home_page_url,
 				);
 				
 				$user_ip = esc_sql($user_ips);
+				
+				// Race condition fix
+				$limitusers = isset($poll['styles']['limit_users']) ? intval($poll['styles']['limit_users']) : 0;
+
+				if ($limitusers > 0) {
+
+					$limit_users_method = isset($poll['styles']['limit_users_method']) ? $poll['styles']['limit_users_method'] : "ip";
+					
+					switch ($limit_users_method) {
+						case 'ip':
+						default:
+							$wpdb->query("START TRANSACTION");
+							$already_voted = $wpdb->get_var($wpdb->prepare(
+								"SELECT COUNT(*) FROM {$report_table} WHERE user_ip = %s AND poll_id = %d FOR UPDATE",
+								$user_ip,
+								$poll_id
+							));
+							break;
+						case 'cookie':
+							$wpdb->query("START TRANSACTION");
+							$already_voted = isset($_COOKIE["ays_this_poll_cookie_" . $poll_id]) ? 1 : 0;
+							break;
+						case 'user':
+							$wpdb->query("START TRANSACTION");
+							$already_voted = $wpdb->get_var($wpdb->prepare(
+								"SELECT COUNT(*) FROM {$report_table} WHERE user_id = %s AND poll_id = %d FOR UPDATE",
+								$user_id,
+								$poll_id
+							));
+							break;
+					}
+					
+					if ($already_voted > 0) {
+						$wpdb->query("ROLLBACK");
+
+						$res = $this->get_poll_by_id($poll_id);
+						$res['voted_status'] = false;
+						echo json_encode($res);
+						wp_die();
+					}
+				}
+
 				$multi_answer_ids = array();
 				if ((is_array($answer_id) && !empty($answer_id)) && $allow_multi_vote) {
 					$multi_answer_ids = $answer_id;
@@ -3374,6 +3469,12 @@ class Poll_Maker_Ays_Public {
 						'%s', // multi_answer_ids
 					)
 				);
+
+				// Race condition fix
+				if ($limitusers > 0) {
+					$wpdb->query("COMMIT");
+				}
+
 				// $answers = $this->get_answer_by_id($answer_changed_id);
 				if (!empty($options['notify_email_on'])) {
 					$notify_admin_email = $options['notify_email'];
@@ -3459,9 +3560,47 @@ class Poll_Maker_Ays_Public {
 
 			$res['styles']['result_message'] = ( isset( $res['styles']['result_message'] ) && $res['styles']['result_message'] != "" ) ?  $this->ays_autoembed($this->replace_message_variables($res['styles']['result_message'], $message_data)) : "";
 			$res['styles']['hide_results_text'] = ( isset( $res['styles']['hide_results_text'] ) && $res['styles']['hide_results_text'] != "" ) ?  $this->ays_autoembed($this->replace_message_variables($res['styles']['hide_results_text'], $message_data)) : "";
-
+			$sensitive_fields = [
+				'notify_email',
+				'author',
+				'poll_create_author',
+				'mailchimp_list',
+				'users_role'
+			];
+			if (!current_user_can('manage_options')) {
+				foreach ($sensitive_fields as $field) {
+					if (isset($res['styles'][$field]) && $res['styles'][$field] != "") {
+						unset($res['styles'][$field]);
+					}
+				}
+			}
 			$res['styles']['poll_social_buttons_heading'] = ( isset( $res['styles']['poll_social_buttons_heading'] ) && $res['styles']['poll_social_buttons_heading'] != "" ) ? $this->ays_autoembed($res['styles']['poll_social_buttons_heading']) : "";
 			$res['check_admin_approval'] = $check_admin_approval;
+
+			/**
+			 * Fires after a user successfully submits a vote in Poll Maker.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param int        $poll_id    The poll ID.
+			 */
+			if (has_action('ays_poll_maker_after_vote')) {
+					// Collect extra contextual data for hooks
+					$user_id = get_current_user_id();
+					$data = array_merge(
+						(array) $message_data,
+						array(
+							'poll_id'   => $poll_id,
+							'answer_id' => $answer_id,
+							'user_id'   => $user_id,
+													)
+					);
+					do_action(
+						'ays_poll_maker_after_vote',
+						$data
+					);
+			}
+			
 			ob_end_clean();
 			$ob_get_clean = ob_get_clean();
 			echo json_encode($res);
@@ -3736,7 +3875,7 @@ class Poll_Maker_Ays_Public {
 		
 		
 		// $poll_answer_sorting = isset($polls_options['result_sort_type']) && $polls_options['result_sort_type'] != "none" ? $polls_options['result_sort_type'] : "ASC";
-		$ans_sql  = "SELECT * FROM ".$answ_table." WHERE poll_id =%d ORDER BY id ASC";
+		$ans_sql  = "SELECT * FROM ".$answ_table." WHERE poll_id =%d ORDER BY votes DESC";
 		$poll_answers = $wpdb->get_results(
 			   	  	$wpdb->prepare( $ans_sql, $id),
 			   	  	'ARRAY_A'
@@ -3821,14 +3960,18 @@ class Poll_Maker_Ays_Public {
 					}
  					$perc_cont = '';
 					$percent = round($one_percent*intval($ans_val['votes']));
+					$perc_conta_hide_or_no = '';
 					if($poll_show_answer_perc){
 						if ($percent == 0) {
 							$perc_cont = '0 %';
+							$perc_conta_hide_or_no = '';
 						}else{
 							$perc_cont = $percent.' %';
+							$perc_conta_hide_or_no = '('.$percent.'%'.')';
 						}
 
 					}
+
 					$answer_votes_count = '';
 					if($poll_show_votes_count){
 						$answer_votes_count = isset($ans_val['votes']) ? esc_attr($ans_val['votes']) : '';
@@ -3847,6 +3990,7 @@ class Poll_Maker_Ays_Public {
                             $content .= '<div class="ays-poll-answer-text-and-percent-box">';
 							$content .= '<div class="answer-title flex-apm">
 								<span class="answer-text">' . stripslashes($ans_val['answer']) . '</span>
+								<span class="answer-votes">'.$answer_votes_count.' '.$perc_conta_hide_or_no.'</span>
 							</div>
 							' . $poll_avatars_content . '
 							<div class="answer-percent-res" style="width: ' . ($percent == 0 ? '10' : $percent) . '%; 

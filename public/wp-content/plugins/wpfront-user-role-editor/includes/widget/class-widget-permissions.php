@@ -379,7 +379,7 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
         }
 
         public static function get_debug_setting() {
-            return array('key' => 'widget-permissions', 'label' => __('Widget Permissions', 'wpfront-user-role-editor'), 'position' => 170, 'description' => __('Disables widget permissions functionality.', 'wpfront-user-role-editor'));
+            return array('key' => 'widget-permissions', 'label' => 'Widget Permissions', 'position' => 170, 'description' => 'Disables widget permissions functionality.');
         }
         
     }

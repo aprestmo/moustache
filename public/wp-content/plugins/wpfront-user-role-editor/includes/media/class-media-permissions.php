@@ -68,7 +68,7 @@ if (!class_exists('\WPFront\URE\Media\WPFront_User_Role_Editor_Media_Permissions
                 return;
             }
             
-            RolesHelper::add_capability_group('media', __('Media', 'wpfront-user-role-editor'));
+            RolesHelper::add_capability_group('media', 'Media');
             
             foreach (self::$user_capabilities as $cap => $value) {
                 RolesHelper::add_new_capability_to_group('media', $cap);
@@ -124,7 +124,7 @@ if (!class_exists('\WPFront\URE\Media\WPFront_User_Role_Editor_Media_Permissions
         }
         
         public static function get_debug_setting() {
-            return array('key' => 'media-permissions', 'label' => __('Media Permissions', 'wpfront-user-role-editor'), 'position' => 150, 'description' => __('Disables all media permission capabilities.', 'wpfront-user-role-editor'));
+            return array('key' => 'media-permissions', 'label' => 'Media Permissions', 'position' => 150, 'description' => 'Disables all media permission capabilities.');
         }
     }
     

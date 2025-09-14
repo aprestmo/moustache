@@ -59,7 +59,7 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
                 return;
             }
 
-            $this->set_admin_menu(__('Restore Role', 'wpfront-user-role-editor'), __('Restore', 'wpfront-user-role-editor'));
+            $this->set_admin_menu('Restore Role', 'Restore');
 
             add_filter('wpfront_ure_options_register_ui_field', array($this, 'wpfront_ure_options_register_ui_field'), 20, 1);
             add_filter('wpfront_ure_ms_options_register_ui_field', array($this, 'wpfront_ure_options_register_ui_field'), 20, 1);
@@ -329,7 +329,7 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
         }
 
         public static function get_debug_setting() {
-            return array('key' => 'restore', 'label' => __('Restore', 'wpfront-user-role-editor'), 'position' => 50, 'description' =>  __('Disables users ability to restore WordPress built-in roles.', 'wpfront-user-role-editor'));
+            return array('key' => 'restore', 'label' => 'Restore', 'position' => 50, 'description' =>  'Disables users ability to restore WordPress built-in roles.');
         }
     }
 
