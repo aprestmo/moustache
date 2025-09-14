@@ -1,4 +1,3 @@
-
 <FilesMatch "\.(?i:php)$">
 	<IfModule !mod_authz_core.c>
 		Order allow,deny
@@ -14,3 +13,9 @@
 	AddType image/webp .webp
 </IfModule>
 # END Register webp mime type
+# BEGIN CompressX
+# Instruksjonene (linjene) mellom "BEGIN CompressX" and "END CompressX" er
+# dynamisk generert og bør bare endres via WordPress-filtre.
+# Enhver endring av instruksjonene mellom disse markørene vil bli overskrevet.
+
+# END CompressX

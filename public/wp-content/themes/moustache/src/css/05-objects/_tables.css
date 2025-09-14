@@ -3,22 +3,21 @@
 \*------------------------------------*/
 
 table {
-  border-collapse: collapse;
+	border-collapse: collapse;
 }
 
 td {
-  white-space: nowrap;
+	white-space: nowrap;
 }
 
 th {
-  font-family: var(--regular);
-  font-weight: 400;
+	font-family: var(--regular);
 }
 
 tbody th {
-  font-family: var(--light);
+	font-family: var(--light);
 }
 
 caption {
-  display: none;
+	display: none;
 }

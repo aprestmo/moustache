@@ -1,3 +1,19 @@
+<IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{REQUEST_URI} ^/?wp\-content/+debug\.log$
+        RewriteRule .* - [F,L,NC]
+</IfModule>
+<IfModule !mod_rewrite.c>
+	<Files "debug.log">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order deny,allow
+		Deny from all
+	</IfModule>
+	</Files>
+</IfModule>
 # BEGIN LSCACHE
 ## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
 <IfModule LiteSpeed>
@@ -13,18 +29,19 @@ RewriteCond %{QUERY_STRING} action=async_litespeed
 RewriteRule .* - [E=noabort:1]
 ### marker ASYNC end ###
 
-### marker CACHE RESOURCE start ###
-RewriteRule wp-content/.*/[^/]*(responsive|css|js|dynamic|loader|fonts)\.php - [E=cache-control:max-age=3600]
-### marker CACHE RESOURCE end ###
+### marker MOBILE start ###
+RewriteCond %{HTTP_USER_AGENT} Mobile|Android|Silk/|Kindle|BlackBerry|Opera\ Mini|Opera\ Mobi [NC]
+RewriteRule .* - [E=Cache-Control:vary=%{ENV:LSCACHE_VARY_VALUE}+ismobile]
+### marker MOBILE end ###
+
+### marker LOGIN COOKIE start ###
+RewriteRule .? - [E="Cache-Vary:,wp-postpass_1a339cc373a427f2d6da693d7ca5f01b"]
+### marker LOGIN COOKIE end ###
 
 ### marker WEBP start ###
-RewriteCond %{HTTP_ACCEPT} "image/webp"
-RewriteRule .* - [E=Cache-Control:vary=%{ENV:LSCACHE_VARY_VALUE}+webp]
-RewriteCond %{HTTP_USER_AGENT} iPhone.*Version/(\d{2}).*Safari
-RewriteCond %1 >13
-RewriteRule .* - [E=Cache-Control:vary=%{ENV:LSCACHE_VARY_VALUE}+webp]
-RewriteCond %{HTTP_USER_AGENT} Firefox/([0-9]+)
-RewriteCond %1 >=65
+RewriteCond %{HTTP_ACCEPT} image/webp [OR]
+RewriteCond %{HTTP_USER_AGENT} iPhone\ OS\ (1[4-9]|[2-9][0-9]) [OR]
+RewriteCond %{HTTP_USER_AGENT} Firefox/([6-9][0-9]|[1-9][0-9]{2,})
 RewriteRule .* - [E=Cache-Control:vary=%{ENV:LSCACHE_VARY_VALUE}+webp]
 ### marker WEBP end ###
 
