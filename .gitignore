@@ -23,7 +23,7 @@ public/*
 !public/wp-content
 
 # Ignore everything in the "wp-content" directory, except "themes" folder:
-!public/wp-content/*
+public/wp-content/*
 !public/wp-content/themes/
 
 # Ignore everything in the "plugins" directory, except the plugins you
