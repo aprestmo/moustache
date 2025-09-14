@@ -1,0 +1,42 @@
+#
+# Author: Divint - Jon Kristian Nilsen (jon@divint.no).
+#
+# This is a template .gitignore file for git-managed WordPress projects.
+#
+
+# Ignore everything:
+/*
+.DS_Store
+
+# Include these files:
+!.gitignore
+!README.md
+!.github
+!composer.json
+
+# Include these folders:
+
+
+# Ignore everything in the "public" directory, except the "wp-content" folder:
+!public/*
+!public/wp-content
+
+# Ignore everything in the "wp-content" directory, except "themes" folder:
+!public/wp-content/*
+!public/wp-content/themes/
+!public/wp-content/uploads/
+
+# Ignore everything in the "plugins" directory, except the plugins you
+# specify (see the commented-out examples for hints on how to do this.)
+#!public/wp-content/plugins/my-single-file-plugin.php
+#!public/wp-content/plugins/my-directory-plugin/
+
+# Ignore everything in the "themes" directory, except the themes you
+# specify (see the commented-out example for a hint on how to do this.)
+public/wp-content/themes/*
+!public/wp-content/themes/moustache/
+
+# Ignore folders in theme folder.
+public/wp-content/themes/moustache/node_modules
+public/wp-content/themes/moustache/.jampack
+public/wp-content/themes/moustache/dist/_jampack
