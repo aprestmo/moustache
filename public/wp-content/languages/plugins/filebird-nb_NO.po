@@ -1,0 +1,75 @@
+# Translation of Plugins - FileBird &#8211; WordPress Media Library Folders &amp; File Manager - Stable (latest release) in Norwegian (Bokmål)
+# This file is distributed under the same license as the Plugins - FileBird &#8211; WordPress Media Library Folders &amp; File Manager - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-08-23 13:32:26+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: nb_NO\n"
+"Project-Id-Version: Plugins - FileBird &#8211; WordPress Media Library Folders &amp; File Manager - Stable (latest release)\n"
+
+#. Author of the plugin
+#: filebird.php
+msgid "Ninja Team"
+msgstr "Ninja Team"
+
+#. Plugin Name of the plugin
+#: filebird.php
+msgid "FileBird Lite"
+msgstr "FileBird Lite"
+
+#. Author URI of the plugin
+#: filebird.php
+msgid "https://ninjateam.org"
+msgstr "https://ninjateam.org"
+
+#: includes/I18n.php:31
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: includes/I18n.php:179
+msgid "files"
+msgstr "filer"
+
+#: includes/I18n.php:151
+msgid "Move"
+msgstr "Flytt"
+
+#: includes/I18n.php:53
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: includes/I18n.php:105
+msgid "Folder Limit Reached"
+msgstr "Mappebegrensning er oppnådd"
+
+#: includes/I18n.php:28
+msgid "Delete"
+msgstr "Slett"
+
+#: includes/I18n.php:63
+msgid "Rename"
+msgstr "Gi nytt navn"
+
+#: includes/I18n.php:27
+msgid "New Folder"
+msgstr "Ny mappe"
+
+#: includes/I18n.php:29 includes/I18n.php:50
+msgid "Folders"
+msgstr "Mapper"
+
+#: includes/I18n.php:153
+msgid "items"
+msgstr "elementer"
+
+#: includes/I18n.php:152
+msgid "item"
+msgstr "element"
+
+#: includes/I18n.php:26
+msgid "No media files found."
+msgstr "Ingen mediefiler er funnet."

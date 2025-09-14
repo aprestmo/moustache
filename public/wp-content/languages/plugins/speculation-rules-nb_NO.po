@@ -1,0 +1,99 @@
+# Translation of Plugins - Speculative Loading - Stable (latest release) in Norwegian (Bokmål)
+# This file is distributed under the same license as the Plugins - Speculative Loading - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-01-10 22:26:30+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: nb_NO\n"
+"Project-Id-Version: Plugins - Speculative Loading - Stable (latest release)\n"
+
+#: settings.php:266
+msgid "Settings"
+msgstr "Innstillinger"
+
+#. Description of the plugin
+#: load.php
+msgid "Enables browsers to speculatively prerender or prefetch pages when hovering over links."
+msgstr "Lar nettlesere forhåndsgjengi eller forhåndshente sider spekulativt når man holdere pekeren over lenker."
+
+#. Plugin Name of the plugin
+#: load.php settings.php:144
+msgid "Speculative Loading"
+msgstr "Spekulativ innlasting"
+
+#: settings.php:165
+msgid "Eagerness"
+msgstr "Ivrighet"
+
+#: settings.php:162
+msgid "Prerendering will lead to faster load times than prefetching. However, in case of interactive content, prefetching may be a safer choice."
+msgstr "Forhåndsgjengivelse vil føre til raskere innlastingstider enn forhåndshenting. Men ved interaktivt innhold kan forhåndshenting være et tryggere valg."
+
+#: settings.php:161
+msgid "Speculation Mode"
+msgstr "Spekulasjonsmodus"
+
+#: settings.php:148
+msgid "This section allows you to control how URLs that your users navigate to are speculatively loaded to improve performance."
+msgstr "Denne seksjonen lar deg kontrollere hvordan URL-er dine brukere navigerer til er spekulativt lastet for å forbedre ytelsen."
+
+#: settings.php:123 settings.php:166
+msgid "The eagerness setting defines the heuristics based on which the loading is triggered. \"Eager\" will have the minimum delay to start speculative loads, \"Conservative\" increases the chance that only URLs the user actually navigates to are loaded."
+msgstr "Innstillingen for ivrighet definerer den heuristikken utløsning av innlastingen er basert på. \"Ivrig\" vil ha kortest mulig forsinkelse for å starte spekulative innlastinger. \"Konservativ\" øker sjansen for at bare URl-er brukeren faktisk navigerer til lastes inn."
+
+#: settings.php:118
+msgid "Whether to prefetch or prerender URLs."
+msgstr "Om å forhåndshente eller forhåndsgjengi URL-er."
+
+#: settings.php:111
+msgid "Configuration for the Speculation Rules API."
+msgstr "Konfigurasjon av Specualtions Rules-API-et"
+
+#: settings.php:39
+msgctxt "setting label"
+msgid "Eager (on slightest suggestion)"
+msgstr "Ivrig (ved det minste forslag)"
+
+#: settings.php:38
+msgctxt "setting label"
+msgid "Moderate (typically on hover)"
+msgstr "Moderat (typisk ver oversveving)"
+
+#: settings.php:37
+msgctxt "setting label"
+msgid "Conservative (typically on click)"
+msgstr "Konservativt (typisk ved klikk)"
+
+#: settings.php:24
+msgctxt "setting label"
+msgid "Prerender"
+msgstr "Forhåndsgjengivelse"
+
+#: settings.php:23
+msgctxt "setting label"
+msgid "Prefetch"
+msgstr "Forhåndshenting"
+
+#. translators: %s: context string
+#: class-plsr-url-pattern-prefixer.php:73
+msgid "Invalid context %s."
+msgstr "Ugyldig kontekst %s"
+
+#. Author URI of the plugin
+#: load.php
+msgid "https://make.wordpress.org/performance/"
+msgstr "https://make.wordpress.org/performance/"
+
+#. Author of the plugin
+#: load.php
+msgid "WordPress Performance Team"
+msgstr "Ytelsesgruppen i WordPress"
+
+#. Plugin URI of the plugin
+#: load.php
+msgid "https://github.com/WordPress/performance/tree/trunk/plugins/speculation-rules"
+msgstr "https://github.com/WordPress/performance/tree/trunk/plugins/speculation-rules"

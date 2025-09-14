@@ -1,0 +1,43 @@
+parameters:
+	level: 2
+	bootstrapFiles:
+		- /home/chuck/.config/composer/vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+		- /home/chuck/.config/composer/vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+		- /home/chuck/.config/composer/vendor/php-stubs/acf-pro-stubs/acf-pro-stubs.php
+		- cornerstone/includes/functions/element-api.php
+		- cornerstone/includes/functions/api.php
+		- cornerstone/includes/functions/helpers.php
+		- cornerstone/includes/classes/Parsy/P.php
+	dynamicConstantNames:
+		- WP_DEBUG
+		- WP_DEBUG_LOG
+		- EMPTY_TRASH_DAYS
+		- WP_CLI
+		- TCOW_PLUGIN_DIR
+		- WP_PLUGIN_DIR
+		- TCO_WHITE_LABEL_PATH
+		- TCO_VIDEO_LOCK_PATH
+		- THEMECO_DOMAIN
+		- TCO_UNDER_CONSTRUCTION_PATH
+		- TCO_TERMS_OF_USE_PATH
+		- TCO_SMOOTH_SCROLL_PATH
+		- TCO_OLARK_INTEGRATION_PATH
+	earlyTerminatingFunctionCalls:
+		- wp_die
+		- wp_send_json
+		- wp_send_json_success
+		- wp_send_json_error
+		- wp_nonce_ays
+		- comment_footer_die
+		- dead_db
+		- do_favicon
+		- install_theme_information
+		- media_send_to_editor
+		- redirect_post
+		- wp_ajax_heartbeat
+		- wp_ajax_nopriv_heartbeat
+	paths:
+		#- cornerstone/includes/classes/
+		#- cornerstone/includes/boot.php
+		- plugins/
+		#- framework/
