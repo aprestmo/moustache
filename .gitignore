@@ -7,6 +7,7 @@
 # Ignore everything:
 /*
 .DS_Store
+*/.DS_Store
 **/.DS_Store
 
 # Include these files:
@@ -19,13 +20,16 @@
 
 
 # Ignore everything in the "public" directory, except the "wp-content" folder:
-!public/*
+!public
+public/*
 !public/wp-content
 
 # Ignore everything in the "wp-content" directory, except "themes" folder:
-!public/wp-content/*
+public/wp-content/*
 !public/wp-content/themes/
-!public/wp-content/uploads/
+!public/wp-content/languages/plugins/
+!public/wp-content/galleri/
+!public/wp-content/sanger/
 
 # Ignore everything in the "plugins" directory, except the plugins you
 # specify (see the commented-out examples for hints on how to do this.)
