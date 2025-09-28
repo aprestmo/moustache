@@ -33,6 +33,10 @@ dt {
   font-family: var(--regular);
 }
 
+abbr {
+  text-decoration: none;
+}
+
 .table-scroll {
   -webkit-overflow-scrolling: touch;
   inline-size: 100%;

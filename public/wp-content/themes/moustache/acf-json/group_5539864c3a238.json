@@ -90,7 +90,8 @@
             },
             "display_format": "d.m.Y H.i",
             "return_format": "Y-m-d H:i:s",
-            "first_day": 1
+            "first_day": 1,
+            "default_to_current_date": 0
         },
         {
             "key": "field_647d81057457d",
@@ -136,7 +137,8 @@
             },
             "display_format": "d.m.Y H.i",
             "return_format": "Y-m-d H:i:s",
-            "first_day": 1
+            "first_day": 1,
+            "default_to_current_date": 0
         },
         {
             "key": "field_55398a8fbcc47",
@@ -742,7 +744,9 @@
                     "ui": 1,
                     "ajax": 1,
                     "placeholder": "",
-                    "parent_repeater": "field_5b570281d02fb"
+                    "parent_repeater": "field_5b570281d02fb",
+                    "create_options": 0,
+                    "save_options": 0
                 }
             ]
         },
@@ -852,12 +856,13 @@
                     "post_type": [
                         "player"
                     ],
-                    "taxonomy": [
-                        "status:aktiv"
-                    ],
-                    "allow_null": 0,
-                    "multiple": 0,
+                    "post_status": "",
+                    "taxonomy": "",
                     "return_format": "object",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 1,
+                    "bidirectional": 0,
                     "ui": 1,
                     "bidirectional_target": [],
                     "parent_repeater": "field_5539952d10f94"
@@ -1218,7 +1223,9 @@
                     "ui": 1,
                     "ajax": 1,
                     "placeholder": "",
-                    "parent_repeater": "field_5b47370f205cd"
+                    "parent_repeater": "field_5b47370f205cd",
+                    "create_options": 0,
+                    "save_options": 0
                 }
             ]
         },
@@ -1265,7 +1272,9 @@
             "allow_in_bindings": 1,
             "ui": 0,
             "ajax": 0,
-            "placeholder": ""
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_66f67356bd63b",
@@ -1285,11 +1294,11 @@
                 ]
             ],
             "wrapper": {
-                "width": "75",
+                "width": "45",
                 "class": "",
                 "id": ""
             },
-            "message": "Hvis ett av lagene ikke møtte opp til kamp så er dette riktig valg. Det er mulig å sette resultat på kampen. Hvis ikke vil resultatet automatisk bli satt til 0–0.",
+            "message": "Hvis ett av lagene ikke møtte opp til kamp så er dette riktig valg.",
             "default_value": 0,
             "allow_in_bindings": 0,
             "ui": 0,
@@ -1314,7 +1323,7 @@
                 ]
             ],
             "wrapper": {
-                "width": "25",
+                "width": "30",
                 "class": "",
                 "id": ""
             },
@@ -1329,7 +1338,40 @@
             "allow_in_bindings": 1,
             "ui": 1,
             "ajax": 1,
-            "placeholder": ""
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_68d97ee9975af",
+            "label": "Vinner med",
+            "name": "walkover_result",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66f67356bd63b",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": 1,
+            "prepend": "",
+            "append": "mål"
         },
         {
             "key": "field_5b562f29b0299",
@@ -1488,7 +1530,9 @@
                     "ajax": 1,
                     "return_format": "value",
                     "placeholder": "",
-                    "parent_repeater": "field_5b570653cb32e"
+                    "parent_repeater": "field_5b570653cb32e",
+                    "create_options": 0,
+                    "save_options": 0
                 }
             ]
         }
@@ -1511,9 +1555,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "show_in_graphql": 1,
-    "graphql_field_name": "kamper",
-    "map_graphql_types_from_location_rules": 0,
-    "graphql_types": "",
-    "modified": 1741729752
+    "modified": 1759084722
 }

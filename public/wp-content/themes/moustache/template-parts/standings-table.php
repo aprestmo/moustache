@@ -45,10 +45,10 @@ if ($standings && is_array($standings)) {
                     <th scope="col"><?php esc_html_e('V', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('U', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('T', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('P', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('M+', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('M-', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('M±', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('P', 'moustache'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -66,10 +66,10 @@ if ($standings && is_array($standings)) {
                         <td><?php echo esc_html($team['wins'] ?? 0); ?></td>
                         <td><?php echo esc_html($team['draws'] ?? 0); ?></td>
                         <td><?php echo esc_html($team['losses'] ?? 0); ?></td>
-                        <td><?php echo esc_html($team['points'] ?? 0); ?></td>
                         <td><?php echo esc_html($team['goalsScored'] ?? 0); ?></td>
                         <td><?php echo esc_html($team['goalsConceded'] ?? 0); ?></td>
                         <td><?php echo esc_html(($team['goalsScored'] ?? 0) - ($team['goalsConceded'] ?? 0)); ?></td>
+                        <td><?php echo esc_html($team['points'] ?? 0); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
