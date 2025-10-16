@@ -33,12 +33,27 @@ if ($walkover && $result_only) : ?>
     $home_score = 0;
     $away_score = 0;
 
-    if ($walkover_winner === $home_team_name) {
-        $home_score = $walkover_result;
-        $away_score = 0;
+    // Check if Kampbart is the home team
+    $is_kampbart_home = ($home_team_name === 'kampbart');
+
+    if ($walkover_winner === 'kampbart') {
+        // Kampbart wins - assign score to the correct team position
+        if ($is_kampbart_home) {
+            $home_score = $walkover_result;
+            $away_score = 0;
+        } else {
+            $home_score = 0;
+            $away_score = $walkover_result;
+        }
     } else {
-        $home_score = 0;
-        $away_score = $walkover_result;
+        // Opponent wins - assign score to the correct team position
+        if ($is_kampbart_home) {
+            $home_score = 0;
+            $away_score = $walkover_result;
+        } else {
+            $home_score = $walkover_result;
+            $away_score = 0;
+        }
     }
 ?>
     <td class="<?php echo esc_attr($result_type); ?>">
