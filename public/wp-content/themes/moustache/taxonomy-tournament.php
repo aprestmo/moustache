@@ -145,17 +145,24 @@ $term = get_queried_object();
 
                     <div id="tabell" role="region" aria-labelledby="caption" tabindex="0">
                         <?php
-                        // Check if this is the specific tournament that should show the standings table
-                        $should_show_standings = (
-                            $term->slug === 'uteserie-2025'
-                        );
+                        // Get tournament content
+                        $tournament_content = get_field('tournament_content', $term);
 
-                        if ($should_show_standings) {
-                            // Show the dynamic standings table for the specific tournament
-                            include(locate_template('template-parts/standings-table.php'));
+                        // Check if tournament_content has content
+                        if (!empty($tournament_content)) {
+                            // Display the tournament content field
+                            echo wp_kses_post($tournament_content);
                         } else {
-                            // Show the original tournament content for other tournaments
-                            echo wp_kses_post(get_field('tournament_content', $term));
+                            // Check if this is the specific tournament that should show the standings table
+                            $current_year = date('Y');
+                            $should_show_standings = (
+                                $term->slug === 'uteserie-' . $current_year
+                            );
+
+                            if ($should_show_standings) {
+                                // Show the dynamic standings table for the specific tournament
+                                include(locate_template('template-parts/standings-table.php'));
+                            }
                         }
                         ?>
                     </div>
