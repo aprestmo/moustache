@@ -11,6 +11,14 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+wp_enqueue_script(
+	'moustache-audio-playlist',
+	get_template_directory_uri() . '/js/audio-playlist.js',
+	array(),
+	null,
+	true
+);
+
 /**
  * Display song item
  *
@@ -51,7 +59,20 @@ function display_song(string $title, string $audio, ?string $lyrics): void
 <?php
 }
 
-if (have_rows('music')) : ?>
+if (have_rows('music')) :
+	$playlist_array = array();
+	while (have_rows('music')) :
+		the_row();
+		$title = get_sub_field('title');
+		$audio = get_sub_field('audio_file');
+		if ($title && $audio) {
+			$playlist_array[] = array('title' => $title, 'url' => is_array($audio) ? ($audio['url'] ?? '') : $audio);
+		}
+	endwhile;
+	?>
+	<audio-playlist
+		playlist='<?php echo esc_attr( json_encode( $playlist_array ) ); ?>'
+	></audio-playlist>
 	<div class="songs-container">
 		<?php
 		while (have_rows('music')) :
@@ -62,7 +83,7 @@ if (have_rows('music')) : ?>
 			$lyrics = get_sub_field('lyrics_file');
 
 			if ($title && $audio) {
-				display_song($title, $audio, $lyrics);
+				display_song($title, is_array($audio) ? ($audio['url'] ?? '') : $audio, $lyrics);
 			}
 		endwhile;
 		?>
