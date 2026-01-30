@@ -15,7 +15,7 @@ wp_enqueue_script(
 	'moustache-audio-playlist',
 	get_template_directory_uri() . '/js/audio-playlist.js',
 	array(),
-	null,
+	'30012026-v2',
 	true
 );
 
