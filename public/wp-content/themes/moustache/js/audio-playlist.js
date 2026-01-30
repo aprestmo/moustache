@@ -166,6 +166,7 @@ template.innerHTML = `
       align-items: center;
       justify-content: center;
       font-size: 0.875rem;
+      font-variant-numeric: tabular-nums;
     }
     #tracklist li .track-play-icon { display: none; color: #181818; }
     #tracklist li .track-pause-icon { display: none; color: #181818; }
