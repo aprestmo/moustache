@@ -78,12 +78,9 @@ template.innerHTML = `
   <style>
     :host {
       display: block;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
       background: #fff;
       color: #181818;
-      border-radius: 8px;
-      padding: 1.25rem;
-      overflow: hidden;
+      overflow: clip;
     }
     .toggle-row {
       display: flex;
