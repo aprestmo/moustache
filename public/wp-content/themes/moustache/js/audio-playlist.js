@@ -329,6 +329,7 @@ class AudioPlaylist extends HTMLElement {
 			const isActiveTrack = index === this.currentIndex;
 			if (isActiveTrack) {
 				if (audio.paused) {
+					if (checkbox.checked) wakeLockRequest();
 					audio.play();
 				} else {
 					audio.pause();
@@ -338,6 +339,7 @@ class AudioPlaylist extends HTMLElement {
 			}
 			setActiveTrack(index);
 			audio.src = getUrl(this.playlist[index]);
+			if (checkbox.checked) wakeLockRequest();
 			audio.play();
 		});
 
@@ -359,7 +361,8 @@ class AudioPlaylist extends HTMLElement {
 			wakeLockRelease();
 		});
 		checkbox.addEventListener('change', () => {
-			if (!checkbox.checked) wakeLockRelease();
+			if (checkbox.checked && !audio.paused) wakeLockRequest();
+			else if (!checkbox.checked) wakeLockRelease();
 		});
 		wakeLockStartVisibilityReacquire(() => checkbox.checked && !audio.paused);
 
