@@ -54,6 +54,11 @@ require get_template_directory() . '/includes/admin-brand.php';
  */
 require get_template_directory() . '/includes/options-page.php';
 
+/**
+ * Trigger GitHub Actions build (moustache-v7) when content is updated
+ */
+require get_template_directory() . '/includes/trigger-astro-build.php';
+
 // TRUNK
 
 /**
