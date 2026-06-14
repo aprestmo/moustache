@@ -74,7 +74,7 @@ function scores()
 
 						echo ' &ndash; <a href="' . $player_page . '">' . $player . '</a>';
 					} else {
-						echo ' – ' . 'Own goal'; // Translate this and concatenate
+						echo ' – ' . 'Selvmål'; // Translate this and concatenate
 					}
 
 					$assist = get_sub_field('assist_first_half');
@@ -147,7 +147,7 @@ function scores()
 
 						echo ' &ndash; <a href="' . $player_page . '">' . $player . '</a>';
 					} else {
-						echo ' – ' . 'Own goal'; // Translate this and concatenate
+						echo ' – ' . 'Selvmål'; // Translate this and concatenate
 					}
 
 					$assist = get_sub_field('assist_second_half');
