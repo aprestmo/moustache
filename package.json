@@ -1,0 +1,24 @@
+{
+  "name": "moustache",
+  "version": "6.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "caniuse-lite": "^1.0.30001790",
+    "postcss": "^8.5.10",
+    "postcss-preset-env": "^11.2.1",
+    "vite": "npm:rolldown-vite@latest",
+    "vite-plugin-live-reload": "^3.1.0",
+    "vite-plugin-static-copy": "^4.1.0"
+  },
+  "devDependencies": {
+    "@divriots/jampack": "^0.34.1",
+    "prettier": "^3.8.3",
+    "wysiwyg.css": "0.0.4"
+  }
+}
