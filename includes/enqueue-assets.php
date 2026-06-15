@@ -24,8 +24,8 @@ function enqueue_vite_assets()
 
 	if ($is_dev) {
 		// In development, use Vite's dev server on default port 5173
-		echo '<script type="module" src="http://localhost:5173/wp-content/themes/' . get_template() . '/@vite/client"></script>';
-		echo '<script type="module" src="http://localhost:5173/wp-content/themes/' . get_template() . '/src/main.js"></script>';
+		echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
+		echo '<script type="module" src="http://localhost:5173/src/main.js"></script>';
 	} else {
 		// In production, use the manifest to locate the files
 		$manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
