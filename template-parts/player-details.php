@@ -7,10 +7,18 @@
 	<?php endif; ?>
 
 	<div>
-		<?php foreach (['shirt_number', 'shirt_name', 'dob'] as $field) : ?>
+		<?php
+		$field_labels = [
+			'shirt_number'  => __('Shirt Number', 'moustache'),
+			'shirt_name'    => __('Shirt Name', 'moustache'),
+			'dob'           => __('Date of Birth', 'moustache'),
+			'former_clubs'  => __('Former Clubs', 'moustache'),
+			'best_memory'   => __('Best Memory', 'moustache'),
+		];
+		foreach (['shirt_number', 'shirt_name', 'dob'] as $field) : ?>
 			<?php if ($player_data[$field]) : ?>
 				<dl>
-					<dt><?php esc_html_e(ucwords(str_replace('_', ' ', $field)), 'moustache'); ?>:</dt>
+					<dt><?php echo esc_html($field_labels[$field]); ?>:</dt>
 					<dd><?php echo esc_html($player_data[$field]); ?></dd>
 				</dl>
 			<?php endif; ?>
@@ -33,7 +41,7 @@
 		<?php foreach (['former_clubs', 'best_memory'] as $field) : ?>
 			<?php if ($player_data[$field]) : ?>
 				<dl>
-					<dt><?php esc_html_e(ucwords(str_replace('_', ' ', $field)), 'moustache'); ?>:</dt>
+					<dt><?php echo esc_html($field_labels[$field]); ?>:</dt>
 					<dd><?php echo esc_html($player_data[$field]); ?></dd>
 				</dl>
 			<?php endif; ?>

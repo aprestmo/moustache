@@ -35,7 +35,7 @@ $fixtures_query = new WP_Query($args);
 <article class="mou-site-wrap mou-site-wrap--padding wysiwyg">
 	<div class="o-grid o-section-md">
 		<div class="o-grid__item">
-			<h1>Kamper på <?php the_title(); ?></h1>
+			<h1><?php printf(esc_html__('Matches at %s', 'moustache'), get_the_title()); ?></h1>
 			<?php
 			$image = get_field('image');
 			$size = 'medium';
@@ -51,7 +51,7 @@ $fixtures_query = new WP_Query($args);
 			<div class="acf-map" data-zoom="17">
 				<div class="marker" data-lat="<?php echo esc_attr($map['lat']); ?>" data-lng="<?php echo esc_attr($map['lng']); ?>"></div>
 			</div>
-			<p><?php esc_html_e($address); ?></p>
+			<p><?php echo esc_html($address); ?></p>
 
 			<?php
 			$field = get_field_object('surface');
@@ -66,8 +66,8 @@ $fixtures_query = new WP_Query($args);
 					<?php if ($fixtures_query->have_posts()) : ?>
 						<thead>
 							<tr>
-								<th>Dato</th>
-								<th>Kamp</th>
+								<th><?php esc_html_e('Date', 'moustache'); ?></th>
+								<th><?php esc_html_e('Match', 'moustache'); ?></th>
 							</tr>
 						</thead>
 						<tbody>

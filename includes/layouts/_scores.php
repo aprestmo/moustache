@@ -9,9 +9,9 @@ function scores()
 	if ($walkover) {
 		echo '<hr>';
 		if ($walkover_winner === 'kampbart') {
-			echo '<p>Motstander møter ikke opp.<br> <strong>Kampbart vinner på walkover.</strong></p>';
+			echo wp_kses_post(__('<p>Opponent did not show up.<br> <strong>Kampbart wins by walkover.</strong></p>', 'moustache'));
 		} else {
-			echo '<p>Kampbart møter ikke opp.<br> <strong>Motstander vinner på walkover</strong></p>';
+			echo wp_kses_post(__('<p>Kampbart did not show up.<br> <strong>Opponent wins by walkover</strong></p>', 'moustache'));
 		}
 	} else {
 		// Get home and away team field
@@ -74,7 +74,7 @@ function scores()
 
 						echo ' &ndash; <a href="' . $player_page . '">' . $player . '</a>';
 					} else {
-						echo ' – ' . 'Own goal'; // Translate this and concatenate
+						echo ' – ' . esc_html__('Own goal', 'moustache');
 					}
 
 					$assist = get_sub_field('assist_first_half');
@@ -147,7 +147,7 @@ function scores()
 
 						echo ' &ndash; <a href="' . $player_page . '">' . $player . '</a>';
 					} else {
-						echo ' – ' . 'Own goal'; // Translate this and concatenate
+						echo ' – ' . esc_html__('Own goal', 'moustache');
 					}
 
 					$assist = get_sub_field('assist_second_half');

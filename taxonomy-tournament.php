@@ -74,9 +74,9 @@ $term = get_queried_object();
                     <?php endif; ?>
 
                     <nav class="u-soft-bottom-md">
-                        <a href="#terminliste"><?php esc_html_e('Terminliste', 'moustache'); ?></a>
-                        <a href="#tabell"><?php esc_html_e('Tabell', 'moustache'); ?></a>
-                        <a href="#statistikk"><?php esc_html_e('Statistikk', 'moustache'); ?></a>
+                        <a href="#terminliste"><?php esc_html_e('Fixtures', 'moustache'); ?></a>
+                        <a href="#tabell"><?php esc_html_e('Standings', 'moustache'); ?></a>
+                        <a href="#statistikk"><?php esc_html_e('Statistics', 'moustache'); ?></a>
                     </nav>
                 </header>
 
@@ -90,11 +90,11 @@ $term = get_queried_object();
                     // Display participating clubs
                     if ($clubs) : ?>
                         <div>
-                            <p><?php esc_html_e('Disse lagene deltar:', 'moustache'); ?></p>
+                            <p><?php esc_html_e('These teams are participating:', 'moustache'); ?></p>
                             <ul><?php display_club_list($clubs); ?></ul>
 
                             <?php if ($withdrawals) : ?>
-                                <p><?php esc_html_e('Disse lagene har trukket seg:', 'moustache'); ?></p>
+                                <p><?php esc_html_e('These teams have withdrawn:', 'moustache'); ?></p>
                                 <ul><?php display_club_list($clubs_withdrawn); ?></ul>
                             <?php endif; ?>
                         </div>

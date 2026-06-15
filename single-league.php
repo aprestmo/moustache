@@ -42,13 +42,13 @@ endif;
 	<table>
 		<thead>
 			<tr>
-				<th>Dag</th>
-				<th>Dato</th>
-				<th>Tid</th>
-				<th>Hjemmelag</th>
-				<th>Bortelag</th>
-				<th>Bane</th>
-				<th>Resultat</th>
+				<th><?php esc_html_e('Day', 'moustache'); ?></th>
+				<th><?php esc_html_e('Date', 'moustache'); ?></th>
+				<th><?php esc_html_e('Time', 'moustache'); ?></th>
+				<th><?php esc_html_e('Home team', 'moustache'); ?></th>
+				<th><?php esc_html_e('Away team', 'moustache'); ?></th>
+				<th><?php esc_html_e('Pitch', 'moustache'); ?></th>
+				<th><?php esc_html_e('Result', 'moustache'); ?></th>
 			</tr>
 		</thead>
 		<?php

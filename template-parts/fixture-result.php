@@ -58,7 +58,7 @@ if ($walkover && $result_only) : ?>
 ?>
     <td class="<?php echo esc_attr($result_type); ?>">
         <?php printf('%d&ndash;%d', $home_score, $away_score); ?>
-        <abbr title="<?php esc_attr_e('Walkover', 'moustache'); ?>">WO</abbr>
+        <abbr title="<?php esc_attr_e('Walkover', 'moustache'); ?>"><?php esc_html_e('WO', 'moustache'); ?></abbr>
     </td>
 <?php elseif ($result_only) : ?>
     <td class="<?php echo esc_attr($result_type); ?>">

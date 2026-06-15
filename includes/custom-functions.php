@@ -182,7 +182,7 @@ function bem_menu(string $location = "main_menu", string $css_class_prefix = 'ma
 	if (has_nav_menu($location)) {
 		wp_nav_menu($args);
 	} else {
-		echo '<p>Du må definere en meny i WordPress-admin</p>';
+		echo '<p>' . esc_html__('You must define a menu in the WordPress admin.', 'moustache') . '</p>';
 	}
 }
 
@@ -215,10 +215,12 @@ function formatClubTitlesWithOg(array $titles): string
 
 	if ($count === 0) return '';
 	if ($count === 1) return $titles[0];
-	if ($count === 2) return $titles[0] . ' og ' . $titles[1];
+	if ($count === 2) {
+		return $titles[0] . ' ' . __('and', 'moustache') . ' ' . $titles[1];
+	}
 
 	$last_item = array_pop($titles);
-	return implode(', ', $titles) . ' og ' . $last_item;
+	return implode(', ', $titles) . ' ' . __('and', 'moustache') . ' ' . $last_item;
 }
 
 // Initialize arrays for withdrawn clubs

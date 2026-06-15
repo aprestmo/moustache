@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unnamed\n"
-"POT-Creation-Date: 2024-11-16 09:32+0100\n"
-"PO-Revision-Date: 2024-11-16 09:33+0100\n"
+"POT-Creation-Date: 2026-06-15 10:28+0200\n"
+"PO-Revision-Date: 2026-06-15 10:29+0200\n"
 "Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -10,12 +10,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -31,52 +30,52 @@ msgstr ""
 "Det ser ut som ingenting finnes på denne adressen. Hva med å forsøke et søk?"
 
 #: archive-club.php:55
-msgid "Klubboversikt"
-msgstr ""
+msgid "Club overview"
+msgstr "Klubboversikt"
 
 #: archive-club.php:66
-msgid "Ingen klubber funnet."
-msgstr ""
+msgid "No clubs found."
+msgstr "Ingen klubber funnet."
 
 #: archive-pitch.php:55
-msgid "Baneoversikt"
-msgstr ""
+msgid "Pitch overview"
+msgstr "Baneoversikt"
 
 #: archive-pitch.php:66
-msgid "Ingen baner funnet."
-msgstr ""
+msgid "No pitches found."
+msgstr "Ingen baner funnet."
 
 #: archive-player.php:80
-msgid "Aktive spillere"
-msgstr ""
+msgid "Active players"
+msgstr "Aktive spillere"
 
 #: archive-player.php:97
-msgid "Spillere med barten på hylla"
-msgstr ""
+msgid "Players with moustaches on the shelf"
+msgstr "Spillere med barten på hylla"
 
 #: archive-player.php:113
-msgid "Ingen spillere funnet."
-msgstr ""
+msgid "No players found."
+msgstr "Ingen spillere funnet."
 
 #: archive.php:38
-msgid "Arkiv"
-msgstr ""
+msgid "Archive"
+msgstr "Arkiv"
 
 #: archive.php:82
-msgid "Ingen innlegg funnet."
-msgstr ""
+msgid "No posts found."
+msgstr "Ingen innlegg funnet."
 
-#: footer.php:26
+#: footer.php:30
 msgid "Founded 2003"
 msgstr "Grunnlagt 2003"
 
-#: footer.php:28
+#: footer.php:32
 msgid "Copyright"
-msgstr ""
+msgstr "Opphavsrett"
 
 #: front-page.php:98
-msgid "See alle innlegg"
-msgstr ""
+msgid "See all posts"
+msgstr "Se alle innlegg"
 
 #: header.php:62
 msgid "Menu"
@@ -86,13 +85,21 @@ msgstr "Meny"
 msgid "Search"
 msgstr "Søk"
 
-#: header.php:76
+#: header.php:76 searchform.php:3
 msgid "Close"
 msgstr "Lukk"
 
 #: includes/admin-brand.php:41
 msgid "Go to site"
 msgstr "Gå til nettstedet"
+
+#: includes/custom-functions.php:185
+msgid "You must define a menu in the WordPress admin."
+msgstr "Du må definere en meny i WordPress-admin"
+
+#: includes/custom-functions.php:219 includes/custom-functions.php:223
+msgid "and"
+msgstr "og"
 
 #: includes/layouts/_attendance.php:14
 msgid "Attendace"
@@ -123,6 +130,26 @@ msgstr "kl."
 msgid "Present"
 msgstr "Tilstede"
 
+#: includes/layouts/_scores.php:12
+msgid ""
+"<p>Opponent did not show up.<br> <strong>Kampbart wins by walkover.</"
+"strong></p>"
+msgstr ""
+"<p>Motstander møter ikke opp.<br> <strong>Kampbart vinner på walkover.</"
+"strong></p>"
+
+#: includes/layouts/_scores.php:14
+msgid ""
+"<p>Kampbart did not show up.<br> <strong>Opponent wins by walkover</strong></"
+"p>"
+msgstr ""
+"<p>Kampbart møter ikke opp.<br> <strong>Motstander vinner på walkover</"
+"strong></p>"
+
+#: includes/layouts/_scores.php:77 includes/layouts/_scores.php:150
+msgid "Own goal"
+msgstr "Selvmål"
+
 #: includes/layouts/_weather.php:14
 msgid "Weather"
 msgstr "Vær"
@@ -137,8 +164,8 @@ msgid "Primary Menu"
 msgstr "Hovedmeny"
 
 #: page-klubbinfo.php:49
-msgid "Vinnere av gullbarten"
-msgstr ""
+msgid "Winners of the golden moustache"
+msgstr "Vinnere av gullbarten"
 
 #: page-klubbinfo.php:86
 msgid "Founded"
@@ -160,6 +187,63 @@ msgstr "Drakter"
 msgid "E.g. wins, moustaches etc."
 msgstr "F.eks. seiere, barter etc."
 
+#: single-club.php:50
+#, php-format
+msgid "Matches against %s"
+msgstr "Kamper mot %s"
+
+#: single-club.php:61
+#, php-format
+msgid "First meeting with %1$s was <time datetime=\"%2$s\">%3$s</time>."
+msgstr "Første møte med %1$s var <time datetime=\"%2$s\">%3$s</time>."
+
+#: single-club.php:68
+#, php-format
+msgid "First meeting with %1$s is <time datetime=\"%2$s\">%3$s</time>."
+msgstr "Første møte med %1$s er <time datetime=\"%2$s\">%3$s</time>."
+
+#: single-club.php:83 single-league.php:46 single-pitch.php:69
+#: template-parts/fixture-list.php:21
+msgid "Date"
+msgstr "Dato"
+
+#: single-club.php:84
+msgid "Match report"
+msgstr "Kamprapport"
+
+#: single-club.php:124
+msgid "No match report found."
+msgstr "Ingen kamprapport funnet."
+
+#: single-league.php:45 template-parts/fixture-list.php:20
+msgid "Day"
+msgstr "Dag"
+
+#: single-league.php:47 template-parts/fixture-list.php:22
+msgid "Time"
+msgstr "Tidspunkt"
+
+#: single-league.php:48 template-parts/fixture-list.php:23
+msgid "Home team"
+msgstr "Hjemmelag"
+
+#: single-league.php:49 template-parts/fixture-list.php:24
+msgid "Away team"
+msgstr "Bortelag"
+
+#: single-league.php:50 template-parts/fixture-list.php:25
+msgid "Pitch"
+msgstr "Bane"
+
+#: single-league.php:51 template-parts/fixture-list.php:26
+msgid "Result"
+msgstr "Resultat"
+
+#: single-pitch.php:38
+#, php-format
+msgid "Matches at %s"
+msgstr "Kamper på %s"
+
 #: single-pitch.php:43
 msgid "Image from "
 msgstr "Bilde fra "
@@ -168,29 +252,33 @@ msgstr "Bilde fra "
 msgid "Surface"
 msgstr "Underlag"
 
+#: single-pitch.php:70
+msgid "Match"
+msgstr "Kamp"
+
 #: single.php:16
 msgid "Writer"
 msgstr "Skribent"
 
 #: taxonomy-tournament.php:77 template-parts/fixture-list.php:17
-msgid "Terminliste"
-msgstr ""
+msgid "Fixtures"
+msgstr "Terminliste"
 
-#: taxonomy-tournament.php:78
-msgid "Tabell"
-msgstr ""
+#: taxonomy-tournament.php:78 template-parts/standings-table.php:39
+msgid "Standings"
+msgstr "Tabell"
 
 #: taxonomy-tournament.php:79
-msgid "Statistikk"
-msgstr ""
+msgid "Statistics"
+msgstr "Statistikk"
 
 #: taxonomy-tournament.php:93
-msgid "Disse lagene deltar:"
-msgstr ""
+msgid "These teams are participating:"
+msgstr "Disse lagene deltar:"
 
 #: taxonomy-tournament.php:97
-msgid "Disse lagene har trukket seg:"
-msgstr ""
+msgid "These teams have withdrawn:"
+msgstr "Disse lagene har trukket seg:"
 
 #: template-parts/featured-players.php:45
 msgid "Missing player profile image"
@@ -200,45 +288,26 @@ msgstr "Mangle profilbilde"
 msgid "Featured players"
 msgstr "Profilerte Barter"
 
-#: template-parts/fixture-list.php:20
-msgid "Day"
-msgstr "Dag"
-
-#: template-parts/fixture-list.php:21
-msgid "Date"
-msgstr "Dato"
-
-#: template-parts/fixture-list.php:22
-msgid "Time"
-msgstr "Tidspunkt"
-
-#: template-parts/fixture-list.php:23
-msgid "Home team"
-msgstr "Hjemmelag"
-
-#: template-parts/fixture-list.php:24
-msgid "Away team"
-msgstr "Bortelag"
-
-#: template-parts/fixture-list.php:25
-msgid "Pitch"
-msgstr "Bane"
-
-#: template-parts/fixture-list.php:26
-msgid "Result"
-msgstr "Resultat"
-
 #: template-parts/fixture-list.php:65
-msgid "Nytt tidspunkt kommer"
-msgstr ""
+msgid "New time to be announced"
+msgstr "Nytt tidspunkt kommer"
+
+#: template-parts/fixture-list.php:134
+#, php-format
+msgid "<span>%s</span> have withdrawn."
+msgstr "<span>%s</span> har trukket seg."
 
 #: template-parts/fixture-result.php:19
 msgid "You can't select both walkover and inadequate report"
-msgstr ""
+msgstr "Du kan ikke velge både walkover og mangelfull rapport"
 
-#: template-parts/fixture-result.php:26
+#: template-parts/fixture-result.php:61
 msgid "Walkover"
-msgstr ""
+msgstr "Walkover"
+
+#: template-parts/fixture-result.php:61
+msgid "WO"
+msgstr "WO"
 
 #: template-parts/next-match.php:109
 msgid "Next match:"
@@ -249,7 +318,27 @@ msgstr "Neste kamp:"
 msgid "Portrait of %s"
 msgstr "Portrett av %s"
 
-#: template-parts/player-details.php:21
+#: template-parts/player-details.php:12
+msgid "Shirt Number"
+msgstr "Draktnummer"
+
+#: template-parts/player-details.php:13
+msgid "Shirt Name"
+msgstr "Draktnavn"
+
+#: template-parts/player-details.php:14
+msgid "Date of Birth"
+msgstr "Fødselsdato"
+
+#: template-parts/player-details.php:15
+msgid "Former Clubs"
+msgstr "Tidligere klubber"
+
+#: template-parts/player-details.php:16
+msgid "Best Memory"
+msgstr "Beste Kampbart-minne"
+
+#: template-parts/player-details.php:29
 msgid "Position"
 msgstr "Posisjon"
 
@@ -291,22 +380,81 @@ msgstr "Røde kort"
 msgid "Total"
 msgstr "Totalt"
 
-#: template-parts/songs.php:32
+#: template-parts/songs.php:40
 #, php-format
 msgid "Download \"%s\""
 msgstr "Last ned «%s»"
 
-#: template-parts/songs.php:43
+#: template-parts/songs.php:51
 #, php-format
 msgid "Download lyrics for \"%s\""
 msgstr "Last ned teksten til «%s»"
 
+#: template-parts/standings-table.php:19
+msgid "Standings functions not available."
+msgstr "Tabellfunksjoner er ikke tilgjengelige."
+
+#: template-parts/standings-table.php:32
+#, php-format
+msgid "Error occurred: %s"
+msgstr "Det oppstod en feil: %s"
+
+#: template-parts/standings-table.php:42
+msgid "Pos"
+msgstr "Pos"
+
+#: template-parts/standings-table.php:43
+msgid "Team"
+msgstr "Lag"
+
+#: template-parts/standings-table.php:44
+msgid "P"
+msgstr "S"
+
+#: template-parts/standings-table.php:45
+msgid "W"
+msgstr "V"
+
+#: template-parts/standings-table.php:46
+msgid "D"
+msgstr "U"
+
+#: template-parts/standings-table.php:47
+msgid "L"
+msgstr "T"
+
+#: template-parts/standings-table.php:48
+msgid "GF"
+msgstr "M+"
+
+#: template-parts/standings-table.php:49
+msgid "GA"
+msgstr "M-"
+
+#: template-parts/standings-table.php:50
+msgid "GD"
+msgstr "M±"
+
+#: template-parts/standings-table.php:51
+msgid "Pts"
+msgstr "P"
+
+#: template-parts/standings-table.php:84
+#, php-format
+msgid "Last updated: %s"
+msgstr "Sist oppdatert: %s"
+
+#: template-parts/standings-table.php:88
+msgid "Last updated: Unknown"
+msgstr "Sist oppdatert: Ukjent"
+
+#: template-parts/standings-table.php:95
+msgid "No standings data available."
+msgstr "Ingen tabelldata tilgjengelig."
+
 #: template-parts/tournament-stats.php:162
-#, fuzzy
-#| msgctxt "Taxonomy General Name"
-#| msgid "Tournaments"
 msgid "Tournament Statistics"
-msgstr "Turneringer"
+msgstr "Turneringsstatistikk"
 
 #: template-parts/tournament-stats.php:165
 msgid "Name"
@@ -314,45 +462,30 @@ msgstr "Navn"
 
 #. Theme Name of the plugin/theme
 msgid "Moustache"
-msgstr ""
+msgstr "Moustache"
 
 #. Theme URI of the plugin/theme
-msgid "https://github.com/aprestmo/moustache"
-msgstr ""
+msgid "https://git.attityd.no/kampbart/moustache"
+msgstr "https://git.attityd.no/kampbart/moustache"
 
 #. Description of the plugin/theme
-msgid "WordPress theme for Kampbart"
-msgstr ""
+msgid "WordPress tema for Kampbart"
+msgstr "WordPress-tema for Kampbart"
 
 #. Author of the plugin/theme
 msgid "Alexander Prestmo"
-msgstr ""
+msgstr "Alexander Prestmo"
 
 #. Author URI of the plugin/theme
-msgid "http://alexanderprestmo.no"
-msgstr ""
+msgid "https://alexanderprestmo.no"
+msgstr "https://alexanderprestmo.no"
 
 #. Template Name of the plugin/theme
-msgid "Klubbinfo"
-msgstr ""
+msgid "Club info"
+msgstr "Klubbinfo"
 
 #~ msgid "Card in 2nd half"
 #~ msgstr "Kort i 2. omgang"
-
-#~ msgid "Shirt Number"
-#~ msgstr "Draktnummer"
-
-#~ msgid "Shirt Name"
-#~ msgstr "Draktnavn"
-
-#~ msgid "Date of Birth"
-#~ msgstr "Fødselsdato"
-
-#~ msgid "Former Clubs"
-#~ msgstr "Tidligere klubber"
-
-#~ msgid "Best Memory"
-#~ msgstr "Beste Kampbart-minne"
 
 #~ msgid "Sent off in 1st half"
 #~ msgstr "Utvist i 1. omgang"
@@ -363,10 +496,6 @@ msgstr ""
 #~ msgctxt "post type general name"
 #~ msgid "Clubs"
 #~ msgstr "Klubber"
-
-#~ msgctxt "post type singular name"
-#~ msgid "Club"
-#~ msgstr "Klubb"
 
 #~ msgctxt "post type singular"
 #~ msgid "Add Club"

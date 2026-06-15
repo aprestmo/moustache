@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Klubbinfo
+ * Template Name: Club info
  *
  * @package Moustache
  */
@@ -46,7 +46,7 @@ function display_gullbart_winners(): void
 {
 	if (have_rows('gullbart')):
 		?>
-		<h3><?php esc_html_e('Vinnere av gullbarten', 'moustache'); ?></h3>
+		<h3><?php esc_html_e('Winners of the golden moustache', 'moustache'); ?></h3>
 		<dl>
 			<?php
 			while (have_rows('gullbart')) :

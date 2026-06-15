@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 
 <div class="table-scroll" role="region" aria-labelledby="caption" tabindex="0">
 	<table id="terminliste">
-		<caption><?php esc_html_e('Terminliste', 'moustache'); ?></caption>
+		<caption><?php esc_html_e('Fixtures', 'moustache'); ?></caption>
 		<thead>
 			<tr>
 				<th><?php esc_html_e('Day', 'moustache'); ?></th>
@@ -62,7 +62,7 @@ if (!defined('ABSPATH')) {
 					$display_date_time = $new_date_time ? $new_date_time : $date_time;
 
 					if (!empty($postponed) && empty($new_date_time)) : ?>
-						<td colspan="3"><em><?php esc_html_e('Nytt tidspunkt kommer', 'moustache'); ?></em></td>
+						<td colspan="3"><em><?php esc_html_e('New time to be announced', 'moustache'); ?></em></td>
 					<?php else : ?>
 						<td><?php echo esc_html(ucfirst(date_i18n('l', strtotime($display_date_time)))); ?></td>
 						<td><?php echo esc_html(date_i18n('d.m', strtotime($display_date_time))); ?></td>
@@ -131,7 +131,7 @@ if (!defined('ABSPATH')) {
 
 						echo wp_kses(
 							sprintf(
-								'<span>%s</span> har trukket seg.',
+								__('<span>%s</span> have withdrawn.', 'moustache'),
 								implode('</span>, <span>', explode(', ', formatClubTitlesWithOg($club_titles)))
 							),
 							['span' => []]

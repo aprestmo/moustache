@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Moustache\n"
-"POT-Creation-Date: 2024-11-16 09:32+0100\n"
+"POT-Creation-Date: 2026-06-15 10:28+0200\n"
 "PO-Revision-Date: 2017-02-14 10:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,13 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -31,51 +30,51 @@ msgid ""
 msgstr ""
 
 #: archive-club.php:55
-msgid "Klubboversikt"
+msgid "Club overview"
 msgstr ""
 
 #: archive-club.php:66
-msgid "Ingen klubber funnet."
+msgid "No clubs found."
 msgstr ""
 
 #: archive-pitch.php:55
-msgid "Baneoversikt"
+msgid "Pitch overview"
 msgstr ""
 
 #: archive-pitch.php:66
-msgid "Ingen baner funnet."
+msgid "No pitches found."
 msgstr ""
 
 #: archive-player.php:80
-msgid "Aktive spillere"
+msgid "Active players"
 msgstr ""
 
 #: archive-player.php:97
-msgid "Spillere med barten på hylla"
+msgid "Players with moustaches on the shelf"
 msgstr ""
 
 #: archive-player.php:113
-msgid "Ingen spillere funnet."
+msgid "No players found."
 msgstr ""
 
 #: archive.php:38
-msgid "Arkiv"
+msgid "Archive"
 msgstr ""
 
 #: archive.php:82
-msgid "Ingen innlegg funnet."
+msgid "No posts found."
 msgstr ""
 
-#: footer.php:26
+#: footer.php:30
 msgid "Founded 2003"
 msgstr ""
 
-#: footer.php:28
+#: footer.php:32
 msgid "Copyright"
 msgstr ""
 
 #: front-page.php:98
-msgid "See alle innlegg"
+msgid "See all posts"
 msgstr ""
 
 #: header.php:62
@@ -86,12 +85,20 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: header.php:76
+#: header.php:76 searchform.php:3
 msgid "Close"
 msgstr ""
 
 #: includes/admin-brand.php:41
 msgid "Go to site"
+msgstr ""
+
+#: includes/custom-functions.php:185
+msgid "You must define a menu in the WordPress admin."
+msgstr ""
+
+#: includes/custom-functions.php:219 includes/custom-functions.php:223
+msgid "and"
 msgstr ""
 
 #: includes/layouts/_attendance.php:14
@@ -123,6 +130,21 @@ msgstr ""
 msgid "Present"
 msgstr ""
 
+#: includes/layouts/_scores.php:12
+msgid ""
+"<p>Opponent did not show up.<br> <strong>Kampbart wins by walkover.</strong></"
+"p>"
+msgstr ""
+
+#: includes/layouts/_scores.php:14
+msgid ""
+"<p>Kampbart did not show up.<br> <strong>Opponent wins by walkover</strong></p>"
+msgstr ""
+
+#: includes/layouts/_scores.php:77 includes/layouts/_scores.php:150
+msgid "Own goal"
+msgstr ""
+
 #: includes/layouts/_weather.php:14
 msgid "Weather"
 msgstr ""
@@ -136,7 +158,7 @@ msgid "Primary Menu"
 msgstr ""
 
 #: page-klubbinfo.php:49
-msgid "Vinnere av gullbarten"
+msgid "Winners of the golden moustache"
 msgstr ""
 
 #: page-klubbinfo.php:86
@@ -159,6 +181,63 @@ msgstr ""
 msgid "E.g. wins, moustaches etc."
 msgstr ""
 
+#: single-club.php:50
+#, php-format
+msgid "Matches against %s"
+msgstr ""
+
+#: single-club.php:61
+#, php-format
+msgid "First meeting with %1$s was <time datetime=\"%2$s\">%3$s</time>."
+msgstr ""
+
+#: single-club.php:68
+#, php-format
+msgid "First meeting with %1$s is <time datetime=\"%2$s\">%3$s</time>."
+msgstr ""
+
+#: single-club.php:83 single-league.php:46 single-pitch.php:69
+#: template-parts/fixture-list.php:21
+msgid "Date"
+msgstr ""
+
+#: single-club.php:84
+msgid "Match report"
+msgstr ""
+
+#: single-club.php:124
+msgid "No match report found."
+msgstr ""
+
+#: single-league.php:45 template-parts/fixture-list.php:20
+msgid "Day"
+msgstr ""
+
+#: single-league.php:47 template-parts/fixture-list.php:22
+msgid "Time"
+msgstr ""
+
+#: single-league.php:48 template-parts/fixture-list.php:23
+msgid "Home team"
+msgstr ""
+
+#: single-league.php:49 template-parts/fixture-list.php:24
+msgid "Away team"
+msgstr ""
+
+#: single-league.php:50 template-parts/fixture-list.php:25
+msgid "Pitch"
+msgstr ""
+
+#: single-league.php:51 template-parts/fixture-list.php:26
+msgid "Result"
+msgstr ""
+
+#: single-pitch.php:38
+#, php-format
+msgid "Matches at %s"
+msgstr ""
+
 #: single-pitch.php:43
 msgid "Image from "
 msgstr ""
@@ -167,28 +246,32 @@ msgstr ""
 msgid "Surface"
 msgstr ""
 
+#: single-pitch.php:70
+msgid "Match"
+msgstr ""
+
 #: single.php:16
 msgid "Writer"
 msgstr ""
 
 #: taxonomy-tournament.php:77 template-parts/fixture-list.php:17
-msgid "Terminliste"
+msgid "Fixtures"
 msgstr ""
 
-#: taxonomy-tournament.php:78
-msgid "Tabell"
+#: taxonomy-tournament.php:78 template-parts/standings-table.php:39
+msgid "Standings"
 msgstr ""
 
 #: taxonomy-tournament.php:79
-msgid "Statistikk"
+msgid "Statistics"
 msgstr ""
 
 #: taxonomy-tournament.php:93
-msgid "Disse lagene deltar:"
+msgid "These teams are participating:"
 msgstr ""
 
 #: taxonomy-tournament.php:97
-msgid "Disse lagene har trukket seg:"
+msgid "These teams have withdrawn:"
 msgstr ""
 
 #: template-parts/featured-players.php:45
@@ -199,44 +282,25 @@ msgstr ""
 msgid "Featured players"
 msgstr ""
 
-#: template-parts/fixture-list.php:20
-msgid "Day"
-msgstr ""
-
-#: template-parts/fixture-list.php:21
-msgid "Date"
-msgstr ""
-
-#: template-parts/fixture-list.php:22
-msgid "Time"
-msgstr ""
-
-#: template-parts/fixture-list.php:23
-msgid "Home team"
-msgstr ""
-
-#: template-parts/fixture-list.php:24
-msgid "Away team"
-msgstr ""
-
-#: template-parts/fixture-list.php:25
-msgid "Pitch"
-msgstr ""
-
-#: template-parts/fixture-list.php:26
-msgid "Result"
-msgstr ""
-
 #: template-parts/fixture-list.php:65
-msgid "Nytt tidspunkt kommer"
+msgid "New time to be announced"
+msgstr ""
+
+#: template-parts/fixture-list.php:134
+#, php-format
+msgid "<span>%s</span> have withdrawn."
 msgstr ""
 
 #: template-parts/fixture-result.php:19
 msgid "You can't select both walkover and inadequate report"
 msgstr ""
 
-#: template-parts/fixture-result.php:26
+#: template-parts/fixture-result.php:61
 msgid "Walkover"
+msgstr ""
+
+#: template-parts/fixture-result.php:61
+msgid "WO"
 msgstr ""
 
 #: template-parts/next-match.php:109
@@ -248,7 +312,27 @@ msgstr ""
 msgid "Portrait of %s"
 msgstr ""
 
-#: template-parts/player-details.php:21
+#: template-parts/player-details.php:12
+msgid "Shirt Number"
+msgstr ""
+
+#: template-parts/player-details.php:13
+msgid "Shirt Name"
+msgstr ""
+
+#: template-parts/player-details.php:14
+msgid "Date of Birth"
+msgstr ""
+
+#: template-parts/player-details.php:15
+msgid "Former Clubs"
+msgstr ""
+
+#: template-parts/player-details.php:16
+msgid "Best Memory"
+msgstr ""
+
+#: template-parts/player-details.php:29
 msgid "Position"
 msgstr ""
 
@@ -260,8 +344,7 @@ msgstr ""
 msgid "Season"
 msgstr ""
 
-#: template-parts/player-statistics.php:9
-#: template-parts/tournament-stats.php:166
+#: template-parts/player-statistics.php:9 template-parts/tournament-stats.php:166
 msgid "Matches"
 msgstr ""
 
@@ -290,14 +373,76 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: template-parts/songs.php:32
+#: template-parts/songs.php:40
 #, php-format
 msgid "Download \"%s\""
 msgstr ""
 
-#: template-parts/songs.php:43
+#: template-parts/songs.php:51
 #, php-format
 msgid "Download lyrics for \"%s\""
+msgstr ""
+
+#: template-parts/standings-table.php:19
+msgid "Standings functions not available."
+msgstr ""
+
+#: template-parts/standings-table.php:32
+#, php-format
+msgid "Error occurred: %s"
+msgstr ""
+
+#: template-parts/standings-table.php:42
+msgid "Pos"
+msgstr ""
+
+#: template-parts/standings-table.php:43
+msgid "Team"
+msgstr ""
+
+#: template-parts/standings-table.php:44
+msgid "P"
+msgstr ""
+
+#: template-parts/standings-table.php:45
+msgid "W"
+msgstr ""
+
+#: template-parts/standings-table.php:46
+msgid "D"
+msgstr ""
+
+#: template-parts/standings-table.php:47
+msgid "L"
+msgstr ""
+
+#: template-parts/standings-table.php:48
+msgid "GF"
+msgstr ""
+
+#: template-parts/standings-table.php:49
+msgid "GA"
+msgstr ""
+
+#: template-parts/standings-table.php:50
+msgid "GD"
+msgstr ""
+
+#: template-parts/standings-table.php:51
+msgid "Pts"
+msgstr ""
+
+#: template-parts/standings-table.php:84
+#, php-format
+msgid "Last updated: %s"
+msgstr ""
+
+#: template-parts/standings-table.php:88
+msgid "Last updated: Unknown"
+msgstr ""
+
+#: template-parts/standings-table.php:95
+msgid "No standings data available."
 msgstr ""
 
 #: template-parts/tournament-stats.php:162
@@ -313,11 +458,11 @@ msgid "Moustache"
 msgstr ""
 
 #. Theme URI of the plugin/theme
-msgid "https://github.com/aprestmo/moustache"
+msgid "https://git.attityd.no/kampbart/moustache"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "WordPress theme for Kampbart"
+msgid "WordPress tema for Kampbart"
 msgstr ""
 
 #. Author of the plugin/theme
@@ -325,9 +470,9 @@ msgid "Alexander Prestmo"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://alexanderprestmo.no"
+msgid "https://alexanderprestmo.no"
 msgstr ""
 
 #. Template Name of the plugin/theme
-msgid "Klubbinfo"
+msgid "Club info"
 msgstr ""

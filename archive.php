@@ -35,7 +35,7 @@ function get_archive_posts(): WP_Query
 		<div class="o-grid__item">
 			<section class="o-section-md">
 				<header>
-					<h1><?php esc_html_e('Arkiv', 'moustache'); ?></h1>
+					<h1><?php esc_html_e('Archive', 'moustache'); ?></h1>
 				</header>
 
 				<?php
@@ -79,7 +79,7 @@ function get_archive_posts(): WP_Query
 
 					wp_reset_postdata();
 				else : ?>
-					<p><?php esc_html_e('Ingen innlegg funnet.', 'moustache'); ?></p>
+					<p><?php esc_html_e('No posts found.', 'moustache'); ?></p>
 				<?php endif; ?>
 			</section>
 		</div>

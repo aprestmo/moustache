@@ -52,7 +52,7 @@ function display_club_link(WP_Post $club): void
 
 	if ($clubs) : ?>
 		<header>
-			<h1><?php esc_html_e('Klubboversikt', 'moustache'); ?></h1>
+			<h1><?php esc_html_e('Club overview', 'moustache'); ?></h1>
 		</header>
 
 		<ul class="clubs-grid u-soft-top-md u-flush-left">
@@ -63,7 +63,7 @@ function display_club_link(WP_Post $club): void
 			?>
 		</ul>
 	<?php else : ?>
-		<p><?php esc_html_e('Ingen klubber funnet.', 'moustache'); ?></p>
+		<p><?php esc_html_e('No clubs found.', 'moustache'); ?></p>
 	<?php endif; ?>
 </div>
 

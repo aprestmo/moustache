@@ -47,7 +47,7 @@ if ($fixtures_query->have_posts()) {
 <article class="mou-site-wrap mou-site-wrap--padding wysiwyg">
     <div class="o-grid o-section-md">
         <div class="o-grid__item">
-            <h1>Kamper mot <?php the_title(); ?></h1>
+            <h1><?php printf(esc_html__('Matches against %s', 'moustache'), get_the_title()); ?></h1>
             <?php
             $now = strtotime('now');
             $past = strtotime($oldest_fixture_date);
@@ -57,9 +57,19 @@ if ($fixtures_query->have_posts()) {
             if ($fixtures_query->post_count > 1) {
                 // Display the date of the oldest fixture
                 if ($past < $now) {
-                    echo '<p>Første møte med ' . get_the_title() . ' var <time datetime="' . esc_attr($oldest_fixture_date) . '">' . wp_date('j. F Y', strtotime($oldest_fixture_date)) . '</time>.</p>';
+                    echo wp_kses_post(sprintf(
+                        __('First meeting with %1$s was <time datetime="%2$s">%3$s</time>.', 'moustache'),
+                        esc_html(get_the_title()),
+                        esc_attr($oldest_fixture_date),
+                        wp_date('j. F Y', strtotime($oldest_fixture_date))
+                    ));
                 } else {
-                    echo '<p>Første møte med ' . get_the_title() . ' er <time datetime="' . esc_attr($oldest_fixture_date) . '">' . wp_date('j. F Y', strtotime($oldest_fixture_date)) . '</time>.</p>';
+                    echo wp_kses_post(sprintf(
+                        __('First meeting with %1$s is <time datetime="%2$s">%3$s</time>.', 'moustache'),
+                        esc_html(get_the_title()),
+                        esc_attr($oldest_fixture_date),
+                        wp_date('j. F Y', strtotime($oldest_fixture_date))
+                    ));
                 }
             }
 
@@ -70,8 +80,8 @@ if ($fixtures_query->have_posts()) {
                     <?php if ($fixtures_query->have_posts()) : ?>
                         <thead>
                             <tr>
-                                <th>Dato</th>
-                                <th>Kamprapport</th>
+                                <th><?php esc_html_e('Date', 'moustache'); ?></th>
+                                <th><?php esc_html_e('Match report', 'moustache'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,7 +121,7 @@ if ($fixtures_query->have_posts()) {
                                                     <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                             <?php endwhile;
                                             else :
-                                                echo 'Ingen kamprapport funnet.';
+                                                esc_html_e('No match report found.', 'moustache');
                                             endif;
 
                                             wp_reset_postdata();

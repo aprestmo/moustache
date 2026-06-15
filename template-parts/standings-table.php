@@ -16,7 +16,7 @@ echo '<div class="standings-debug">';
 
 // Check if functions exist before calling them
 if (!function_exists('fetch_standings_data') || !function_exists('get_standings_last_update')) {
-    echo '<p>Standings functions not available.</p>';
+    echo '<p>' . esc_html__('Standings functions not available.', 'moustache') . '</p>';
     echo '</div>';
     return;
 }
@@ -29,26 +29,26 @@ try {
     error_log('Standings table error: ' . $e->getMessage());
     $standings = false;
     $last_update = false;
-    echo '<p>Error occurred: ' . esc_html($e->getMessage()) . '</p>';
+    echo '<p>' . esc_html(sprintf(__('Error occurred: %s', 'moustache'), $e->getMessage())) . '</p>';
 }
 
 if ($standings && is_array($standings)) {
 ?>
     <div class="table-scroll" role="region" aria-labelledby="standings-table" tabindex="0">
         <table>
-            <caption id="standings-table"><?php esc_html_e('Tabell', 'moustache'); ?></caption>
+            <caption id="standings-table"><?php esc_html_e('Standings', 'moustache'); ?></caption>
             <thead>
                 <tr>
                     <th scope="col"><?php esc_html_e('Pos', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('Lag', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('S', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('V', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('U', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('T', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('M+', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('M-', 'moustache'); ?></th>
-                    <th scope="col"><?php esc_html_e('M±', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('Team', 'moustache'); ?></th>
                     <th scope="col"><?php esc_html_e('P', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('W', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('D', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('L', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('GF', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('GA', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('GD', 'moustache'); ?></th>
+                    <th scope="col"><?php esc_html_e('Pts', 'moustache'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -81,18 +81,18 @@ if ($standings && is_array($standings)) {
             <?php
             if ($last_update) {
                 printf(
-                    esc_html__('Sist oppdatert: %s', 'moustache'),
+                    esc_html__('Last updated: %s', 'moustache'),
                     esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($last_update)))
                 );
             } else {
-                esc_html_e('Sist oppdatert: Ukjent', 'moustache');
+                esc_html_e('Last updated: Unknown', 'moustache');
             }
             ?>
         </small>
     </div>
 <?php
 } else {
-    echo '<p>No standings data available.</p>';
+    echo '<p>' . esc_html__('No standings data available.', 'moustache') . '</p>';
 }
 
 echo '</div>';

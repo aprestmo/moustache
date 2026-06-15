@@ -52,7 +52,7 @@ function display_pitch_link(WP_Post $pitch): void
 
 	if ($pitches) : ?>
 		<header>
-			<h1><?php esc_html_e('Baneoversikt', 'moustache'); ?></h1>
+			<h1><?php esc_html_e('Pitch overview', 'moustache'); ?></h1>
 		</header>
 
 		<ul class="pitch-grid u-soft-top-md u-flush-left">
@@ -63,7 +63,7 @@ function display_pitch_link(WP_Post $pitch): void
 			?>
 		</ul>
 	<?php else : ?>
-		<p><?php esc_html_e('Ingen baner funnet.', 'moustache'); ?></p>
+		<p><?php esc_html_e('No pitches found.', 'moustache'); ?></p>
 	<?php endif; ?>
 </div>
 

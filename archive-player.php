@@ -77,7 +77,7 @@ function display_player_card(WP_Post $player): void
 				$active_players = get_players_by_status('active');
 				if ($active_players) : ?>
 					<header>
-						<h1><?php esc_html_e('Aktive spillere', 'moustache'); ?></h1>
+						<h1><?php esc_html_e('Active players', 'moustache'); ?></h1>
 					</header>
 
 					<ul class="players-grid">
@@ -94,7 +94,7 @@ function display_player_card(WP_Post $player): void
 				$retired_players = get_players_by_status('retired');
 				if ($retired_players) : ?>
 					<header>
-						<h2><?php esc_html_e('Spillere med barten på hylla', 'moustache'); ?></h2>
+						<h2><?php esc_html_e('Players with moustaches on the shelf', 'moustache'); ?></h2>
 					</header>
 
 					<ul class="players-list">
@@ -110,7 +110,7 @@ function display_player_card(WP_Post $player): void
 				<?php endif; ?>
 
 				<?php if (empty($active_players) && empty($retired_players)) : ?>
-					<p><?php esc_html_e('Ingen spillere funnet.', 'moustache'); ?></p>
+					<p><?php esc_html_e('No players found.', 'moustache'); ?></p>
 				<?php endif; ?>
 			</section>
 		</div>
