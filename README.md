@@ -7,7 +7,7 @@ A custom WordPress theme for [Kampbart](https://kampbart.com). Built with Vite, 
 - **Tested up to WordPress:** 6.6
 - **License:** MIT
 - **Author:** Alexander Prestmo / [Attityd](https://attityd.no)
-- **Repository:** https://git.attityd.no/attityd/moustache
+- **Repository:** https://git.attityd.no/kampbart/moustache
 
 ## Requirements
 
