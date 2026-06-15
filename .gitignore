@@ -23,3 +23,6 @@ Thumbs.db
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# WordPress auto-generated translation cache
+languages/*.l10n.php
