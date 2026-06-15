@@ -1,0 +1,333 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Moustache\n"
+"POT-Creation-Date: 2024-11-16 09:32+0100\n"
+"PO-Revision-Date: 2017-02-14 10:04+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: 404.php:9
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:10
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: archive-club.php:55
+msgid "Klubboversikt"
+msgstr ""
+
+#: archive-club.php:66
+msgid "Ingen klubber funnet."
+msgstr ""
+
+#: archive-pitch.php:55
+msgid "Baneoversikt"
+msgstr ""
+
+#: archive-pitch.php:66
+msgid "Ingen baner funnet."
+msgstr ""
+
+#: archive-player.php:80
+msgid "Aktive spillere"
+msgstr ""
+
+#: archive-player.php:97
+msgid "Spillere med barten på hylla"
+msgstr ""
+
+#: archive-player.php:113
+msgid "Ingen spillere funnet."
+msgstr ""
+
+#: archive.php:38
+msgid "Arkiv"
+msgstr ""
+
+#: archive.php:82
+msgid "Ingen innlegg funnet."
+msgstr ""
+
+#: footer.php:26
+msgid "Founded 2003"
+msgstr ""
+
+#: footer.php:28
+msgid "Copyright"
+msgstr ""
+
+#: front-page.php:98
+msgid "See alle innlegg"
+msgstr ""
+
+#: header.php:62
+msgid "Menu"
+msgstr ""
+
+#: header.php:66 searchform.php:5 searchform.php:7
+msgid "Search"
+msgstr ""
+
+#: header.php:76
+msgid "Close"
+msgstr ""
+
+#: includes/admin-brand.php:41
+msgid "Go to site"
+msgstr ""
+
+#: includes/layouts/_attendance.php:14
+msgid "Attendace"
+msgstr ""
+
+#: includes/layouts/_cards.php:26
+#, php-format
+msgid "Card in %s half"
+msgstr ""
+
+#: includes/layouts/_cards.php:27
+msgid "1st"
+msgstr ""
+
+#: includes/layouts/_cards.php:27
+msgid "2nd"
+msgstr ""
+
+#: includes/layouts/_cards.php:62
+msgid "Cards"
+msgstr ""
+
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:113
+msgid "at"
+msgstr ""
+
+#: includes/layouts/_present.php:13
+msgid "Present"
+msgstr ""
+
+#: includes/layouts/_weather.php:14
+msgid "Weather"
+msgstr ""
+
+#: includes/normalize/login-error.php:4
+msgid "<b>Error:</b> Something went wrong. Please try again."
+msgstr ""
+
+#: includes/setup-theme.php:18
+msgid "Primary Menu"
+msgstr ""
+
+#: page-klubbinfo.php:49
+msgid "Vinnere av gullbarten"
+msgstr ""
+
+#: page-klubbinfo.php:86
+msgid "Founded"
+msgstr ""
+
+#: page-klubbinfo.php:89
+msgid "Address"
+msgstr ""
+
+#: page-klubbinfo.php:92
+msgid "Account number"
+msgstr ""
+
+#: page-klubbinfo.php:95
+msgid "Kit"
+msgstr ""
+
+#: searchform.php:6
+msgid "E.g. wins, moustaches etc."
+msgstr ""
+
+#: single-pitch.php:43
+msgid "Image from "
+msgstr ""
+
+#: single-pitch.php:61
+msgid "Surface"
+msgstr ""
+
+#: single.php:16
+msgid "Writer"
+msgstr ""
+
+#: taxonomy-tournament.php:77 template-parts/fixture-list.php:17
+msgid "Terminliste"
+msgstr ""
+
+#: taxonomy-tournament.php:78
+msgid "Tabell"
+msgstr ""
+
+#: taxonomy-tournament.php:79
+msgid "Statistikk"
+msgstr ""
+
+#: taxonomy-tournament.php:93
+msgid "Disse lagene deltar:"
+msgstr ""
+
+#: taxonomy-tournament.php:97
+msgid "Disse lagene har trukket seg:"
+msgstr ""
+
+#: template-parts/featured-players.php:45
+msgid "Missing player profile image"
+msgstr ""
+
+#: template-parts/featured-players.php:59
+msgid "Featured players"
+msgstr ""
+
+#: template-parts/fixture-list.php:20
+msgid "Day"
+msgstr ""
+
+#: template-parts/fixture-list.php:21
+msgid "Date"
+msgstr ""
+
+#: template-parts/fixture-list.php:22
+msgid "Time"
+msgstr ""
+
+#: template-parts/fixture-list.php:23
+msgid "Home team"
+msgstr ""
+
+#: template-parts/fixture-list.php:24
+msgid "Away team"
+msgstr ""
+
+#: template-parts/fixture-list.php:25
+msgid "Pitch"
+msgstr ""
+
+#: template-parts/fixture-list.php:26
+msgid "Result"
+msgstr ""
+
+#: template-parts/fixture-list.php:65
+msgid "Nytt tidspunkt kommer"
+msgstr ""
+
+#: template-parts/fixture-result.php:19
+msgid "You can't select both walkover and inadequate report"
+msgstr ""
+
+#: template-parts/fixture-result.php:26
+msgid "Walkover"
+msgstr ""
+
+#: template-parts/next-match.php:109
+msgid "Next match:"
+msgstr ""
+
+#: template-parts/player-details.php:5
+#, php-format
+msgid "Portrait of %s"
+msgstr ""
+
+#: template-parts/player-details.php:21
+msgid "Position"
+msgstr ""
+
+#: template-parts/player-statistics.php:5
+msgid "Player Stats"
+msgstr ""
+
+#: template-parts/player-statistics.php:8
+msgid "Season"
+msgstr ""
+
+#: template-parts/player-statistics.php:9
+#: template-parts/tournament-stats.php:166
+msgid "Matches"
+msgstr ""
+
+#: template-parts/player-statistics.php:10
+#: template-parts/tournament-stats.php:167
+msgid "Goals"
+msgstr ""
+
+#: template-parts/player-statistics.php:11
+#: template-parts/tournament-stats.php:168
+msgid "Assists"
+msgstr ""
+
+#: template-parts/player-statistics.php:12
+#: template-parts/tournament-stats.php:169
+msgid "Yellow Cards"
+msgstr ""
+
+#: template-parts/player-statistics.php:13
+#: template-parts/tournament-stats.php:170
+msgid "Red Cards"
+msgstr ""
+
+#: template-parts/player-statistics.php:47
+#: template-parts/tournament-stats.php:208
+msgid "Total"
+msgstr ""
+
+#: template-parts/songs.php:32
+#, php-format
+msgid "Download \"%s\""
+msgstr ""
+
+#: template-parts/songs.php:43
+#, php-format
+msgid "Download lyrics for \"%s\""
+msgstr ""
+
+#: template-parts/tournament-stats.php:162
+msgid "Tournament Statistics"
+msgstr ""
+
+#: template-parts/tournament-stats.php:165
+msgid "Name"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Moustache"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/aprestmo/moustache"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "WordPress theme for Kampbart"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Alexander Prestmo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://alexanderprestmo.no"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Klubbinfo"
+msgstr ""

@@ -1,0 +1,24 @@
+/*------------------------------------*\
+  # TABLES
+\*------------------------------------*/
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  white-space: nowrap;
+}
+
+th {
+  font-family: var(--regular);
+  font-weight: 400;
+}
+
+tbody th {
+  font-family: var(--light);
+}
+
+caption {
+  display: none;
+}

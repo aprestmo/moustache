@@ -1,0 +1,53 @@
+/*------------------------------------*\
+  # POST
+\*------------------------------------*/
+.wysiwyg {
+	:is(h1) {
+		font-family: var(--bold);
+		line-height: 1.2;
+	}
+
+	:is(h2) {
+		font-family: var(--bold);
+		line-height: 1.3;
+	}
+
+	:is(h3) {
+		font-family: var(--bold);
+	}
+
+	:is(h4),
+	:is(h5),
+	:is(h6) {
+		font-family: var(--regular);
+	}
+
+	:is(p),
+	:is(ul),
+	:is(ol) {
+		font-family: var(--light);
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+
+	:is(b),
+	:is(strong) {
+		font-family: var(--regular);
+	}
+
+	:is(a) {
+		text-decoration: underline;
+		text-decoration-thickness: 0.0625rem;
+		text-underline-offset: 0.125rem;
+		transition: text-decoration 180ms ease;
+
+		&:hover {
+			border-bottom: 0;
+			text-decoration-thickness: 0.125rem;
+		}
+	}
+}
+
+.single .wysiwyg a {
+	color: var(--c-brand-red);
+}

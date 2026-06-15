@@ -1,0 +1,25 @@
+/*------------------------------------*\
+  # REPORT
+\*------------------------------------*/
+
+[data-card] {
+	align-items: center;
+	column-gap: 0.5rem;
+	display: flex;
+}
+
+[data-card]::before {
+	block-size: 0.875rem;
+	border-radius: 0.125rem;
+	content: '';
+	inline-size: 0.625rem;
+	position: relative;
+}
+
+[data-card='yellow']::before {
+	background-color: oklch(88.53% 0.195 96.35);
+}
+
+[data-card='red']::before {
+	background-color: oklch(58.82% 0.281 24.35);
+}

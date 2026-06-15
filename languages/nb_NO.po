@@ -1,0 +1,489 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Unnamed\n"
+"POT-Creation-Date: 2024-11-16 09:32+0100\n"
+"PO-Revision-Date: 2024-11-16 09:33+0100\n"
+"Last-Translator: Alexander Prestmo <aprestmo@gmail.com>\n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: 404.php:9
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Oops! Vi kunne ikke finne siden du leter etter."
+
+#: 404.php:10
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+"Det ser ut som ingenting finnes på denne adressen. Hva med å forsøke et søk?"
+
+#: archive-club.php:55
+msgid "Klubboversikt"
+msgstr ""
+
+#: archive-club.php:66
+msgid "Ingen klubber funnet."
+msgstr ""
+
+#: archive-pitch.php:55
+msgid "Baneoversikt"
+msgstr ""
+
+#: archive-pitch.php:66
+msgid "Ingen baner funnet."
+msgstr ""
+
+#: archive-player.php:80
+msgid "Aktive spillere"
+msgstr ""
+
+#: archive-player.php:97
+msgid "Spillere med barten på hylla"
+msgstr ""
+
+#: archive-player.php:113
+msgid "Ingen spillere funnet."
+msgstr ""
+
+#: archive.php:38
+msgid "Arkiv"
+msgstr ""
+
+#: archive.php:82
+msgid "Ingen innlegg funnet."
+msgstr ""
+
+#: footer.php:26
+msgid "Founded 2003"
+msgstr "Grunnlagt 2003"
+
+#: footer.php:28
+msgid "Copyright"
+msgstr ""
+
+#: front-page.php:98
+msgid "See alle innlegg"
+msgstr ""
+
+#: header.php:62
+msgid "Menu"
+msgstr "Meny"
+
+#: header.php:66 searchform.php:5 searchform.php:7
+msgid "Search"
+msgstr "Søk"
+
+#: header.php:76
+msgid "Close"
+msgstr "Lukk"
+
+#: includes/admin-brand.php:41
+msgid "Go to site"
+msgstr "Gå til nettstedet"
+
+#: includes/layouts/_attendance.php:14
+msgid "Attendace"
+msgstr "Tilskuere"
+
+#: includes/layouts/_cards.php:26
+#, php-format
+msgid "Card in %s half"
+msgstr "Kort i %s omgang"
+
+#: includes/layouts/_cards.php:27
+msgid "1st"
+msgstr "første"
+
+#: includes/layouts/_cards.php:27
+msgid "2nd"
+msgstr "andre"
+
+#: includes/layouts/_cards.php:62
+msgid "Cards"
+msgstr "Kort"
+
+#: includes/layouts/_date-time.php:19 template-parts/next-match.php:113
+msgid "at"
+msgstr "kl."
+
+#: includes/layouts/_present.php:13
+msgid "Present"
+msgstr "Tilstede"
+
+#: includes/layouts/_weather.php:14
+msgid "Weather"
+msgstr "Vær"
+
+#: includes/normalize/login-error.php:4
+msgid "<b>Error:</b> Something went wrong. Please try again."
+msgstr ""
+"<b>Feil:</b> Brukernavn eller passord er feil.<br>Vennligst prøv igjen."
+
+#: includes/setup-theme.php:18
+msgid "Primary Menu"
+msgstr "Hovedmeny"
+
+#: page-klubbinfo.php:49
+msgid "Vinnere av gullbarten"
+msgstr ""
+
+#: page-klubbinfo.php:86
+msgid "Founded"
+msgstr "Stiftet"
+
+#: page-klubbinfo.php:89
+msgid "Address"
+msgstr "Postadresse"
+
+#: page-klubbinfo.php:92
+msgid "Account number"
+msgstr "Kontonummer"
+
+#: page-klubbinfo.php:95
+msgid "Kit"
+msgstr "Drakter"
+
+#: searchform.php:6
+msgid "E.g. wins, moustaches etc."
+msgstr "F.eks. seiere, barter etc."
+
+#: single-pitch.php:43
+msgid "Image from "
+msgstr "Bilde fra "
+
+#: single-pitch.php:61
+msgid "Surface"
+msgstr "Underlag"
+
+#: single.php:16
+msgid "Writer"
+msgstr "Skribent"
+
+#: taxonomy-tournament.php:77 template-parts/fixture-list.php:17
+msgid "Terminliste"
+msgstr ""
+
+#: taxonomy-tournament.php:78
+msgid "Tabell"
+msgstr ""
+
+#: taxonomy-tournament.php:79
+msgid "Statistikk"
+msgstr ""
+
+#: taxonomy-tournament.php:93
+msgid "Disse lagene deltar:"
+msgstr ""
+
+#: taxonomy-tournament.php:97
+msgid "Disse lagene har trukket seg:"
+msgstr ""
+
+#: template-parts/featured-players.php:45
+msgid "Missing player profile image"
+msgstr "Mangle profilbilde"
+
+#: template-parts/featured-players.php:59
+msgid "Featured players"
+msgstr "Profilerte Barter"
+
+#: template-parts/fixture-list.php:20
+msgid "Day"
+msgstr "Dag"
+
+#: template-parts/fixture-list.php:21
+msgid "Date"
+msgstr "Dato"
+
+#: template-parts/fixture-list.php:22
+msgid "Time"
+msgstr "Tidspunkt"
+
+#: template-parts/fixture-list.php:23
+msgid "Home team"
+msgstr "Hjemmelag"
+
+#: template-parts/fixture-list.php:24
+msgid "Away team"
+msgstr "Bortelag"
+
+#: template-parts/fixture-list.php:25
+msgid "Pitch"
+msgstr "Bane"
+
+#: template-parts/fixture-list.php:26
+msgid "Result"
+msgstr "Resultat"
+
+#: template-parts/fixture-list.php:65
+msgid "Nytt tidspunkt kommer"
+msgstr ""
+
+#: template-parts/fixture-result.php:19
+msgid "You can't select both walkover and inadequate report"
+msgstr ""
+
+#: template-parts/fixture-result.php:26
+msgid "Walkover"
+msgstr ""
+
+#: template-parts/next-match.php:109
+msgid "Next match:"
+msgstr "Neste kamp:"
+
+#: template-parts/player-details.php:5
+#, php-format
+msgid "Portrait of %s"
+msgstr "Portrett av %s"
+
+#: template-parts/player-details.php:21
+msgid "Position"
+msgstr "Posisjon"
+
+#: template-parts/player-statistics.php:5
+msgid "Player Stats"
+msgstr "Spillerstatistikk"
+
+#: template-parts/player-statistics.php:8
+msgid "Season"
+msgstr "Sesong"
+
+#: template-parts/player-statistics.php:9
+#: template-parts/tournament-stats.php:166
+msgid "Matches"
+msgstr "Kamper"
+
+#: template-parts/player-statistics.php:10
+#: template-parts/tournament-stats.php:167
+msgid "Goals"
+msgstr "Mål"
+
+#: template-parts/player-statistics.php:11
+#: template-parts/tournament-stats.php:168
+msgid "Assists"
+msgstr "Målgivende"
+
+#: template-parts/player-statistics.php:12
+#: template-parts/tournament-stats.php:169
+msgid "Yellow Cards"
+msgstr "Gule kort"
+
+#: template-parts/player-statistics.php:13
+#: template-parts/tournament-stats.php:170
+msgid "Red Cards"
+msgstr "Røde kort"
+
+#: template-parts/player-statistics.php:47
+#: template-parts/tournament-stats.php:208
+msgid "Total"
+msgstr "Totalt"
+
+#: template-parts/songs.php:32
+#, php-format
+msgid "Download \"%s\""
+msgstr "Last ned «%s»"
+
+#: template-parts/songs.php:43
+#, php-format
+msgid "Download lyrics for \"%s\""
+msgstr "Last ned teksten til «%s»"
+
+#: template-parts/tournament-stats.php:162
+#, fuzzy
+#| msgctxt "Taxonomy General Name"
+#| msgid "Tournaments"
+msgid "Tournament Statistics"
+msgstr "Turneringer"
+
+#: template-parts/tournament-stats.php:165
+msgid "Name"
+msgstr "Navn"
+
+#. Theme Name of the plugin/theme
+msgid "Moustache"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/aprestmo/moustache"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "WordPress theme for Kampbart"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Alexander Prestmo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://alexanderprestmo.no"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Klubbinfo"
+msgstr ""
+
+#~ msgid "Card in 2nd half"
+#~ msgstr "Kort i 2. omgang"
+
+#~ msgid "Shirt Number"
+#~ msgstr "Draktnummer"
+
+#~ msgid "Shirt Name"
+#~ msgstr "Draktnavn"
+
+#~ msgid "Date of Birth"
+#~ msgstr "Fødselsdato"
+
+#~ msgid "Former Clubs"
+#~ msgstr "Tidligere klubber"
+
+#~ msgid "Best Memory"
+#~ msgstr "Beste Kampbart-minne"
+
+#~ msgid "Sent off in 1st half"
+#~ msgstr "Utvist i 1. omgang"
+
+#~ msgid "Sent off in 2nd half"
+#~ msgstr "Utvist i 2. omgang"
+
+#~ msgctxt "post type general name"
+#~ msgid "Clubs"
+#~ msgstr "Klubber"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Club"
+#~ msgstr "Klubb"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Club"
+#~ msgstr "Legg til"
+
+#~ msgid "Add"
+#~ msgstr "Legg til"
+
+#~ msgid "Edit"
+#~ msgstr "Rediger"
+
+#~ msgid "New"
+#~ msgstr "Ny"
+
+#~ msgid "View"
+#~ msgstr "Vis"
+
+#~ msgid "Not Found"
+#~ msgstr "Ikke funnet"
+
+#~ msgid "Not Found in Trash"
+#~ msgstr "%s ble ikke funnet i papirkuven"
+
+#~ msgctxt "post type general name"
+#~ msgid "Fixtures"
+#~ msgstr "Kamper"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Fixture"
+#~ msgstr "Kamp"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Fixture"
+#~ msgstr "Legg til kamp"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Pitch"
+#~ msgstr "Bane"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Pitch"
+#~ msgstr "Legg til bane"
+
+#~ msgctxt "post type general name"
+#~ msgid "Players"
+#~ msgstr "Spillere"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Player"
+#~ msgstr "Spiller"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Player"
+#~ msgstr "Legg til spiller"
+
+#~ msgctxt "Taxonomy General Name"
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgctxt "Taxonomy Singular Name"
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgid "Tournament"
+#~ msgstr "Turnering"
+
+#~ msgid "Add New Item"
+#~ msgstr "Legg til ny turnering"
+
+#~ msgid "Popular Items"
+#~ msgstr "Populære seriespill"
+
+#~ msgid "tournament"
+#~ msgstr "turnering"
+
+#~ msgid "Read post"
+#~ msgstr "Les mer"
+
+#~ msgid "Front page"
+#~ msgstr "Forside"
+
+#~ msgid "Site settings"
+#~ msgstr "Sideinnstillinger"
+
+#~ msgid "General settings"
+#~ msgstr "Generelle innstillinger"
+
+#~ msgid "Published"
+#~ msgstr "Publisert"
+
+#~ msgctxt "Taxonomy General Name"
+#~ msgid "Leagues"
+#~ msgstr "Turnering"
+
+#~ msgctxt "Taxonomy Singular Name"
+#~ msgid "League"
+#~ msgstr "Serie"
+
+#~ msgid "League"
+#~ msgstr "Serie"
+
+#~ msgctxt "post type general name"
+#~ msgid "League"
+#~ msgstr "Serie"
+
+#~ msgctxt "post type singular name"
+#~ msgid "League"
+#~ msgstr "Serie"
+
+#~ msgctxt "post type general name"
+#~ msgid "Opponents"
+#~ msgstr "Motstandere"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Opponent"
+#~ msgstr "Motstander"
+
+#~ msgctxt "post type singular"
+#~ msgid "Add Opponent"
+#~ msgstr "Legg til motstander"

@@ -1,0 +1,14 @@
+/*------------------------------------*\
+  # COLORS
+\*------------------------------------*/
+
+:root {
+	--c-black: oklch(0% 0 0);
+	--c-grey: oklch(96% 0 0);
+	--c-mine-shaft: oklch(8.27% 0.009 284.14);
+	--c-monza: oklch(56.81% 0.214 25.64);
+	--c-white: oklch(100% 0 0);
+
+	--c-site-grey: var(--c-mine-shaft);
+	--c-brand-red: var(--c-monza);
+}

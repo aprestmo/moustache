@@ -1,0 +1,24 @@
+/*------------------------------------*\
+  # BRAND
+\*------------------------------------*/
+
+.c-brand__logo {
+	margin-inline-end: 1rem;
+}
+
+.c-brand__title {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-family: var(--black);
+	font-size: 1.875rem;
+	letter-spacing: -0.05em;
+	line-height: 1;
+	margin-block-end: 0;
+	margin-block-start: 0.25rem;
+	text-transform: uppercase;
+}
+
+.c-brand__slogan {
+	inline-size: 10.625rem;
+	margin-block-start: 0.5rem;
+}

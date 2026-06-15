@@ -1,0 +1,43 @@
+/*------------------------------------*\
+  # META
+\*------------------------------------*/
+
+.avatar {
+	border-radius: 99em;
+	filter: grayscale(1);
+	transition: filter 240ms ease;
+
+	&:hover {
+		filter: grayscale(0);
+	}
+}
+
+.byline {
+	grid-template-columns: 1fr;
+	row-gap: 0.25rem;
+
+	:is(dt) {
+		color: oklch(59.82% 0 0);
+		font-family: var(--medium);
+		font-size: 0.8em;
+		letter-spacing: 0.04em;
+		line-height: 1.1;
+		margin-block-start: 0.5rem;
+		text-transform: uppercase;
+	}
+
+	:is(dd) {
+		font-family: var(--regular);
+		line-height: 1.2;
+		margin-inline-start: 0;
+	}
+}
+
+.pubdate {
+	color: oklch(32.11% 0 0);
+	display: inline-block;
+	font-family: var(--regular);
+	font-size: 0.8em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}

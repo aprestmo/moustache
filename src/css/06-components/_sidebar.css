@@ -1,0 +1,36 @@
+/*------------------------------------*\
+  # SIDEBAR
+\*------------------------------------*/
+
+.c-sidebar {
+	background-color: var(--c-site-grey);
+	color: var(--c-white);
+	padding: 1.25rem;
+
+	:is(header) {
+		display: grid;
+		row-gap: 0.25rem;
+	}
+
+	:is(ul) {
+		margin: 0;
+		padding: 0;
+	}
+
+	:is(li) {
+		list-style: none;
+	}
+
+	:is(a) {
+		color: var(--c-white) !important;
+		text-decoration: none !important;
+	}
+
+	:is(dl) {
+		display: block;
+	}
+
+	:is(dd) {
+		margin-inline-start: 0;
+	}
+}
