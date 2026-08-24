@@ -22,3 +22,10 @@ tbody th {
 caption {
   display: none;
 }
+
+#terminliste .is-canceled,
+#terminliste .is-canceled td,
+#terminliste .is-abandoned,
+#terminliste .is-abandoned td {
+  text-decoration: line-through;
+}

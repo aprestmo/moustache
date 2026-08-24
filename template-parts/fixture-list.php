@@ -35,6 +35,14 @@ if (!defined('ABSPATH')) {
 				$home_team = get_field('home_team');
 				$away_team = get_field('away_team');
 				$is_withdrawn = false;
+				$canceled = get_field('canceled');
+				$is_canceled = $canceled === 'match_canceled';
+				$is_abandoned = in_array($canceled, ['match_abandoned', 'match_abandonded'], true);
+
+				$row_classes = array_filter([
+					$is_canceled ? 'is-canceled' : null,
+					$is_abandoned ? 'is-abandoned' : null,
+				]);
 
 				// Check if any team has withdrawn
 				if ($clubs_withdrawn) {
@@ -54,7 +62,7 @@ if (!defined('ABSPATH')) {
 					}
 				}
 			?>
-				<tr style="<?php echo $is_withdrawn ? 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;' : ''; ?>">
+				<tr<?php echo $row_classes ? ' class="' . esc_attr(implode(' ', $row_classes)) . '"' : ''; ?> style="<?php echo $is_withdrawn ? 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;' : ''; ?>">
 					<?php
 					$date_time = get_field('date_time');
 					$postponed = get_field('postponed');
