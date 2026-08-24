@@ -242,32 +242,38 @@ function moustache_fixture_unplayed_reason(int $post_id = 0): ?string
 	$cause = get_field('cause', $post_id);
 	$canceled = get_field('canceled', $post_id);
 
-	if (!is_string($canceled) || $canceled === '') {
-		return null;
-	}
+	$reason_from_value = static function ($value): ?string {
+		if (!is_string($value) || $value === '') {
+			return null;
+		}
 
-	if ($cause) {
-		if ($canceled === 'match_canceled') {
+		if ($value === 'match_canceled') {
 			return 'canceled';
 		}
 
-		if (in_array($canceled, ['match_abandoned', 'match_abandonded'], true)) {
+		if (in_array($value, ['match_abandoned', 'match_abandonded'], true)) {
 			return 'abandoned';
 		}
 
 		return null;
+	};
+
+	$is_truthy = static function ($value): bool {
+		return $value === true || $value === 1 || $value === '1';
+	};
+
+	// Current model: canceled = boolean gate, cause = select reason.
+	if ($is_truthy($canceled)) {
+		return $reason_from_value($cause);
 	}
 
-	// Legacy data: canceled set before cause field existed.
-	if ($canceled === 'match_canceled') {
-		return 'canceled';
+	// Alternate model: cause = boolean gate, canceled = select reason.
+	if ($is_truthy($cause)) {
+		return $reason_from_value($canceled);
 	}
 
-	if (in_array($canceled, ['match_abandoned', 'match_abandonded'], true)) {
-		return 'abandoned';
-	}
-
-	return null;
+	// Legacy: reason stored directly on canceled and/or cause selects.
+	return $reason_from_value($canceled) ?? $reason_from_value(is_string($cause) ? $cause : null);
 }
 
 /**
