@@ -2,9 +2,19 @@
 
 function scores()
 {
+	$unplayed_reason = moustache_fixture_unplayed_reason();
+
+	if ($unplayed_reason === 'abandoned') {
+		return;
+	}
+
 	// Check if match went to Walkover
 	$walkover = get_field('walkover');
 	$walkover_winner = get_field('walkover_winner');
+
+	if ($unplayed_reason === 'canceled' && !$walkover) {
+		return;
+	}
 
 	if ($walkover) {
 		echo '<hr>';

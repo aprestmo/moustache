@@ -68,9 +68,14 @@ endif;
 		$myposts = get_posts($args);
 		foreach ($myposts as $post) :
 			setup_postdata($post);
+			$unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
+			$row_classes = array_filter([
+				$unplayed_reason === 'canceled' ? 'is-canceled' : null,
+				$unplayed_reason === 'abandoned' ? 'is-abandoned' : null,
+			]);
 		?>
 
-			<tr>
+			<tr<?php echo $row_classes ? ' class="' . esc_attr(implode(' ', $row_classes)) . '"' : ''; ?>>
 				<td class="weekday">
 					<?php
 					// Get date field for match
@@ -246,7 +251,9 @@ endif;
 				$matchday = strtotime(get_field('date_time'));
 				$today    = get_the_time('U');
 
-				if ($matchday <= $today) {
+				if ($unplayed_reason) {
+					echo '<td>&mdash;</td>';
+				} elseif ($matchday <= $today) {
 					if ($home_team === 'kampbart') {
 						echo '<td class="';
 

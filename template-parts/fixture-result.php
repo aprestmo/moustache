@@ -13,8 +13,11 @@ $result_only = get_field('result_only');
 $result_only_fulltime = get_field('result_only_fulltime');
 $result_fulltime = get_field('result_fulltime');
 $result_pause = get_field('result_pause');
+$unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
 
-if ($walkover && $result_only) : ?>
+if ($unplayed_reason === 'abandoned') : ?>
+    <td>&mdash;</td>
+<?php elseif ($walkover && $result_only) : ?>
     <td style="color: red">
         <?php esc_html_e('You can\'t select both walkover and inadequate report', 'moustache'); ?>
     </td>
@@ -60,6 +63,8 @@ if ($walkover && $result_only) : ?>
         <?php printf('%d&ndash;%d', $home_score, $away_score); ?>
         <abbr title="<?php esc_attr_e('Walkover', 'moustache'); ?>"><?php esc_html_e('WO', 'moustache'); ?></abbr>
     </td>
+<?php elseif ($unplayed_reason === 'canceled') : ?>
+    <td>&mdash;</td>
 <?php elseif ($result_only) : ?>
     <td class="<?php echo esc_attr($result_type); ?>">
         <?php

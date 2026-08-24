@@ -26,6 +26,10 @@ caption {
 #terminliste .is-canceled,
 #terminliste .is-canceled td,
 #terminliste .is-abandoned,
-#terminliste .is-abandoned td {
+#terminliste .is-abandoned td,
+tr.is-canceled,
+tr.is-canceled td,
+tr.is-abandoned,
+tr.is-abandoned td {
   text-decoration: line-through;
 }

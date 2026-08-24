@@ -17,6 +17,7 @@ $match_reports = get_field('match_report');
 if ($match_reports) :
 	foreach ($match_reports as $post) :
 		setup_postdata($post);
+		$unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
 ?>
 
 		<header class="u-soft-bottom-md">
@@ -24,6 +25,9 @@ if ($match_reports) :
 			<?php date_time(); ?>
 		</header>
 
+		<?php if ($unplayed_reason) : ?>
+			<p><?php echo esc_html(moustache_fixture_unplayed_label($unplayed_reason)); ?></p>
+		<?php else : ?>
 		<?php
 		weather();
 		attendance();
@@ -38,6 +42,7 @@ if ($match_reports) :
 		<div>
 			<?php present(); ?>
 		</div>
+		<?php endif; ?>
 
 <?php
 	endforeach;

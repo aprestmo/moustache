@@ -80,8 +80,7 @@ if ($next_match) :
 	foreach ($next_match as $post) :
 		setup_postdata($post);
 
-		$canceled = get_field('canceled');
-		if (in_array($canceled, ['match_abandoned', 'match_canceled', 'match_abandonded'])) {
+		if (moustache_fixture_unplayed_reason(get_the_ID())) {
 			continue;
 		}
 
