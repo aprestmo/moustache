@@ -35,13 +35,11 @@ if (!defined('ABSPATH')) {
 				$home_team = get_field('home_team');
 				$away_team = get_field('away_team');
 				$is_withdrawn = false;
-				$canceled = get_field('canceled');
-				$is_canceled = $canceled === 'match_canceled';
-				$is_abandoned = in_array($canceled, ['match_abandoned', 'match_abandonded'], true);
+				$unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
 
 				$row_classes = array_filter([
-					$is_canceled ? 'is-canceled' : null,
-					$is_abandoned ? 'is-abandoned' : null,
+					$unplayed_reason === 'canceled' ? 'is-canceled' : null,
+					$unplayed_reason === 'abandoned' ? 'is-abandoned' : null,
 				]);
 
 				// Check if any team has withdrawn

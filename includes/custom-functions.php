@@ -223,6 +223,76 @@ function formatClubTitlesWithOg(array $titles): string
 	return implode(', ', $titles) . ' ' . __('and', 'moustache') . ' ' . $last_item;
 }
 
+/**
+ * Get why a fixture was not played.
+ *
+ * @param int $post_id Fixture post ID.
+ * @return string|null 'abandoned', 'canceled', or null if the match was played.
+ */
+function moustache_fixture_unplayed_reason(int $post_id = 0): ?string
+{
+	if (!$post_id) {
+		$post_id = get_the_ID();
+	}
+
+	if (!$post_id) {
+		return null;
+	}
+
+	$cause = get_field('cause', $post_id);
+	$canceled = get_field('canceled', $post_id);
+
+	if (!is_string($canceled) || $canceled === '') {
+		return null;
+	}
+
+	if ($cause) {
+		if ($canceled === 'match_canceled') {
+			return 'canceled';
+		}
+
+		if (in_array($canceled, ['match_abandoned', 'match_abandonded'], true)) {
+			return 'abandoned';
+		}
+
+		return null;
+	}
+
+	// Legacy data: canceled set before cause field existed.
+	if ($canceled === 'match_canceled') {
+		return 'canceled';
+	}
+
+	if (in_array($canceled, ['match_abandoned', 'match_abandonded'], true)) {
+		return 'abandoned';
+	}
+
+	return null;
+}
+
+/**
+ * Get a human-readable label for an unplayed fixture.
+ *
+ * @param string|null $reason Result from moustache_fixture_unplayed_reason().
+ * @return string
+ */
+function moustache_fixture_unplayed_label(?string $reason = null): string
+{
+	if ($reason === null) {
+		$reason = moustache_fixture_unplayed_reason();
+	}
+
+	if ($reason === 'abandoned') {
+		return __('Match abandoned', 'moustache');
+	}
+
+	if ($reason === 'canceled') {
+		return __('Match canceled', 'moustache');
+	}
+
+	return '';
+}
+
 // Initialize arrays for withdrawn clubs
 $clubs_withdrawn = [];
 $club_titles = [];

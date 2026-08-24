@@ -309,6 +309,14 @@ msgstr "Walkover"
 msgid "WO"
 msgstr "WO"
 
+#: includes/custom-functions.php
+msgid "Match abandoned"
+msgstr "Kamp avbrutt"
+
+#: includes/custom-functions.php
+msgid "Match canceled"
+msgstr "Kamp avlyst"
+
 #: template-parts/next-match.php:109
 msgid "Next match:"
 msgstr "Neste kamp:"

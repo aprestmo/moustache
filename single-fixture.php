@@ -17,13 +17,16 @@ while (have_posts()) :
   );
 
   if ($posts) :
+    $unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
   ?>
 
 <strong><?php print_r(get_field('match_report')); ?></strong>
 	<h1><?php opponents(); ?></h1>
 	<!-- <pre><?php print_r($posts); ?></pre> -->
 
-	<?php
+	<?php if ($unplayed_reason) : ?>
+		<p><?php echo esc_html(moustache_fixture_unplayed_label($unplayed_reason)); ?></p>
+	<?php else :
 
     // Get home and away team field
     // Returns object
@@ -166,6 +169,7 @@ while (have_posts()) :
     }
   ?>
 
+<?php endif; ?>
 <?php endif; ?>
 <?php endwhile; ?>
 

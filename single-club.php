@@ -90,11 +90,12 @@ if ($fixtures_query->have_posts()) {
                                 $fixtures_query->the_post();
                                 $fixture_id = get_the_ID(); // Get the current fixture ID
                                 $date_time = get_field('date_time');
+                                $unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
 
                                 // Check if the fixture date is in the past
                                 if ($date_time && strtotime($date_time) < time()) {
                             ?>
-                                    <tr>
+                                    <tr<?php echo $unplayed_reason ? ' class="is-' . esc_attr($unplayed_reason) . '"' : ''; ?>>
                                         <td>
                                             <?php
                                             $formatted_datetime = wp_date('j. F Y', strtotime($date_time));
@@ -102,7 +103,9 @@ if ($fixtures_query->have_posts()) {
                                             ?>
                                         </td>
                                         <td>
-                                            <?php
+                                            <?php if ($unplayed_reason) : ?>
+                                                <?php echo esc_html(moustache_fixture_unplayed_label($unplayed_reason)); ?>
+                                            <?php else :
                                             // Query for related posts for the current fixture ID
                                             $related_posts_query = new WP_Query(array(
                                                 'post_type'      => 'post',
@@ -126,6 +129,7 @@ if ($fixtures_query->have_posts()) {
 
                                             wp_reset_postdata();
                                             ?>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                             <?php
