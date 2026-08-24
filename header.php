@@ -59,22 +59,28 @@
 
 		<div class="mou-site-wrap mou-site-wrap--padding u-1/1 c-header__actions">
 			<button class="c-header__toggle" popovertarget="navigation" popovertargetaction="show">
-				<?php esc_html_e('Menu', 'moustache'); ?>
+				<svg class="c-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+					<line x1="3" y1="6" x2="21" y2="6" />
+					<line x1="3" y1="12" x2="21" y2="12" />
+					<line x1="3" y1="18" x2="21" y2="18" />
+				</svg>
+				<span class="u-visually-hidden"><?php esc_html_e('Menu', 'moustache'); ?></span>
 			</button>
-
-			<div class="c-header__search">
-				<button class="c-header__toggle" popovertarget="search" popovertargetaction="show"><?php esc_html_e('Search', 'moustache'); ?></button>
-			</div>
 		</div>
 
 		<div class="c-hero" style="background-image: url('https://res.cloudinary.com/kampbart/image/upload/cs_srgb,f_auto,q_auto/v1688457152/kampbart/default-hero.jpg')">
 		</div>
 
 		<div id="navigation" class="c-navigation" popover>
-			<nav class="mou-site-wrap mou-site-wrap--padding c-navigation__item">
-				<button class="c-header__toggle" popovertarget="navigation" popovertargetaction="hide">
-					<?php esc_html_e('Close', 'moustache'); ?>
+			<nav class="mou-site-wrap mou-site-wrap--padding c-navigation__item" aria-label="<?php esc_attr_e('Main navigation', 'moustache'); ?>">
+				<button class="c-navigation__close" popovertarget="navigation" popovertargetaction="hide">
+					<svg class="c-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+						<line x1="6" y1="6" x2="18" y2="18" />
+						<line x1="18" y1="6" x2="6" y2="18" />
+					</svg>
+					<span class="u-visually-hidden"><?php esc_html_e('Close', 'moustache'); ?></span>
 				</button>
+				<?php get_search_form(); ?>
 				<?php bem_menu('primary', 'c-nav', ''); ?>
 			</nav>
 		</div>

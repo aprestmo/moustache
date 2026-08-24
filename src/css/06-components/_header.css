@@ -30,19 +30,33 @@
 
 .c-header__actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   order: -1;
   padding-block: 0.3125rem;
 }
 
 .c-header__toggle {
+  align-items: center;
   background-color: transparent;
   border: 1px solid oklch(50% 0 0 / 70%);
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   color: var(--c-white);
-  font-family: var(--medium);
-  font-size: 1.0625rem;
-  line-height: 1;
-  padding-block: 0.5rem 0.6875rem;
-  padding-inline: 0.75rem;
+  display: inline-flex;
+  justify-content: center;
+  min-block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+  padding: 0.5rem;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.c-header__toggle:hover,
+.c-header__toggle:focus-visible {
+  background-color: oklch(100% 0 0 / 10%);
+  border-color: var(--c-white);
+}
+
+.c-icon {
+  block-size: 1.5rem;
+  display: block;
+  inline-size: 1.5rem;
 }
