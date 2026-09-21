@@ -1,0 +1,10 @@
+{
+  "name": "moustache",
+  "install": "cd public/wp-content/themes/moustache && yarn install",
+  "terminals": [
+    {
+      "name": "vite-dev",
+      "command": "cd public/wp-content/themes/moustache && yarn dev"
+    }
+  ]
+}
