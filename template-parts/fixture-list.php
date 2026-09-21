@@ -34,7 +34,12 @@ if (!defined('ABSPATH')) {
 				// Get match data
 				$home_team = get_field('home_team');
 				$away_team = get_field('away_team');
-				$is_withdrawn = false;
+
+				$date_time     = get_field('date_time');
+				$new_date_time = get_field('new_date_time');
+				$postponed     = get_field('postponed');
+				$display_date_time = $new_date_time ? $new_date_time : $date_time;
+
 				$unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
 
 				$row_classes = array_filter([
@@ -42,31 +47,37 @@ if (!defined('ABSPATH')) {
 					$unplayed_reason === 'abandoned' ? 'is-abandoned' : null,
 				]);
 
-				// Check if any team has withdrawn
-				if ($clubs_withdrawn) {
-					foreach ($home_team as $team) {
-						if (in_array($team, $clubs_withdrawn, true)) {
+				// A withdrawn club only affects its *upcoming* matches: those
+				// won't be played and are shown as cancelled. Matches that have
+				// already been played keep their result, so a couple of
+				// withdrawals no longer make most of the season (or a finished
+				// season) look cancelled.
+				$is_withdrawn = false;
+
+				if (
+					$clubs_withdrawn
+					&& !empty($display_date_time)
+					&& strtotime($display_date_time) > current_time('timestamp')
+				) {
+					// Compare by post ID. The home/away team and the withdrawn
+					// club fields each return their own WP_Post instances, so a
+					// strict object comparison (===) would never match.
+					$withdrawn_ids = array_map(
+						static fn($club) => is_object($club) ? (int) $club->ID : (int) $club,
+						$clubs_withdrawn
+					);
+
+					foreach (array_merge((array) $home_team, (array) $away_team) as $team) {
+						$team_id = is_object($team) ? (int) $team->ID : (int) $team;
+						if (in_array($team_id, $withdrawn_ids, true)) {
 							$is_withdrawn = true;
 							break;
-						}
-					}
-					if (!$is_withdrawn) {
-						foreach ($away_team as $team) {
-							if (in_array($team, $clubs_withdrawn, true)) {
-								$is_withdrawn = true;
-								break;
-							}
 						}
 					}
 				}
 			?>
 				<tr<?php echo $row_classes ? ' class="' . esc_attr(implode(' ', $row_classes)) . '"' : ''; ?> style="<?php echo $is_withdrawn ? 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;' : ''; ?>">
 					<?php
-					$date_time = get_field('date_time');
-					$postponed = get_field('postponed');
-					$new_date_time = get_field('new_date_time');
-					$display_date_time = $new_date_time ? $new_date_time : $date_time;
-
 					if (!empty($postponed) && empty($new_date_time)) : ?>
 						<td colspan="3"><em><?php esc_html_e('New time to be announced', 'moustache'); ?></em></td>
 					<?php else : ?>
