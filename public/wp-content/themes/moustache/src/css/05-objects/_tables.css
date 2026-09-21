@@ -22,3 +22,13 @@ tbody th {
 caption {
   display: none;
 }
+
+tr.is-withdrawn {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+tr.is-withdrawn td,
+tr.is-withdrawn td a {
+  text-decoration: line-through;
+}

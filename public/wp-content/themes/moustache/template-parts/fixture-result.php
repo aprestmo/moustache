@@ -108,46 +108,52 @@ if ($walkover && $result_only) : ?>
 
     $kampbart_final_score = $kampbart_goals_first_half + $kampbart_goals_second_half;
     $opponent_final_score = $opponent_goals_first_half + $opponent_goals_second_half;
+    $has_registered_goals = ($kampbart_final_score + $opponent_final_score) > 0;
 
-    // Determine result type
-    if ($kampbart_final_score > $opponent_final_score) {
-        $result_type = 'u-tc--green';
-    } elseif ($kampbart_final_score === $opponent_final_score) {
-        $result_type = 'u-tc--orange';
-    } elseif ($kampbart_final_score < $opponent_final_score) {
-        $result_type = 'u-tc--red';
-    }
+    // Withdrawn and not played: empty result cell (walkover / result_only handled above)
+    if (!empty($is_withdrawn) && !$has_registered_goals) : ?>
+        <td></td>
+    <?php else :
+        // Determine result type
+        if ($kampbart_final_score > $opponent_final_score) {
+            $result_type = 'u-tc--green';
+        } elseif ($kampbart_final_score === $opponent_final_score) {
+            $result_type = 'u-tc--orange';
+        } elseif ($kampbart_final_score < $opponent_final_score) {
+            $result_type = 'u-tc--red';
+        }
 
-    foreach ($home_team as $team) :
-        if (strtotime($date_time) < strtotime(date_i18n('h:i:s'))) :
-            if ($postponed && empty($new_date_time)) : ?>
+        foreach ($home_team as $team) :
+            if (strtotime($date_time) < strtotime(date_i18n('h:i:s'))) :
+                if ($postponed && empty($new_date_time)) : ?>
+                    <td></td>
+                <?php else : ?>
+                    <td class="<?php echo esc_attr($result_type); ?>">
+                        <?php
+                        if ('kampbart' === $team->post_name) {
+                            printf(
+                                '%d&ndash;%d (%d&ndash;%d)',
+                                $kampbart_final_score,
+                                $opponent_final_score,
+                                $kampbart_goals_first_half,
+                                $opponent_goals_first_half
+                            );
+                        } else {
+                            printf(
+                                '%d&ndash;%d (%d&ndash;%d)',
+                                $opponent_final_score,
+                                $kampbart_final_score,
+                                $opponent_goals_first_half,
+                                $kampbart_goals_first_half
+                            );
+                        }
+                        ?>
+                    </td>
+                <?php endif;
+            else : ?>
                 <td></td>
-            <?php else : ?>
-                <td class="<?php echo esc_attr($result_type); ?>">
-                    <?php
-                    if ('kampbart' === $team->post_name) {
-                        printf(
-                            '%d&ndash;%d (%d&ndash;%d)',
-                            $kampbart_final_score,
-                            $opponent_final_score,
-                            $kampbart_goals_first_half,
-                            $opponent_goals_first_half
-                        );
-                    } else {
-                        printf(
-                            '%d&ndash;%d (%d&ndash;%d)',
-                            $opponent_final_score,
-                            $kampbart_final_score,
-                            $opponent_goals_first_half,
-                            $kampbart_goals_first_half
-                        );
-                    }
-                    ?>
-                </td>
-            <?php endif;
-        else : ?>
-            <td></td>
-<?php endif;
-    endforeach;
+    <?php endif;
+        endforeach;
+    endif;
 endif;
 ?>

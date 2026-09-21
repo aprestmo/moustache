@@ -28,6 +28,8 @@ if (!defined('ABSPATH')) {
 		</thead>
 		<tbody>
 			<?php
+			$withdrawn_ids = $clubs_withdrawn ? wp_list_pluck($clubs_withdrawn, 'ID') : [];
+
 			foreach ($fixtures as $post) :
 				setup_postdata($post);
 
@@ -36,17 +38,17 @@ if (!defined('ABSPATH')) {
 				$away_team = get_field('away_team');
 				$is_withdrawn = false;
 
-				// Check if any team has withdrawn
-				if ($clubs_withdrawn) {
+				// Check if any team has withdrawn (compare post IDs; ACF returns new objects)
+				if ($withdrawn_ids) {
 					foreach ($home_team as $team) {
-						if (in_array($team, $clubs_withdrawn, true)) {
+						if (in_array($team->ID, $withdrawn_ids, true)) {
 							$is_withdrawn = true;
 							break;
 						}
 					}
 					if (!$is_withdrawn) {
 						foreach ($away_team as $team) {
-							if (in_array($team, $clubs_withdrawn, true)) {
+							if (in_array($team->ID, $withdrawn_ids, true)) {
 								$is_withdrawn = true;
 								break;
 							}
@@ -54,7 +56,7 @@ if (!defined('ABSPATH')) {
 					}
 				}
 			?>
-				<tr style="<?php echo $is_withdrawn ? 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;' : ''; ?>">
+				<tr<?php echo $is_withdrawn ? ' class="is-withdrawn"' : ''; ?>>
 					<?php
 					$date_time = get_field('date_time');
 					$postponed = get_field('postponed');
