@@ -29,89 +29,30 @@ function get_player_tournament_stats(int $player_id, array $fixtures): array
 	];
 
 	foreach ($fixtures as $fixture) {
-		// Sjekk om spilleren var med i kampen
-		$present = get_field('present', $fixture->ID);
-		if (!$present || !in_array($player_id, array_column($present, 'ID'))) {
+		$present_ids = array_map(static fn(WP_Post $player) => $player->ID, moustache_get_present($fixture->ID));
+		if (!in_array($player_id, $present_ids, true)) {
 			continue;
 		}
 
 		$stats['matches']++;
 
-		// Tell mål i første omgang
-		if (have_rows('goals_assists_first_half', $fixture->ID)) {
-			while (have_rows('goals_assists_first_half', $fixture->ID)) {
-				the_row();
-				if (get_sub_field('goal_scorer_first_half') && get_sub_field('goal_scorer_first_half')->ID === $player_id) {
-					$stats['goals']++;
-				}
-				if (get_sub_field('assist_first_half') && get_sub_field('assist_first_half')->ID === $player_id) {
-					$stats['assists']++;
-				}
+		foreach (moustache_get_goals($fixture->ID) as $goal) {
+			if ($goal['scorer'] && $goal['scorer']->ID === $player_id) {
+				$stats['goals']++;
+			}
+			if ($goal['assist'] && $goal['assist']->ID === $player_id) {
+				$stats['assists']++;
 			}
 		}
 
-		// Tell mål i andre omgang
-		if (have_rows('goals_assists_second_half', $fixture->ID)) {
-			while (have_rows('goals_assists_second_half', $fixture->ID)) {
-				the_row();
-				if (get_sub_field('goal_scorer_second_half') && get_sub_field('goal_scorer_second_half')->ID === $player_id) {
-					$stats['goals']++;
-				}
-				if (get_sub_field('assist_second_half') && get_sub_field('assist_second_half')->ID === $player_id) {
-					$stats['assists']++;
-				}
+		foreach (moustache_get_cards($fixture->ID) as $card) {
+			if (!$card['player'] || $card['player']->ID !== $player_id) {
+				continue;
 			}
-		}
-
-		// Sjekk først om det finnes kort i 'cards' feltet
-		if (have_rows('cards', $fixture->ID)) {
-			while (have_rows('cards', $fixture->ID)) {
-				the_row();
-				$card_player = get_sub_field('card_player');
-				$card_colour = get_sub_field('card_colour');
-
-				if ($card_player && $card_player->ID === $player_id) {
-					if ($card_colour === 'yellow') {
-						$stats['yellow_cards']++;
-					} elseif ($card_colour === 'red') {
-						$stats['red_cards']++;
-					}
-				}
-			}
-		} else {
-			// Hvis ikke, tell kort fra første og andre omgang
-			// Tell kort i første omgang
-			if (have_rows('cards_first_half', $fixture->ID)) {
-				while (have_rows('cards_first_half', $fixture->ID)) {
-					the_row();
-					$card_player = get_sub_field('card_player_first_half');
-					$card_colour = get_sub_field('card_colour_first_half');
-
-					if ($card_player && $card_player->ID === $player_id) {
-						if ($card_colour === 'yellow') {
-							$stats['yellow_cards']++;
-						} elseif ($card_colour === 'red') {
-							$stats['red_cards']++;
-						}
-					}
-				}
-			}
-
-			// Tell kort i andre omgang
-			if (have_rows('cards_second_half', $fixture->ID)) {
-				while (have_rows('cards_second_half', $fixture->ID)) {
-					the_row();
-					$card_player = get_sub_field('card_player_second_half');
-					$card_colour = get_sub_field('card_colour_second_half');
-
-					if ($card_player && $card_player->ID === $player_id) {
-						if ($card_colour === 'yellow') {
-							$stats['yellow_cards']++;
-						} elseif ($card_colour === 'red') {
-							$stats['red_cards']++;
-						}
-					}
-				}
+			if ($card['colour'] === 'yellow') {
+				$stats['yellow_cards']++;
+			} elseif ($card['colour'] === 'red') {
+				$stats['red_cards']++;
 			}
 		}
 	}
@@ -138,7 +79,7 @@ if ($fixtures_query->have_posts()) :
 
 	// Finn alle spillere som har deltatt
 	foreach ($fixtures as $fixture) {
-		$present = get_field('present', $fixture->ID);
+		$present = moustache_get_present($fixture->ID);
 		if ($present) {
 			foreach ($present as $player) {
 				if (!isset($players[$player->ID])) {

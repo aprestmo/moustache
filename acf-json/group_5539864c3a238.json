@@ -173,15 +173,7 @@
             "type": "textarea",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_56649d02b485f",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "50",
                 "class": "",
@@ -201,15 +193,7 @@
             "type": "textarea",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_56649d02b485f",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "50",
                 "class": "",
@@ -229,15 +213,7 @@
             "type": "relationship",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_56649d02b485f",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -248,9 +224,7 @@
             ],
             "taxonomy": [],
             "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
+                "search"
             ],
             "elements": "",
             "min": "",
@@ -283,13 +257,6 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": [
-                [
-                    {
-                        "field": "field_5539868a27be4",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ],
                 [
                     {
                         "field": "field_5b5701e99d9dd",
@@ -759,13 +726,6 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": [
-                [
-                    {
-                        "field": "field_5539868a27be4",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ],
                 [
                     {
                         "field": "field_5b5701e99d9dd",
@@ -1271,7 +1231,7 @@
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
-            "allow_null": 0,
+            "allow_null": 1,
             "allow_in_bindings": 1,
             "ui": 0,
             "ajax": 0,
@@ -1561,5 +1521,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781381637
+    "modified": 1789991095
 }

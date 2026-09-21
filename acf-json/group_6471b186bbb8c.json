@@ -80,9 +80,9 @@
     "location": [
         [
             {
-                "param": "page",
+                "param": "options_page",
                 "operator": "==",
-                "value": "3"
+                "value": "theme-club-information"
             }
         ]
     ],
@@ -98,5 +98,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1778243216
+    "modified": 1789991095
 }

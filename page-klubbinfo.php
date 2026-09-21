@@ -20,8 +20,9 @@ get_header();
  */
 function display_contact_info(): void
 {
-	if (have_rows('contact_info')) :
-		while (have_rows('contact_info')) :
+	$source = moustache_club_info_id();
+	if (have_rows('contact_info', $source)) :
+		while (have_rows('contact_info', $source)) :
 			the_row();
 ?>
 			<dd>
@@ -44,15 +45,16 @@ function display_contact_info(): void
  */
 function display_gullbart_winners(): void
 {
-	if (have_rows('gullbart')):
+	$source = moustache_club_info_id();
+	if (have_rows('gullbart', $source)):
 		?>
 		<h3><?php esc_html_e('Winners of the golden moustache', 'moustache'); ?></h3>
 		<dl>
 			<?php
-			while (have_rows('gullbart')) :
+			while (have_rows('gullbart', $source)) :
 				the_row();
 				$year = get_sub_field('gullbart_year');
-				$winners = get_sub_field('gullbart_winner');
+				$winners = moustache_acf_posts(get_sub_field('gullbart_winner'));
 
 				if ($winners) {
 					foreach ($winners as $winner) {
@@ -84,16 +86,16 @@ while (have_posts()) :
 
 					<dl>
 						<dt><?php esc_html_e('Founded', 'moustache'); ?>:</dt>
-						<dd><?php echo esc_html(get_field('founded')); ?></dd>
+						<dd><?php echo esc_html(moustache_format_acf_date(get_field('founded', moustache_club_info_id()))); ?></dd>
 
 						<dt><?php esc_html_e('Address', 'moustache'); ?>:</dt>
 						<?php display_contact_info(); ?>
 
 						<dt><?php esc_html_e('Account number', 'moustache'); ?>:</dt>
-						<dd><?php echo esc_html(get_field('bank_account')); ?></dd>
+						<dd><?php echo esc_html((string) get_field('bank_account', moustache_club_info_id())); ?></dd>
 
 						<dt><?php esc_html_e('Kit', 'moustache'); ?>:</dt>
-						<dd><?php echo esc_html(get_field('kit')); ?></dd>
+						<dd><?php echo esc_html((string) get_field('kit', moustache_club_info_id())); ?></dd>
 					</dl>
 
 					<?php

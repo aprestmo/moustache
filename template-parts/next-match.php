@@ -37,25 +37,10 @@ function get_next_match(): array
 
 /**
  * Get pitch name
- *
- * @param array|null $pitch Pitch data
- * @return string
  */
-function get_pitch_name($pitch): string
+function get_pitch_name(?WP_Post $pitch): string
 {
-	if (!is_array($pitch) || empty($pitch)) {
-		return '';
-	}
-
-	if (is_object($pitch[0])) {
-		return $pitch[0]->post_title;
-	}
-
-	if (is_array($pitch[0]) && isset($pitch[0]['post_title'])) {
-		return $pitch[0]['post_title'];
-	}
-
-	return '';
+	return $pitch ? $pitch->post_title : '';
 }
 
 /**
@@ -84,15 +69,18 @@ if ($next_match) :
 			continue;
 		}
 
-		// Get match data
-		$home_team = get_field('home_team');
-		$away_team = get_field('away_team');
-		$when = get_field('date_time');
-		$pitch = get_field('pitch');
+		$home_team = moustache_get_home_team();
+		$away_team = moustache_get_away_team();
+		$when = moustache_get_fixture_datetime();
+		$pitch = moustache_get_pitch();
+
+		if ($when === '') {
+			continue;
+		}
 
 		$ground = get_pitch_name($pitch);
-		$hosts = $home_team ? reset($home_team)->post_title : '';
-		$guests = $away_team ? reset($away_team)->post_title : '';
+		$hosts = $home_team ? $home_team->post_title : '';
+		$guests = $away_team ? $away_team->post_title : '';
 		$date = format_match_date($when);
 ?>
 

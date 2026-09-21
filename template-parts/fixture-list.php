@@ -6,10 +6,12 @@
  * @package Moustache
  */
 
-// Exit if accessed directly
 if (!defined('ABSPATH')) {
 	exit;
 }
+
+$clubs_withdrawn = moustache_acf_posts($clubs_withdrawn ?? []);
+$withdrawals = $withdrawals ?? false;
 ?>
 
 <div class="table-scroll" role="region" aria-labelledby="caption" tabindex="0">
@@ -31,43 +33,25 @@ if (!defined('ABSPATH')) {
 			foreach ($fixtures as $post) :
 				setup_postdata($post);
 
-				// Get match data
-				$home_team = get_field('home_team');
-				$away_team = get_field('away_team');
-				$is_withdrawn = false;
-				$unplayed_reason = moustache_fixture_unplayed_reason(get_the_ID());
+				$fixture_id = get_the_ID();
+				$home_team = moustache_get_home_team($fixture_id);
+				$away_team = moustache_get_away_team($fixture_id);
+				$unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
+				$withdrawn_ids = array_map(static fn(WP_Post $club) => $club->ID, $clubs_withdrawn);
+				$is_withdrawn = ($home_team && in_array($home_team->ID, $withdrawn_ids, true))
+					|| ($away_team && in_array($away_team->ID, $withdrawn_ids, true));
 
 				$row_classes = array_filter([
 					$unplayed_reason === 'canceled' ? 'is-canceled' : null,
 					$unplayed_reason === 'abandoned' ? 'is-abandoned' : null,
 				]);
 
-				// Check if any team has withdrawn
-				if ($clubs_withdrawn) {
-					foreach ($home_team as $team) {
-						if (in_array($team, $clubs_withdrawn, true)) {
-							$is_withdrawn = true;
-							break;
-						}
-					}
-					if (!$is_withdrawn) {
-						foreach ($away_team as $team) {
-							if (in_array($team, $clubs_withdrawn, true)) {
-								$is_withdrawn = true;
-								break;
-							}
-						}
-					}
-				}
+				$postponed = get_field('postponed', $fixture_id);
+				$new_date_time = get_field('new_date_time', $fixture_id);
+				$display_date_time = moustache_get_fixture_datetime($fixture_id);
 			?>
 				<tr<?php echo $row_classes ? ' class="' . esc_attr(implode(' ', $row_classes)) . '"' : ''; ?> style="<?php echo $is_withdrawn ? 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;' : ''; ?>">
-					<?php
-					$date_time = get_field('date_time');
-					$postponed = get_field('postponed');
-					$new_date_time = get_field('new_date_time');
-					$display_date_time = $new_date_time ? $new_date_time : $date_time;
-
-					if (!empty($postponed) && empty($new_date_time)) : ?>
+					<?php if (!empty($postponed) && empty($new_date_time)) : ?>
 						<td colspan="3"><em><?php esc_html_e('New time to be announced', 'moustache'); ?></em></td>
 					<?php else : ?>
 						<td><?php echo esc_html(ucfirst(date_i18n('l', strtotime($display_date_time)))); ?></td>
@@ -77,49 +61,47 @@ if (!defined('ABSPATH')) {
 
 					<td>
 						<?php
-						foreach ($home_team as $team) {
-							if ('kampbart' !== $team->post_name) {
-								printf(
-									'<a href="/klubb/%1$s">%2$s</a>',
-									esc_attr($team->post_name),
-									esc_html($team->post_title)
-								);
+						if ($home_team) {
+							if (moustache_is_kampbart($home_team)) {
+								echo esc_html($home_team->post_title);
 							} else {
-								echo esc_html($team->post_title);
+								printf(
+									'<a href="%1$s">%2$s</a>',
+									esc_url(get_permalink($home_team)),
+									esc_html($home_team->post_title)
+								);
 							}
 						}
 						?>
 					</td>
 					<td>
 						<?php
-						foreach ($away_team as $team) {
-							if ('kampbart' !== $team->post_name) {
-								printf(
-									'<a href="/klubb/%1$s">%2$s</a>',
-									esc_attr($team->post_name),
-									esc_html($team->post_title)
-								);
+						if ($away_team) {
+							if (moustache_is_kampbart($away_team)) {
+								echo esc_html($away_team->post_title);
 							} else {
-								echo esc_html($team->post_title);
+								printf(
+									'<a href="%1$s">%2$s</a>',
+									esc_url(get_permalink($away_team)),
+									esc_html($away_team->post_title)
+								);
 							}
 						}
 						?>
 					</td>
 					<td>
 						<?php
-						$pitches = get_field('pitch');
-						if ($pitches) {
-							foreach ($pitches as $pitch) {
-								printf(
-									'<a href="/bane/%1$s">%2$s</a>',
-									esc_attr($pitch->post_name),
-									esc_html($pitch->post_title)
-								);
-							}
+						$pitch = moustache_get_pitch($fixture_id);
+						if ($pitch) {
+							printf(
+								'<a href="%1$s">%2$s</a>',
+								esc_url(get_permalink($pitch)),
+								esc_html($pitch->post_title)
+							);
 						}
 						?>
 					</td>
-					<?php include(locate_template('template-parts/fixture-result.php')); ?>
+					<?php include locate_template('template-parts/fixture-result.php'); ?>
 				</tr>
 			<?php
 			endforeach;
@@ -131,7 +113,7 @@ if (!defined('ABSPATH')) {
 				<tr>
 					<td colspan="7">
 						<?php
-						$club_titles = array_map(function ($club) {
+						$club_titles = array_map(static function (WP_Post $club) {
 							return get_the_title($club);
 						}, $clubs_withdrawn);
 

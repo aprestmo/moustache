@@ -97,6 +97,13 @@
     "location": [
         [
             {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-songs.php"
+            }
+        ],
+        [
+            {
                 "param": "page",
                 "operator": "==",
                 "value": "130"
@@ -115,5 +122,5 @@
     "display_title": "Sanger",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1778243228
+    "modified": 1789991095
 }

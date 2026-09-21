@@ -1,23 +1,22 @@
 <?php
 
-// Setup date, time and pitch
-// @TODO: datetime
-
 function date_time()
 {
-  $matchday = get_field('date_time');
+	$matchday = moustache_get_fixture_datetime();
 
-  $machineDay = date('Y-m-d', strtotime($matchday));
-  $machineTime = date('H:i', strtotime($matchday));
+	if ($matchday === '') {
+		return;
+	}
 
-  $day = date_i18n('d. F Y', strtotime($matchday));
-  $time = date_i18n('H.i', strtotime($matchday));
+	$timestamp = strtotime($matchday);
+	$machineDay = date('Y-m-d', $timestamp);
+	$machineTime = date('H:i', $timestamp);
+	$day = date_i18n('d. F Y', $timestamp);
+	$time = date_i18n('H.i', $timestamp);
 
-  if (!empty($matchday)) {
-    echo '<p>';
-    echo '<time datetime="' . $machineDay . 'T' . $machineTime . '">';
-    echo $day . ' ' . esc_html__('at', 'moustache') . ' ' . $time;
-    echo '</time>';
-    echo '</p>';
-  }
+	echo '<p>';
+	echo '<time datetime="' . esc_attr($machineDay . 'T' . $machineTime) . '">';
+	echo esc_html($day . ' ' . __('at', 'moustache') . ' ' . $time);
+	echo '</time>';
+	echo '</p>';
 }
