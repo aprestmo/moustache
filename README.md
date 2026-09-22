@@ -111,6 +111,7 @@ Standings are fetched from the [bedriftsidretten-standings-scraper](https://gith
 - **Theme Settings** — 404 content.
 - **Theme Settings → Club Information** — club details and Gullbart winners (shown on the Club info page).
 - **Tools → Standings** — view cache status, season status, environment check, and manually clear the standings cache.
+- **Tools → Fixture migration** — dry-run / write the new Kamper field values (goals, cards, unplayed, numeric results).
 - **Settings → Astro build** — view GitHub Actions trigger status and manually dispatch a build.
 
 ## Deployment

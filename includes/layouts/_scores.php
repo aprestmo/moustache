@@ -58,14 +58,21 @@ function scores()
 		echo esc_html($home_goals . '–' . $away_goals);
 
 		if ($goal['side'] === 'kampbart') {
-			if ($goal['scorer']) {
+			if ($goal['own_goal']) {
+				echo ' – ' . esc_html__('Own goal', 'moustache');
+				if ($goal['scorer']) {
+					printf(
+						' (<a href="%s">%s</a>)',
+						esc_url(get_permalink($goal['scorer'])),
+						esc_html(get_the_title($goal['scorer']))
+					);
+				}
+			} elseif ($goal['scorer']) {
 				printf(
 					' &ndash; <a href="%s">%s</a>',
 					esc_url(get_permalink($goal['scorer'])),
 					esc_html(get_the_title($goal['scorer']))
 				);
-			} else {
-				echo ' – ' . esc_html__('Own goal', 'moustache');
 			}
 
 			if ($goal['assist']) {

@@ -13,8 +13,7 @@ $walkover = get_field('walkover', $fixture_id);
 $walkover_result = (int) get_field('walkover_result', $fixture_id);
 $walkover_winner = get_field('walkover_winner', $fixture_id);
 $result_only = moustache_fixture_is_result_only($fixture_id);
-$result_fulltime = get_field('result_fulltime', $fixture_id);
-$result_pause = get_field('result_pause', $fixture_id);
+$recorded = moustache_get_recorded_result($fixture_id);
 $unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
 $date_time = moustache_get_fixture_datetime($fixture_id);
 $postponed = get_field('postponed', $fixture_id);
@@ -57,14 +56,21 @@ if ($unplayed_reason === 'abandoned') : ?>
 <?php elseif ($result_only) : ?>
     <td>
         <?php
-        if ($result_pause) {
+        if ($recorded['home_ft'] !== null && $recorded['away_ft'] !== null) {
+            $ft = $recorded['home_ft'] . '–' . $recorded['away_ft'];
+            if ($recorded['home_ht'] !== null && $recorded['away_ht'] !== null) {
+                echo esc_html($ft . ' (' . $recorded['home_ht'] . '–' . $recorded['away_ht'] . ')');
+            } else {
+                echo esc_html($ft);
+            }
+        } elseif ($recorded['text_ht']) {
             printf(
                 '%s (%s)',
-                esc_html((string) $result_fulltime),
-                esc_html((string) $result_pause)
+                esc_html($recorded['text_ft']),
+                esc_html($recorded['text_ht'])
             );
         } else {
-            echo esc_html((string) $result_fulltime);
+            echo esc_html($recorded['text_ft']);
         }
         ?>
     </td>

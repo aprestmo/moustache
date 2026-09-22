@@ -70,6 +70,120 @@ function moustache_acf_post_id(int $post_id = 0): int
 	return (int) get_the_ID();
 }
 
+function moustache_unwrap_single_reference(mixed $value): mixed
+{
+	if (is_array($value) && $value !== [] && !isset($value['ID'])) {
+		return reset($value);
+	}
+
+	return $value;
+}
+
+add_filter('acf/load_value/name=home_team', 'moustache_unwrap_single_reference');
+add_filter('acf/load_value/name=away_team', 'moustache_unwrap_single_reference');
+add_filter('acf/load_value/name=pitch', 'moustache_unwrap_single_reference');
+
+/**
+ * Limit fixture "Tilstede" picker to active players.
+ *
+ * Already selected players (e.g. later retired) still remain on the match.
+ *
+ * @param array<string, mixed> $args
+ * @return array<string, mixed>
+ */
+function moustache_acf_relationship_active_players(array $args, array $field, mixed $post_id): array
+{
+	$meta_query = isset($args['meta_query']) && is_array($args['meta_query'])
+		? $args['meta_query']
+		: [];
+
+	$meta_query[] = [
+		'key' => 'status',
+		'value' => 'active',
+		'compare' => '=',
+	];
+
+	$args['meta_query'] = $meta_query;
+
+	return $args;
+}
+
+add_filter('acf/fields/relationship/query/name=present', 'moustache_acf_relationship_active_players', 10, 3);
+
+/**
+ * Player IDs marked present on the fixture (AJAX selection wins over saved meta).
+ *
+ * @return int[]
+ */
+function moustache_acf_present_player_ids(mixed $post_id = 0): array
+{
+	if (isset($_POST['moustache_present_ids'])) {
+		$raw = wp_unslash($_POST['moustache_present_ids']);
+
+		if (is_string($raw) && $raw !== '') {
+			$raw = explode(',', $raw);
+		}
+
+		if (is_array($raw)) {
+			return array_values(array_unique(array_filter(array_map('intval', $raw))));
+		}
+	}
+
+	$post_id = (int) $post_id;
+	if (!$post_id) {
+		return [];
+	}
+
+	return array_map(
+		static fn(WP_Post $player): int => $player->ID,
+		moustache_get_present($post_id)
+	);
+}
+
+/**
+ * Limit goal/assist/card pickers to players present on this fixture.
+ *
+ * @param array<string, mixed> $args
+ * @return array<string, mixed>
+ */
+function moustache_acf_post_object_present_only(array $args, array $field, mixed $post_id): array
+{
+	$ids = moustache_acf_present_player_ids($post_id);
+	$args['post__in'] = $ids !== [] ? $ids : [0];
+
+	return $args;
+}
+
+foreach (
+	[
+		'field_moustache_goal_scorer',
+		'field_moustache_goal_assist',
+		'field_moustache_card_player',
+	] as $field_key
+) {
+	add_filter(
+		"acf/fields/post_object/query/key={$field_key}",
+		'moustache_acf_post_object_present_only',
+		10,
+		3
+	);
+}
+
+add_action('acf/input/admin_enqueue_scripts', static function (): void {
+	$screen = function_exists('get_current_screen') ? get_current_screen() : null;
+	if (!$screen || $screen->post_type !== 'fixture') {
+		return;
+	}
+
+	wp_enqueue_script(
+		'moustache-acf-fixture',
+		get_template_directory_uri() . '/js/acf-fixture-admin.js',
+		['acf-input'],
+		'1.0.0',
+		true
+	);
+});
+
 function moustache_get_home_team(int $post_id = 0): ?WP_Post
 {
 	return moustache_acf_post(get_field('home_team', moustache_acf_post_id($post_id)));
@@ -119,9 +233,37 @@ function moustache_fixture_is_result_only(int $post_id = 0): bool
 {
 	$post_id = moustache_acf_post_id($post_id);
 
-	return (bool) get_field('only_result_fulltime', $post_id)
-		|| (bool) get_field('result_only', $post_id)
+	// Prefer new model; keep legacy only_result_* for pre-migration sites.
+	return (bool) get_field('result_only', $post_id)
+		|| (bool) get_field('only_result_fulltime', $post_id)
 		|| (bool) get_field('result_only_fulltime', $post_id);
+}
+
+/**
+ * Recorded score when the match has no goal-by-goal data.
+ *
+ * @return array{home_ft: ?int, away_ft: ?int, home_ht: ?int, away_ht: ?int, text_ft: string, text_ht: string}
+ */
+function moustache_get_recorded_result(int $post_id = 0): array
+{
+	$post_id = moustache_acf_post_id($post_id);
+
+	$numeric = static function (mixed $value): ?int {
+		if ($value === null || $value === false || $value === '') {
+			return null;
+		}
+
+		return (int) $value;
+	};
+
+	return [
+		'home_ft' => $numeric(get_field('result_home_ft', $post_id)),
+		'away_ft' => $numeric(get_field('result_away_ft', $post_id)),
+		'home_ht' => $numeric(get_field('result_home_ht', $post_id)),
+		'away_ht' => $numeric(get_field('result_away_ht', $post_id)),
+		'text_ft' => (string) get_field('result_fulltime', $post_id),
+		'text_ht' => (string) get_field('result_pause', $post_id),
+	];
 }
 
 /**
@@ -132,7 +274,23 @@ function moustache_fixture_is_result_only(int $post_id = 0): bool
 function moustache_get_goals(int $post_id = 0): array
 {
 	$post_id = moustache_acf_post_id($post_id);
+	$new = get_field('goals', $post_id);
 	$goals = [];
+
+	if (is_array($new) && $new !== []) {
+		foreach ($new as $row) {
+			$goals[] = [
+				'half' => (string) ($row['half'] ?? 'first'),
+				'side' => (string) ($row['side'] ?? ''),
+				'scorer' => moustache_acf_post($row['scorer'] ?? null),
+				'assist' => moustache_acf_post($row['assist'] ?? null),
+				'assist_text' => trim((string) ($row['assist_text'] ?? '')),
+				'own_goal' => !empty($row['own_goal']),
+			];
+		}
+
+		return $goals;
+	}
 
 	foreach (['first', 'second'] as $half) {
 		$rows = get_field("goals_assists_{$half}_half", $post_id);
@@ -141,13 +299,19 @@ function moustache_get_goals(int $post_id = 0): array
 		}
 
 		foreach ($rows as $row) {
+			$own_goal = !empty($row["own_goal_{$half}_half"]);
+			$scorer = $row["goal_scorer_{$half}_half"] ?? null;
+			if ($own_goal && ($row['goal_for'] ?? '') === 'opponent') {
+				$scorer = $row["own_goal_{$half}_half_kampbart_player"] ?? $scorer;
+			}
+
 			$goals[] = [
 				'half' => $half,
 				'side' => (string) ($row['goal_for'] ?? ''),
-				'scorer' => moustache_acf_post($row["goal_scorer_{$half}_half"] ?? null),
+				'scorer' => moustache_acf_post($scorer),
 				'assist' => moustache_acf_post($row["assist_{$half}_half"] ?? null),
 				'assist_text' => trim((string) ($row["assist_{$half}_half_text"] ?? '')),
-				'own_goal' => !empty($row["own_goal_{$half}_half"]),
+				'own_goal' => $own_goal,
 			];
 		}
 	}
@@ -163,8 +327,22 @@ function moustache_get_goals(int $post_id = 0): array
 function moustache_get_cards(int $post_id = 0): array
 {
 	$post_id = moustache_acf_post_id($post_id);
-	$unknown = get_field('cards', $post_id);
+	$new = get_field('match_cards', $post_id);
 	$cards = [];
+
+	if (is_array($new) && $new !== []) {
+		foreach ($new as $row) {
+			$cards[] = [
+				'half' => (string) ($row['half'] ?? 'unknown'),
+				'player' => moustache_acf_post($row['player'] ?? null),
+				'colour' => (string) ($row['colour'] ?? ''),
+			];
+		}
+
+		return $cards;
+	}
+
+	$unknown = get_field('cards', $post_id);
 
 	if (is_array($unknown) && $unknown !== []) {
 		foreach ($unknown as $row) {

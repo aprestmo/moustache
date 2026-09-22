@@ -64,6 +64,11 @@ require get_template_directory() . '/includes/options-page.php';
  */
 require get_template_directory() . '/includes/trigger-astro-build.php';
 
+/**
+ * Fixture ACF field migration (Tools → Fixture migration)
+ */
+require get_template_directory() . '/includes/acf-migrate-fixtures.php';
+
 // TRUNK
 
 /**
