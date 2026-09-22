@@ -21,7 +21,7 @@ function moustache_trigger_astro_build(int $post_id, \WP_Post $post, bool $updat
         return;
     }
 
-    $default_post_types = ['post', 'pitch', 'fixture', 'player', 'club', 'league'];
+    $default_post_types = ['post', 'pitch', 'fixture', 'player', 'club'];
     $post_types = apply_filters('moustache_trigger_post_types', $default_post_types);
     if (!in_array($post->post_type, $post_types, true)) {
         return;

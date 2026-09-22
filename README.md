@@ -82,17 +82,18 @@ The Astro build trigger is silently skipped if `MOUSTACHE_GITHUB_TOKEN` is not s
 
 ## Custom Post Types
 
-The theme expects the following post types to be registered (via a plugin or mu-plugin):
+Post types and taxonomies are registered via ACF JSON in `acf-json/`:
 
 | Post type | Description |
 |-----------|-------------|
 | `pitch` | Football pitches (Google Maps integration) |
-| `fixture` | Match fixtures |
+| `fixture` | Match fixtures (no public permalink) |
 | `player` | Players |
 | `club` | Clubs |
-| `league` | Leagues |
 
-Taxonomy: `tournament`
+Taxonomies: `tournament` (on fixtures), `division` (on tournaments).
+
+League tables live on tournament terms (for example «Uteserie 2026»), not a `league` post type.
 
 ## REST API
 
@@ -107,7 +108,10 @@ Standings are fetched from the [bedriftsidretten-standings-scraper](https://gith
 
 ## Admin Pages
 
+- **Theme Settings** — 404 content.
+- **Theme Settings → Club Information** — club details and Gullbart winners (shown on the Club info page).
 - **Tools → Standings** — view cache status, season status, environment check, and manually clear the standings cache.
+- **Tools → Fixture migration** — dry-run / write the new Kamper field values (goals, cards, unplayed, numeric results).
 - **Settings → Astro build** — view GitHub Actions trigger status and manually dispatch a build.
 
 ## Deployment

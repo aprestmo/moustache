@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 }
 
 global $post;
-$match_reports = get_field('match_report');
+$match_reports = moustache_acf_posts(get_field('match_report'));
 
 if ($match_reports) :
 	foreach ($match_reports as $post) :

@@ -97,11 +97,8 @@
             "max": "",
             "allow_in_bindings": 1,
             "elements": "",
-            "bidirectional": 1,
-            "bidirectional_target": [
-                "field_5539868a27be4",
-                "field_553986be27be5"
-            ]
+            "bidirectional": 0,
+            "bidirectional_target": []
         },
         {
             "key": "field_66e3f71b7ec3c",
@@ -127,7 +124,7 @@
         {
             "key": "field_66e3f7ef19fb7",
             "label": "Lag som har trukket seg",
-            "name": "tournament_whitdrawn_clubs",
+            "name": "tournament_withdrawn_clubs",
             "aria-label": "",
             "type": "relationship",
             "instructions": "",
@@ -202,5 +199,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1778243254
+    "modified": 1789991095
 }

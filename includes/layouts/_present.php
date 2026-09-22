@@ -1,24 +1,25 @@
 <?php
 
-// List players who played the match
-// @TODO: Check if we can set playernames by first letter automaticly
-
 function present()
 {
-  $present = get_field('present');
+	$present = moustache_get_present();
 
-  if ($present) :
+	if ($present === []) {
+		return;
+	}
 
-    echo '<strong>';
-    esc_html_e('Present', 'moustache');
-    echo '</strong>';
+	echo '<strong>';
+	esc_html_e('Present', 'moustache');
+	echo '</strong>';
+	echo '<ul>';
 
-    echo '<ul>';
+	foreach ($present as $player) {
+		printf(
+			'<li><a href="%s">%s</a></li>',
+			esc_url(get_permalink($player)),
+			esc_html(get_the_title($player))
+		);
+	}
 
-    foreach ($present as $player) {
-      echo '<li><a href="/spiller/' . $player->post_name . '">' . get_the_title($player->ID) . '</a></li>';
-    }
-
-    echo '</ul>';
-  endif;
+	echo '</ul>';
 }

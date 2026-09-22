@@ -19,7 +19,7 @@ $player_data = [
 	'image' => get_field('image'),
 	'shirt_number' => get_field('shirt_number'),
 	'shirt_name' => get_field('shirt_name'),
-	'dob' => get_field('dob'),
+	'dob' => moustache_format_acf_date(get_field('dob')),
 	'position' => get_field('position'),
 	'position_labels' => get_field_object('position'),
 	'former_clubs' => get_field('former_clubs'),
@@ -58,53 +58,6 @@ function initialize_season_stats()
 	];
 }
 
-function count_goals($post_id, $player_id, &$stats, $term_name, $half = 'first')
-{
-	$field_name = "goals_assists_{$half}_half";
-	$scorer_field = "goal_scorer_{$half}_half";
-
-	while (have_rows($field_name, $post_id)) {
-		the_row();
-		$scorer = get_sub_field($scorer_field);
-		if ($scorer && $scorer->ID === $player_id) {
-			$stats[$term_name]->{$half === 'first' ? 'goalsFirst' : 'goalsSecond'}++;
-		}
-	}
-}
-
-function count_assists($post_id, $player_id, &$stats, $term_name, $half = 'first')
-{
-	$field_name = "goals_assists_{$half}_half";
-	$assist_field = "assist_{$half}_half";
-
-	while (have_rows($field_name, $post_id)) {
-		the_row();
-		$assist = get_sub_field($assist_field);
-		if ($assist && $assist->ID === $player_id) {
-			$stats[$term_name]->{$half === 'first' ? 'assistsFirst' : 'assistsSecond'}++;
-		}
-	}
-}
-
-function count_cards($post_id, $player_id, &$stats, $term_name, $half = 'first')
-{
-	$field_name = "cards_{$half}_half";
-	$player_field = "card_player_{$half}_half";
-	$colour_field = "card_colour_{$half}_half";
-
-	while (have_rows($field_name, $post_id)) {
-		the_row();
-		$card_player = get_sub_field($player_field);
-		$card_colour = get_sub_field($colour_field);
-
-		if ($card_player && $card_player->ID === $player_id) {
-			if ($card_colour === 'yellow') {
-				$stats[$term_name]->{$half === 'first' ? 'yellowCardsFirst' : 'yellowCardsSecond'}++;
-			}
-		}
-	}
-}
-
 // Calculate statistics
 $matches = get_player_matches($player_id);
 $stats = [];
@@ -131,11 +84,26 @@ foreach ($matches as $match_id) {
 			$stats[$term->name]->ids[] = $match_id;
 			$stats[$term->name]->count++;
 
-			// Count statistics for both halves
-			foreach (['first', 'second'] as $half) {
-				count_goals($match_id, $player_id, $stats, $term->name, $half);
-				count_assists($match_id, $player_id, $stats, $term->name, $half);
-				count_cards($match_id, $player_id, $stats, $term->name, $half);
+			foreach (moustache_get_goals($match_id) as $goal) {
+				$half_key = $goal['half'] === 'second' ? 'Second' : 'First';
+				if ($goal['scorer'] && $goal['scorer']->ID === $player_id) {
+					$stats[$term->name]->{'goals' . $half_key}++;
+				}
+				if ($goal['assist'] && $goal['assist']->ID === $player_id) {
+					$stats[$term->name]->{'assists' . $half_key}++;
+				}
+			}
+
+			foreach (moustache_get_cards($match_id) as $card) {
+				if (!$card['player'] || $card['player']->ID !== $player_id) {
+					continue;
+				}
+				$half_key = $card['half'] === 'second' ? 'Second' : 'First';
+				if ($card['colour'] === 'yellow') {
+					$stats[$term->name]->{'yellowCards' . $half_key}++;
+				} elseif ($card['colour'] === 'red') {
+					$stats[$term->name]->{'redCards' . $half_key}++;
+				}
 			}
 		}
 	}

@@ -2,15 +2,14 @@
 
 function scores()
 {
-	$unplayed_reason = moustache_fixture_unplayed_reason();
+	$post_id = get_the_ID();
+	$unplayed_reason = moustache_fixture_unplayed_reason($post_id);
+	$walkover = get_field('walkover', $post_id);
+	$walkover_winner = get_field('walkover_winner', $post_id);
 
 	if ($unplayed_reason === 'abandoned') {
 		return;
 	}
-
-	// Check if match went to Walkover
-	$walkover = get_field('walkover');
-	$walkover_winner = get_field('walkover_winner');
 
 	if ($unplayed_reason === 'canceled' && !$walkover) {
 		return;
@@ -23,168 +22,74 @@ function scores()
 		} else {
 			echo wp_kses_post(__('<p>Kampbart did not show up.<br> <strong>Opponent wins by walkover</strong></p>', 'moustache'));
 		}
-	} else {
-		// Get home and away team field
-		// Returns object
-
-		$home_team = get_field('home_team');
-		$away_team = get_field('away_team');
-
-		// Get post_name
-		$home_team = $home_team[0]->post_name;
-		$away_team = $away_team[0]->post_name;
-
-		// Who is home team?
-		// Set variable accordingly
-
-		if ($home_team === 'kampbart') {
-			$kampbart_away = $away_team;
-			$opponent_away = $away_team;
-		} else {
-			$kampbart_home = $home_team;
-			$opponent_home = $home_team;
-		}
-
-		if (get_field('goals_assists_first_half')) {
-
-			echo '<ul>';
-
-			$kampbart_goals_first_half = 0;
-			$opponent_goals_first_half = 0;
-
-			while (has_sub_field('goals_assists_first_half')) {
-
-				$goals_for = get_sub_field('goal_for');
-
-				if ($goals_for === 'kampbart') {
-					$kampbart_goals_first_half++;
-				} else {
-					$opponent_goals_first_half++;
-				}
-
-				// Set goalscore
-				// I need to check who's home and who's away again
-
-				echo '<li>';
-
-				if ($home_team === 'kampbart') {
-					// echo 'Kampbart er hjemmelag';
-					echo $kampbart_goals_first_half . '–' . $opponent_goals_first_half;
-				} else {
-					echo $opponent_goals_first_half . '–' . $kampbart_goals_first_half;
-				}
-
-				if (!empty($goals_for) && $goals_for === 'kampbart') {
-
-					$goal = get_sub_field('goal_scorer_first_half');
-					if (!empty($goal)) {
-
-						$player = esc_html(get_the_title($goal->ID));
-						$player_page = esc_url(get_permalink($goal->ID));
-
-						echo ' &ndash; <a href="' . $player_page . '">' . $player . '</a>';
-					} else {
-						echo ' – ' . esc_html__('Own goal', 'moustache');
-					}
-
-					$assist = get_sub_field('assist_first_half');
-					$assist_text = get_sub_field('assist_first_half_text');
-					if (!empty($assist)) {
-
-						$player = esc_html(get_the_title($assist->ID));
-						$player_page = esc_url(get_permalink($assist->ID));
-
-						echo ' (<a href="' . $player_page . '">' . $player . '</a>)';
-					} elseif (!empty($assist_text) && ($assist_text !== 'player_assist')) {
-						echo ' (' . esc_html($assist_text) . ')';
-					} else {
-						echo '';
-					}
-
-					echo '</li>';
-				}
-			}
-
-			echo '</ul>';
-
-			$kampbart_goals_pause = $kampbart_goals_first_half;
-			$opponent_goals_pause = $opponent_goals_first_half;
-		}
-
-		echo '<hr>';
-
-		if (get_field('goals_assists_second_half')) {
-
-			echo '<ul>';
-
-			if (get_field('goals_assists_first_half') === false) {
-				$kampbart_goals_second_half = 0;
-				$opponent_goals_second_half = 0;
-			} else {
-				$kampbart_goals_second_half = $kampbart_goals_pause;
-				$opponent_goals_second_half = $opponent_goals_pause;
-			}
-
-
-			while (has_sub_field('goals_assists_second_half')) {
-
-				$goals_for = get_sub_field('goal_for');
-
-				if ($goals_for === 'kampbart') {
-					$kampbart_goals_second_half++;
-				} else {
-					$opponent_goals_second_half++;
-				}
-
-				// Set goalscore
-				// I need to check who's home and who's away again
-
-				echo '<li>';
-
-				if ($home_team === 'kampbart') {
-					echo $kampbart_goals_second_half . '–' . $opponent_goals_second_half;
-				} else {
-					echo $opponent_goals_second_half . '–' . $kampbart_goals_second_half;
-				}
-
-				if (!empty($goals_for) && $goals_for === 'kampbart') {
-
-					$goal = get_sub_field('goal_scorer_second_half');
-					if (!empty($goal)) {
-
-						$player = esc_html(get_the_title($goal->ID));
-						$player_page = esc_url(get_permalink($goal->ID));
-
-						echo ' &ndash; <a href="' . $player_page . '">' . $player . '</a>';
-					} else {
-						echo ' – ' . esc_html__('Own goal', 'moustache');
-					}
-
-					$assist = get_sub_field('assist_second_half');
-					$assist_text = get_sub_field('assist_second_half_text');
-					if (!empty($assist)) {
-
-						$player = esc_html(get_the_title($assist->ID));
-						$player_page = esc_url(get_permalink($assist->ID));
-
-						echo ' (<a href="' . $player_page . '">' . $player . '</a>)';
-					} elseif (!empty($assist_text) && ($assist_text !== 'player_assist')) {
-						echo ' (' . esc_html($assist_text) . ')';
-					} else {
-						echo '';
-					}
-
-					echo '</li>';
-				}
-			}
-
-			// This just stores the two teams final score into a variable for each
-			// Don't know if I really need this for anything though
-			$kampbart_goals_final_score = $kampbart_goals_second_half;
-			$opponent_goals_final_score = $opponent_goals_second_half;
-
-			echo '</ul>';
-		}
+		return;
 	}
 
+	$goals = moustache_get_goals($post_id);
+	if ($goals === []) {
+		return;
+	}
+
+	$kampbart_home = moustache_is_kampbart(moustache_get_home_team($post_id));
+	$kampbart_goals = 0;
+	$opponent_goals = 0;
+	$current_half = '';
+
+	foreach ($goals as $goal) {
+		if ($current_half !== '' && $current_half !== $goal['half']) {
+			echo '</ul><hr>';
+			$current_half = $goal['half'];
+			echo '<ul>';
+		} elseif ($current_half === '') {
+			$current_half = $goal['half'];
+			echo '<ul>';
+		}
+
+		if ($goal['side'] === 'kampbart') {
+			$kampbart_goals++;
+		} else {
+			$opponent_goals++;
+		}
+
+		$home_goals = $kampbart_home ? $kampbart_goals : $opponent_goals;
+		$away_goals = $kampbart_home ? $opponent_goals : $kampbart_goals;
+
+		echo '<li>';
+		echo esc_html($home_goals . '–' . $away_goals);
+
+		if ($goal['side'] === 'kampbart') {
+			if ($goal['own_goal']) {
+				echo ' – ' . esc_html__('Own goal', 'moustache');
+				if ($goal['scorer']) {
+					printf(
+						' (<a href="%s">%s</a>)',
+						esc_url(get_permalink($goal['scorer'])),
+						esc_html(get_the_title($goal['scorer']))
+					);
+				}
+			} elseif ($goal['scorer']) {
+				printf(
+					' &ndash; <a href="%s">%s</a>',
+					esc_url(get_permalink($goal['scorer'])),
+					esc_html(get_the_title($goal['scorer']))
+				);
+			}
+
+			if ($goal['assist']) {
+				printf(
+					' (<a href="%s">%s</a>)',
+					esc_url(get_permalink($goal['assist'])),
+					esc_html(get_the_title($goal['assist']))
+				);
+			} elseif ($goal['assist_text'] !== '' && $goal['assist_text'] !== 'player_assist') {
+				echo ' (' . esc_html($goal['assist_text']) . ')';
+			}
+		}
+
+		echo '</li>';
+	}
+
+	if ($current_half !== '') {
+		echo '</ul>';
+	}
 }

@@ -1,24 +1,15 @@
 <?php
 
-// Set the two playing teams
-// @status: Uncertain (may get new fields - opponent vs. kampbart)
-
 function opponents()
 {
-  $home_team = get_field('home_team');
-  $away_team = get_field('away_team');
+	$home_team = moustache_get_home_team();
+	$away_team = moustache_get_away_team();
 
-  if ($home_team || $away_team) :
+	if (!$home_team && !$away_team) {
+		return;
+	}
 
-    foreach ($home_team as $hosts) {
-      echo get_the_title($hosts->ID);
-    }
-
-    echo '–';
-
-    foreach ($away_team as $guests) {
-      echo get_the_title($guests->ID);
-    }
-
-  endif;
+	echo $home_team ? esc_html(get_the_title($home_team)) : '';
+	echo '–';
+	echo $away_team ? esc_html(get_the_title($away_team)) : '';
 }

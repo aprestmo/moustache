@@ -22,13 +22,20 @@ get_header();
 function display_club_list(array $clubs): void
 {
     foreach ($clubs as $club) {
-        if ('Kampbart' === get_the_title($club)) {
-            printf('<li>%s</li>', esc_html(get_the_title($club)));
+        if (!$club instanceof WP_Post) {
+            $club = moustache_acf_post($club);
+        }
+        if (!$club) {
+            continue;
+        }
+
+        if (moustache_is_kampbart($club)) {
+            printf('<li>%s</li>', esc_html($club->post_title));
         } else {
             printf(
                 '<li><a href="%1$s">%2$s</a></li>',
                 esc_url(get_permalink($club)),
-                esc_html(get_the_title($club))
+                esc_html($club->post_title)
             );
         }
     }
@@ -43,8 +50,7 @@ function display_club_list(array $clubs): void
  */
 function display_match_date(string $datetime, string $format): void
 {
-    $timestamp = strtotime($datetime);
-    echo esc_html(date_i18n($format, $timestamp));
+    echo esc_html(moustache_format_acf_datetime($datetime, $format));
 }
 
 /**
@@ -83,9 +89,9 @@ $term = get_queried_object();
                 <div class="u-flow">
                     <?php
                     // Get tournament data
-                    $clubs = get_field('tournament_clubs', $term);
+                    $clubs = moustache_acf_posts(get_field('tournament_clubs', $term));
                     $withdrawals = get_field('tournament_withdrawals', $term);
-                    $clubs_withdrawn = get_field('tournament_whitdrawn_clubs', $term);
+                    $clubs_withdrawn = moustache_get_withdrawn_clubs($term);
 
                     // Display participating clubs
                     if ($clubs) : ?>

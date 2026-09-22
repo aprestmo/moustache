@@ -47,7 +47,7 @@
                 "parquet": "Parkett",
                 "concrete": "Betong"
             },
-            "default_value": "Kunstgress",
+            "default_value": "astroturf",
             "allow_null": 0,
             "multiple": 0,
             "ui": 1,
@@ -115,5 +115,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1778243154
+    "modified": 1789991095
 }

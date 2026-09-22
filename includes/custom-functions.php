@@ -187,15 +187,6 @@ function bem_menu(string $location = "main_menu", string $css_class_prefix = 'ma
 }
 
 /**
- * Initialize ACF Google Maps API key
- */
-function initialize_acf_google_maps(): void
-{
-	acf_update_setting('google_api_key', 'AIzaSyBpX2xs6qaBOTQmn0VB7IiHd0vmRatZz00');
-}
-add_action('acf/init', 'initialize_acf_google_maps');
-
-/**
  * Get asset base path based on environment
  */
 function get_asset_base_path(): string
@@ -223,88 +214,3 @@ function formatClubTitlesWithOg(array $titles): string
 	return implode(', ', $titles) . ' ' . __('and', 'moustache') . ' ' . $last_item;
 }
 
-/**
- * Get why a fixture was not played.
- *
- * @param int $post_id Fixture post ID.
- * @return string|null 'abandoned', 'canceled', or null if the match was played.
- */
-function moustache_fixture_unplayed_reason(int $post_id = 0): ?string
-{
-	if (!$post_id) {
-		$post_id = get_the_ID();
-	}
-
-	if (!$post_id) {
-		return null;
-	}
-
-	$cause = get_field('cause', $post_id);
-	$canceled = get_field('canceled', $post_id);
-
-	$reason_from_value = static function ($value): ?string {
-		if (!is_string($value) || $value === '') {
-			return null;
-		}
-
-		if ($value === 'match_canceled') {
-			return 'canceled';
-		}
-
-		if (in_array($value, ['match_abandoned', 'match_abandonded'], true)) {
-			return 'abandoned';
-		}
-
-		return null;
-	};
-
-	$is_truthy = static function ($value): bool {
-		return $value === true || $value === 1 || $value === '1';
-	};
-
-	// Current model: canceled = boolean gate, cause = select reason.
-	if ($is_truthy($canceled)) {
-		return $reason_from_value($cause);
-	}
-
-	// Alternate model: cause = boolean gate, canceled = select reason.
-	if ($is_truthy($cause)) {
-		return $reason_from_value($canceled);
-	}
-
-	// Legacy: reason stored directly on canceled and/or cause selects.
-	return $reason_from_value($canceled) ?? $reason_from_value(is_string($cause) ? $cause : null);
-}
-
-/**
- * Get a human-readable label for an unplayed fixture.
- *
- * @param string|null $reason Result from moustache_fixture_unplayed_reason().
- * @return string
- */
-function moustache_fixture_unplayed_label(?string $reason = null): string
-{
-	if ($reason === null) {
-		$reason = moustache_fixture_unplayed_reason();
-	}
-
-	if ($reason === 'abandoned') {
-		return __('Match abandoned', 'moustache');
-	}
-
-	if ($reason === 'canceled') {
-		return __('Match canceled', 'moustache');
-	}
-
-	return '';
-}
-
-// Initialize arrays for withdrawn clubs
-$clubs_withdrawn = [];
-$club_titles = [];
-
-if (!empty($clubs_withdrawn)) {
-	foreach ($clubs_withdrawn as $club) {
-		$club_titles[] = get_the_title($club);
-	}
-}

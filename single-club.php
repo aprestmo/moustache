@@ -49,8 +49,8 @@ if ($fixtures_query->have_posts()) {
         <div class="o-grid__item">
             <h1><?php printf(esc_html__('Matches against %s', 'moustache'), get_the_title()); ?></h1>
             <?php
-            $now = strtotime('now');
-            $past = strtotime($oldest_fixture_date);
+            $now = time();
+            $past = moustache_acf_datetime_timestamp($oldest_fixture_date) ?? 0;
             ?>
             <?php
             // Check if there is exactly one post
@@ -61,14 +61,14 @@ if ($fixtures_query->have_posts()) {
                         __('First meeting with %1$s was <time datetime="%2$s">%3$s</time>.', 'moustache'),
                         esc_html(get_the_title()),
                         esc_attr($oldest_fixture_date),
-                        wp_date('j. F Y', strtotime($oldest_fixture_date))
+                        moustache_format_acf_datetime($oldest_fixture_date, 'j. F Y')
                     ));
                 } else {
                     echo wp_kses_post(sprintf(
                         __('First meeting with %1$s is <time datetime="%2$s">%3$s</time>.', 'moustache'),
                         esc_html(get_the_title()),
                         esc_attr($oldest_fixture_date),
-                        wp_date('j. F Y', strtotime($oldest_fixture_date))
+                        moustache_format_acf_datetime($oldest_fixture_date, 'j. F Y')
                     ));
                 }
             }
@@ -93,14 +93,12 @@ if ($fixtures_query->have_posts()) {
                                 $unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
 
                                 // Check if the fixture date is in the past
-                                if ($date_time && strtotime($date_time) < time()) {
+                                $fixture_ts = moustache_acf_datetime_timestamp($date_time);
+                                if ($fixture_ts && $fixture_ts < time()) {
                             ?>
                                     <tr<?php echo $unplayed_reason ? ' class="is-' . esc_attr($unplayed_reason) . '"' : ''; ?>>
                                         <td>
-                                            <?php
-                                            $formatted_datetime = wp_date('j. F Y', strtotime($date_time));
-                                            echo esc_html($formatted_datetime);
-                                            ?>
+                                            <?php echo esc_html(moustache_format_acf_datetime($date_time, 'j. F Y')); ?>
                                         </td>
                                         <td>
                                             <?php if ($unplayed_reason) : ?>

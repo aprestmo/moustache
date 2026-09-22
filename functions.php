@@ -40,6 +40,11 @@ foreach (glob(__DIR__ . '/includes/normalize/*.php') as $file) {
 require __DIR__ . '/includes/custom-functions.php';
 
 /**
+ * ACF accessors, location rules, and options migration
+ */
+require __DIR__ . '/includes/acf.php';
+
+/**
  * Match report functions
  */
 require get_template_directory() . '/includes/layouts/match-report.php';
@@ -58,6 +63,11 @@ require get_template_directory() . '/includes/options-page.php';
  * Trigger GitHub Actions build (moustache-v7) when content is updated
  */
 require get_template_directory() . '/includes/trigger-astro-build.php';
+
+/**
+ * Fixture ACF field migration (Tools → Fixture migration)
+ */
+require get_template_directory() . '/includes/acf-migrate-fixtures.php';
 
 // TRUNK
 
@@ -112,11 +122,11 @@ add_filter('get_the_excerpt', 'lt_html_excerpt');
 
 function inject_google_maps_api_key()
 {
-    // Define the condition for injecting the API key.
-    // Example: Only on specific pages, post types, or templates.
-    if (is_singular('pitch')) { // Adjust this condition to your needs
-        echo '<script>const googleMapsApiKey = "' . esc_js(GOOGLE_MAPS_API_KEY) . '";</script>';
+    if (!is_singular('pitch') || !defined('GOOGLE_MAPS_API_KEY') || GOOGLE_MAPS_API_KEY === '') {
+        return;
     }
+
+    echo '<script>const googleMapsApiKey = "' . esc_js(GOOGLE_MAPS_API_KEY) . '";</script>';
 }
 add_action('wp_head', 'inject_google_maps_api_key');
 
