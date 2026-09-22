@@ -50,8 +50,7 @@ function display_club_list(array $clubs): void
  */
 function display_match_date(string $datetime, string $format): void
 {
-    $timestamp = strtotime($datetime);
-    echo esc_html(date_i18n($format, $timestamp));
+    echo esc_html(moustache_format_acf_datetime($datetime, $format));
 }
 
 /**

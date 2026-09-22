@@ -51,11 +51,10 @@ function get_pitch_name(?WP_Post $pitch): string
  */
 function format_match_date(string $datetime): array
 {
-	$timestamp = strtotime($datetime);
 	return [
-		'weekday' => date_i18n('l j.', $timestamp),
-		'month'   => date_i18n('F', $timestamp),
-		'time'    => date_i18n('H.i', $timestamp)
+		'weekday' => moustache_format_acf_datetime($datetime, 'l j.'),
+		'month'   => moustache_format_acf_datetime($datetime, 'F'),
+		'time'    => moustache_format_acf_datetime($datetime, 'H.i'),
 	];
 }
 

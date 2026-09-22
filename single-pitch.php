@@ -78,14 +78,12 @@ $fixtures_query = new WP_Query($args);
 								$date_time = get_field('date_time');
 
 								// Check if the fixture date is in the past
-								if ($date_time && strtotime($date_time) < time()) {
+								$fixture_ts = moustache_acf_datetime_timestamp($date_time);
+								if ($fixture_ts && $fixture_ts < time()) {
 							?>
 									<tr>
 										<td>
-											<?php
-											$formatted_datetime = wp_date('j. F Y', strtotime($date_time));
-											echo esc_html($formatted_datetime);
-											?>
+											<?php echo esc_html(moustache_format_acf_datetime($date_time, 'j. F Y')); ?>
 										</td>
 										<td>
 											<?php

@@ -18,7 +18,7 @@ $unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
 $date_time = moustache_get_fixture_datetime($fixture_id);
 $postponed = get_field('postponed', $fixture_id);
 $new_date_time = get_field('new_date_time', $fixture_id);
-$match_started = $date_time && strtotime($date_time) < time();
+$match_started = $date_time && ($ts = moustache_acf_datetime_timestamp($date_time)) && $ts < time();
 
 if ($unplayed_reason === 'abandoned') : ?>
     <td>&mdash;</td>

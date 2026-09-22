@@ -8,11 +8,10 @@ function date_time()
 		return;
 	}
 
-	$timestamp = strtotime($matchday);
-	$machineDay = date('Y-m-d', $timestamp);
-	$machineTime = date('H:i', $timestamp);
-	$day = date_i18n('d. F Y', $timestamp);
-	$time = date_i18n('H.i', $timestamp);
+	$machineDay = moustache_format_acf_datetime($matchday, 'Y-m-d');
+	$machineTime = moustache_format_acf_datetime($matchday, 'H:i');
+	$day = moustache_format_acf_datetime($matchday, 'd. F Y');
+	$time = moustache_format_acf_datetime($matchday, 'H.i');
 
 	echo '<p>';
 	echo '<time datetime="' . esc_attr($machineDay . 'T' . $machineTime) . '">';

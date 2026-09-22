@@ -449,25 +449,47 @@ function moustache_fixture_unplayed_label(?string $reason = null): string
 }
 
 /**
+ * Unix timestamp for an ACF date/datetime wall-clock string in the site timezone.
+ */
+function moustache_acf_datetime_timestamp(mixed $value): ?int
+{
+	if (!is_string($value) || $value === '') {
+		return null;
+	}
+
+	$tz = wp_timezone();
+	foreach (['Y-m-d H:i:s', 'Y-m-d', 'Ymd'] as $from) {
+		$dt = DateTimeImmutable::createFromFormat('!' . $from, $value, $tz);
+		if ($dt instanceof DateTimeImmutable) {
+			return $dt->getTimestamp();
+		}
+	}
+
+	return null;
+}
+
+/**
+ * Format an ACF date/datetime string for display.
+ *
+ * ACF stores wall-clock local time (no timezone). WP sets PHP's default TZ to UTC,
+ * so wp_date(strtotime($acf)) shifts by the site offset (e.g. +2h in summer).
+ */
+function moustache_format_acf_datetime(mixed $value, string $format = 'j. F Y H.i'): string
+{
+	$timestamp = moustache_acf_datetime_timestamp($value);
+	if ($timestamp === null) {
+		return is_string($value) ? $value : '';
+	}
+
+	return wp_date($format, $timestamp, wp_timezone());
+}
+
+/**
  * Format an ACF date_picker value (Ymd or already formatted) for display.
  */
 function moustache_format_acf_date(mixed $value, string $format = 'j. F Y'): string
 {
-	if (!is_string($value) || $value === '') {
-		return '';
-	}
-
-	$date = DateTime::createFromFormat('Ymd', $value);
-	if (!$date) {
-		$timestamp = strtotime($value);
-		if (!$timestamp) {
-			return $value;
-		}
-
-		return wp_date($format, $timestamp);
-	}
-
-	return wp_date($format, $date->getTimestamp());
+	return moustache_format_acf_datetime($value, $format);
 }
 
 /**

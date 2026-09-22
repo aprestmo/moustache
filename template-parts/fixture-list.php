@@ -54,9 +54,9 @@ $withdrawals = $withdrawals ?? false;
 					<?php if (!empty($postponed) && empty($new_date_time)) : ?>
 						<td colspan="3"><em><?php esc_html_e('New time to be announced', 'moustache'); ?></em></td>
 					<?php else : ?>
-						<td><?php echo esc_html(ucfirst(date_i18n('l', strtotime($display_date_time)))); ?></td>
-						<td><?php echo esc_html(date_i18n('d.m', strtotime($display_date_time))); ?></td>
-						<td><?php echo esc_html(date_i18n('H.i', strtotime($display_date_time))); ?></td>
+						<td><?php echo esc_html(ucfirst(moustache_format_acf_datetime($display_date_time, 'l'))); ?></td>
+						<td><?php echo esc_html(moustache_format_acf_datetime($display_date_time, 'd.m')); ?></td>
+						<td><?php echo esc_html(moustache_format_acf_datetime($display_date_time, 'H.i')); ?></td>
 					<?php endif; ?>
 
 					<td>
