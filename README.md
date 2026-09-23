@@ -47,6 +47,7 @@ moustache/
 ├── .gitea/workflows/   # Gitea Actions workflow (builds + commits dist/)
 ├── acf-json/          # ACF field group JSON (auto-synced)
 ├── dist/              # Compiled assets (CSS, JS, fonts, icons)
+├── auto-deploy.sh     # Push-to-deploy: fetch + ff-merge + conditional build (webhook/cron)
 ├── deploy.sh          # Server-side asset rebuild (git pull && ./deploy.sh)
 ├── includes/
 │   ├── normalize/     # WordPress behaviour cleanup
@@ -80,6 +81,10 @@ define('GOOGLE_MAPS_API_KEY', 'your-api-key');
 define('MOUSTACHE_GITHUB_OWNER', 'aprestmo');
 define('MOUSTACHE_GITHUB_REPO',  'moustache-v7');
 define('MOUSTACHE_GITHUB_TOKEN', 'ghp_...');
+
+// Gitea push webhook → auto-deploy (must match the webhook's secret).
+// While undefined, POST ...admin-ajax.php?action=moustache_deploy answers 404.
+define('MOUSTACHE_WEBHOOK_SECRET', 'long-random-string');
 ```
 
 The Astro build trigger is silently skipped if `MOUSTACHE_GITHUB_TOKEN` is not set.
@@ -138,7 +143,42 @@ The theme directory is a git checkout mounted as a Docker volume:
 
 WordPress reads `dist/.vite/manifest.json` at runtime, so `src/`/`public/` changes only go live after a rebuild on the server. `dist/` is committed to git as a safety net, but **do not rely on it staying fresh** — if the manifest is missing entirely, WordPress logs `moustache theme: Vite manifest missing ...` instead of failing silently.
 
-### Deploy changes
+### Auto-deploy (webhook + cron)
+
+Pushing to `main` updates the site — both for PHP/template changes (a plain pull) and for `src/`/`public/` changes (a conditional `pnpm build`). One script does the work either way:
+
+- **`auto-deploy.sh`** — fetches `origin/main`, fast-forwards, and runs `deploy.sh` **only** when build inputs changed (`src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js`). It is idempotent and lock-protected, so running it from two triggers at once is safe.
+- **Webhook (instant)** — Gitea POSTs to `POST /wp-admin/admin-ajax.php?action=moustache_deploy` (`includes/deploy-webhook.php`), which verifies Gitea's `X-Gitea-Signature` (HMAC-SHA256 of the raw body with `MOUSTACHE_WEBHOOK_SECRET`), checks the push targeted `main`, and spawns `auto-deploy.sh` detached, logging to `/tmp/moustache-deploy.log`. It uses `admin-ajax.php` rather than a REST route because the REST API is disabled site-wide on kampbart.com by a filter outside this repo (`WP_Error: rest_disabled`) — note that the same filter also 403s `/wp-json/moustache/v1/standings`.
+- **Cron (fallback)** — runs the same script every minute, so a missed/failed webhook still deploys within ~60s.
+
+One-time setup:
+
+1. Add the secret to `wp-config.php` (both places must match):
+   ```php
+   define('MOUSTACHE_WEBHOOK_SECRET', 'long-random-string');  // e.g. openssl rand -hex 32
+   ```
+2. In Gitea → repo → **Settings → Webhooks → Add Webhook → Gitea**:
+   - **URL:** `https://kampbart.com/wp-admin/admin-ajax.php?action=moustache_deploy`
+   - **Secret:** the same `MOUSTACHE_WEBHOOK_SECRET` value
+   - **Trigger:** Push events, branch `main` (other refs are ignored by the endpoint anyway)
+   - **SSL verification:** enabled
+3. On the host, add the cron fallback (runs on the Docker host against the volume checkout):
+   ```cron
+   * * * * * /bin/bash /var/lib/docker/volumes/v10zdqzt6cvc9ktlu4pyqyv2_wordpress-files/_data/wp-content/themes/moustache/auto-deploy.sh >> /tmp/moustache-deploy.log 2>&1
+   ```
+   Needs `git` (with pull access to the Gitea remote) and, for `src/` changes, Node 20+/pnpm on the host. If pnpm is missing the pull still succeeds and `dist/` falls back to the committed build — the script logs a warning rather than failing.
+
+Verify: push a commit, then `tail -f /tmp/moustache-deploy.log` (host or container). In Gitea, the webhook's **Recent Deliveries** shows `200` with `{"status":"queued","pid":...}` on success; a `403` means the secrets don't match, `404` means `MOUSTACHE_WEBHOOK_SECRET` is undefined in `wp-config.php`.
+
+Webhook down or first-time bootstrap? Run it by hand — it's the same script:
+
+```bash
+cd .../themes/moustache && bash auto-deploy.sh
+```
+
+### Deploy changes (manual)
+
+Auto-deploy covers the normal flow; if you need to do it by hand:
 
 1. Make and test changes locally (`pnpm build` first if you touched assets — `dist/` is committed).
 2. Commit and push to the `main` branch:
@@ -147,7 +187,7 @@ WordPress reads `dist/.vite/manifest.json` at runtime, so `src/`/`public/` chang
    git commit -m "Your message"
    git push origin main
    ```
-3. On the server, pull and rebuild:
+3. On the server (only needed when auto-deploy is not set up yet):
    ```bash
    git pull origin main
    ./deploy.sh      # pnpm install --frozen-lockfile && pnpm build — skip for pure PHP/content changes
