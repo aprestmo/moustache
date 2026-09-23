@@ -10,7 +10,7 @@ on:
       - 'pnpm-lock.yaml'
       - 'vite.config.js'
       - 'postcss.config.js'
-      - '.github/workflows/build.yml'
+      - '.gitea/workflows/build.yml'
 
 permissions:
   contents: write

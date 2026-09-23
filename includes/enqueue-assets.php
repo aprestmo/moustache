@@ -2,13 +2,6 @@
 if (!defined('ABSPATH'))
 	return;
 
-define('ASSETS_VERSION', '1.0.0');
-
-function assets_version_id()
-{
-	return WP_DEBUG ? time() : ASSETS_VERSION;
-}
-
 /**
  * Enqueue scripts and styles for frontend.
  *
@@ -20,7 +13,7 @@ function enqueue_vite_assets()
 	// wp_deregister_script('jquery');
 	// wp_enqueue_script('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js', false, '3.6.0', true);
 
-	$is_dev = defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local';
+	$is_dev = wp_get_environment_type() === 'local';
 
 	if ($is_dev) {
 		// In development, use Vite's dev server on default port 5173
@@ -40,6 +33,12 @@ function enqueue_vite_assets()
 			if ($css) {
 				wp_enqueue_style('theme-main-style', get_template_directory_uri() . '/dist/' . $css, [], null);
 			}
+		} else {
+			// Broken deploy (missing/failed build) should be diagnosable, not silent.
+			error_log(
+				'moustache theme: Vite manifest missing at ' . $manifest_path
+				. ' — front-end assets will NOT load. Build them on the server with ./deploy.sh (pnpm install && pnpm build).'
+			);
 		}
 	}
 }
@@ -69,15 +68,19 @@ function conditionally_load_bbpress_css()
 }
 
 // Helper function to check if the current page is a forum page
-function is_forum_page()
+function is_forum_page(): bool
 {
-	// Get the current requested URL path
-	$current_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+	// Validate the request URI before matching: unslash the raw value and
+	// reduce it to its path component (query string/hash can contain
+	// anything).
+	$uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+	$path = wp_parse_url($uri, PHP_URL_PATH);
 
-	// Check if the path starts with "forum" (adjust if needed)
-	if (strpos($current_path, 'forums') === 0) {
-		return true;
+	if (!is_string($path) || $path === '') {
+		return false;
 	}
 
-	return false;
+	// Match "/forums" or "/forums/..." at the root only, with a slash
+	// boundary so "/forumsXYZ" no longer counts as a forum page.
+	return $path === '/forums' || str_starts_with($path, '/forums/');
 }
