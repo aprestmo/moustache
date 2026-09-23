@@ -44,8 +44,10 @@ Compiled assets are output to `dist/` and referenced by WordPress via `includes/
 
 ```
 moustache/
+├── .gitea/workflows/   # Gitea Actions workflow (builds + commits dist/)
 ├── acf-json/          # ACF field group JSON (auto-synced)
 ├── dist/              # Compiled assets (CSS, JS, fonts, icons)
+├── deploy.sh          # Server-side asset rebuild (git pull && ./deploy.sh)
 ├── includes/
 │   ├── normalize/     # WordPress behaviour cleanup
 │   ├── layouts/       # Layout-specific PHP helpers
@@ -116,29 +118,47 @@ Standings are fetched from the [bedriftsidretten-standings-scraper](https://gith
 
 ## Deployment
 
-The site runs on [Coolify](https://coolify.io/) via Docker at **https://kampbart.com**.
+The site runs on [Coolify](https://coolify.io/) via Docker at **https://kampbart.com** (repository: **Gitea**, not GitHub).
 
-The theme directory is mounted as a Docker volume:
+The theme directory is a git checkout mounted as a Docker volume:
 ```
 /var/lib/docker/volumes/v10zdqzt6cvc9ktlu4pyqyv2_wordpress-files/_data/wp-content/themes/moustache
 ```
 
+### What a deploy needs
+
+| Changed paths | `git pull` on the server | Also run `./deploy.sh` |
+|---|---|---|
+| PHP templates, `includes/`, `template-parts/`, `js/`, `acf-json/`, `languages/` | yes | no |
+| `src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js` | yes | **yes** |
+
+WordPress reads `dist/.vite/manifest.json` at runtime, so `src/`/`public/` changes only go live after a rebuild on the server. `dist/` is committed to git as a safety net, but **do not rely on it staying fresh** — if the manifest is missing entirely, WordPress logs `moustache theme: Vite manifest missing ...` instead of failing silently.
+
 ### Deploy changes
 
-1. Make and test changes locally.
+1. Make and test changes locally (`pnpm build` first if you touched assets — `dist/` is committed).
 2. Commit and push to the `main` branch:
    ```bash
    git add -A
    git commit -m "Your message"
    git push origin main
    ```
-3. On the server, pull the latest changes into the theme directory:
+3. On the server, pull and rebuild:
    ```bash
    git pull origin main
-   ```
-4. If front-end assets were changed, rebuild:
-   ```bash
-   pnpm install && pnpm build
+   ./deploy.sh      # pnpm install --frozen-lockfile && pnpm build — skip for pure PHP/content changes
    ```
 
-No server restart is required — WordPress serves the updated PHP and `dist/` assets immediately.
+No server restart is required — WordPress serves the updated PHP and `dist/` assets immediately. `deploy.sh` can also be set as Coolify's post-deployment command for this resource.
+
+### CI (optional): Gitea Actions
+
+The build workflow lives at **`.gitea/workflows/build.yml`** (the canonical Gitea location; the former `.github/workflows/build.yml` copy was moved there). On pushes to `main` touching `src/`, `public/`, or build config it rebuilds `dist/` and commits it back with `[skip ci]`.
+
+For it to actually run, all of the following must be true — none of which are verifiable from the repo itself:
+
+1. Gitea instance has Actions enabled (`[actions] ENABLED=true`, default since Gitea 1.21).
+2. **Repository Actions enabled**: repo → Settings → Actions → "Enable Repository Actions" (disabled per-repo by default).
+3. A [Gitea Act runner](https://gitea.com/gitea/runner) is registered and online, can run `ubuntu-latest` (Docker-label) jobs, and its token may push to this repository (the workflow's final `git push` needs write access).
+
+If any of these is missing, CI silently does nothing — which is why `./deploy.sh` exists: **deploys never depend on CI**.

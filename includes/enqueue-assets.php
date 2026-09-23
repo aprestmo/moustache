@@ -40,6 +40,12 @@ function enqueue_vite_assets()
 			if ($css) {
 				wp_enqueue_style('theme-main-style', get_template_directory_uri() . '/dist/' . $css, [], null);
 			}
+		} else {
+			// Broken deploy (missing/failed build) should be diagnosable, not silent.
+			error_log(
+				'moustache theme: Vite manifest missing at ' . $manifest_path
+				. ' — front-end assets will NOT load. Build them on the server with ./deploy.sh (pnpm install && pnpm build).'
+			);
 		}
 	}
 }
