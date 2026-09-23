@@ -23,6 +23,7 @@ There are **no** lint, test, typecheck, or format scripts. Verify frontend chang
 ## Architecture
 
 - `functions.php` is the bootstrap; it requires everything in `includes/`.
+- Standings is theme-independent: `includes/standings.php` holds the REST route, cache helpers, season gate, and Tools → Standings. It is loaded by the loader stub `mu-plugins/moustache-standings.php` (symlink to `wp-content/mu-plugins/` — README → One-time setup), or by `functions.php` as fallback when the loader is absent (guarded by `function_exists`). Never both.
 - `includes/normalize/*.php` are auto-included by glob — a new file there loads with no registration.
 - Root `*.php` files are template-hierarchy templates; partials in `template-parts/`; match-report helpers in `includes/layouts/`.
 - CPTs (`pitch`, `fixture`, `player`, `club`) and taxonomies (`tournament`, `division`) are registered via ACF JSON in `acf-json/`. Field changes go in that JSON (auto-synced), not only in the WP admin.
@@ -30,10 +31,10 @@ There are **no** lint, test, typecheck, or format scripts. Verify frontend chang
 
 ## Gotchas
 
-- Season logic in `functions.php` is hardcoded to 2026: `is_season_2026_active()` cuts off at `2026-12-31` and queries the `uteserie-2026` taxonomy slug. Standings silently return nothing once the season is "over" — bump these on year rollover.
+- Season logic lives in `includes/standings.php` as two constants at the top: `MOUSTACHE_SEASON_END_DATE` (`2026-12-31`) and `MOUSTACHE_SEASON_TOURNAMENT_SLUG` (`uteserie-2026`) — both marked **UPDATE ANNUALLY**, one-line edits. Standings silently return nothing once the season is "over" — bump them on year rollover.
 - Standings are fetched from the external `bedriftsidretten-standings-scraper` GitHub repo and cached in the `standings_data` transient for 6h. Clear via Tools → Standings.
 - `GOOGLE_MAPS_API_KEY` must be defined in `wp-config.php`; it's echoed as global `googleMapsApiKey` only on single `pitch` pages — `src/js/map.js` no-ops without it.
-- Saving posts dispatches a GitHub Actions build of the separate `moustache-v7` Astro site (`includes/trigger-astro-build.php`); silently skipped if `MOUSTACHE_GITHUB_TOKEN` is unset.
+- Saving posts dispatches a GitHub Actions build of the separate `moustache-v7` Astro site (`includes/trigger-astro-build.php`, non-blocking/`blocking => false`); silently skipped if `MOUSTACHE_GITHUB_TOKEN` is unset.
 
 ## Deployment
 

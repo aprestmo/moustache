@@ -56,7 +56,9 @@ moustache/
 │   ├── enqueue-assets.php       # Script/style registration
 │   ├── options-page.php         # ACF options page
 │   ├── setup-theme.php          # Theme supports, menus, image sizes
+│   ├── standings.php            # Standings service (loaded via mu-plugin loader)
 │   └── trigger-astro-build.php  # GitHub Actions dispatch on post save
+├── mu-plugins/        # Loader stub → symlink to wp-content/mu-plugins/ (see Deployment)
 ├── src/
 │   ├── css/           # Source CSS (PostCSS / postcss-preset-env)
 │   └── js/            # Source JS
@@ -99,7 +101,7 @@ League tables live on tournament terms (for example «Uteserie 2026»), not a `l
 
 ## REST API
 
-The theme registers a custom endpoint for standings data:
+A custom endpoint for standings data:
 
 ```
 GET /wp-json/moustache/v1/standings
@@ -107,6 +109,8 @@ GET /wp-json/moustache/v1/standings?team=Kampbart
 ```
 
 Standings are fetched from the [bedriftsidretten-standings-scraper](https://github.com/aprestmo/bedriftsidretten-standings-scraper) GitHub repo and cached as a transient for 6 hours.
+
+The code lives in `includes/standings.php` and is loaded by the single-file mu-plugin `mu-plugins/moustache-standings.php` (symlinked to `wp-content/mu-plugins/` — see Deployment), with `functions.php` as a fallback when the loader is not installed. The season cutoff and tournament slug are constants at the top of `includes/standings.php` (**update both annually**).
 
 ## Admin Pages
 
@@ -150,6 +154,17 @@ WordPress reads `dist/.vite/manifest.json` at runtime, so `src/`/`public/` chang
    ```
 
 No server restart is required — WordPress serves the updated PHP and `dist/` assets immediately. `deploy.sh` can also be set as Coolify's post-deployment command for this resource.
+
+### One-time setup: standings mu-plugin
+
+The standings REST endpoint / Tools → Standings page is shipped inside the theme (`includes/standings.php`) but registered through a mu-plugin loader so it is loaded independently of the theme bootstrap. On the server, symlink it once (the theme checkout and `wp-content/mu-plugins/` live in the same Docker volume):
+
+```bash
+cd .../wp-content/mu-plugins
+ln -s ../themes/moustache/mu-plugins/moustache-standings.php moustache-standings.php
+```
+
+Until that symlink exists, `functions.php` loads the service as a fallback, so nothing breaks if you skip this — but the symlink is the intended setup (and is required for the service to survive a future theme change).
 
 ### CI (optional): Gitea Actions
 

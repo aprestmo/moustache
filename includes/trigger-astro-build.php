@@ -50,6 +50,9 @@ function moustache_trigger_astro_build(int $post_id, \WP_Post $post, bool $updat
     }
 
     $url = sprintf('https://api.github.com/repos/%s/%s/dispatches', $owner, $repo);
+    // Fire-and-forget: don't hold up the post-save response waiting on GitHub.
+    // The request only needs to reach the wire; a short timeout bounds the
+    // (non-blocking) connect time.
     $response = wp_remote_post($url, [
         'method' => 'POST',
         'headers' => [
@@ -58,7 +61,8 @@ function moustache_trigger_astro_build(int $post_id, \WP_Post $post, bool $updat
             'Authorization' => 'token ' . $token,
         ],
         'body' => json_encode(['event_type' => 'wordpress']),
-        'timeout' => 10,
+        'timeout' => 5,
+        'blocking' => false,
     ]);
 
     if (!is_wp_error($response)) {
