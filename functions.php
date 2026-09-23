@@ -92,34 +92,25 @@ function redirect_users_by_role()
 } // redirect_users_by_role
 add_action('admin_init', 'redirect_users_by_role');
 
-function lt_html_excerpt($text)
-{
-    // Fakes an excerpt if needed
-    global $post;
-    if ('' == $text) {
-        $text = get_the_content('');
-        $text = apply_filters('the_content', $text);
-        $text = str_replace('\]\]\>', ']]&gt;', $text);
-        /*just add all the tags you want to appear in the excerpt --
-        be sure there are no white spaces in the string of allowed tags */
-        $text = strip_tags($text, '<p><br><b><a><em><strong>');
-        /* you can also change the length of the excerpt here, if you want */
-        $excerpt_length = 50;
-        $words = explode(' ', $text, $excerpt_length + 1);
-        if (count($words) > $excerpt_length) {
-            array_pop($words);
-            array_push($words, '&hellip;');
-            $text = implode(' ', $words);
-        }
-    }
-    return $text;
-}
+/**
+ * Excerpts: keep WordPress' default generator (wp_trim_excerpt → trimmed with
+ * wp_trim_words()) and only set the theme's historical length + ellipsis.
+ *
+ * This replaces the old custom lt_html_excerpt() filter, which re-implemented
+ * trimming by hand and carried a broken single-quoted
+ * str_replace('\]\]\>', ...) pattern, and whose allow-tag list could nest
+ * markup (e.g. <p>) inside the <p> that front-page.php wraps
+ * get_the_excerpt() in — wp_trim_words() strips all tags, so no allow-list is
+ * needed here. Hand-written post excerpts still pass through untrimmed (both
+ * old filter and core leave a non-empty post_excerpt alone).
+ */
+add_filter('excerpt_length', function () {
+    return 50;
+});
 
-/* remove the default filter */
-remove_filter('get_the_excerpt', 'wp_trim_excerpt');
-
-/* now, add your own filter */
-add_filter('get_the_excerpt', 'lt_html_excerpt');
+add_filter('excerpt_more', function () {
+    return ' &hellip;';
+});
 
 function inject_google_maps_api_key()
 {

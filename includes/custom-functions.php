@@ -191,10 +191,11 @@ function bem_menu(string $location = "main_menu", string $css_class_prefix = 'ma
  */
 function get_asset_base_path(): string
 {
-	if (!defined('WP_ENVIRONMENT_TYPE')) {
-		define('WP_ENVIRONMENT_TYPE', 'production');
-	}
-	return WP_ENVIRONMENT_TYPE === 'local' ? '/public/' : '/dist/';
+	// wp_get_environment_type() reads the WP_ENVIRONMENT_TYPE constant (if
+	// defined in wp-config.php) and falls back to 'production'. Never
+	// define() core constants here — redefining WP_ENVIRONMENT_TYPE late
+	// is a footgun.
+	return wp_get_environment_type() === 'local' ? '/public/' : '/dist/';
 }
 
 /**
@@ -207,10 +208,10 @@ function formatClubTitlesWithOg(array $titles): string
 	if ($count === 0) return '';
 	if ($count === 1) return $titles[0];
 	if ($count === 2) {
-		return $titles[0] . ' ' . __('and', 'moustache') . ' ' . $titles[1];
+		return $titles[0] . ' ' . __('og', 'moustache') . ' ' . $titles[1];
 	}
 
 	$last_item = array_pop($titles);
-	return implode(', ', $titles) . ' ' . __('and', 'moustache') . ' ' . $last_item;
+	return implode(', ', $titles) . ' ' . __('og', 'moustache') . ' ' . $last_item;
 }
 
