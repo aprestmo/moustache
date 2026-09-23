@@ -52,6 +52,8 @@ moustache/
 ├── includes/
 │   ├── normalize/     # WordPress behaviour cleanup
 │   ├── layouts/       # Layout-specific PHP helpers
+│   ├── acf.php                  # ACF accessors (goals/cards/teams, legacy fallbacks)
+│   ├── acf-migrate-fixtures.php # Tools → Fixture migration (legacy → new Kamper fields)
 │   ├── admin-brand.php          # Custom admin login branding
 │   ├── custom-functions.php     # Theme utility functions
 │   ├── enqueue-assets.php       # Script/style registration
@@ -122,8 +124,38 @@ The code lives in `includes/standings.php` and is loaded by the single-file mu-p
 - **Theme Settings** — 404 content.
 - **Theme Settings → Club Information** — club details and Gullbart winners (shown on the Club info page).
 - **Tools → Standings** — view cache status, season status, environment check, and manually clear the standings cache.
-- **Tools → Fixture migration** — dry-run / write the new Kamper field values (goals, cards, unplayed, numeric results).
+- **Tools → Fixture migration** — dry-run / write the new Kamper field values (goals, cards, unplayed, numeric results). See below.
 - **Settings → Astro build** — view GitHub Actions trigger status and manually dispatch a build.
+
+## Fixture field migration (Kamper ACF)
+
+Match reports read goals/assists/cards through `moustache_get_goals()` / `moustache_get_cards()` in `includes/acf.php`. The Kamper field group in `acf-json/group_5539864c3a238.json` was simplified to a single `goals` repeater and `match_cards` repeater (plus numeric `result_*` / `unplayed` fields). Production data originally lived in the removed half-based fields:
+
+| Legacy meta (still in DB until cleaned up) | New field |
+|---|---|
+| `goals_assists_first_half` / `goals_assists_second_half` | `goals` |
+| `cards` / `cards_first_half` / `cards_second_half` | `match_cards` |
+| `result_fulltime` / `result_pause` text | `result_home_ft` / `result_away_ft` / `result_*_ht` |
+| `canceled` | `unplayed` + `unplayed_reason` |
+| multi-value `home_team` / `away_team` / `pitch` | single relationship ID |
+
+**Why a one-shot write is required:** after the ACF JSON cutover, `get_field('goals_assists_*')` no longer expands those repeaters (ACF returns only the raw row-count string). Templates prefer `goals`; without migrated rows the UI shows no scorers/assists. `moustache_get_legacy_repeater_rows()` can still reconstruct legacy rows from post meta for fallbacks and for the migrator itself.
+
+**How to run** (WP Admin, capability `manage_options`):
+
+1. Deploy the theme commit that includes `includes/acf-migrate-fixtures.php` and the legacy meta reader in `includes/acf.php`.
+2. Open **Tools → Fixture migration**.
+3. **Dry run** first — check sample goal/card counts and any score parse errors.
+4. **Write values** — copies legacy data into the new fields for every `fixture` post. Old meta keys are left in place for rollback. Sets option `moustache_fixtures_migrated` to `1`.
+
+CLI equivalent (from the WordPress container):
+
+```bash
+php -r 'require "/var/www/html/wp-load.php"; print_r(moustache_run_fixture_migration(true));'   # dry run
+php -r 'require "/var/www/html/wp-load.php"; print_r(moustache_run_fixture_migration(false));'  # write
+```
+
+Re-running write is safe if you need to pick up migrator fixes; it overwrites the new field values from current legacy meta. kampbart.com was migrated with this path (289 fixtures; ~223 with goal rows).
 
 ## Deployment
 

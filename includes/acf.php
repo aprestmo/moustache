@@ -267,6 +267,47 @@ function moustache_get_recorded_result(int $post_id = 0): array
 }
 
 /**
+ * Read an ACF repeater even when the field is no longer in the field group.
+ * get_field() only returns the raw row-count string without a field definition.
+ *
+ * @return list<array<string, mixed>>
+ */
+function moustache_get_legacy_repeater_rows(int $post_id, string $field_name): array
+{
+	if (function_exists('get_field') && function_exists('acf_get_field') && acf_get_field($field_name)) {
+		$via_acf = get_field($field_name, $post_id);
+		if (is_array($via_acf)) {
+			return $via_acf;
+		}
+	}
+
+	$count = get_post_meta($post_id, $field_name, true);
+	if (!is_numeric($count) || (int) $count <= 0) {
+		return [];
+	}
+
+	$count = (int) $count;
+	$all_meta = get_post_meta($post_id);
+	$rows = array_fill(0, $count, []);
+	$pattern = '/^' . preg_quote($field_name, '/') . '_(\d+)_(.+)$/';
+
+	foreach ($all_meta as $meta_key => $values) {
+		if (!is_string($meta_key) || !preg_match($pattern, $meta_key, $matches)) {
+			continue;
+		}
+
+		$index = (int) $matches[1];
+		if ($index < 0 || $index >= $count) {
+			continue;
+		}
+
+		$rows[$index][$matches[2]] = maybe_unserialize($values[0] ?? '');
+	}
+
+	return array_values($rows);
+}
+
+/**
  * Goals from both halves, oldest first.
  *
  * @return array<int, array{half: string, side: string, scorer: ?WP_Post, assist: ?WP_Post, assist_text: string, own_goal: bool}>
@@ -293,16 +334,15 @@ function moustache_get_goals(int $post_id = 0): array
 	}
 
 	foreach (['first', 'second'] as $half) {
-		$rows = get_field("goals_assists_{$half}_half", $post_id);
-		if (!is_array($rows)) {
-			continue;
-		}
+		$rows = moustache_get_legacy_repeater_rows($post_id, "goals_assists_{$half}_half");
 
 		foreach ($rows as $row) {
 			$own_goal = !empty($row["own_goal_{$half}_half"]);
 			$scorer = $row["goal_scorer_{$half}_half"] ?? null;
 			if ($own_goal && ($row['goal_for'] ?? '') === 'opponent') {
 				$scorer = $row["own_goal_{$half}_half_kampbart_player"] ?? $scorer;
+			} elseif ($own_goal && ($row['goal_for'] ?? '') === 'kampbart') {
+				$scorer = $row["own_goal_{$half}_half_opponent_player"] ?? $scorer;
 			}
 
 			$goals[] = [
@@ -342,9 +382,9 @@ function moustache_get_cards(int $post_id = 0): array
 		return $cards;
 	}
 
-	$unknown = get_field('cards', $post_id);
+	$unknown = moustache_get_legacy_repeater_rows($post_id, 'cards');
 
-	if (is_array($unknown) && $unknown !== []) {
+	if ($unknown !== []) {
 		foreach ($unknown as $row) {
 			$cards[] = [
 				'half' => 'unknown',
@@ -357,10 +397,7 @@ function moustache_get_cards(int $post_id = 0): array
 	}
 
 	foreach (['first', 'second'] as $half) {
-		$rows = get_field("cards_{$half}_half", $post_id);
-		if (!is_array($rows)) {
-			continue;
-		}
+		$rows = moustache_get_legacy_repeater_rows($post_id, "cards_{$half}_half");
 
 		foreach ($rows as $row) {
 			$cards[] = [

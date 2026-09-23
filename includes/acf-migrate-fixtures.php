@@ -3,6 +3,12 @@
 /**
  * One-time fixture field migration (dry-run first).
  *
+ * Copies legacy half-based goals/cards and related Kamper meta into the
+ * simplified ACF fields (`goals`, `match_cards`, `unplayed`, numeric results).
+ * Legacy ACF field definitions were removed from acf-json, so the migrator
+ * reads repeaters via moustache_get_legacy_repeater_rows() (post meta), not
+ * get_field() alone. WP Admin: Tools → Fixture migration. See README.
+ *
  * @package Moustache
  */
 
@@ -72,15 +78,26 @@ function moustache_migrate_player_id(mixed $raw): mixed
 	return (int) $id;
 }
 
+function moustache_migrate_meta(int $post_id, string $key): mixed
+{
+	if (function_exists('get_field') && function_exists('acf_get_field') && acf_get_field($key)) {
+		$value = get_field($key, $post_id);
+		if ($value !== null && $value !== false && $value !== '') {
+			return $value;
+		}
+	}
+
+	$value = get_post_meta($post_id, $key, true);
+
+	return $value === '' ? null : maybe_unserialize($value);
+}
+
 function moustache_legacy_goal_rows(int $post_id): array
 {
 	$rows = [];
 
 	foreach (['first', 'second'] as $half) {
-		$legacy = get_field("goals_assists_{$half}_half", $post_id);
-		if (!is_array($legacy)) {
-			continue;
-		}
+		$legacy = moustache_get_legacy_repeater_rows($post_id, "goals_assists_{$half}_half");
 
 		foreach ($legacy as $row) {
 			$side = (string) ($row['goal_for'] ?? '');
@@ -92,7 +109,10 @@ function moustache_legacy_goal_rows(int $post_id): array
 				$scorer = $row["own_goal_{$half}_half_opponent_player"] ?? $scorer;
 			}
 
-			$assist_type = (string) ($row['assist'] ?? '');
+			$assist_type_raw = $row['assist'] ?? '';
+			$assist_type = is_scalar($assist_type_raw) ? (string) $assist_type_raw : '';
+			$assist_text_raw = $row["assist_{$half}_half_text"] ?? '';
+			$assist_text = is_scalar($assist_text_raw) ? (string) $assist_text_raw : '';
 			$rows[] = [
 				'half' => $half,
 				'side' => $side,
@@ -100,7 +120,7 @@ function moustache_legacy_goal_rows(int $post_id): array
 				'scorer' => moustache_migrate_player_id($scorer),
 				'assist_type' => $assist_type,
 				'assist' => moustache_migrate_player_id($row["assist_{$half}_half"] ?? null),
-				'assist_text' => (string) ($row["assist_{$half}_half_text"] ?? ''),
+				'assist_text' => $assist_text,
 			];
 		}
 	}
@@ -111,9 +131,9 @@ function moustache_legacy_goal_rows(int $post_id): array
 function moustache_legacy_card_rows(int $post_id): array
 {
 	$rows = [];
-	$unknown = get_field('cards', $post_id);
+	$unknown = moustache_get_legacy_repeater_rows($post_id, 'cards');
 
-	if (is_array($unknown) && $unknown !== []) {
+	if ($unknown !== []) {
 		foreach ($unknown as $row) {
 			$rows[] = [
 				'half' => 'unknown',
@@ -126,10 +146,7 @@ function moustache_legacy_card_rows(int $post_id): array
 	}
 
 	foreach (['first', 'second'] as $half) {
-		$legacy = get_field("cards_{$half}_half", $post_id);
-		if (!is_array($legacy)) {
-			continue;
-		}
+		$legacy = moustache_get_legacy_repeater_rows($post_id, "cards_{$half}_half");
 
 		foreach ($legacy as $row) {
 			$rows[] = [
@@ -145,7 +162,7 @@ function moustache_legacy_card_rows(int $post_id): array
 
 function moustache_fixture_migration_payload(int $post_id): array
 {
-	$canceled = get_field('canceled', $post_id);
+	$canceled = moustache_migrate_meta($post_id, 'canceled');
 	$unplayed = 0;
 	$unplayed_reason = '';
 
@@ -157,14 +174,20 @@ function moustache_fixture_migration_payload(int $post_id): array
 		$unplayed_reason = 'abandoned';
 	}
 
-	$ft = moustache_parse_score_text(get_field('result_fulltime', $post_id));
-	$ht = moustache_parse_score_text(get_field('result_pause', $post_id));
-	$result_only = (bool) get_field('only_result_fulltime', $post_id);
+	$result_fulltime = moustache_migrate_meta($post_id, 'result_fulltime');
+	$result_pause = moustache_migrate_meta($post_id, 'result_pause');
+	$ft = moustache_parse_score_text(is_string($result_fulltime) ? $result_fulltime : '');
+	$ht = moustache_parse_score_text(is_string($result_pause) ? $result_pause : '');
+	$result_only = (bool) moustache_migrate_meta($post_id, 'only_result_fulltime');
+
+	$home = moustache_migrate_meta($post_id, 'home_team');
+	$away = moustache_migrate_meta($post_id, 'away_team');
+	$pitch = moustache_migrate_meta($post_id, 'pitch');
 
 	return [
-		'home_team' => moustache_migrate_relationship_id(get_field('home_team', $post_id)),
-		'away_team' => moustache_migrate_relationship_id(get_field('away_team', $post_id)),
-		'pitch' => moustache_migrate_relationship_id(get_field('pitch', $post_id)),
+		'home_team' => moustache_migrate_relationship_id($home),
+		'away_team' => moustache_migrate_relationship_id($away),
+		'pitch' => moustache_migrate_relationship_id($pitch),
 		'goals' => moustache_legacy_goal_rows($post_id),
 		'match_cards' => moustache_legacy_card_rows($post_id),
 		'unplayed' => $unplayed,
@@ -174,8 +197,8 @@ function moustache_fixture_migration_payload(int $post_id): array
 		'result_away_ht' => $ht[1] ?? '',
 		'result_home_ft' => $ft[0] ?? '',
 		'result_away_ft' => $ft[1] ?? '',
-		'score_parse_error' => ($result_only || get_field('result_fulltime', $post_id)) && $ft === null
-			&& (string) get_field('result_fulltime', $post_id) !== '',
+		'score_parse_error' => ($result_only || $result_fulltime) && $ft === null
+			&& is_string($result_fulltime) && $result_fulltime !== '',
 	];
 }
 

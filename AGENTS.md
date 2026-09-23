@@ -34,6 +34,7 @@ There are **no** lint, test, typecheck, or format scripts. Verify frontend chang
 
 - Season logic lives in `includes/standings.php` as two constants at the top: `MOUSTACHE_SEASON_END_DATE` (`2026-12-31`) and `MOUSTACHE_SEASON_TOURNAMENT_SLUG` (`uteserie-2026`) — both marked **UPDATE ANNUALLY**, one-line edits. Standings silently return nothing once the season is "over" — bump them on year rollover.
 - Standings are fetched from the external `bedriftsidretten-standings-scraper` GitHub repo and cached in the `standings_data` transient for 6h. Clear via Tools → Standings.
+- Fixture goals/assists: UI uses `goals` / `match_cards` (see `moustache_get_goals()`). After pulling the simplified Kamper ACF JSON onto an environment that still has only legacy `goals_assists_*` meta, run **Tools → Fixture migration** (or `moustache_run_fixture_migration(false)`) once — otherwise match reports show empty scores. Migrator + meta fallback live in `includes/acf-migrate-fixtures.php` and `includes/acf.php` (`moustache_get_legacy_repeater_rows`). Flag: option `moustache_fixtures_migrated`. Details in README → Fixture field migration.
 - `GOOGLE_MAPS_API_KEY` must be defined in `wp-config.php`; it's echoed as global `googleMapsApiKey` only on single `pitch` pages — `src/js/map.js` no-ops without it.
 - Saving posts dispatches a GitHub Actions build of the separate `moustache-v7` Astro site (`includes/trigger-astro-build.php`, non-blocking/`blocking => false`); silently skipped if `MOUSTACHE_GITHUB_TOKEN` is unset.
 
