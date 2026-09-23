@@ -3,32 +3,19 @@
 /**
  * Add some extra capabilities to editors
  *
- * @since 1.0
- */
-function starter_map_editor_role()
-{
-  if (is_admin() && isset($_GET['starter_map_roles'])) {
-    $role = get_role('editor');
-
-    if (is_object($role)) {
-      $role->add_cap('edit_theme_options');
-      $role->add_cap('create_users');
-      $role->add_cap('delete_users');
-      $role->add_cap('edit_users');
-      $role->add_cap('remove_users');
-      $role->add_cap('promote_users');
-      $role->add_cap('list_users');
-    }
-
-    wp_die('Done mapping users');
-  }
-}
-add_action('init', 'starter_map_editor_role', 1);
-
-/**
- * Editors should not edit admin-users
+ * SECURITY: a former `?starter_map_roles=1` GET trigger on `init` has been
+ * removed. It granted the editor role dangerous capabilities
+ * (edit_theme_options, create_users, delete_users, edit_users,
+ * remove_users, promote_users, list_users) for ANY request hitting an admin
+ * URL — no nonce, no capability check, reachable unauthenticated via e.g.
+ * wp-admin/admin-ajax.php.
  *
- * @access public
+ * To (re-)grant those capabilities to the editor role intentionally, run it
+ * once yourself via WP-CLI:
+ *
+ *   wp eval '$r = get_role("editor"); if ($r) { foreach (["edit_theme_options","create_users","delete_users","edit_users","remove_users","promote_users","list_users"] as $c) { $r->add_cap($c); } } echo "done\n";'
+ *
+ * @since 1.0
  */
 function starter_editable_roles($roles)
 {

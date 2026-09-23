@@ -86,6 +86,7 @@ function redirect_users_by_role()
 
         if ('subscriber' === $role_name) {
             wp_redirect(home_url());
+            exit;
         }
     }
 } // redirect_users_by_role

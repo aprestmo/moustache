@@ -34,7 +34,6 @@ There are **no** lint, test, typecheck, or format scripts. Verify frontend chang
 - Standings are fetched from the external `bedriftsidretten-standings-scraper` GitHub repo and cached in the `standings_data` transient for 6h. Clear via Tools → Standings.
 - `GOOGLE_MAPS_API_KEY` must be defined in `wp-config.php`; it's echoed as global `googleMapsApiKey` only on single `pitch` pages — `src/js/map.js` no-ops without it.
 - Saving posts dispatches a GitHub Actions build of the separate `moustache-v7` Astro site (`includes/trigger-astro-build.php`); silently skipped if `MOUSTACHE_GITHUB_TOKEN` is unset.
-- `test-standings.php` and `verify-deployment.php` at the theme root are ad-hoc, web-accessible debug scripts — don't wire them into anything; `verify-deployment.php` is meant to be deleted after use.
 
 ## Deployment
 
