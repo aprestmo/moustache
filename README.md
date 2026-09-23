@@ -83,7 +83,7 @@ define('MOUSTACHE_GITHUB_REPO',  'moustache-v7');
 define('MOUSTACHE_GITHUB_TOKEN', 'ghp_...');
 
 // Gitea push webhook → auto-deploy (must match the webhook's secret).
-// While undefined, POST /wp-json/moustache/v1/deploy answers 404.
+// While undefined, POST ...admin-ajax.php?action=moustache_deploy answers 404.
 define('MOUSTACHE_WEBHOOK_SECRET', 'long-random-string');
 ```
 
@@ -148,7 +148,7 @@ WordPress reads `dist/.vite/manifest.json` at runtime, so `src/`/`public/` chang
 Pushing to `main` updates the site — both for PHP/template changes (a plain pull) and for `src/`/`public/` changes (a conditional `pnpm build`). One script does the work either way:
 
 - **`auto-deploy.sh`** — fetches `origin/main`, fast-forwards, and runs `deploy.sh` **only** when build inputs changed (`src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js`). It is idempotent and lock-protected, so running it from two triggers at once is safe.
-- **Webhook (instant)** — Gitea POSTs to `POST /wp-json/moustache/v1/deploy` (`includes/deploy-webhook.php`), which verifies Gitea's `X-Gitea-Signature` (HMAC-SHA256 of the raw body with `MOUSTACHE_WEBHOOK_SECRET`), checks the push targeted `main`, and spawns `auto-deploy.sh` detached, logging to `/tmp/moustache-deploy.log`.
+- **Webhook (instant)** — Gitea POSTs to `POST /wp-admin/admin-ajax.php?action=moustache_deploy` (`includes/deploy-webhook.php`), which verifies Gitea's `X-Gitea-Signature` (HMAC-SHA256 of the raw body with `MOUSTACHE_WEBHOOK_SECRET`), checks the push targeted `main`, and spawns `auto-deploy.sh` detached, logging to `/tmp/moustache-deploy.log`. It uses `admin-ajax.php` rather than a REST route because the REST API is disabled site-wide on kampbart.com by a filter outside this repo (`WP_Error: rest_disabled`) — note that the same filter also 403s `/wp-json/moustache/v1/standings`.
 - **Cron (fallback)** — runs the same script every minute, so a missed/failed webhook still deploys within ~60s.
 
 One-time setup:
@@ -158,7 +158,7 @@ One-time setup:
    define('MOUSTACHE_WEBHOOK_SECRET', 'long-random-string');  // e.g. openssl rand -hex 32
    ```
 2. In Gitea → repo → **Settings → Webhooks → Add Webhook → Gitea**:
-   - **URL:** `https://kampbart.com/wp-json/moustache/v1/deploy`
+   - **URL:** `https://kampbart.com/wp-admin/admin-ajax.php?action=moustache_deploy`
    - **Secret:** the same `MOUSTACHE_WEBHOOK_SECRET` value
    - **Trigger:** Push events, branch `main` (other refs are ignored by the endpoint anyway)
    - **SSL verification:** enabled
