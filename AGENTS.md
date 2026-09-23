@@ -7,6 +7,7 @@ WordPress theme for kampbart.com — classic PHP template hierarchy (not a block
 - `pnpm install` — pnpm only (`packageManager` in `package.json`).
 - `pnpm dev` — Vite dev server on `:5173` with live reload of `*.php`.
 - `pnpm build` — production build to `dist/`.
+- `bash auto-deploy.sh` — server-side: fetch `origin/main`, ff-merge, run `deploy.sh` only if build inputs changed (webhook + cron both call this; lock-protected).
 
 There are **no** lint, test, typecheck, or format scripts. Verify frontend changes with `pnpm build` and PHP with `php -l`. Prettier is installed but unconfigured and unused in CI — don't mass-format.
 
@@ -38,4 +39,4 @@ There are **no** lint, test, typecheck, or format scripts. Verify frontend chang
 
 ## Deployment
 
-Theme runs on Coolify/Docker at kampbart.com, mounted as a Docker volume; repo host is **Gitea** (git.attityd.no), not GitHub. Flow: push to `main` → on the server `git pull origin main` → run `./deploy.sh` when `src/`/`public/` changed (PHP, `js/`, `acf-json/` are picked up by the pull alone). The `.gitea/workflows/build.yml` CI is optional and needs a registered Gitea Act runner — deploys must not depend on it. Full steps, the volume path, and CI requirements are in `README.md`.
+Theme runs on Coolify/Docker at kampbart.com, mounted as a Docker volume; repo host is **Gitea** (git.attityd.no), not GitHub. Flow: push to `main` → auto-deploy (webhook `POST /wp-json/moustache/v1/deploy` + host cron both run `auto-deploy.sh`: fetch, ff-merge, conditional `pnpm build`); manual fallback is `git pull origin main` on the server → `./deploy.sh` when `src/`/`public/` changed (PHP, `js/`, `acf-json/` are picked up by the pull alone). The `.gitea/workflows/build.yml` CI is optional and needs a registered Gitea Act runner — deploys must not depend on it. Webhook needs `MOUSTACHE_WEBHOOK_SECRET` in `wp-config.php` matching the Gitea webhook secret (setup in README → Auto-deploy). Full steps, the volume path, and CI requirements are in `README.md`.

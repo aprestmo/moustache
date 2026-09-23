@@ -69,6 +69,12 @@ require get_template_directory() . '/includes/trigger-astro-build.php';
  */
 require get_template_directory() . '/includes/acf-migrate-fixtures.php';
 
+/**
+ * Gitea push webhook → auto-deploy.sh (spawns a detached pull + build;
+ * host cron running the same script is the fallback — see README)
+ */
+require get_template_directory() . '/includes/deploy-webhook.php';
+
 // TRUNK
 
 /**
