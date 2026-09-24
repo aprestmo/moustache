@@ -52,40 +52,38 @@ jobs:
 
       - name: Deploy committed assets to production
         env:
-          MOUSTACHE_WEBHOOK_SECRET: ${{ secrets.MOUSTACHE_WEBHOOK_SECRET }}
+          MOUSTACHE_DEPLOY_SSH_KEY: ${{ secrets.MOUSTACHE_DEPLOY_SSH_KEY }}
+          MOUSTACHE_DEPLOY_KNOWN_HOSTS: ${{ secrets.MOUSTACHE_DEPLOY_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
 
-          if [ -z "${MOUSTACHE_WEBHOOK_SECRET:-}" ]; then
-            echo "MOUSTACHE_WEBHOOK_SECRET must be configured as a Gitea Actions repository secret" >&2
+          if [ -z "${MOUSTACHE_DEPLOY_SSH_KEY:-}" ] || [ -z "${MOUSTACHE_DEPLOY_KNOWN_HOSTS:-}" ]; then
+            echo "MOUSTACHE_DEPLOY_SSH_KEY and MOUSTACHE_DEPLOY_KNOWN_HOSTS must be configured as Gitea Actions repository secrets" >&2
             exit 1
           fi
 
           expected_commit="$(git rev-parse HEAD)"
-          payload="$(printf '{"ref":"refs/heads/main","synchronous":true,"skip_build":true,"expected_commit":"%s"}' "$expected_commit")"
-          signature="$(printf '%s' "$payload" | openssl dgst -sha256 -hmac "$MOUSTACHE_WEBHOOK_SECRET" -hex | awk '{print $2}')"
+          deploy_host="89.167.31.44"
+          deploy_user="root"
+          deploy_port="22"
+          deploy_path="/mnt/HC_Volume_104573907/docker/volumes/v10zdqzt6cvc9ktlu4pyqyv2_wordpress-files/_data/wp-content/themes/moustache"
+          ssh_dir="$(mktemp -d)"
+          trap 'rm -rf "$ssh_dir"' EXIT
+          key_file="$ssh_dir/id_ed25519"
+          known_hosts="$ssh_dir/known_hosts"
 
-          response="$(curl --fail-with-body --silent --show-error \
-            --retry 4 \
-            --retry-delay 5 \
-            --retry-connrefused \
-            --connect-timeout 10 \
-            --max-time 240 \
-            -X POST \
-            -H 'Content-Type: application/json' \
-            -H "X-Gitea-Signature: $signature" \
-            --data "$payload" \
-            'https://kampbart.com/wp-admin/admin-ajax.php?action=moustache_deploy_ci')"
+          printf '%s\n' "$MOUSTACHE_DEPLOY_SSH_KEY" | sed 's/\r$//' > "$key_file"
+          printf '%s\n' "$MOUSTACHE_DEPLOY_KNOWN_HOSTS" | sed '/^$/d' > "$known_hosts"
+          chmod 600 "$key_file" "$known_hosts"
 
-          printf '%s\n' "$response"
-          if ! printf '%s' "$response" | EXPECTED_COMMIT="$expected_commit" node -e '
-            const fs = require("fs");
-            const expected = process.env.EXPECTED_COMMIT;
-            const result = JSON.parse(fs.readFileSync(0, "utf8"));
-            if (result.status !== "deployed" || result.deployed_commit !== expected) {
-              process.exit(1);
-            }
-          '; then
-            echo "Production did not confirm deployment of commit $expected_commit" >&2
-            exit 1
-          fi
+          remote_command="cd $deploy_path && MOUSTACHE_DEPLOY_SKIP_BUILD=1 MOUSTACHE_DEPLOY_STRICT=1 MOUSTACHE_DEPLOY_EXPECTED_COMMIT='$expected_commit' bash auto-deploy.sh"
+          ssh \
+            -i "$key_file" \
+            -o IdentitiesOnly=yes \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$known_hosts" \
+            -o ConnectTimeout=15 \
+            -p "$deploy_port" \
+            "$deploy_user@$deploy_host" \
+            "$remote_command"

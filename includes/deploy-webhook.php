@@ -16,8 +16,8 @@ defined('ABSPATH') || die('Shame on you');
  *   2. Gitea → repo → Settings → Webhooks →
  *      https://kampbart.com/wp-admin/admin-ajax.php?action=moustache_deploy
  *      + the same secret (Content type: application/json)
- *   3. The Gitea Action uses the separate signed
- *      `action=moustache_deploy_ci` endpoint.
+ *   3. The synchronous `action=moustache_deploy_ci` endpoint remains available
+ *      for manual/fallback use; the current Gitea Action uses SSH instead.
  *
  * The handler stays disabled (404) while the constant is undefined.
  *
