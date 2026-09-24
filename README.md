@@ -161,6 +161,8 @@ Re-running write is safe if you need to pick up migrator fixes; it overwrites th
 
 The site runs on [Coolify](https://coolify.io/) via Docker at **https://kampbart.com** (repository: **Gitea**, not GitHub).
 
+For a reusable, project-independent version of the Gitea Actions → SSH deployment setup, see [`docs/gitea-actions-ssh-deploy.md`](docs/gitea-actions-ssh-deploy.md).
+
 The theme directory is a git checkout mounted as a Docker volume:
 ```
 /var/lib/docker/volumes/v10zdqzt6cvc9ktlu4pyqyv2_wordpress-files/_data/wp-content/themes/moustache
