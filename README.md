@@ -84,8 +84,8 @@ define('MOUSTACHE_GITHUB_OWNER', 'aprestmo');
 define('MOUSTACHE_GITHUB_REPO',  'moustache-v7');
 define('MOUSTACHE_GITHUB_TOKEN', 'ghp_...');
 
-// Gitea push webhook → auto-deploy (must match the webhook's secret).
-// While undefined, POST ...admin-ajax.php?action=moustache_deploy answers 404.
+// Gitea push webhook + Action deploy (must match both Gitea secret values).
+// While undefined, the deploy AJAX actions answer 404.
 define('MOUSTACHE_WEBHOOK_SECRET', 'long-random-string');
 ```
 
@@ -171,41 +171,50 @@ The theme directory is a git checkout mounted as a Docker volume:
 | Changed paths | `git pull` on the server | Also run `./deploy.sh` |
 |---|---|---|
 | PHP templates, `includes/`, `template-parts/`, `js/`, `acf-json/`, `languages/` | yes | no |
-| `src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js` | yes | **yes** |
+| `src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js` | yes | **only for manual/server fallback** (the Gitea Action builds `dist/`) |
 
-WordPress reads `dist/.vite/manifest.json` at runtime, so `src/`/`public/` changes only go live after a rebuild on the server. `dist/` is committed to git as a safety net, but **do not rely on it staying fresh** — if the manifest is missing entirely, WordPress logs `moustache theme: Vite manifest missing ...` instead of failing silently.
+WordPress reads `dist/.vite/manifest.json` at runtime. The Gitea Action builds and commits `dist/`; the server-side CI deploy then pulls that committed build without rebuilding. A manual/server-side deployment still needs `./deploy.sh` for `src/`/`public/` changes. `dist/` is committed to git as a safety net, but **do not rely on it staying fresh** — if the manifest is missing entirely, WordPress logs `moustache theme: Vite manifest missing ...` instead of failing silently.
 
-### Auto-deploy (webhook + cron)
+### Auto-deploy (CI + webhook + cron)
 
-Pushing to `main` updates the site — both for PHP/template changes (a plain pull) and for `src/`/`public/` changes (a conditional `pnpm build`). One script does the work either way:
+Pushing to `main` updates PHP/template changes with a plain pull. Frontend input changes are held back until the Gitea Action has built and approved the matching `dist/` commit; this prevents webhook/cron from deploying an unbuilt source tree. One script does the work either way:
 
-- **`auto-deploy.sh`** — fetches `origin/main`, fast-forwards, and runs `deploy.sh` **only** when build inputs changed (`src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js`). It is idempotent and lock-protected, so running it from two triggers at once is safe.
-- **Webhook (instant)** — Gitea POSTs to `POST /wp-admin/admin-ajax.php?action=moustache_deploy` (`includes/deploy-webhook.php`), which verifies Gitea's `X-Gitea-Signature` (HMAC-SHA256 of the raw body with `MOUSTACHE_WEBHOOK_SECRET`), checks the push targeted `main`, and spawns `auto-deploy.sh` detached, logging to `/tmp/moustache-deploy.log`. It uses `admin-ajax.php` rather than a REST route because the REST API is disabled site-wide on kampbart.com by a filter outside this repo (`WP_Error: rest_disabled`) — note that the same filter also 403s `/wp-json/moustache/v1/standings`.
-- **Cron (fallback)** — runs the same script every minute, so a missed/failed webhook still deploys within ~60s.
+- **Gitea Action (CI deployment)** — after the frontend build and `dist/` commit succeed, `.gitea/workflows/build.yml` sends a signed **synchronous** request to `POST /wp-admin/admin-ajax.php?action=moustache_deploy_ci`. The request includes the exact commit produced by the Action; the server verifies it is present, pulls the committed `dist/`, and the Action only turns green after that pull succeeds. The request uses the same `MOUSTACHE_WEBHOOK_SECRET` as production, with `skip_build: true` because CI has already built the assets.
+- **`auto-deploy.sh`** — fetches `origin/main`, fast-forwards, and runs `deploy.sh` **only** when build inputs changed (`src/`, `public/`, `package.json`, `pnpm-lock.yaml`, `vite.config.js`, `postcss.config.js`). It is idempotent and lock-protected, so running it from two triggers at once is safe. The CI request sets `MOUSTACHE_DEPLOY_SKIP_BUILD=1` and `MOUSTACHE_DEPLOY_STRICT=1`: it verifies the exact target commit and committed manifest, uses `dist/` instead of rebuilding on the server, and fails if the checkout is dirty. Ordinary webhook/cron runs refuse unapproved frontend changes; a manual server build must opt in with `MOUSTACHE_DEPLOY_ALLOW_SERVER_BUILD=1`.
+- **Webhook (instant fallback)** — Gitea POSTs to `POST /wp-admin/admin-ajax.php?action=moustache_deploy` (`includes/deploy-webhook.php`), which verifies Gitea's `X-Gitea-Signature` (HMAC-SHA256 of the raw body with `MOUSTACHE_WEBHOOK_SECRET`), checks the push targeted `main`, and spawns `auto-deploy.sh` detached, logging to `/tmp/moustache-deploy.log`. It uses `admin-ajax.php` rather than a REST route because the REST API is disabled site-wide on kampbart.com by a filter outside this repo (`WP_Error: rest_disabled`) — note that the same filter also 403s `/wp-json/moustache/v1/standings`.
+- **Cron (fallback)** — runs the same script every minute, so missed PHP/template changes still deploy within ~60s. It intentionally refuses unapproved frontend source changes; use the Gitea Action for those.
 
 One-time setup:
 
-1. Add the secret to `wp-config.php` (both places must match):
+1. Add the secret to `wp-config.php`:
    ```php
    define('MOUSTACHE_WEBHOOK_SECRET', 'long-random-string');  // e.g. openssl rand -hex 32
    ```
-2. In Gitea → repo → **Settings → Webhooks → Add Webhook → Gitea**:
+2. In Gitea → repo → **Settings → Actions → Secrets**, add a repository secret named `MOUSTACHE_WEBHOOK_SECRET` with the **exact same value**. The Action's final deploy step fails immediately if this is missing or does not match production.
+3. For the PHP/push fallback, in Gitea → repo → **Settings → Webhooks → Add Webhook → Gitea**:
    - **URL:** `https://kampbart.com/wp-admin/admin-ajax.php?action=moustache_deploy`
    - **Secret:** the same `MOUSTACHE_WEBHOOK_SECRET` value
    - **Trigger:** Push events, branch `main` (other refs are ignored by the endpoint anyway)
    - **SSL verification:** enabled
-3. On the host, add the cron fallback (runs on the Docker host against the volume checkout):
+4. On the host, add the cron fallback (runs on the Docker host against the volume checkout). It will pull PHP changes but will not bypass the frontend CI gate:
    ```cron
    * * * * * /bin/bash /var/lib/docker/volumes/v10zdqzt6cvc9ktlu4pyqyv2_wordpress-files/_data/wp-content/themes/moustache/auto-deploy.sh >> /tmp/moustache-deploy.log 2>&1
    ```
-   Needs `git` (with pull access to the Gitea remote) and, for `src/` changes, Node 20+/pnpm on the host. If pnpm is missing the pull still succeeds and `dist/` falls back to the committed build — the script logs a warning rather than failing.
+   Needs `git` with pull access to the Gitea remote. For a manual server-side frontend build, also install Node 20+/pnpm and explicitly set `MOUSTACHE_DEPLOY_ALLOW_SERVER_BUILD=1`; the Action does not need pnpm on the server because it deploys committed `dist/`.
 
-Verify: push a commit, then `tail -f /tmp/moustache-deploy.log` (host or container). In Gitea, the webhook's **Recent Deliveries** shows `200` with `{"status":"queued","pid":...}` on success; a `403` means the secrets don't match, `404` means `MOUSTACHE_WEBHOOK_SECRET` is undefined in `wp-config.php`.
+Verify a frontend push in Gitea Actions: the build job first commits `dist/`, then the **Deploy committed assets to production** step calls `action=moustache_deploy_ci` synchronously and returns `{"status":"deployed","deployed_commit":"...", ...}`. The Action verifies both the status and the exact commit SHA. A failed fetch, dirty checkout, fast-forward problem, newer remote commit, missing manifest, or a server that has not yet received the new CI endpoint makes the Action fail. During the first rollout, if the CI endpoint is not present, pull the new handler once on the server, then re-run the Action. The push webhook and cron remain useful for PHP/push fallbacks; their deliveries still return `200` with `{"status":"queued","pid":...}` because they are asynchronous. A `403` means the secrets don't match; `404` means `MOUSTACHE_WEBHOOK_SECRET` is undefined in `wp-config.php`.
 
-Webhook down or first-time bootstrap? Run it by hand — it's the same script:
+Webhook down or first-time bootstrap? Pull the new handler once by hand, then re-run the Action:
 
 ```bash
-cd .../themes/moustache && bash auto-deploy.sh
+cd .../themes/moustache
+git pull --ff-only origin main
+```
+
+If the checkout is clean and you intentionally want a server-side frontend rebuild, opt in explicitly:
+
+```bash
+MOUSTACHE_DEPLOY_ALLOW_SERVER_BUILD=1 bash auto-deploy.sh
 ```
 
 ### Deploy changes (manual)
@@ -238,14 +247,15 @@ ln -s ../themes/moustache/mu-plugins/moustache-standings.php moustache-standings
 
 Until that symlink exists, `functions.php` loads the service as a fallback, so nothing breaks if you skip this — but the symlink is the intended setup (and is required for the service to survive a future theme change).
 
-### CI (optional): Gitea Actions
+### CI + deployment: Gitea Actions
 
-The build workflow lives at **`.gitea/workflows/build.yml`** (the canonical Gitea location; the former `.github/workflows/build.yml` copy was moved there). On pushes to `main` touching `src/`, `public/`, or build config it rebuilds `dist/` and commits it back with `[skip ci]`.
+The build workflow lives at **`.gitea/workflows/build.yml`** (the canonical Gitea location; the former `.github/workflows/build.yml` copy was moved there). On pushes to `main` touching `src/`, `public/`, or build config it rebuilds `dist/`, commits it with `[skip ci]`, and then makes a signed synchronous production deploy request. The deploy step uses the committed `dist/` and fails the Action if the server cannot pull it.
 
 For it to actually run, all of the following must be true — none of which are verifiable from the repo itself:
 
 1. Gitea instance has Actions enabled (`[actions] ENABLED=true`, default since Gitea 1.21).
 2. **Repository Actions enabled**: repo → Settings → Actions → "Enable Repository Actions" (disabled per-repo by default).
 3. A [Gitea Act runner](https://gitea.com/gitea/runner) is registered and online, can run `ubuntu-latest` (Docker-label) jobs, and its token may push to this repository (the workflow's final `git push` needs write access).
+4. The repository Actions secret `MOUSTACHE_WEBHOOK_SECRET` exists and exactly matches the value in production's `wp-config.php`.
 
-If any of these is missing, CI silently does nothing — which is why `./deploy.sh` exists: **deploys never depend on CI**.
+If Actions is unavailable or the secret is missing, the push webhook and host cron remain deployment fallbacks; otherwise use `git pull origin main` plus `./deploy.sh` manually.

@@ -1,4 +1,4 @@
-name: Build Frontend
+name: Build Frontend and Deploy
 
 on:
   push:
@@ -11,6 +11,10 @@ on:
       - 'vite.config.js'
       - 'postcss.config.js'
       - '.gitea/workflows/build.yml'
+
+concurrency:
+  group: moustache-main-deploy
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -45,3 +49,43 @@ jobs:
           git add dist/
           git diff --staged --quiet || git commit -m "chore: build frontend assets [skip ci]"
           git push
+
+      - name: Deploy committed assets to production
+        env:
+          MOUSTACHE_WEBHOOK_SECRET: ${{ secrets.MOUSTACHE_WEBHOOK_SECRET }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${MOUSTACHE_WEBHOOK_SECRET:-}" ]; then
+            echo "MOUSTACHE_WEBHOOK_SECRET must be configured as a Gitea Actions repository secret" >&2
+            exit 1
+          fi
+
+          expected_commit="$(git rev-parse HEAD)"
+          payload="$(printf '{"ref":"refs/heads/main","synchronous":true,"skip_build":true,"expected_commit":"%s"}' "$expected_commit")"
+          signature="$(printf '%s' "$payload" | openssl dgst -sha256 -hmac "$MOUSTACHE_WEBHOOK_SECRET" -hex | awk '{print $2}')"
+
+          response="$(curl --fail-with-body --silent --show-error \
+            --retry 4 \
+            --retry-delay 5 \
+            --retry-connrefused \
+            --connect-timeout 10 \
+            --max-time 240 \
+            -X POST \
+            -H 'Content-Type: application/json' \
+            -H "X-Gitea-Signature: $signature" \
+            --data "$payload" \
+            'https://kampbart.com/wp-admin/admin-ajax.php?action=moustache_deploy_ci')"
+
+          printf '%s\n' "$response"
+          if ! printf '%s' "$response" | EXPECTED_COMMIT="$expected_commit" node -e '
+            const fs = require("fs");
+            const expected = process.env.EXPECTED_COMMIT;
+            const result = JSON.parse(fs.readFileSync(0, "utf8"));
+            if (result.status !== "deployed" || result.deployed_commit !== expected) {
+              process.exit(1);
+            }
+          '; then
+            echo "Production did not confirm deployment of commit $expected_commit" >&2
+            exit 1
+          fi
