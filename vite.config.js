@@ -13,6 +13,10 @@ export default defineConfig({
 
   publicDir: 'public',
 
+  // Keep public assets relative to the built CSS/JS so they resolve from
+  // /wp-content/themes/moustache/dist/ in WordPress, not from the site root.
+  base: './',
+
   build: {
     outDir: 'dist',
     emptyOutDir: true,
