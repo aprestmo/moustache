@@ -35,7 +35,7 @@ try {
 if ($standings && is_array($standings)) {
 ?>
     <div class="table-scroll" role="region" aria-labelledby="standings-table" tabindex="0">
-        <table>
+        <table class="js-sortable">
             <caption id="standings-table"><?php esc_html_e('Standings', 'moustache'); ?></caption>
             <thead>
                 <tr>

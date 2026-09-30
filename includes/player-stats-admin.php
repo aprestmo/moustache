@@ -125,6 +125,197 @@ function moustache_get_all_players_stats(): array {
 }
 
 /**
+ * Sort player stats by the column currently displayed (respects the
+ * tournament filter) using WP_List_Table's orderby/order request vars.
+ *
+ * @param array<int, array> $stats                Player stats from moustache_get_all_players_stats().
+ * @param int               $selected_tournament  Tournament term ID, or 0 for all tournaments.
+ * @param string            $orderby              Column key: name, matches, goals, assists, yellow_cards, red_cards.
+ * @param string            $order                'asc' or 'desc'.
+ * @return array<int, array> Sorted stats (keys preserved).
+ */
+function moustache_sort_player_stats(array $stats, int $selected_tournament, string $orderby, string $order): array {
+	$allowed = ['name', 'matches', 'goals', 'assists', 'yellow_cards', 'red_cards'];
+	$orderby = in_array($orderby, $allowed, true) ? $orderby : 'name';
+	$order   = $order === 'desc' ? 'desc' : 'asc';
+
+	$value = static function (array $player) use ($selected_tournament, $orderby): int|string {
+		if ('name' === $orderby) {
+			return $player['name'];
+		}
+		$source = ($selected_tournament > 0 && isset($player['tournaments'][$selected_tournament]))
+			? $player['tournaments'][$selected_tournament]
+			: $player['total'];
+		return $source[$orderby] ?? 0;
+	};
+
+	uasort($stats, static function (array $a, array $b) use ($value, $order): int {
+		$a_value    = $value($a);
+		$b_value    = $value($b);
+		$comparison = is_string($a_value) || is_string($b_value)
+			? strnatcasecmp($a_value, $b_value)
+			: $a_value <=> $b_value;
+		return 'desc' === $order ? -$comparison : $comparison;
+	});
+
+	return $stats;
+}
+
+/**
+ * Player statistics list table (Tools → Spillerstatistikk).
+ *
+ * Extends WP_List_Table so column sorting works like every other admin list
+ * table: clickable headers, orderby/order in the URL, aria-sort and sorting
+ * indicators included. Sort links are built from the current request URL, so
+ * the tournament filter survives sorting.
+ */
+class Moustache_Player_Stats_List_Table extends WP_List_Table {
+
+	private int $selected_tournament = 0;
+	private string $orderby           = 'name';
+	private string $order             = 'asc';
+
+	public function __construct() {
+		parent::__construct([
+			'singular' => 'spiller',
+			'plural'   => 'spillere',
+			'ajax'     => false,
+		]);
+	}
+
+	/**
+	 * Current filter/sort state, read from the request.
+	 *
+	 * @return array{tournament: int, orderby: string, order: string}
+	 */
+	public function get_sort_state(): array {
+		return [
+			'tournament' => $this->selected_tournament,
+			'orderby'   => $this->orderby,
+			'order'     => $this->order,
+		];
+	}
+
+	public function prepare_items(): void {
+		$this->selected_tournament = isset($_GET['tournament']) ? (int) $_GET['tournament'] : 0;
+		$this->orderby            = isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'name';
+		$this->order              = isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc';
+
+		$stats = moustache_get_all_players_stats();
+
+		if ($this->selected_tournament > 0) {
+			$stats = array_filter($stats, function (array $player): bool {
+				return isset($player['tournaments'][$this->selected_tournament]);
+			});
+		}
+
+		$this->items = moustache_sort_player_stats($stats, $this->selected_tournament, $this->orderby, $this->order);
+
+		// Set column headers directly instead of relying on the
+		// manage_{screen}_columns filter, which can be cached empty when
+		// get_column_headers() runs before this table is constructed.
+		$this->_column_headers = [
+			$this->get_columns(),
+			[],
+			$this->get_sortable_columns(),
+			'name',
+		];
+
+		// Single page, but keeps the item count in the tablenav honest
+		// instead of WP_List_Table's default "0 items".
+		$this->set_pagination_args([
+			'total_items' => count($this->items),
+			'total_pages' => 1,
+		]);
+	}
+
+	public function no_items(): void {
+		esc_html_e('Ingen spillere funnet.', 'moustache');
+	}
+
+	public function get_columns(): array {
+		return [
+			'name'         => esc_html__('Spiller', 'moustache'),
+			'matches'      => esc_html__('Kamper', 'moustache'),
+			'goals'        => esc_html__('Mål', 'moustache'),
+			'assists'      => esc_html__('Assists', 'moustache'),
+			'yellow_cards' => esc_html__('Gule kort', 'moustache'),
+			'red_cards'    => esc_html__('Røde kort', 'moustache'),
+		];
+	}
+
+	protected function get_sortable_columns(): array {
+		return [
+			// The fifth element makes name the initially sorted column.
+			'name'         => ['name', false, '', '', 'asc'],
+			'matches'      => ['matches', false],
+			'goals'        => ['goals', false],
+			'assists'      => ['assists', false],
+			'yellow_cards' => ['yellow_cards', false],
+			'red_cards'    => ['red_cards', false],
+		];
+	}
+
+	public function column_name($item): string {
+		return esc_html($item['name']);
+	}
+
+	protected function column_default($item, $column_name): string {
+		return esc_html((string) ($this->player_source($item)[$column_name] ?? 0));
+	}
+
+	protected function get_primary_column_aria_label($item): string {
+		return $item['name'];
+	}
+
+	/**
+	 * Totals row, rendered below the table (WP_List_Table has no footer slot
+	 * for data rows — its tfoot repeats the column headers).
+	 */
+	protected function extra_tablenav($which): void {
+		if ('bottom' !== $which || ! $this->has_items()) {
+			return;
+		}
+
+		$totals = [
+			'matches'      => 0,
+			'goals'        => 0,
+			'assists'      => 0,
+			'yellow_cards' => 0,
+			'red_cards'    => 0,
+		];
+		foreach ($this->items as $player) {
+			$source               = $this->player_source($player);
+			$totals['matches']      += $source['matches'];
+			$totals['goals']        += $source['goals'];
+			$totals['assists']      += $source['assists'];
+			$totals['yellow_cards'] += $source['yellow_cards'];
+			$totals['red_cards']    += $source['red_cards'];
+		}
+		?>
+		<table class="widefat striped" style="margin-top: 0; border-top: 0;">
+			<tfoot>
+				<tr>
+					<th><?php esc_html_e('Total', 'moustache'); ?></th>
+					<th><?php echo esc_html($totals['matches']); ?></th>
+					<th><?php echo esc_html($totals['goals']); ?></th>
+					<th><?php echo esc_html($totals['assists']); ?></th>
+					<th><?php echo esc_html($totals['yellow_cards']); ?></th>
+					<th><?php echo esc_html($totals['red_cards']); ?></th>
+				</tr>
+			</tfoot>
+		</table>
+		<?php
+	}
+
+	private function player_source(array $player): array {
+		return ($this->selected_tournament > 0 && isset($player['tournaments'][$this->selected_tournament]))
+			? $player['tournaments'][$this->selected_tournament]
+			: $player['total'];
+	}
+}
+
+/**
  * Render the player statistics admin page.
  */
 function moustache_player_stats_admin_page(): void {
@@ -137,39 +328,18 @@ function moustache_player_stats_admin_page(): void {
 		return;
 	}
 
-	$stats = moustache_get_all_players_stats();
+	$table = new Moustache_Player_Stats_List_Table();
+	$table->prepare_items();
+
+	$state                 = $table->get_sort_state();
+	$selected_tournament   = $state['tournament'];
+	$orderby               = $state['orderby'];
+	$order                 = $state['order'];
+
 	$tournaments = get_terms([
 		'taxonomy' => 'tournament',
 		'hide_empty' => false,
 	]);
-
-	$selected_tournament = isset($_GET['tournament']) ? (int) $_GET['tournament'] : 0;
-
-	if ($selected_tournament > 0) {
-		$stats = array_filter($stats, static function (array $player) use ($selected_tournament): bool {
-			return isset($player['tournaments'][$selected_tournament]);
-		});
-	}
-
-	uasort($stats, static fn(array $a, array $b): int => strnatcasecmp($a['name'], $b['name']));
-
-	$totals = [
-		'matches' => 0,
-		'goals' => 0,
-		'assists' => 0,
-		'yellow_cards' => 0,
-		'red_cards' => 0,
-	];
-	foreach ($stats as $player) {
-		$source = ($selected_tournament > 0 && isset($player['tournaments'][$selected_tournament]))
-			? $player['tournaments'][$selected_tournament]
-			: $player['total'];
-		$totals['matches'] += $source['matches'];
-		$totals['goals'] += $source['goals'];
-		$totals['assists'] += $source['assists'];
-		$totals['yellow_cards'] += $source['yellow_cards'];
-		$totals['red_cards'] += $source['red_cards'];
-	}
 
 	?>
 	<div class="wrap">
@@ -177,6 +347,8 @@ function moustache_player_stats_admin_page(): void {
 
 		<form method="get" style="margin-bottom: 20px;">
 			<input type="hidden" name="page" value="player-stats">
+			<input type="hidden" name="orderby" value="<?php echo esc_attr($orderby); ?>">
+			<input type="hidden" name="order" value="<?php echo esc_attr($order); ?>">
 			<label for="tournament"><?php esc_html_e('Turnering:', 'moustache'); ?></label>
 			<select name="tournament" id="tournament">
 				<option value="0"><?php esc_html_e('Alle turneringer', 'moustache'); ?></option>
@@ -187,49 +359,12 @@ function moustache_player_stats_admin_page(): void {
 				<?php endforeach; ?>
 			</select>
 			<button type="submit" class="button"><?php esc_html_e('Filtrer', 'moustache'); ?></button>
-			<a href="<?php echo esc_url(admin_url('tools.php?page=player-stats&export=csv&tournament=' . $selected_tournament)); ?>" class="button button-primary">
+			<a href="<?php echo esc_url(admin_url('tools.php?page=player-stats&export=csv&tournament=' . $selected_tournament . '&orderby=' . $orderby . '&order=' . $order)); ?>" class="button button-primary">
 				<?php esc_html_e('Eksporter til CSV', 'moustache'); ?>
 			</a>
 		</form>
 
-		<table class="widefat striped">
-			<thead>
-				<tr>
-					<th><?php esc_html_e('Spiller', 'moustache'); ?></th>
-					<th><?php esc_html_e('Kamper', 'moustache'); ?></th>
-					<th><?php esc_html_e('Mål', 'moustache'); ?></th>
-					<th><?php esc_html_e('Assists', 'moustache'); ?></th>
-					<th><?php esc_html_e('Gule kort', 'moustache'); ?></th>
-					<th><?php esc_html_e('Røde kort', 'moustache'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($stats as $player) :
-					$source = ($selected_tournament > 0 && isset($player['tournaments'][$selected_tournament]))
-						? $player['tournaments'][$selected_tournament]
-						: $player['total'];
-					?>
-					<tr>
-						<th><?php echo esc_html($player['name']); ?></th>
-						<td><?php echo esc_html($source['matches']); ?></td>
-						<td><?php echo esc_html($source['goals']); ?></td>
-						<td><?php echo esc_html($source['assists']); ?></td>
-						<td><?php echo esc_html($source['yellow_cards']); ?></td>
-						<td><?php echo esc_html($source['red_cards']); ?></td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th><?php esc_html_e('Total', 'moustache'); ?></th>
-					<th><?php echo esc_html($totals['matches']); ?></th>
-					<th><?php echo esc_html($totals['goals']); ?></th>
-					<th><?php echo esc_html($totals['assists']); ?></th>
-					<th><?php echo esc_html($totals['yellow_cards']); ?></th>
-					<th><?php echo esc_html($totals['red_cards']); ?></th>
-				</tr>
-			</tfoot>
-		</table>
+		<?php $table->display(); ?>
 	</div>
 	<?php
 }
@@ -242,9 +377,11 @@ function moustache_player_stats_export_csv(): void {
 		wp_die(esc_html__('Unauthorized', 'moustache'));
 	}
 
-	$stats = moustache_get_all_players_stats();
-
 	$selected_tournament = isset($_GET['tournament']) ? (int) $_GET['tournament'] : 0;
+	$orderby            = isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'name';
+	$order              = isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc';
+
+	$stats = moustache_get_all_players_stats();
 
 	if ($selected_tournament > 0) {
 		$stats = array_filter($stats, static function (array $player) use ($selected_tournament): bool {
@@ -252,7 +389,7 @@ function moustache_player_stats_export_csv(): void {
 		});
 	}
 
-	uasort($stats, static fn(array $a, array $b): int => strnatcasecmp($a['name'], $b['name']));
+	$stats = moustache_sort_player_stats($stats, $selected_tournament, $orderby, $order);
 
 	$filename = 'spillerstatistikk-' . date('Y-m-d') . '.csv';
 

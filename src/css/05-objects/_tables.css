@@ -19,6 +19,50 @@ tbody th {
   font-family: var(--light);
 }
 
+/* Sortable headers — see src/js/table-sort.js (opt-in via .js-sortable) */
+
+.js-sortable .table-sort__button {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  padding: 0.25rem 0;
+  text-align: inherit;
+  width: 100%;
+}
+
+.js-sortable .table-sort__button::after {
+  border-inline-end: 0.3rem solid transparent;
+  border-inline-start: 0.3rem solid transparent;
+  content: '';
+  margin-inline-start: auto;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.js-sortable th.is-asc .table-sort__button::after {
+  border-block-end: 0.4rem solid currentColor;
+  opacity: 1;
+}
+
+.js-sortable th.is-desc .table-sort__button::after {
+  border-block-start: 0.4rem solid currentColor;
+  opacity: 1;
+}
+
+.js-sortable .table-sort__button:hover::after,
+.js-sortable .table-sort__button:focus-visible::after {
+  opacity: 0.35;
+}
+
+.js-sortable .table-sort__button:focus-visible {
+  outline: 2px solid var(--c-brand-red);
+  outline-offset: -2px;
+}
+
 caption {
   display: none;
 }
