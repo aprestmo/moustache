@@ -70,6 +70,11 @@ require get_template_directory() . '/includes/trigger-astro-build.php';
 require get_template_directory() . '/includes/acf-migrate-fixtures.php';
 
 /**
+ * Player statistics admin page (Tools → Spillerstatistikk)
+ */
+require get_template_directory() . '/includes/player-stats-admin.php';
+
+/**
  * Gitea push webhook → auto-deploy.sh (spawns a detached pull + build;
  * host cron running the same script is the fallback — see README)
  */
