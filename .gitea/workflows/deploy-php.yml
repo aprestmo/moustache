@@ -1,0 +1,72 @@
+name: Deploy PHP Changes
+
+# Deploys PHP/template changes to production with a plain server-side pull —
+# no pnpm build. auto-deploy.sh only runs deploy.sh when frontend build
+# inputs (src/, public/, build config) changed, so a PHP-only push is a
+# pull-only deploy. A push that mixes PHP and frontend inputs is refused
+# here (auto-deploy.sh exits 0) and left to build.yml, which builds and
+# commits dist/ first — the frontend gate stays intact.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.php'
+      - '.gitea/workflows/deploy-php.yml'
+
+# Separate group from build.yml (moustache-main-deploy): a PHP push must
+# never cancel an in-progress frontend build. auto-deploy.sh's lock
+# serializes the two deploys on the server.
+concurrency:
+  group: moustache-php-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy PHP changes to production
+        env:
+          MOUSTACHE_DEPLOY_SSH_KEY: ${{ secrets.MOUSTACHE_DEPLOY_SSH_KEY }}
+          MOUSTACHE_DEPLOY_KNOWN_HOSTS: ${{ secrets.MOUSTACHE_DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${MOUSTACHE_DEPLOY_SSH_KEY:-}" ] || [ -z "${MOUSTACHE_DEPLOY_KNOWN_HOSTS:-}" ]; then
+            echo "MOUSTACHE_DEPLOY_SSH_KEY and MOUSTACHE_DEPLOY_KNOWN_HOSTS must be configured as Gitea Actions repository secrets" >&2
+            exit 1
+          fi
+
+          deploy_host="89.167.31.44"
+          deploy_user="root"
+          deploy_port="22"
+          deploy_path="/mnt/HC_Volume_104573907/docker/volumes/v10zdqzt6cvc9ktlu4pyqyv2_wordpress-files/_data/wp-content/themes/moustache"
+          ssh_dir="$(mktemp -d)"
+          trap 'rm -rf "$ssh_dir"' EXIT
+          key_file="$ssh_dir/id_ed25519"
+          known_hosts="$ssh_dir/known_hosts"
+
+          printf '%s\n' "$MOUSTACHE_DEPLOY_SSH_KEY" | sed 's/\r$//' > "$key_file"
+          printf '%s\n' "$MOUSTACHE_DEPLOY_KNOWN_HOSTS" | sed '/^$/d' > "$known_hosts"
+          chmod 600 "$key_file" "$known_hosts"
+
+          # Deliberately no MOUSTACHE_DEPLOY_SKIP_BUILD: without it,
+          # auto-deploy.sh refuses pushes that also touched frontend build
+          # inputs, so those wait for build.yml's dist/ commit instead of
+          # deploying an unbuilt src/ tree. PHP-only pushes fall through to
+          # the pull-only path — no pnpm involved.
+          remote_command="cd $deploy_path && MOUSTACHE_DEPLOY_STRICT=1 bash auto-deploy.sh"
+          ssh \
+            -i "$key_file" \
+            -o IdentitiesOnly=yes \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$known_hosts" \
+            -o ConnectTimeout=15 \
+            -p "$deploy_port" \
+            "$deploy_user@$deploy_host" \
+            "$remote_command"
