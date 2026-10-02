@@ -307,6 +307,32 @@ function moustache_get_match_reports_for_fixtures(array $fixture_ids, array|stri
 }
 
 /**
+ * Result colour class, seen from Kampbart's side: win, draw or loss.
+ *
+ * Takes Kampbart's score first so callers cannot mix up the two perspectives:
+ * the fixture list has to swap home and away before calling this.
+ *
+ * @return string 'u-tc--green' (win), 'u-tc--orange' (draw), 'u-tc--red' (loss),
+ *                or '' when a score is missing.
+ */
+function moustache_fixture_result_class(?int $kampbart, ?int $opponent): string
+{
+	if ($kampbart === null || $opponent === null) {
+		return '';
+	}
+
+	if ($kampbart > $opponent) {
+		return 'u-tc--green';
+	}
+
+	if ($kampbart < $opponent) {
+		return 'u-tc--red';
+	}
+
+	return 'u-tc--orange';
+}
+
+/**
  * Read an ACF repeater even when the field is no longer in the field group.
  * get_field() only returns the raw row-count string without a field definition.
  *
