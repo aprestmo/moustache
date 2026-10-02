@@ -469,6 +469,12 @@ function moustache_get_withdrawn_clubs(WP_Term|int|string $term): array
 /**
  * Get why a fixture was not played.
  *
+ * `unplayed` + `unplayed_reason` are the only source of truth. The legacy `canceled`
+ * select is deliberately NOT read: the fixture migration left it in place for
+ * rollback, and it kept reporting "abandoned" for fixtures whose editor had switched
+ * "Kampen ble ikke spilt" back off. Every fixture has an `unplayed` value after that
+ * migration, so nothing needs the old field any more.
+ *
  * @return string|null 'abandoned', 'canceled', or null if the match was played.
  */
 function moustache_fixture_unplayed_reason(int $post_id = 0): ?string
@@ -480,29 +486,17 @@ function moustache_fixture_unplayed_reason(int $post_id = 0): ?string
 
 	$unplayed = get_field('unplayed', $post_id);
 	$unplayed_reason = get_field('unplayed_reason', $post_id);
-	$canceled = get_field('canceled', $post_id);
-
-	$from_reason = static function (mixed $value): ?string {
-		if (!is_string($value) || $value === '') {
-			return null;
-		}
-
-		if (in_array($value, ['walkover', 'match_canceled', 'canceled'], true)) {
-			return 'canceled';
-		}
-
-		if (in_array($value, ['abandoned', 'match_abandoned', 'match_abandonded'], true)) {
-			return 'abandoned';
-		}
-
-		return null;
-	};
 
 	if ($unplayed === true || $unplayed === 1 || $unplayed === '1') {
-		return $from_reason($unplayed_reason);
+		// Matches the choices on the ACF select: abandoned | walkover.
+		return match ((string) $unplayed_reason) {
+			'abandoned' => 'abandoned',
+			'walkover' => 'canceled',
+			default => null,
+		};
 	}
 
-	return $from_reason($canceled);
+	return null;
 }
 
 /**
@@ -524,6 +518,40 @@ function moustache_fixture_unplayed_label(?string $reason = null): string
 
 	return '';
 }
+
+/**
+ * Drop the values of the fields that conditional logic hides when "Kampen ble ikke
+ * spilt" is switched off.
+ *
+ * ACF never submits hidden fields, so `unplayed_reason` kept its old value and kept
+ * showing up in the admin list (kamprapportens `unplayed_reason` column) after the
+ * flag was turned off. Runs after ACF's own save (priority 20), when the new
+ * `unplayed` value is already in postmeta.
+ */
+function moustache_fixture_unplayed_save(int $post_id): void
+{
+	if (get_post_type($post_id) !== 'fixture' || empty($_POST['acf'])) {
+		return;
+	}
+
+	$unplayed = get_post_meta($post_id, 'unplayed', true);
+	if ($unplayed === true || $unplayed === 1 || $unplayed === '1') {
+		return;
+	}
+
+	$reason = (string) get_post_meta($post_id, 'unplayed_reason', true);
+
+	// Only clear walkover when the fixture used it as the unplayed reason: older
+	// fixtures set walkover on its own, and those must keep it.
+	if ($reason === 'walkover') {
+		delete_post_meta($post_id, 'walkover');
+	}
+
+	if ($reason !== '') {
+		delete_post_meta($post_id, 'unplayed_reason');
+	}
+}
+add_action('acf/save_post', 'moustache_fixture_unplayed_save', 20);
 
 /**
  * Unix timestamp for an ACF date/datetime wall-clock string in the site timezone.
