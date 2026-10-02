@@ -267,6 +267,46 @@ function moustache_get_recorded_result(int $post_id = 0): array
 }
 
 /**
+ * Match report posts linked to each of the given fixtures.
+ *
+ * Reverse lookup of the `match_report` relationship (see acf-json/group_5611b70e91d20.json).
+ * Runs as one query for the whole batch and maps the values in PHP, because ACF stores
+ * the relationship as a serialized ID array: a meta_query LIKE on a bare ID would also
+ * match fixture 123 while looking for 23.
+ *
+ * @param int[] $fixture_ids
+ * @param string|string[] $post_status Statuses to return. 'any' also returns drafts (admin use).
+ * @return array<int, WP_Post[]> Fixture ID => report posts, newest first.
+ */
+function moustache_get_match_reports_for_fixtures(array $fixture_ids, array|string $post_status = 'publish'): array
+{
+	$ids = array_values(array_unique(array_filter(array_map('intval', $fixture_ids))));
+	if ($ids === []) {
+		return [];
+	}
+
+	$reports = get_posts([
+		'post_type'      => 'post',
+		'post_status'    => $post_status,
+		'posts_per_page' => -1,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_key'       => 'match_report',
+	]);
+
+	$map = array_fill_keys($ids, []);
+	foreach ($reports as $report) {
+		foreach (moustache_acf_posts(get_field('match_report', $report->ID)) as $fixture) {
+			if (isset($map[$fixture->ID])) {
+				$map[$fixture->ID][] = $report;
+			}
+		}
+	}
+
+	return $map;
+}
+
+/**
  * Read an ACF repeater even when the field is no longer in the field group.
  * get_field() only returns the raw row-count string without a field definition.
  *
@@ -669,3 +709,152 @@ function moustache_initialize_acf_google_maps(): void
 	acf_update_setting('google_api_key', GOOGLE_MAPS_API_KEY);
 }
 add_action('acf/init', 'moustache_initialize_acf_google_maps');
+
+/*
+ * Kamper list table: a Kamprapport column linking each fixture to its report post.
+ * Admin only — fixtures have no public permalink, so the reverse lookup is not
+ * reachable from the front end.
+ *
+ * Strings are hard-coded Norwegian to match the ACF admin labels in acf-json/
+ * (there is no .mo build step for new strings).
+ */
+
+/**
+ * Add the Kamprapport column directly after the fixture title.
+ *
+ * @param array<string, string> $columns
+ * @return array<string, string>
+ */
+function moustache_fixture_admin_columns(array $columns): array
+{
+	$kamprapport = ['kamprapport' => 'Kamprapport'];
+
+	$offset = array_search('title', array_keys($columns), true);
+	if ($offset === false) {
+		return array_merge($columns, $kamprapport);
+	}
+
+	return array_merge(
+		array_slice($columns, 0, $offset + 1, true),
+		$kamprapport,
+		array_slice($columns, $offset + 1, null, true)
+	);
+}
+add_filter('manage_fixture_posts_columns', 'moustache_fixture_admin_columns');
+
+/**
+ * Reports for the fixtures listed on the current admin page, built once per request.
+ *
+ * Built lazily from the list table's own query, which edit.php has already run through
+ * prepare_items() by the time rows render: paging and search cost one extra query,
+ * not one per row.
+ *
+ * @return array<int, WP_Post[]>
+ */
+function moustache_fixture_admin_report_map(): array
+{
+	static $map = null;
+
+	if ($map !== null) {
+		return $map;
+	}
+
+	global $wp_query;
+
+	$ids = [];
+	if ($wp_query instanceof WP_Query) {
+		foreach ($wp_query->posts as $post) {
+			$ids[] = (int) $post->ID;
+		}
+	}
+
+	$map = moustache_get_match_reports_for_fixtures($ids, 'any');
+
+	return $map;
+}
+
+/**
+ * Render the report link(s) for one fixture row.
+ */
+function moustache_fixture_admin_report_column(string $column, int $post_id): void
+{
+	if ($column !== 'kamprapport') {
+		return;
+	}
+
+	$reports = moustache_fixture_admin_report_map()[$post_id] ?? [];
+	if ($reports === []) {
+		echo '<span aria-hidden="true">&mdash;</span>';
+
+		return;
+	}
+
+	$links = [];
+	foreach ($reports as $report) {
+		$title = get_the_title($report);
+
+		if ($report->post_status !== 'publish') {
+			$status = get_post_status_object($report->post_status);
+			$title .= sprintf(' (%s)', $status ? $status->label : $report->post_status);
+		}
+
+		$url = get_edit_post_link($report->ID, 'raw');
+		if (!$url) {
+			$url = get_permalink($report->ID);
+		}
+
+		$links[] = sprintf('<a href="%1$s">%2$s</a>', esc_url((string) $url), esc_html($title));
+	}
+
+	// Every part above is escaped; only the <br> separators are added here.
+	echo implode('<br>', $links);
+}
+add_action('manage_fixture_posts_custom_column', 'moustache_fixture_admin_report_column', 10, 2);
+
+/**
+ * Add a read-only Kamprapport box below the ACF fields on the fixture edit screen.
+ */
+function moustache_fixture_admin_add_meta_box(): void
+{
+	add_meta_box(
+		'moustache-fixture-report',
+		'Kamprapport',
+		'moustache_fixture_admin_render_report_meta_box',
+		'fixture',
+		'normal',
+		'default'
+	);
+}
+add_action('add_meta_boxes', 'moustache_fixture_admin_add_meta_box');
+
+/**
+ * Show which report posts point at this fixture.
+ */
+function moustache_fixture_admin_render_report_meta_box(WP_Post $post): void
+{
+	$reports = moustache_get_match_reports_for_fixtures([$post->ID], 'any')[$post->ID] ?? [];
+
+	echo '<p>';
+	if ($reports === []) {
+		echo esc_html('Ingen kamprapport er koblet til denne kampen.');
+	} else {
+		foreach ($reports as $report) {
+			$status = get_post_status_object($report->post_status);
+			$label = $report->post_status === 'publish' || !$status
+				? get_the_title($report)
+				: sprintf('%1$s (%2$s)', get_the_title($report), $status->label);
+
+			printf(
+				'<a href="%1$s">%2$s</a><br>',
+				esc_url((string) get_edit_post_link($report->ID, 'raw')),
+				esc_html($label)
+			);
+		}
+	}
+	echo '</p>';
+
+	printf(
+		'<p class="description">%s</p>',
+		esc_html('Koblingen legges fra rapporten: velg «Rapport» i ACF-feltene på et innlegg i kategorien Kamprapport.')
+	);
+}
