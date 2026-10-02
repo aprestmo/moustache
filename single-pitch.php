@@ -30,6 +30,9 @@ $args = array(
 );
 
 $fixtures_query = new WP_Query($args);
+
+// Resolve every linked match report in one query (no per-fixture lookup).
+$match_reports = moustache_get_match_reports_for_fixtures(wp_list_pluck($fixtures_query->posts, 'ID'));
 ?>
 
 <article class="mou-site-wrap mou-site-wrap--padding wysiwyg">
@@ -87,28 +90,19 @@ $fixtures_query = new WP_Query($args);
 										</td>
 										<td>
 											<?php
-											// Query for related posts for the current fixture ID
-											$related_posts_query = new WP_Query(array(
-												'post_type'      => 'post',
-												'posts_per_page' => -1,
-												'meta_query'     => array(
-													array(
-														'key'     => 'match_report', // ACF relationship field name
-														'value'   => $fixture_id,
-														'compare' => 'LIKE',
-													),
-												),
-											));
+											$reports = $match_reports[$fixture_id] ?? [];
 
-											if ($related_posts_query->have_posts()) :
-												while ($related_posts_query->have_posts()) : $related_posts_query->the_post(); ?>
-													<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-											<?php endwhile;
+											if ($reports) :
+												foreach ($reports as $report) :
+													printf(
+														'<a href="%1$s">%2$s</a>',
+														esc_url(get_permalink($report)),
+														esc_html(get_the_title($report))
+													);
+												endforeach;
 											else :
-												echo the_title();
+												echo esc_html(the_title('', '', false));
 											endif;
-
-											wp_reset_postdata();
 											?>
 										</td>
 									</tr>

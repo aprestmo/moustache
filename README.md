@@ -106,6 +106,8 @@ Taxonomies: `tournament` (on fixtures), `division` (on tournaments).
 
 League tables live on tournament terms (for example «Uteserie 2026»), not a `league` post type.
 
+A fixture has no front-end page, so the reverse link to its match report lives in the admin: a **Kamprapport** column in the **Kamper** list table (`wp-admin/edit.php?post_type=fixture`) and a read-only **Kamprapport** box on the fixture edit screen. Both resolve the reverse of the `match_report` ACF field on posts in the `kamprapport` category through `moustache_get_match_reports_for_fixtures()` (`includes/acf.php`), which queries every linked report once per request and maps it in PHP — a `meta_query` LIKE on a bare ID would also match fixture 123 while looking for 23. The same helper backs the report column on `single-club.php` and `single-pitch.php`, which pass the default `publish` status so drafts stay out of the front end.
+
 ## REST API
 
 A custom endpoint for standings data:
