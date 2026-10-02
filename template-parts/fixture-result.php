@@ -53,15 +53,26 @@ if ($unplayed_reason === 'abandoned') : ?>
     </td>
 <?php elseif ($unplayed_reason === 'canceled') : ?>
     <td>&mdash;</td>
-<?php elseif ($result_only) : ?>
-    <td>
+<?php elseif ($result_only) :
+    // Display and colour come from the same numbers: the numeric fields, or the
+    // legacy free-text score when a fixture only has that.
+    $recorded_ft = ($recorded['home_ft'] !== null && $recorded['away_ft'] !== null)
+        ? [$recorded['home_ft'], $recorded['away_ft']]
+        : (moustache_parse_score_text($recorded['text_ft']) ?? null);
+
+    $kampbart_home = moustache_is_kampbart($home_team);
+    $result_type = moustache_fixture_result_class(
+        $recorded_ft === null ? null : ($kampbart_home ? $recorded_ft[0] : $recorded_ft[1]),
+        $recorded_ft === null ? null : ($kampbart_home ? $recorded_ft[1] : $recorded_ft[0])
+    );
+?>
+    <td<?php echo $result_type !== '' ? ' class="' . esc_attr($result_type) . '"' : ''; ?>>
         <?php
-        if ($recorded['home_ft'] !== null && $recorded['away_ft'] !== null) {
-            $ft = $recorded['home_ft'] . '–' . $recorded['away_ft'];
+        if ($recorded_ft !== null) {
+            printf('%d&ndash;%d', $recorded_ft[0], $recorded_ft[1]);
+
             if ($recorded['home_ht'] !== null && $recorded['away_ht'] !== null) {
-                echo esc_html($ft . ' (' . $recorded['home_ht'] . '–' . $recorded['away_ht'] . ')');
-            } else {
-                echo esc_html($ft);
+                printf(' (%d&ndash;%d)', $recorded['home_ht'], $recorded['away_ht']);
             }
         } elseif ($recorded['text_ht']) {
             printf(
@@ -96,13 +107,7 @@ if ($unplayed_reason === 'abandoned') : ?>
         }
     }
 
-    if ($kampbart_final > $opponent_final) {
-        $result_type = 'u-tc--green';
-    } elseif ($kampbart_final === $opponent_final) {
-        $result_type = 'u-tc--orange';
-    } else {
-        $result_type = 'u-tc--red';
-    }
+    $result_type = moustache_fixture_result_class($kampbart_final, $opponent_final);
 
     $kampbart_home = moustache_is_kampbart($home_team);
     $home_final = $kampbart_home ? $kampbart_final : $opponent_final;
