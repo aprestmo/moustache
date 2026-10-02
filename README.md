@@ -157,6 +157,8 @@ php -r 'require "/var/www/html/wp-load.php"; print_r(moustache_run_fixture_migra
 
 Re-running write is safe if you need to pick up migrator fixes; it overwrites the new field values from current legacy meta. kampbart.com was migrated with this path (289 fixtures; ~223 with goal rows).
 
+**Do not re-run the write to fix editor corrections.** `moustache_fixture_migration_payload()` rebuilds `unplayed` / `unplayed_reason` from legacy `canceled`, so it would re-flag every fixture an editor has since unmarked. After the migration, `unplayed` + `unplayed_reason` are the only source of truth — `moustache_fixture_unplayed_reason()` deliberately does not read legacy `canceled` any more (all 289 fixtures have an `unplayed` value). Because ACF never submits fields hidden by conditional logic, switching "Kampen ble ikke spilt" off left a stale `unplayed_reason` behind; `moustache_fixture_unplayed_save()` deletes it (and `walkover`, but only when the fixture used walkover as its unplayed reason) on the next save of that fixture. Saving a fixture once is therefore all it takes to clear a stale value.
+
 ## Deployment
 
 The site runs on [Coolify](https://coolify.io/) via Docker at **https://kampbart.com** (repository: **Gitea**, not GitHub).
