@@ -654,19 +654,33 @@ function moustache_fixture_unplayed_reason(int $post_id = 0): ?string
 
 /**
  * Human-readable label for an unplayed fixture.
+ *
+ * @param int|string|null $post_id Post ID or null for current.
+ * @return string Label.
  */
-function moustache_fixture_unplayed_label(?string $reason = null): string
+function moustache_fixture_unplayed_label($post_id = null): string
 {
-	if ($reason === null) {
-		$reason = moustache_fixture_unplayed_reason();
+	$post_id = moustache_acf_post_id($post_id);
+	if (!$post_id) {
+		return '';
 	}
+
+	$reason = moustache_fixture_unplayed_reason($post_id);
 
 	if ($reason === 'abandoned') {
 		return __('Match abandoned', 'moustache');
 	}
 
 	if ($reason === 'canceled') {
-		return __('Match canceled', 'moustache');
+		// Check if it's a walkover and Kampbart is the winner
+		$walkover = (bool) get_field('walkover', $post_id);
+		$walkover_winner = $walkover ? get_field('walkover_winner', $post_id) : null;
+
+		if ($walkover && $walkover_winner === 'kampbart') {
+			return __('Kampbart vinner på walkover', 'moustache');
+		}
+
+		return __('Kamp avlyst', 'moustache');
 	}
 
 	return '';

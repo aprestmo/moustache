@@ -105,7 +105,7 @@ if ($fixtures_query->have_posts()) {
                                         </td>
                                         <td>
                                             <?php if ($unplayed_reason) : ?>
-                                                <?php echo esc_html(moustache_fixture_unplayed_label($unplayed_reason)); ?>
+                                                <?php echo esc_html(moustache_fixture_unplayed_label($fixture_id)); ?>
                                             <?php else :
                                             $reports = $match_reports[$fixture_id] ?? [];
 

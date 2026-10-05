@@ -26,7 +26,7 @@ if ($match_reports) :
 		</header>
 
 		<?php if ($unplayed_reason) : ?>
-			<p><?php echo esc_html(moustache_fixture_unplayed_label($unplayed_reason)); ?></p>
+			<p><?php echo esc_html(moustache_fixture_unplayed_label(get_the_ID())); ?></p>
 		<?php else : ?>
 		<?php
 		weather();

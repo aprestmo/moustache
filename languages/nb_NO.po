@@ -309,13 +309,17 @@ msgstr "Walkover"
 msgid "WO"
 msgstr "WO"
 
-#: includes/custom-functions.php
+#: includes/acf.php
 msgid "Match abandoned"
 msgstr "Kamp avbrutt"
 
-#: includes/custom-functions.php
+#: includes/acf.php
 msgid "Match canceled"
 msgstr "Kamp avlyst"
+
+#: includes/acf.php
+msgid "Kampbart vinner på walkover"
+msgstr "Kampbart vinner på walkover"
 
 #: template-parts/next-match.php:109
 msgid "Next match:"
