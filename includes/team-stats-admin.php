@@ -80,11 +80,13 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 		}
 
 		$unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
-		$walkover = (bool) get_field('walkover', $fixture_id);
-		$walkover_winner = $walkover ? get_field('walkover_winner', $fixture_id) : null;
 
 		// Walkover: count as win/loss but not as a played match for goals.
-		if ($walkover) {
+		// Detect via unplayed_reason (new) OR legacy walkover field.
+		$is_walkover = $unplayed_reason === 'canceled';
+		$walkover_winner = $is_walkover ? get_field('walkover_winner', $fixture_id) : null;
+
+		if ($is_walkover) {
 			$is_kampbart_winner = $walkover_winner === 'kampbart';
 			if ($is_kampbart_winner) {
 				$wins++;
