@@ -49,8 +49,14 @@ $withdrawals = $withdrawals ?? false;
 				$postponed = get_field('postponed', $fixture_id);
 				$new_date_time = get_field('new_date_time', $fixture_id);
 				$display_date_time = moustache_get_fixture_datetime($fixture_id);
+				$has_result = moustache_fixture_has_result($fixture_id);
+				$withdrawn_style = $is_withdrawn
+					? ($has_result
+						? 'opacity: 0.5; text-decoration: line-through;'
+						: 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;')
+					: '';
 			?>
-				<tr<?php echo $row_classes ? ' class="' . esc_attr(implode(' ', $row_classes)) . '"' : ''; ?> style="<?php echo $is_withdrawn ? 'filter: grayscale(100%); opacity: 0.5; text-decoration: line-through;' : ''; ?>">
+				<tr<?php echo $row_classes ? ' class="' . esc_attr(implode(' ', $row_classes)) . '"' : ''; ?> style="<?php echo esc_attr($withdrawn_style); ?>">
 					<?php if (!empty($postponed) && empty($new_date_time)) : ?>
 						<td colspan="3"><em><?php esc_html_e('New time to be announced', 'moustache'); ?></em></td>
 					<?php else : ?>
