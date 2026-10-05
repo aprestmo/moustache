@@ -84,8 +84,7 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 
 		// Walkover: count as win/loss but not as a played match for goals.
 		if ($walkover) {
-			$walkover_winner_post = moustache_acf_post($walkover_winner);
-			$is_kampbart_winner = $walkover_winner_post && moustache_is_kampbart($walkover_winner_post);
+			$is_kampbart_winner = $walkover_winner === 'kampbart';
 			if ($is_kampbart_winner) {
 				$wins++;
 				$walkovers_for++;

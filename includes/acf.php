@@ -604,6 +604,22 @@ function moustache_get_withdrawn_clubs(WP_Term|int|string $term): array
 }
 
 /**
+ * Clear cached withdrawn clubs for a tournament term.
+ * Call this after updating the tournament_withdrawn_clubs field if using persistent object cache.
+ */
+function moustache_clear_withdrawn_clubs_cache(WP_Term|int|string $term): void
+{
+	$term_id = is_numeric($term) ? (int) $term : ($term instanceof WP_Term ? $term->term_id : 0);
+	if ($term_id) {
+		// Clear ACF's internal cache for this term's fields
+		wp_cache_delete($term_id, 'term_meta');
+		wp_cache_delete($term_id, 'terms');
+		// Clear any object cache for get_field calls
+		acf_clean_post_cache("term_{$term_id}");
+	}
+}
+
+/**
  * Get why a fixture was not played.
  *
  * `unplayed` + `unplayed_reason` are the only source of truth. The legacy `canceled`
@@ -657,6 +673,50 @@ function moustache_fixture_unplayed_label(?string $reason = null): string
 }
 
 /**
+ * Check if a fixture has a result (goals, recorded score, or result_only).
+ *
+ * @return bool True if the fixture has any result data.
+ */
+function moustache_fixture_has_result(int $post_id = 0): bool
+{
+	$post_id = moustache_acf_post_id($post_id);
+	if (!$post_id) {
+		return false;
+	}
+
+	// Check for goal-by-goal data
+	$goals = moustache_get_goals($post_id);
+	if ($goals !== []) {
+		return true;
+	}
+
+	// Check for recorded result (fulltime/halftime numeric or text)
+	$recorded = moustache_get_recorded_result($post_id);
+	if (
+		$recorded['home_ft'] !== null ||
+		$recorded['away_ft'] !== null ||
+		$recorded['home_ht'] !== null ||
+		$recorded['away_ht'] !== null ||
+		$recorded['text_ft'] !== '' ||
+		$recorded['text_ht'] !== ''
+	) {
+		return true;
+	}
+
+	// Check for result_only flag
+	if (moustache_fixture_is_result_only($post_id)) {
+		return true;
+	}
+
+	// Check for walkover
+	if (get_field('walkover', $post_id)) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
  * Drop the values of the fields that conditional logic hides when "Kampen ble ikke
  * spilt" is switched off.
  *
@@ -689,6 +749,17 @@ function moustache_fixture_unplayed_save(int $post_id): void
 	}
 }
 add_action('acf/save_post', 'moustache_fixture_unplayed_save', 20);
+
+/**
+ * Clear withdrawn clubs cache when a tournament term is saved via ACF.
+ */
+function moustache_clear_withdrawn_clubs_on_term_save(int $term_id): void
+{
+	if (isset($_POST['acf']['tournament_withdrawn_clubs']) || isset($_POST['acf']['tournament_whitdrawn_clubs'])) {
+		moustache_clear_withdrawn_clubs_cache($term_id);
+	}
+}
+add_action('acf/save_post', 'moustache_clear_withdrawn_clubs_on_term_save', 20);
 
 /**
  * Unix timestamp for an ACF date/datetime wall-clock string in the site timezone.
