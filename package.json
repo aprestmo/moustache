@@ -17,5 +17,6 @@
     "@divriots/jampack": "^0.34.2",
     "prettier": "^3.9.9",
     "wysiwyg.css": "0.0.4"
-  }
+  },
+  "packageManager": "pnpm@12.8.1"
 }
