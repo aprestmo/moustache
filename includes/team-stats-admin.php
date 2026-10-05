@@ -165,7 +165,7 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 		'draws'                => $draws,
 		'losses'               => $losses,
 		'points'               => $points,
-		'points_per_match'     => $total_matches > 0 ? round($points / $total_matches, 2) : 0,
+		'points_per_match'     => $matches_played > 0 ? round($points / $matches_played, 2) : 0,
 		'gf'                   => $gf,
 		'ga'                   => $ga,
 		'gf_per_match'         => $matches_played > 0 ? round($gf / $matches_played, 2) : 0,
@@ -191,7 +191,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	public function get_sort_state(): array {
 		return [
 			'tournament' => $this->selected_tournament,
-			'orderby'   => isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'total_matches',
+			'orderby'   => isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'matches_played',
 			'order'     => isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc',
 		];
 	}
@@ -208,7 +208,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 			$this->get_columns(),
 			[],
 			$this->get_sortable_columns(),
-			'total_matches',
+			'matches_played',
 		];
 
 		$this->set_pagination_args([
@@ -223,7 +223,9 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 
 	public function get_columns(): array {
 		return [
-			'total_matches'      => esc_html__('Kamper', 'moustache'),
+			'matches_played'     => esc_html__('Kamper', 'moustache'),
+			'walkovers_for'      => esc_html__('WO (for)', 'moustache'),
+			'walkovers_against'  => esc_html__('WO (mot)', 'moustache'),
 			'wins'               => esc_html__('Seire', 'moustache'),
 			'draws'              => esc_html__('Uavgjort', 'moustache'),
 			'losses'             => esc_html__('Tap', 'moustache'),
@@ -244,8 +246,12 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 		return esc_html((string) $item['matches_played']);
 	}
 
-	public function column_total_matches($item): string {
-		return esc_html((string) $item['total_matches']);
+	public function column_walkovers_for($item): string {
+		return esc_html((string) $item['walkovers_for']);
+	}
+
+	public function column_walkovers_against($item): string {
+		return esc_html((string) $item['walkovers_against']);
 	}
 
 	public function column_wins($item): string {
@@ -302,7 +308,7 @@ function moustache_team_stats_admin_page(): void {
 
 	$state = $table->get_sort_state();
 	$selected_tournament = $state['tournament'] ?? 0;
-	$orderby = $state['orderby'] ?? 'total_matches';
+	$orderby = $state['orderby'] ?? 'matches_played';
 	$order = $state['order'] ?? 'asc';
 
 	?>
