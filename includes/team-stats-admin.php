@@ -12,12 +12,13 @@ defined('ABSPATH') || die('Shame on you');
  *
  * @param int $tournament_id Optional tournament term ID to filter by.
  * @return array{
- *     matches: int,
+ *     matches_played: int,
+ *     walkovers_for: int,
+ *     walkovers_against: int,
+ *     total_matches: int,
  *     wins: int,
  *     draws: int,
  *     losses: int,
- *     walkovers_for: int,
- *     walkovers_against: int,
  *     points: int,
  *     points_per_match: float,
  *     gf: int,
@@ -56,7 +57,7 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 
 	$fixtures = get_posts($args);
 
-	$matches = 0;
+	$matches_played = 0;
 	$wins = 0;
 	$draws = 0;
 	$losses = 0;
@@ -139,7 +140,7 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 			continue;
 		}
 
-		$matches++;
+		$matches_played++;
 		$gf += $kampbart_goals;
 		$ga += $opponent_goals;
 
@@ -152,22 +153,23 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 		}
 	}
 
+	$total_matches = $matches_played + $walkovers_for + $walkovers_against;
 	$points = ($wins * 3) + $draws;
-	$total_matches_for_avg = $matches + $walkovers_for + $walkovers_against;
 
 	return [
-		'matches'            => $matches,
-		'wins'               => $wins,
-		'draws'              => $draws,
-		'losses'             => $losses,
-		'walkovers_for'      => $walkovers_for,
-		'walkovers_against'  => $walkovers_against,
-		'points'             => $points,
-		'points_per_match'   => $total_matches_for_avg > 0 ? round($points / $total_matches_for_avg, 2) : 0,
-		'gf'                 => $gf,
-		'ga'                 => $ga,
-		'gf_per_match'       => $matches > 0 ? round($gf / $matches, 2) : 0,
-		'ga_per_match'       => $matches > 0 ? round($ga / $matches, 2) : 0,
+		'matches_played'       => $matches_played,
+		'walkovers_for'        => $walkovers_for,
+		'walkovers_against'    => $walkovers_against,
+		'total_matches'        => $total_matches,
+		'wins'                 => $wins,
+		'draws'                => $draws,
+		'losses'               => $losses,
+		'points'               => $points,
+		'points_per_match'     => $total_matches > 0 ? round($points / $total_matches, 2) : 0,
+		'gf'                   => $gf,
+		'ga'                   => $ga,
+		'gf_per_match'         => $matches_played > 0 ? round($gf / $matches_played, 2) : 0,
+		'ga_per_match'         => $matches_played > 0 ? round($ga / $matches_played, 2) : 0,
 	];
 }
 
@@ -189,7 +191,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	public function get_sort_state(): array {
 		return [
 			'tournament' => $this->selected_tournament,
-			'orderby'   => isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'matches',
+			'orderby'   => isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'total_matches',
 			'order'     => isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc',
 		];
 	}
@@ -206,7 +208,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 			$this->get_columns(),
 			[],
 			$this->get_sortable_columns(),
-			'matches',
+			'total_matches',
 		];
 
 		$this->set_pagination_args([
@@ -221,12 +223,10 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 
 	public function get_columns(): array {
 		return [
-			'matches'            => esc_html__('Kamper', 'moustache'),
+			'total_matches'      => esc_html__('Kamper', 'moustache'),
 			'wins'               => esc_html__('Seire', 'moustache'),
 			'draws'              => esc_html__('Uavgjort', 'moustache'),
 			'losses'             => esc_html__('Tap', 'moustache'),
-			'walkovers_for'      => esc_html__('WO (for)', 'moustache'),
-			'walkovers_against'  => esc_html__('WO (mot)', 'moustache'),
 			'points'             => esc_html__('Poeng', 'moustache'),
 			'points_per_match'   => esc_html__('Poengsnitt/kamp', 'moustache'),
 			'gf'                 => esc_html__('Mål for', 'moustache'),
@@ -240,8 +240,12 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 		return [];
 	}
 
-	public function column_matches($item): string {
-		return esc_html((string) $item['matches']);
+	public function column_matches_played($item): string {
+		return esc_html((string) $item['matches_played']);
+	}
+
+	public function column_total_matches($item): string {
+		return esc_html((string) $item['total_matches']);
 	}
 
 	public function column_wins($item): string {
@@ -254,14 +258,6 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 
 	public function column_losses($item): string {
 		return esc_html((string) $item['losses']);
-	}
-
-	public function column_walkovers_for($item): string {
-		return esc_html((string) $item['walkovers_for']);
-	}
-
-	public function column_walkovers_against($item): string {
-		return esc_html((string) $item['walkovers_against']);
 	}
 
 	public function column_points($item): string {
@@ -291,35 +287,6 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	protected function get_primary_column_aria_label($item): string {
 		return 'Kampbart';
 	}
-
-	protected function extra_tablenav($which): void {
-		if ('bottom' !== $which) {
-			return;
-		}
-		$stats = moustache_get_team_stats($this->selected_tournament);
-		$total_matches = $stats['matches'] + $stats['walkovers_for'] + $stats['walkovers_against'];
-		?>
-		<table class="widefat striped" style="margin-top: 0; border-top: 0;">
-			<tfoot>
-				<tr>
-					<th><?php esc_html_e('Totalt (inkl. WO)', 'moustache'); ?></th>
-					<th><?php echo esc_html($total_matches); ?></th>
-					<th><?php echo esc_html($stats['wins'] + $stats['walkovers_for']); ?></th>
-					<th><?php echo esc_html($stats['draws']); ?></th>
-					<th><?php echo esc_html($stats['losses'] + $stats['walkovers_against']); ?></th>
-					<th><?php echo esc_html($stats['walkovers_for']); ?></th>
-					<th><?php echo esc_html($stats['walkovers_against']); ?></th>
-					<th><?php echo esc_html($stats['points']); ?></th>
-					<th><?php echo esc_html(number_format($stats['points_per_match'], 2, ',', ' ')); ?></th>
-					<th><?php echo esc_html($stats['gf']); ?></th>
-					<th><?php echo esc_html($stats['ga']); ?></th>
-					<th><?php echo esc_html(number_format($stats['gf_per_match'], 2, ',', ' ')); ?></th>
-					<th><?php echo esc_html(number_format($stats['ga_per_match'], 2, ',', ' ')); ?></th>
-				</tr>
-			</tfoot>
-		</table>
-		<?php
-	}
 }
 
 /**
@@ -335,7 +302,7 @@ function moustache_team_stats_admin_page(): void {
 
 	$state = $table->get_sort_state();
 	$selected_tournament = $state['tournament'] ?? 0;
-	$orderby = $state['orderby'] ?? 'matches';
+	$orderby = $state['orderby'] ?? 'total_matches';
 	$order = $state['order'] ?? 'asc';
 
 	?>
@@ -347,7 +314,6 @@ function moustache_team_stats_admin_page(): void {
 			<input type="hidden" name="page" value="team-stats">
 			<input type="hidden" name="orderby" value="<?php echo esc_attr($orderby); ?>">
 			<input type="hidden" name="order" value="<?php echo esc_attr($order); ?>">
-			<?php $table->extra_tablenav('top'); ?>
 		</form>
 
 		<?php $table->display(); ?>
