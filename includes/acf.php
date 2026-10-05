@@ -169,6 +169,117 @@ foreach (
 	);
 }
 
+/**
+ * Tournament term IDs chosen for a fixture.
+ *
+ * `home_team` and `away_team` are required, so a new fixture cannot be saved before
+ * the teams are picked: an unsaved choice in the taxonomy meta box has to count, or
+ * the pickers could never be limited on the first save. `$_POST` wins over the terms
+ * already stored on the fixture, the same way the AJAX player selection does.
+ *
+ * @return int[]
+ */
+function moustache_acf_selected_tournament_ids(mixed $post_id = 0): array
+{
+	if (isset($_POST['moustache_tournament_ids'])) {
+		// Always sent by the fixture admin script, so an empty value means the editor
+		// unticked the tournament and must not fall through to the saved terms.
+		$raw = wp_unslash($_POST['moustache_tournament_ids']);
+		$raw = is_array($raw) ? $raw : explode(',', (string) $raw);
+
+		return array_values(array_unique(array_filter(array_map('intval', $raw))));
+	}
+
+	$post_id = (int) $post_id;
+	if (!$post_id) {
+		return [];
+	}
+
+	$terms = wp_get_object_terms($post_id, 'tournament');
+	if (is_wp_error($terms)) {
+		return [];
+	}
+
+	return array_map(static fn(WP_Term $term): int => (int) $term->term_id, $terms);
+}
+
+/**
+ * Clubs taking part in the given tournaments, Kampbart always included.
+ *
+ * An empty result means "do not filter": either no tournament was chosen, or none
+ * of the chosen ones has any `tournament_clubs` yet.
+ *
+ * @param int[] $term_ids
+ * @return int[]
+ */
+function moustache_acf_tournament_club_ids(array $term_ids): array
+{
+	$ids = [];
+
+	foreach ($term_ids as $term_id) {
+		foreach (moustache_acf_posts(get_field('tournament_clubs', $term_id)) as $club) {
+			$ids[] = (int) $club->ID;
+		}
+	}
+
+	if ($ids === []) {
+		return [];
+	}
+
+	// A tournament missing us must not make Kampbart unselectable as opponent.
+	$kampbart = get_page_by_path('kampbart', OBJECT, 'club');
+	if ($kampbart instanceof WP_Post) {
+		$ids[] = (int) $kampbart->ID;
+	}
+
+	return array_values(array_unique($ids));
+}
+
+/**
+ * Limit the fixture team pickers to the clubs of the tournament the fixture is in.
+ *
+ * The pickers fall back to every club when there is no tournament, or when the chosen
+ * one has no clubs on it, so friendlies outside a league stay editable.
+ *
+ * @param array<string, mixed> $args
+ * @return array<string, mixed>
+ */
+function moustache_acf_post_object_tournament_clubs(array $args, array $field, mixed $post_id): array
+{
+	$club_ids = moustache_acf_tournament_club_ids(moustache_acf_selected_tournament_ids($post_id));
+
+	if ($club_ids === []) {
+		return $args;
+	}
+
+	// Home and away have to differ. WP_Query only reads post__not_in in an elseif
+	// branch after post__in, so drop the other team from the list instead. Skipped when
+	// there is no $post_id: get_field() falls back to the current post when given 0,
+	// and there is none to fall back to while ACF builds an AJAX query.
+	$post_id = (int) $post_id;
+	if ($post_id) {
+		$other_field = ($field['name'] ?? '') === 'home_team' ? 'away_team' : 'home_team';
+		$other_id = (int) get_field($other_field, $post_id);
+
+		if ($other_id) {
+			$club_ids = array_values(array_diff($club_ids, [$other_id]));
+		}
+	}
+
+	$args['post__in'] = $club_ids;
+
+	return $args;
+}
+
+foreach (['home_team', 'away_team'] as $field_name) {
+	add_filter(
+		"acf/fields/post_object/query/name={$field_name}",
+		'moustache_acf_post_object_tournament_clubs',
+		10,
+		3
+	);
+}
+
 add_action('acf/input/admin_enqueue_scripts', static function (): void {
 	$screen = function_exists('get_current_screen') ? get_current_screen() : null;
 	if (!$screen || $screen->post_type !== 'fixture') {
@@ -179,7 +290,7 @@ add_action('acf/input/admin_enqueue_scripts', static function (): void {
 		'moustache-acf-fixture',
 		get_template_directory_uri() . '/js/acf-fixture-admin.js',
 		['acf-input'],
-		'1.0.0',
+		'1.1.0',
 		true
 	);
 });
