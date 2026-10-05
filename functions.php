@@ -70,9 +70,29 @@ require get_template_directory() . '/includes/trigger-astro-build.php';
 require get_template_directory() . '/includes/acf-migrate-fixtures.php';
 
 /**
- * Player statistics admin page (Tools → Spillerstatistikk)
+ * Custom admin menu: Statistikk (top-level) with tabbed dashboard
+ */
+require get_template_directory() . '/includes/admin-menu.php';
+
+/**
+ * Statistics dashboard with tabs (Spillere | Motstandere | Lagstatistikk)
+ */
+require get_template_directory() . '/includes/stats-dashboard.php';
+
+/**
+ * Player statistics admin page (hidden submenu, direct URL access)
  */
 require get_template_directory() . '/includes/player-stats-admin.php';
+
+/**
+ * Opponent statistics admin page (hidden submenu, direct URL access)
+ */
+require get_template_directory() . '/includes/opponent-stats-admin.php';
+
+/**
+ * Team statistics admin page (hidden submenu, direct URL access)
+ */
+require get_template_directory() . '/includes/team-stats-admin.php';
 
 /**
  * Gitea push webhook → auto-deploy.sh (spawns a detached pull + build;

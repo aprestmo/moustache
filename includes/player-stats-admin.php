@@ -343,7 +343,7 @@ function moustache_player_stats_admin_page(): void {
 
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e('Spillerstatistikk', 'moustache'); ?></h1>
+		<h1><?php esc_html_e('Spillere', 'moustache'); ?></h1>
 
 		<form method="get" style="margin-bottom: 20px;">
 			<input type="hidden" name="page" value="player-stats">
@@ -430,12 +430,4 @@ function moustache_player_stats_export_csv(): void {
 	exit;
 }
 
-add_action('admin_menu', function (): void {
-	add_management_page(
-		__('Spillerstatistikk', 'moustache'),
-		__('Spillerstatistikk', 'moustache'),
-		'manage_options',
-		'player-stats',
-		'moustache_player_stats_admin_page'
-	);
-});
+// Registered as submenu page via includes/admin-menu.php

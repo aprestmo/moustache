@@ -106,6 +106,8 @@ Taxonomies: `tournament` (on fixtures), `division` (on tournaments).
 
 League tables live on tournament terms (for example «Uteserie 2026»), not a `league` post type.
 
+The **Hjemmelag** / **Bortelag** pickers on a fixture are limited to the clubs of the tournament the match is in (`tournament_clubs` on the tournament term, plus Kampbart itself). Tick the tournament in the **Turneringer** meta box in the sidebar first; the unsaved tick counts, because both team fields are required and a new fixture therefore cannot be saved before the teams are picked. With no tournament ticked — or a tournament with no clubs on it — the pickers fall back to every club, so friendlies outside a league stay editable. Implemented as a `acf/fields/post_object/query/name=home_team|away_team` filter in `includes/acf.php` (`moustache_acf_post_object_tournament_clubs()`), which gets the term IDs from `$_POST['moustache_tournament_ids']` — sent by the same `select2_ajax_data` hook in `js/acf-fixture-admin.js` that already passes the current *Tilstede* selection to the goal/assist/card pickers — and falls back to the fixture's saved terms. Nothing is validated on save, and the already selected team is removed from the other picker (`WP_Query` only reads `post__not_in` in an `elseif` after `post__in`, so it is done in PHP).
+
 A fixture has no front-end page, so the reverse link to its match report lives in the admin: a **Kamprapport** column in the **Kamper** list table (`wp-admin/edit.php?post_type=fixture`) and a read-only **Kamprapport** box on the fixture edit screen. Both resolve the reverse of the `match_report` ACF field on posts in the `kamprapport` category through `moustache_get_match_reports_for_fixtures()` (`includes/acf.php`), which queries every linked report once per request and maps it in PHP — a `meta_query` LIKE on a bare ID would also match fixture 123 while looking for 23. The same helper backs the report column on `single-club.php` and `single-pitch.php`, which pass the default `publish` status so drafts stay out of the front end.
 
 ## REST API
@@ -125,6 +127,9 @@ The code lives in `includes/standings.php` and is loaded by the single-file mu-p
 
 - **Theme Settings** — 404 content.
 - **Theme Settings → Club Information** — club details and Gullbart winners (shown on the Club info page).
+- **Statistikk** — top-level menu with:
+  - **Statistikk → Spillerstatistikk** — player goals, assists, cards per tournament. Filter, sort, CSV export.
+  - **Statistikk → Motstanderstatistikk** — head-to-head table of all matches against each unique opponent club. Shows matches played, wins, draws, losses, goals for/against, walkovers, and abandoned matches (opponent withdrew). Per-tournament filter and CSV export.
 - **Tools → Standings** — view cache status, season status, environment check, and manually clear the standings cache.
 - **Tools → Fixture migration** — dry-run / write the new Kamper field values (goals, cards, unplayed, numeric results). See below.
 - **Settings → Astro build** — view GitHub Actions trigger status and manually dispatch a build.

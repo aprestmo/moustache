@@ -26,7 +26,7 @@
             "name": "home_team",
             "aria-label": "",
             "type": "post_object",
-            "instructions": "",
+            "instructions": "Velg turneringen for kampen i sidepanelet først \u2013 da vises bare lagene i den turneringen.",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
@@ -53,7 +53,7 @@
             "name": "away_team",
             "aria-label": "",
             "type": "post_object",
-            "instructions": "",
+            "instructions": "Velg turneringen for kampen i sidepanelet først \u2013 da vises bare lagene i den turneringen.",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
