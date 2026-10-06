@@ -245,7 +245,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	}
 
 	public function column_matches_played($item): string {
-		return esc_html((string) $item['matches_played']);
+		return esc_html((string) $item['total_matches']);
 	}
 
 	public function column_walkovers_for($item): string {

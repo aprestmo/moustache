@@ -739,9 +739,10 @@ function moustache_fixture_has_result(int $post_id = 0): bool
  * flag was turned off. Runs after ACF's own save (priority 20), when the new
  * `unplayed` value is already in postmeta.
  */
-function moustache_fixture_unplayed_save(int $post_id): void
+function moustache_fixture_unplayed_save(int|string $post_id): void
 {
-	if (get_post_type($post_id) !== 'fixture' || empty($_POST['acf'])) {
+	// ACF passes 'term_123' for taxonomy terms; only handle fixture posts.
+	if (!is_int($post_id) || get_post_type($post_id) !== 'fixture' || empty($_POST['acf'])) {
 		return;
 	}
 
@@ -767,10 +768,15 @@ add_action('acf/save_post', 'moustache_fixture_unplayed_save', 20);
 /**
  * Clear withdrawn clubs cache when a tournament term is saved via ACF.
  */
-function moustache_clear_withdrawn_clubs_on_term_save(int $term_id): void
+function moustache_clear_withdrawn_clubs_on_term_save(int|string $term_id): void
 {
-	if (isset($_POST['acf']['tournament_withdrawn_clubs']) || isset($_POST['acf']['tournament_whitdrawn_clubs'])) {
-		moustache_clear_withdrawn_clubs_cache($term_id);
+	// ACF passes 'term_123' for taxonomy terms; extract numeric ID.
+	$term_id = is_string($term_id) && str_starts_with($term_id, 'term_')
+		? (int) substr($term_id, 5)
+		: $term_id;
+
+	if (!is_int($term_id) || !isset($_POST['acf']['tournament_withdrawn_clubs'], $_POST['acf']['tournament_whitdrawn_clubs'])) {
+		return;
 	}
 }
 add_action('acf/save_post', 'moustache_clear_withdrawn_clubs_on_term_save', 20);
