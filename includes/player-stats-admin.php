@@ -410,7 +410,7 @@ function moustache_player_stats_export_csv(): void {
 		__('Assists', 'moustache'),
 		__('Gule kort', 'moustache'),
 		__('Røde kort', 'moustache'),
-	], ';');
+	], ';', '"', '');
 
 	foreach ($stats as $player) {
 		$source = ($selected_tournament > 0 && isset($player['tournaments'][$selected_tournament]))
@@ -423,7 +423,7 @@ function moustache_player_stats_export_csv(): void {
 			$source['assists'],
 			$source['yellow_cards'],
 			$source['red_cards'],
-		], ';');
+		], ';', '"', '');
 	}
 
 	fclose($output);

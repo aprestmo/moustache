@@ -541,7 +541,7 @@ function moustache_opponent_stats_export_csv(): void {
 		__('Mål mot', 'moustache'),
 		__('Walkover', 'moustache'),
 		__('Avlyst', 'moustache'),
-	], ';');
+	], ';', '"', '');
 
 	foreach ($stats as $opponent) {
 		$source = ($selected_tournament > 0 && isset($opponent['tournaments'][$selected_tournament]))
@@ -557,7 +557,7 @@ function moustache_opponent_stats_export_csv(): void {
 			$source['ga'],
 			$source['walkovers'],
 			$source['abandoned'],
-		], ';');
+		], ';', '"', '');
 	}
 
 	fclose($output);

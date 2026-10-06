@@ -75,13 +75,31 @@ function moustache_stats_dashboard_page(): void {
 
 		switch ($active_tab) {
 			case 'matches':
+				$include_withdrawn = moustache_team_stats_include_withdrawn();
+
+				$matches_url = admin_url('admin.php?page=moustache-stats-dashboard&tab=matches');
+				$without_url = remove_query_arg('withdrawn', $matches_url);
+				$with_url = add_query_arg('withdrawn', '1', $matches_url);
+				$csv_url = add_query_arg('export', 'csv', $include_withdrawn ? $with_url : $without_url);
+
 				$table = new Moustache_Team_Stats_List_Table();
 				$table->prepare_items();
 				?>
 				<div style="margin-bottom: 20px;">
-					<a href="<?php echo esc_url(admin_url('admin.php?page=moustache-stats-dashboard&tab=matches&export=csv')); ?>" class="button button-primary">
+					<a href="<?php echo esc_url($without_url); ?>" class="button<?php echo $include_withdrawn ? '' : ' button-primary'; ?>">
+						<?php esc_html_e('Uten trukkede kamper', 'moustache'); ?>
+					</a>
+					<a href="<?php echo esc_url($with_url); ?>" class="button<?php echo $include_withdrawn ? ' button-primary' : ''; ?>">
+						<?php esc_html_e('Med trukkede kamper', 'moustache'); ?>
+					</a>
+					<a href="<?php echo esc_url($csv_url); ?>" class="button button-primary">
 						<?php esc_html_e('Eksporter til CSV', 'moustache'); ?>
 					</a>
+					<?php if ($include_withdrawn) : ?>
+						<p class="description" style="margin-top: 8px;">
+							<?php esc_html_e('Inkluderer kamper som ble spilt, men der et lag trakk seg.', 'moustache'); ?>
+						</p>
+					<?php endif; ?>
 				</div>
 				<?php
 				$table->display();

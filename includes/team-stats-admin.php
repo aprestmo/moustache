@@ -86,8 +86,20 @@ function moustache_team_stats_finalize(array $stats): array {
 }
 
 /**
+ * Whether the statistics should include matches that were played but where a
+ * team withdrew (`unplayed_reason = abandoned`).
+ *
+ * @return bool
+ */
+function moustache_team_stats_include_withdrawn(): bool {
+	return isset($_GET['withdrawn']) && $_GET['withdrawn'] === '1';
+}
+
+/**
  * Classify a single fixture for the team statistics.
  *
+ * @param bool $include_withdrawn Count abandoned matches (a team withdrew) too —
+ *                                they then resolve like any other played match.
  * @return null|array{
  *     status: 'skip'|'walkover'|'played',
  *     kampbart_win: bool,
@@ -95,7 +107,7 @@ function moustache_team_stats_finalize(array $stats): array {
  *     opponent_goals: int
  * }
  */
-function moustache_team_fixture_result(int $fixture_id): ?array {
+function moustache_team_fixture_result(int $fixture_id, bool $include_withdrawn = false): ?array {
 	$home_team = moustache_get_home_team($fixture_id);
 	$away_team = moustache_get_away_team($fixture_id);
 
@@ -122,8 +134,9 @@ function moustache_team_fixture_result(int $fixture_id): ?array {
 		];
 	}
 
-	// Abandoned: don't count at all.
-	if ($unplayed_reason === 'abandoned') {
+	// Abandoned: a team withdrew — left out unless the caller opted in, in which
+	// case it falls through and resolves like any other played match below.
+	if ($unplayed_reason === 'abandoned' && !$include_withdrawn) {
 		return [
 			'status'         => 'skip',
 			'kampbart_win'   => false,
@@ -225,7 +238,8 @@ function moustache_team_stats_accumulate(array $stats, array $result): array {
 /**
  * Get overall team statistics for Kampbart.
  *
- * @param int $tournament_id Optional tournament term ID to filter by.
+ * @param int  $tournament_id    Optional tournament term ID to filter by.
+ * @param bool $include_withdrawn Also count matches where a team withdrew.
  * @return array{
  *     matches_played: int,
  *     walkovers_for: int,
@@ -242,11 +256,11 @@ function moustache_team_stats_accumulate(array $stats, array $result): array {
  *     ga_per_match: float,
  * }
  */
-function moustache_get_team_stats(int $tournament_id = 0): array {
+function moustache_get_team_stats(int $tournament_id = 0, bool $include_withdrawn = false): array {
 	$stats = moustache_team_stats_zero();
 
 	foreach (moustache_team_stats_fixtures($tournament_id) as $fixture) {
-		$result = moustache_team_fixture_result((int) $fixture->ID);
+		$result = moustache_team_fixture_result((int) $fixture->ID, $include_withdrawn);
 		if ($result === null) {
 			continue;
 		}
@@ -290,17 +304,18 @@ function moustache_tournament_name(int $term_id): string {
 /**
  * Team statistics grouped by tournament, all fixtures fetched in one pass.
  *
+ * @param bool $include_withdrawn Also count matches where a team withdrew.
  * @return array{
  *     total: array<string, int|float>,
  *     tournaments: array<int, array{name: string, last_date: string, stats: array<string, int|float>}>
  * }
  */
-function moustache_get_team_stats_by_tournament(): array {
+function moustache_get_team_stats_by_tournament(bool $include_withdrawn = false): array {
 	$total   = moustache_team_stats_zero();
 	$buckets = [];
 
 	foreach (moustache_team_stats_fixtures() as $fixture) {
-		$result = moustache_team_fixture_result((int) $fixture->ID);
+		$result = moustache_team_fixture_result((int) $fixture->ID, $include_withdrawn);
 
 		// Not a Kampbart fixture at all.
 		if ($result === null) {
@@ -343,10 +358,11 @@ function moustache_get_team_stats_by_tournament(): array {
 /**
  * Table rows: one per tournament (most recently played first) + a total row.
  *
+ * @param bool $include_withdrawn Also count matches where a team withdrew.
  * @return array<int, array{name: string, is_total: bool, last_date: string, term_id: int} & array<string, int|float>>
  */
-function moustache_team_stats_rows(): array {
-	$data = moustache_get_team_stats_by_tournament();
+function moustache_team_stats_rows(bool $include_withdrawn = false): array {
+	$data = moustache_get_team_stats_by_tournament($include_withdrawn);
 
 	$rows = [];
 	foreach ($data['tournaments'] as $term_id => $bucket) {
@@ -398,7 +414,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	}
 
 	public function prepare_items(): void {
-		$this->items = moustache_team_stats_rows();
+		$this->items = moustache_team_stats_rows(moustache_team_stats_include_withdrawn());
 
 		$this->_column_headers = [
 			$this->get_columns(),
@@ -506,7 +522,7 @@ function moustache_team_stats_export_csv(): void {
 		wp_die(esc_html__('Unauthorized', 'moustache'));
 	}
 
-	$rows = moustache_team_stats_rows();
+	$rows = moustache_team_stats_rows(moustache_team_stats_include_withdrawn());
 
 	$filename = 'lagstatistikk-' . date('Y-m-d') . '.csv';
 
@@ -534,7 +550,7 @@ function moustache_team_stats_export_csv(): void {
 		__('Mål mot', 'moustache'),
 		__('Mål for/kamp', 'moustache'),
 		__('Mål mot/kamp', 'moustache'),
-	], ';');
+	], ';', '"', '');
 
 	foreach ($rows as $row) {
 		fputcsv($output, [
@@ -551,7 +567,7 @@ function moustache_team_stats_export_csv(): void {
 			$row['ga'],
 			number_format($row['gf_per_match'], 2, ',', '.'),
 			number_format($row['ga_per_match'], 2, ',', '.'),
-		], ';');
+		], ';', '"', '');
 	}
 
 	fclose($output);
