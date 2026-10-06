@@ -75,7 +75,7 @@ require get_template_directory() . '/includes/acf-migrate-fixtures.php';
 require get_template_directory() . '/includes/admin-menu.php';
 
 /**
- * Statistics dashboard with tabs (Spillere | Motstandere | Lagstatistikk)
+ * Statistics dashboard with tabs (Kamper | Spillere | Motstandere)
  */
 require get_template_directory() . '/includes/stats-dashboard.php';
 

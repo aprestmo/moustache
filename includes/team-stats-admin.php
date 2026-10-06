@@ -2,32 +2,20 @@
 /**
  * Team statistics admin page (Kampbart overall stats).
  *
+ * The dashboard tab shows one row per tournament plus a total row.
+ *
  * @package Moustache
  */
 
 defined('ABSPATH') || die('Shame on you');
 
 /**
- * Get overall team statistics for Kampbart.
+ * Fixture query for the team statistics.
  *
  * @param int $tournament_id Optional tournament term ID to filter by.
- * @return array{
- *     matches_played: int,
- *     walkovers_for: int,
- *     walkovers_against: int,
- *     total_matches: int,
- *     wins: int,
- *     draws: int,
- *     losses: int,
- *     points: int,
- *     points_per_match: float,
- *     gf: int,
- *     ga: int,
- *     gf_per_match: float,
- *     ga_per_match: float,
- * }
+ * @return WP_Post[]
  */
-function moustache_get_team_stats(int $tournament_id = 0): array {
+function moustache_team_stats_fixtures(int $tournament_id = 0): array {
 	$args = [
 		'post_type'      => 'fixture',
 		'posts_per_page' => -1,
@@ -55,132 +43,343 @@ function moustache_get_team_stats(int $tournament_id = 0): array {
 		];
 	}
 
-	$fixtures = get_posts($args);
+	return get_posts($args);
+}
 
-	$matches_played = 0;
-	$wins = 0;
-	$draws = 0;
-	$losses = 0;
-	$walkovers_for = 0;
-	$walkovers_against = 0;
-	$gf = 0;
-	$ga = 0;
-
-	foreach ($fixtures as $fixture) {
-		$fixture_id = $fixture->ID;
-
-		$home_team = moustache_get_home_team($fixture_id);
-		$away_team = moustache_get_away_team($fixture_id);
-
-		// Must have exactly one Kampbart side.
-		$kampbart_home = moustache_is_kampbart($home_team);
-		$kampbart_away = moustache_is_kampbart($away_team);
-		if ($kampbart_home === $kampbart_away) {
-			continue;
-		}
-
-		$unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
-
-		// Walkover: count as win/loss but not as a played match for goals.
-		// Detect via unplayed_reason (new) OR legacy walkover field.
-		$is_walkover = $unplayed_reason === 'canceled';
-		$walkover_winner = $is_walkover ? get_field('walkover_winner', $fixture_id) : null;
-
-		if ($is_walkover) {
-			$is_kampbart_winner = $walkover_winner === 'kampbart';
-			if ($is_kampbart_winner) {
-				$wins++;
-				$walkovers_for++;
-			} else {
-				$losses++;
-				$walkovers_against++;
-			}
-			continue;
-		}
-
-		// Abandoned: don't count at all.
-		if ($unplayed_reason === 'abandoned') {
-			continue;
-		}
-
-		// Played match: get goals.
-		$goals = moustache_get_goals($fixture_id);
-		$kampbart_goals = 0;
-		$opponent_goals = 0;
-
-		if ($goals !== []) {
-			foreach ($goals as $goal) {
-				if (($goal['side'] ?? '') === 'kampbart') {
-					$kampbart_goals++;
-				} else {
-					$opponent_goals++;
-				}
-			}
-		} else {
-			$recorded = moustache_get_recorded_result($fixture_id);
-			$recorded_ft = null;
-			if ($recorded['home_ft'] !== null && $recorded['away_ft'] !== null) {
-				$recorded_ft = [$recorded['home_ft'], $recorded['away_ft']];
-			} elseif ($recorded['text_ft'] !== '') {
-				$recorded_ft = moustache_parse_score_text($recorded['text_ft']);
-			}
-
-			if ($recorded_ft !== null) {
-				if ($kampbart_home) {
-					$kampbart_goals = $recorded_ft[0];
-					$opponent_goals = $recorded_ft[1];
-				} else {
-					$kampbart_goals = $recorded_ft[1];
-					$opponent_goals = $recorded_ft[0];
-				}
-			}
-		}
-
-		// Count as a played match if we have a result (goals or recorded).
-		$has_result = ($goals !== []) || ($recorded_ft ?? null) !== null;
-		if (!$has_result) {
-			continue;
-		}
-
-		$matches_played++;
-		$gf += $kampbart_goals;
-		$ga += $opponent_goals;
-
-		if ($kampbart_goals > $opponent_goals) {
-			$wins++;
-		} elseif ($kampbart_goals === $opponent_goals) {
-			$draws++;
-		} else {
-			$losses++;
-		}
-	}
-
-	$total_matches = $matches_played + $walkovers_for + $walkovers_against;
-	$points = ($wins * 3) + $draws;
-
+/**
+ * Zeroed statistics accumulator.
+ *
+ * @return array<string, int|float>
+ */
+function moustache_team_stats_zero(): array {
 	return [
-		'matches_played'       => $matches_played,
-		'walkovers_for'        => $walkovers_for,
-		'walkovers_against'    => $walkovers_against,
-		'total_matches'        => $total_matches,
-		'wins'                 => $wins,
-		'draws'                => $draws,
-		'losses'               => $losses,
-		'points'               => $points,
-		'points_per_match'     => $matches_played > 0 ? round($points / $matches_played, 2) : 0,
-		'gf'                   => $gf,
-		'ga'                   => $ga,
-		'gf_per_match'         => $matches_played > 0 ? round($gf / $matches_played, 2) : 0,
-		'ga_per_match'         => $matches_played > 0 ? round($ga / $matches_played, 2) : 0,
+		'matches_played'       => 0,
+		'walkovers_for'        => 0,
+		'walkovers_against'    => 0,
+		'total_matches'        => 0,
+		'wins'                 => 0,
+		'draws'                => 0,
+		'losses'               => 0,
+		'points'               => 0,
+		'points_per_match'     => 0,
+		'gf'                   => 0,
+		'ga'                   => 0,
+		'gf_per_match'         => 0,
+		'ga_per_match'         => 0,
 	];
 }
 
 /**
- * Team statistics list table (Statistikk → Lagstatistikk).
+ * Derive the computed fields (total matches, points, per-match averages).
+ *
+ * @param array<string, int|float> $stats
+ * @return array<string, int|float>
+ */
+function moustache_team_stats_finalize(array $stats): array {
+	$stats['total_matches']    = $stats['matches_played'] + $stats['walkovers_for'] + $stats['walkovers_against'];
+	$stats['points']           = ($stats['wins'] * 3) + $stats['draws'];
+	$stats['points_per_match'] = $stats['matches_played'] > 0 ? round($stats['points'] / $stats['matches_played'], 2) : 0;
+	$stats['gf_per_match']     = $stats['matches_played'] > 0 ? round($stats['gf'] / $stats['matches_played'], 2) : 0;
+	$stats['ga_per_match']     = $stats['matches_played'] > 0 ? round($stats['ga'] / $stats['matches_played'], 2) : 0;
+
+	return $stats;
+}
+
+/**
+ * Classify a single fixture for the team statistics.
+ *
+ * @return null|array{
+ *     status: 'skip'|'walkover'|'played',
+ *     kampbart_win: bool,
+ *     kampbart_goals: int,
+ *     opponent_goals: int
+ * }
+ */
+function moustache_team_fixture_result(int $fixture_id): ?array {
+	$home_team = moustache_get_home_team($fixture_id);
+	$away_team = moustache_get_away_team($fixture_id);
+
+	// Must have exactly one Kampbart side.
+	$kampbart_home = moustache_is_kampbart($home_team);
+	$kampbart_away = moustache_is_kampbart($away_team);
+	if ($kampbart_home === $kampbart_away) {
+		return null;
+	}
+
+	$unplayed_reason = moustache_fixture_unplayed_reason($fixture_id);
+
+	// Walkover: count as win/loss but not as a played match for goals.
+	// Detect via unplayed_reason (new) OR legacy walkover field.
+	$is_walkover = $unplayed_reason === 'canceled';
+	$walkover_winner = $is_walkover ? get_field('walkover_winner', $fixture_id) : null;
+
+	if ($is_walkover) {
+		return [
+			'status'         => 'walkover',
+			'kampbart_win'   => $walkover_winner === 'kampbart',
+			'kampbart_goals' => 0,
+			'opponent_goals' => 0,
+		];
+	}
+
+	// Abandoned: don't count at all.
+	if ($unplayed_reason === 'abandoned') {
+		return [
+			'status'         => 'skip',
+			'kampbart_win'   => false,
+			'kampbart_goals' => 0,
+			'opponent_goals' => 0,
+		];
+	}
+
+	// Played match: get goals.
+	$goals = moustache_get_goals($fixture_id);
+	$kampbart_goals = 0;
+	$opponent_goals = 0;
+	$recorded_ft = null;
+
+	if ($goals !== []) {
+		foreach ($goals as $goal) {
+			if (($goal['side'] ?? '') === 'kampbart') {
+				$kampbart_goals++;
+			} else {
+				$opponent_goals++;
+			}
+		}
+	} else {
+		$recorded = moustache_get_recorded_result($fixture_id);
+		if ($recorded['home_ft'] !== null && $recorded['away_ft'] !== null) {
+			$recorded_ft = [$recorded['home_ft'], $recorded['away_ft']];
+		} elseif ($recorded['text_ft'] !== '') {
+			$recorded_ft = moustache_parse_score_text($recorded['text_ft']);
+		}
+
+		if ($recorded_ft !== null) {
+			if ($kampbart_home) {
+				$kampbart_goals = $recorded_ft[0];
+				$opponent_goals = $recorded_ft[1];
+			} else {
+				$kampbart_goals = $recorded_ft[1];
+				$opponent_goals = $recorded_ft[0];
+			}
+		}
+	}
+
+	// Count as a played match if we have a result (goals or recorded).
+	$has_result = ($goals !== []) || $recorded_ft !== null;
+	if (!$has_result) {
+		return [
+			'status'         => 'skip',
+			'kampbart_win'   => false,
+			'kampbart_goals' => 0,
+			'opponent_goals' => 0,
+		];
+	}
+
+	return [
+		'status'         => 'played',
+		'kampbart_win'   => $kampbart_goals > $opponent_goals,
+		'kampbart_goals' => $kampbart_goals,
+		'opponent_goals' => $opponent_goals,
+	];
+}
+
+/**
+ * Fold one classified fixture into a statistics accumulator.
+ *
+ * @param array<string, int|float> $stats
+ * @param array{status: string, kampbart_win: bool, kampbart_goals: int, opponent_goals: int} $result
+ * @return array<string, int|float>
+ */
+function moustache_team_stats_accumulate(array $stats, array $result): array {
+	if ($result['status'] === 'walkover') {
+		if ($result['kampbart_win']) {
+			$stats['wins']++;
+			$stats['walkovers_for']++;
+		} else {
+			$stats['losses']++;
+			$stats['walkovers_against']++;
+		}
+		return $stats;
+	}
+
+	if ($result['status'] !== 'played') {
+		return $stats;
+	}
+
+	$stats['matches_played']++;
+	$stats['gf'] += $result['kampbart_goals'];
+	$stats['ga'] += $result['opponent_goals'];
+
+	if ($result['kampbart_goals'] > $result['opponent_goals']) {
+		$stats['wins']++;
+	} elseif ($result['kampbart_goals'] === $result['opponent_goals']) {
+		$stats['draws']++;
+	} else {
+		$stats['losses']++;
+	}
+
+	return $stats;
+}
+
+/**
+ * Get overall team statistics for Kampbart.
+ *
+ * @param int $tournament_id Optional tournament term ID to filter by.
+ * @return array{
+ *     matches_played: int,
+ *     walkovers_for: int,
+ *     walkovers_against: int,
+ *     total_matches: int,
+ *     wins: int,
+ *     draws: int,
+ *     losses: int,
+ *     points: int,
+ *     points_per_match: float,
+ *     gf: int,
+ *     ga: int,
+ *     gf_per_match: float,
+ *     ga_per_match: float,
+ * }
+ */
+function moustache_get_team_stats(int $tournament_id = 0): array {
+	$stats = moustache_team_stats_zero();
+
+	foreach (moustache_team_stats_fixtures($tournament_id) as $fixture) {
+		$result = moustache_team_fixture_result((int) $fixture->ID);
+		if ($result === null) {
+			continue;
+		}
+		$stats = moustache_team_stats_accumulate($stats, $result);
+	}
+
+	return moustache_team_stats_finalize($stats);
+}
+
+/**
+ * Tournament term IDs a fixture belongs to.
+ *
+ * @return int[] Single-element array with 0 when the fixture has no tournament.
+ */
+function moustache_fixture_tournament_ids(int $fixture_id): array {
+	$terms = wp_get_object_terms($fixture_id, 'tournament');
+
+	if (is_wp_error($terms) || $terms === []) {
+		return [0];
+	}
+
+	return array_map(static fn($term): int => (int) $term->term_id, $terms);
+}
+
+/**
+ * Display name for a tournament term (0 = fixtures without a tournament).
+ */
+function moustache_tournament_name(int $term_id): string {
+	if ($term_id === 0) {
+		return __('Uten turnering', 'moustache');
+	}
+
+	$term = get_term($term_id, 'tournament');
+	if ($term && !is_wp_error($term)) {
+		return $term->name;
+	}
+
+	return sprintf(__('Turnering %d', 'moustache'), $term_id);
+}
+
+/**
+ * Team statistics grouped by tournament, all fixtures fetched in one pass.
+ *
+ * @return array{
+ *     total: array<string, int|float>,
+ *     tournaments: array<int, array{name: string, last_date: string, stats: array<string, int|float>}>
+ * }
+ */
+function moustache_get_team_stats_by_tournament(): array {
+	$total   = moustache_team_stats_zero();
+	$buckets = [];
+
+	foreach (moustache_team_stats_fixtures() as $fixture) {
+		$result = moustache_team_fixture_result((int) $fixture->ID);
+
+		// Not a Kampbart fixture at all.
+		if ($result === null) {
+			continue;
+		}
+
+		$total = moustache_team_stats_accumulate($total, $result);
+
+		// Every tournament this fixture belongs to gets a row — even when the
+		// fixture itself doesn't count (upcoming, abandoned, no result yet).
+		foreach (moustache_fixture_tournament_ids((int) $fixture->ID) as $term_id) {
+			if (!isset($buckets[$term_id])) {
+				$buckets[$term_id] = [
+					'name'      => moustache_tournament_name($term_id),
+					'last_date' => '',
+					'stats'     => moustache_team_stats_zero(),
+				];
+			}
+
+			if ($fixture->post_date > $buckets[$term_id]['last_date']) {
+				$buckets[$term_id]['last_date'] = $fixture->post_date;
+			}
+
+			$buckets[$term_id]['stats'] = moustache_team_stats_accumulate($buckets[$term_id]['stats'], $result);
+		}
+	}
+
+	return [
+		'total'       => moustache_team_stats_finalize($total),
+		'tournaments' => array_map(
+			static function (array $bucket): array {
+				$bucket['stats'] = moustache_team_stats_finalize($bucket['stats']);
+				return $bucket;
+			},
+			$buckets
+		),
+	];
+}
+
+/**
+ * Table rows: one per tournament (most recently played first) + a total row.
+ *
+ * @return array<int, array{name: string, is_total: bool, last_date: string, term_id: int} & array<string, int|float>>
+ */
+function moustache_team_stats_rows(): array {
+	$data = moustache_get_team_stats_by_tournament();
+
+	$rows = [];
+	foreach ($data['tournaments'] as $term_id => $bucket) {
+		$rows[] = [
+			'name'      => $bucket['name'],
+			'is_total'  => false,
+			'last_date' => $bucket['last_date'],
+			'term_id'   => $term_id,
+		] + $bucket['stats'];
+	}
+
+	usort($rows, static function (array $a, array $b): int {
+		if ($a['last_date'] === $b['last_date']) {
+			return $b['term_id'] <=> $a['term_id'];
+		}
+		// Most recent match date first.
+		return $a['last_date'] < $b['last_date'] ? 1 : -1;
+	});
+
+	$rows[] = [
+		'name'      => __('Totalt', 'moustache'),
+		'is_total'  => true,
+		'last_date' => '',
+		'term_id'   => -1,
+	] + $data['total'];
+
+	return $rows;
+}
+
+/**
+ * Team statistics list table (Statistikk → Kamper).
  */
 class Moustache_Team_Stats_List_Table extends WP_List_Table {
-
-	private int $selected_tournament = 0;
 
 	public function __construct() {
 		parent::__construct([
@@ -192,29 +391,24 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 
 	public function get_sort_state(): array {
 		return [
-			'tournament' => $this->selected_tournament,
+			'tournament' => 0,
 			'orderby'   => isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : 'matches_played',
 			'order'     => isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc',
 		];
 	}
 
 	public function prepare_items(): void {
-		$this->selected_tournament = isset($_GET['tournament']) ? (int) $_GET['tournament'] : 0;
-
-		$stats = moustache_get_team_stats($this->selected_tournament);
-
-		// Build rows as a single-item array for the list table.
-		$this->items = [$stats];
+		$this->items = moustache_team_stats_rows();
 
 		$this->_column_headers = [
 			$this->get_columns(),
 			[],
 			$this->get_sortable_columns(),
-			'matches_played',
+			'tournament',
 		];
 
 		$this->set_pagination_args([
-			'total_items' => 1,
+			'total_items' => count($this->items),
 			'total_pages' => 1,
 		]);
 	}
@@ -225,6 +419,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 
 	public function get_columns(): array {
 		return [
+			'tournament'         => esc_html__('Turnering', 'moustache'),
 			'matches_played'     => esc_html__('Kamper', 'moustache'),
 			'walkovers_for'      => esc_html__('WO (for)', 'moustache'),
 			'walkovers_against'  => esc_html__('WO (mot)', 'moustache'),
@@ -242,6 +437,12 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 
 	protected function get_sortable_columns(): array {
 		return [];
+	}
+
+	public function column_tournament($item): string {
+		$name = esc_html((string) $item['name']);
+
+		return $item['is_total'] ? '<strong>' . $name . '</strong>' : $name;
 	}
 
 	public function column_matches_played($item): string {
@@ -293,12 +494,72 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	}
 
 	protected function get_primary_column_aria_label($item): string {
-		return 'Kampbart';
+		return wp_strip_all_tags((string) $item['name']);
 	}
 }
 
 /**
- * Render the team statistics admin page.
+ * Export team statistics (one row per tournament + total) to CSV.
+ */
+function moustache_team_stats_export_csv(): void {
+	if (!current_user_can('manage_options')) {
+		wp_die(esc_html__('Unauthorized', 'moustache'));
+	}
+
+	$rows = moustache_team_stats_rows();
+
+	$filename = 'lagstatistikk-' . date('Y-m-d') . '.csv';
+
+	header('Content-Type: text/csv; charset=utf-8');
+	header('Content-Disposition: attachment; filename="' . $filename . '"');
+	header('Pragma: no-cache');
+	header('Expires: 0');
+
+	// UTF-8 BOM for Excel
+	echo "\xEF\xBB\xBF";
+
+	$output = fopen('php://output', 'w');
+
+	fputcsv($output, [
+		__('Turnering', 'moustache'),
+		__('Kamper', 'moustache'),
+		__('WO (for)', 'moustache'),
+		__('WO (mot)', 'moustache'),
+		__('Seire', 'moustache'),
+		__('Uavgjort', 'moustache'),
+		__('Tap', 'moustache'),
+		__('Poeng', 'moustache'),
+		__('Poengsnitt/kamp', 'moustache'),
+		__('Mål for', 'moustache'),
+		__('Mål mot', 'moustache'),
+		__('Mål for/kamp', 'moustache'),
+		__('Mål mot/kamp', 'moustache'),
+	], ';');
+
+	foreach ($rows as $row) {
+		fputcsv($output, [
+			$row['name'],
+			$row['total_matches'],
+			$row['walkovers_for'],
+			$row['walkovers_against'],
+			$row['wins'],
+			$row['draws'],
+			$row['losses'],
+			$row['points'],
+			number_format($row['points_per_match'], 2, ',', '.'),
+			$row['gf'],
+			$row['ga'],
+			number_format($row['gf_per_match'], 2, ',', '.'),
+			number_format($row['ga_per_match'], 2, ',', '.'),
+		], ';');
+	}
+
+	fclose($output);
+	exit;
+}
+
+/**
+ * Render the standalone team statistics admin page (no longer registered).
  */
 function moustache_team_stats_admin_page(): void {
 	if (!current_user_can('manage_options')) {
@@ -309,19 +570,21 @@ function moustache_team_stats_admin_page(): void {
 	$table->prepare_items();
 
 	$state = $table->get_sort_state();
-	$selected_tournament = $state['tournament'] ?? 0;
 	$orderby = $state['orderby'] ?? 'matches_played';
 	$order = $state['order'] ?? 'asc';
 
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e('Lagstatistikk', 'moustache'); ?></h1>
-		<p class="description"><?php esc_html_e('Oversikt over Kampbart sine samlede resultater.', 'moustache'); ?></p>
+		<h1><?php esc_html_e('Kamper', 'moustache'); ?></h1>
+		<p class="description"><?php esc_html_e('Oversikt over Kampbart sine resultater, per turnering.', 'moustache'); ?></p>
 
 		<form method="get" style="margin-bottom: 20px;">
 			<input type="hidden" name="page" value="team-stats">
 			<input type="hidden" name="orderby" value="<?php echo esc_attr($orderby); ?>">
 			<input type="hidden" name="order" value="<?php echo esc_attr($order); ?>">
+			<a href="<?php echo esc_url(admin_url('admin.php?page=moustache-stats-dashboard&tab=matches&export=csv')); ?>" class="button button-primary">
+				<?php esc_html_e('Eksporter til CSV', 'moustache'); ?>
+			</a>
 		</form>
 
 		<?php $table->display(); ?>
