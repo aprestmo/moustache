@@ -271,6 +271,24 @@ function moustache_get_team_stats(int $tournament_id = 0, bool $include_withdraw
 }
 
 /**
+ * Actual kickoff of a fixture: `new_date_time` (postponed matches) falling back
+ * to `date_time`. Both return `Y-m-d H:i:s`, the same shape as `post_date`, so
+ * the values compare directly as strings.
+ *
+ * @return string Empty string when the fixture has no kickoff at all.
+ */
+function moustache_fixture_match_time(int $fixture_id): string {
+	$date_time = get_field('new_date_time', $fixture_id) ?: get_field('date_time', $fixture_id);
+
+	if (is_string($date_time) && $date_time !== '') {
+		return $date_time;
+	}
+
+	// The one fixture without a kickoff falls back to when it was entered.
+	return (string) get_post_field('post_date', $fixture_id);
+}
+
+/**
  * Tournament term IDs a fixture belongs to.
  *
  * @return int[] Single-element array with 0 when the fixture has no tournament.
@@ -307,7 +325,7 @@ function moustache_tournament_name(int $term_id): string {
  * @param bool $include_withdrawn Also count matches where a team withdrew.
  * @return array{
  *     total: array<string, int|float>,
- *     tournaments: array<int, array{name: string, last_date: string, stats: array<string, int|float>}>
+ *     tournaments: array<int, array{name: string, last_match: string, stats: array<string, int|float>}>
  * }
  */
 function moustache_get_team_stats_by_tournament(bool $include_withdrawn = false): array {
@@ -322,21 +340,23 @@ function moustache_get_team_stats_by_tournament(bool $include_withdrawn = false)
 			continue;
 		}
 
-		$total = moustache_team_stats_accumulate($total, $result);
+		// Newest kickoff drives the tournament ordering below.
+		$match_time = moustache_fixture_match_time((int) $fixture->ID);
+		$total      = moustache_team_stats_accumulate($total, $result);
 
 		// Every tournament this fixture belongs to gets a row — even when the
 		// fixture itself doesn't count (upcoming, abandoned, no result yet).
 		foreach (moustache_fixture_tournament_ids((int) $fixture->ID) as $term_id) {
 			if (!isset($buckets[$term_id])) {
 				$buckets[$term_id] = [
-					'name'      => moustache_tournament_name($term_id),
-					'last_date' => '',
-					'stats'     => moustache_team_stats_zero(),
+					'name'       => moustache_tournament_name($term_id),
+					'last_match' => '',
+					'stats'      => moustache_team_stats_zero(),
 				];
 			}
 
-			if ($fixture->post_date > $buckets[$term_id]['last_date']) {
-				$buckets[$term_id]['last_date'] = $fixture->post_date;
+			if ($match_time > $buckets[$term_id]['last_match']) {
+				$buckets[$term_id]['last_match'] = $match_time;
 			}
 
 			$buckets[$term_id]['stats'] = moustache_team_stats_accumulate($buckets[$term_id]['stats'], $result);
@@ -359,7 +379,7 @@ function moustache_get_team_stats_by_tournament(bool $include_withdrawn = false)
  * Table rows: one per tournament (most recently played first) + a total row.
  *
  * @param bool $include_withdrawn Also count matches where a team withdrew.
- * @return array<int, array{name: string, is_total: bool, last_date: string, term_id: int} & array<string, int|float>>
+ * @return array<int, array{name: string, is_total: bool, last_match: string, term_id: int} & array<string, int|float>>
  */
 function moustache_team_stats_rows(bool $include_withdrawn = false): array {
 	$data = moustache_get_team_stats_by_tournament($include_withdrawn);
@@ -367,26 +387,26 @@ function moustache_team_stats_rows(bool $include_withdrawn = false): array {
 	$rows = [];
 	foreach ($data['tournaments'] as $term_id => $bucket) {
 		$rows[] = [
-			'name'      => $bucket['name'],
-			'is_total'  => false,
-			'last_date' => $bucket['last_date'],
-			'term_id'   => $term_id,
+			'name'       => $bucket['name'],
+			'is_total'   => false,
+			'last_match' => $bucket['last_match'],
+			'term_id'    => $term_id,
 		] + $bucket['stats'];
 	}
 
 	usort($rows, static function (array $a, array $b): int {
-		if ($a['last_date'] === $b['last_date']) {
+		if ($a['last_match'] === $b['last_match']) {
 			return $b['term_id'] <=> $a['term_id'];
 		}
-		// Most recent match date first.
-		return $a['last_date'] < $b['last_date'] ? 1 : -1;
+		// Most recent kickoff first.
+		return $a['last_match'] < $b['last_match'] ? 1 : -1;
 	});
 
 	$rows[] = [
-		'name'      => __('Totalt', 'moustache'),
-		'is_total'  => true,
-		'last_date' => '',
-		'term_id'   => -1,
+		'name'       => __('Totalt', 'moustache'),
+		'is_total'   => true,
+		'last_match' => '',
+		'term_id'    => -1,
 	] + $data['total'];
 
 	return $rows;
