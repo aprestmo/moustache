@@ -76,16 +76,33 @@ function moustache_stats_dashboard_page(): void {
 		switch ($active_tab) {
 			case 'matches':
 				$include_withdrawn = moustache_team_stats_include_withdrawn();
+				$series = moustache_team_stats_series_filter();
 
 				$matches_url = admin_url('admin.php?page=moustache-stats-dashboard&tab=matches');
 				$without_url = remove_query_arg('withdrawn', $matches_url);
 				$with_url = add_query_arg('withdrawn', '1', $matches_url);
-				$csv_url = add_query_arg('export', 'csv', $include_withdrawn ? $with_url : $without_url);
+				$all_url = remove_query_arg('serie', $matches_url);
+				$uteserie_url = add_query_arg('serie', 'uteserie', $matches_url);
+
+				// CSV inherits both filter states so the export matches the view.
+				$csv_url = add_query_arg('export', 'csv', $matches_url);
+				if ($include_withdrawn) {
+					$csv_url = add_query_arg('withdrawn', '1', $csv_url);
+				}
+				if ($series !== '') {
+					$csv_url = add_query_arg('serie', $series, $csv_url);
+				}
 
 				$table = new Moustache_Team_Stats_List_Table();
 				$table->prepare_items();
 				?>
 				<div style="margin-bottom: 20px;">
+					<a href="<?php echo esc_url($all_url); ?>" class="button<?php echo $series === '' ? ' button-primary' : ''; ?>">
+						<?php esc_html_e('Alle', 'moustache'); ?>
+					</a>
+					<a href="<?php echo esc_url($uteserie_url); ?>" class="button<?php echo $series === 'uteserie' ? ' button-primary' : ''; ?>">
+						<?php esc_html_e('Kun Uteserie', 'moustache'); ?>
+					</a>
 					<a href="<?php echo esc_url($without_url); ?>" class="button<?php echo $include_withdrawn ? '' : ' button-primary'; ?>">
 						<?php esc_html_e('Uten trukkede kamper', 'moustache'); ?>
 					</a>
@@ -95,6 +112,11 @@ function moustache_stats_dashboard_page(): void {
 					<a href="<?php echo esc_url($csv_url); ?>" class="button button-primary">
 						<?php esc_html_e('Eksporter til CSV', 'moustache'); ?>
 					</a>
+					<?php if ($series !== '') : ?>
+						<p class="description" style="margin-top: 8px;">
+							<?php echo esc_html(sprintf(__('Viser kun turneringer i serien «%s».', 'moustache'), $series)); ?>
+						</p>
+					<?php endif; ?>
 					<?php if ($include_withdrawn) : ?>
 						<p class="description" style="margin-top: 8px;">
 							<?php esc_html_e('Inkluderer kamper som ble spilt, men der et lag trakk seg.', 'moustache'); ?>

@@ -96,6 +96,20 @@ function moustache_team_stats_include_withdrawn(): bool {
 }
 
 /**
+ * Whether only tournaments whose slug starts with this prefix should be shown
+ * (e.g. `uteserie`). Empty string means every tournament.
+ *
+ * @return string
+ */
+function moustache_team_stats_series_filter(): string {
+	if (!isset($_GET['serie'])) {
+		return '';
+	}
+
+	return sanitize_title(wp_unslash($_GET['serie']));
+}
+
+/**
  * Classify a single fixture for the team statistics.
  *
  * @param bool $include_withdrawn Count abandoned matches (a team withdrew) too —
@@ -320,6 +334,22 @@ function moustache_tournament_name(int $term_id): string {
 }
 
 /**
+ * Slug for a tournament term (0 = fixtures without a tournament).
+ */
+function moustache_tournament_slug(int $term_id): string {
+	if ($term_id === 0) {
+		return '';
+	}
+
+	$term = get_term($term_id, 'tournament');
+	if ($term && !is_wp_error($term)) {
+		return $term->slug;
+	}
+
+	return '';
+}
+
+/**
  * Team statistics grouped by tournament, all fixtures fetched in one pass.
  *
  * @param bool $include_withdrawn Also count matches where a team withdrew.
@@ -378,20 +408,33 @@ function moustache_get_team_stats_by_tournament(bool $include_withdrawn = false)
 /**
  * Table rows: one per tournament (most recently played first) + a total row.
  *
- * @param bool $include_withdrawn Also count matches where a team withdrew.
+ * @param bool   $include_withdrawn Also count matches where a team withdrew.
+ * @param string $series_prefix     Only keep tournaments whose term slug starts
+ *                                  with this prefix ('' = every tournament).
  * @return array<int, array{name: string, is_total: bool, last_match: string, term_id: int} & array<string, int|float>>
  */
-function moustache_team_stats_rows(bool $include_withdrawn = false): array {
+function moustache_team_stats_rows(bool $include_withdrawn = false, string $series_prefix = ''): array {
 	$data = moustache_get_team_stats_by_tournament($include_withdrawn);
 
 	$rows = [];
+	$total = moustache_team_stats_zero();
 	foreach ($data['tournaments'] as $term_id => $bucket) {
+		if ($series_prefix !== '' && !str_starts_with(moustache_tournament_slug((int) $term_id), $series_prefix)) {
+			continue;
+		}
+
 		$rows[] = [
 			'name'       => $bucket['name'],
 			'is_total'   => false,
 			'last_match' => $bucket['last_match'],
 			'term_id'    => $term_id,
 		] + $bucket['stats'];
+
+		// The total row mirrors the visible rows (filtered) — raw fields sum,
+		// derived fields (points, averages) come from finalize().
+		foreach (['matches_played', 'walkovers_for', 'walkovers_against', 'wins', 'draws', 'losses', 'gf', 'ga'] as $key) {
+			$total[$key] += $bucket['stats'][$key];
+		}
 	}
 
 	usort($rows, static function (array $a, array $b): int {
@@ -407,7 +450,7 @@ function moustache_team_stats_rows(bool $include_withdrawn = false): array {
 		'is_total'   => true,
 		'last_match' => '',
 		'term_id'    => -1,
-	] + $data['total'];
+	] + moustache_team_stats_finalize($total);
 
 	return $rows;
 }
@@ -434,7 +477,7 @@ class Moustache_Team_Stats_List_Table extends WP_List_Table {
 	}
 
 	public function prepare_items(): void {
-		$this->items = moustache_team_stats_rows(moustache_team_stats_include_withdrawn());
+		$this->items = moustache_team_stats_rows(moustache_team_stats_include_withdrawn(), moustache_team_stats_series_filter());
 
 		$this->_column_headers = [
 			$this->get_columns(),
@@ -542,7 +585,7 @@ function moustache_team_stats_export_csv(): void {
 		wp_die(esc_html__('Unauthorized', 'moustache'));
 	}
 
-	$rows = moustache_team_stats_rows(moustache_team_stats_include_withdrawn());
+	$rows = moustache_team_stats_rows(moustache_team_stats_include_withdrawn(), moustache_team_stats_series_filter());
 
 	$filename = 'lagstatistikk-' . date('Y-m-d') . '.csv';
 
